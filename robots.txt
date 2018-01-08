@@ -1,0 +1,4 @@
+Sitemap: http://www.hiromasa.info/sitemapindex.xml
+
+User-Agent: *
+Host: www.hiromasa.info
