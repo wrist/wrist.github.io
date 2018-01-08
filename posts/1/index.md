@@ -141,7 +141,7 @@ THEME = "libretto"
 
 [HandbookのDeployment](https://getnikola.com/handbook.html#deployment)の項を見るとGithubでホスティングする方法が記載されている。ここではGitHubのuser page(wrist.github.io)に配置することを考える。
 
-### gitリポジトリの設定を行う ###
+### 1. gitリポジトリの設定を行う ###
 
   過去にwrist.github.ioリポジトリを作成しているため、ブログのルートで`git init`してからremoteを設定する。
 
@@ -150,7 +150,7 @@ $ git init
 $ git remote add origin git@github.com:wrist/wrist.github.io
 ```
 
-### (必要であれば)conf.pyを編集する ###
+### 2. (必要であれば)conf.pyを編集する ###
 
   必要であれば下記を編集する。今回は不要であるため特に変更していない。
 
@@ -165,7 +165,7 @@ GITHUB_REMOTE_NAME = 'origin'
 GITHUB_COMMIT_SOURCE = True
 ```
 
-### .gitignoreを追加 ###
+### 3. .gitignoreを追加 ###
 
   下記内容を.gitignoreに追加する。
 
@@ -176,7 +176,7 @@ __pycache__
 output
 ```
 
-### deploy用のコマンドを実行 ###
+### 4. deploy用のコマンドを実行 ###
 
   下記コマンドを実行することでdeployが可能。
 

@@ -147,14 +147,14 @@ wordpressの同名テーマをベースにしたものらしい。</p>
 記事の一文字目だけ大きく表示されるのが若干気に入らないがとりあえずこれで行く。</p>
 <h3>Github Pagesに配置</h3>
 <p><a href="https://getnikola.com/handbook.html#deployment">HandbookのDeployment</a>の項を見るとGithubでホスティングする方法が記載されている。ここではGitHubのuser page(wrist.github.io)に配置することを考える。</p>
-<h4>gitリポジトリの設定を行う</h4>
+<h4>1. gitリポジトリの設定を行う</h4>
 <p>過去にwrist.github.ioリポジトリを作成しているため、ブログのルートで<code>git init</code>してからremoteを設定する。</p>
 <pre class="code literal-block"><span></span>$ git init
 $ git remote add origin git@github.com:wrist/wrist.github.io
 </pre>
 
 
-<h4>(必要であれば)conf.pyを編集する</h4>
+<h4>2. (必要であれば)conf.pyを編集する</h4>
 <p>必要であれば下記を編集する。今回は不要であるため特に変更していない。</p>
 <pre class="code literal-block"><span></span><span class="c1"># siteのソースがdeployされるブランチ名、srcが推奨とのこと</span>
 <span class="n">GITHUB_SOURCE_BRANCH</span> <span class="o">=</span> <span class="s1">'src'</span>
@@ -167,7 +167,7 @@ $ git remote add origin git@github.com:wrist/wrist.github.io
 </pre>
 
 
-<h4>.gitignoreを追加</h4>
+<h4>3. .gitignoreを追加</h4>
 <p>下記内容を.gitignoreに追加する。</p>
 <pre class="code literal-block"><span></span>cache
 .doit.db
@@ -176,7 +176,7 @@ output
 </pre>
 
 
-<h4>deploy用のコマンドを実行</h4>
+<h4>4. deploy用のコマンドを実行</h4>
 <p>下記コマンドを実行することでdeployが可能。</p>
 <pre class="code literal-block"><span></span>$ nikola github_deploy
 </pre>
