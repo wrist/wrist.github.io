@@ -178,7 +178,7 @@ output
 
 4. deploy用のコマンドを実行
 
-  下記コマンドを実行する。
+  下記コマンドを実行することでdeployが可能。
 
 ```sh
 $ nikola github_deploy
@@ -189,6 +189,28 @@ $ nikola github_deploy
 ```
 [2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.
 [2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.
+```
+
+通常はこれで改めて`nikola github_deploy`を実行すれば終わりのはずである。
+しかし、今回は過去に作成済の既にmasterが存在しているリポジトリにpushしようとしているため、当然先にfetchしろと警告が出て失敗する。
+
+```sh
+[2018-01-08T04:17:10Z] INFO: github_deploy: ==> ['ghp-import', '-n', '-m', 'Nikola auto commit.\n\nSource commit: a37690e35a31dc4a108f53c62b8ee17e783aa28f\nNikola version: 7.8.11', '-p', '-r', 'origin', '-b', 'master', 'output']
+To github.com:wrist/wrist.github.io
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'git@github.com:wrist/wrist.github.io'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
+
+仕方ないので[この記事](https://rcmdnk.com/blog/2013/11/01/computer-git/)に倣い、先にmasterを強制pushする。
+
+```sh
+$ git push -f origin master
+$ nikola github_deploy
 ```
 
 ## その他 ##
