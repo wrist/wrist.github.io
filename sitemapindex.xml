@@ -7,15 +7,15 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>http://www.hiromasa.info/categories/github.xml</loc>
-  <lastmod>2018-01-08T01:43:00Z</lastmod>
+  <lastmod>2018-01-08T04:29:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/nikola.xml</loc>
-  <lastmod>2018-01-08T01:43:00Z</lastmod>
+  <lastmod>2018-01-08T04:29:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/python.xml</loc>
-  <lastmod>2018-01-08T01:43:00Z</lastmod>
+  <lastmod>2018-01-08T04:29:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/galleries/rss.xml</loc>
@@ -23,10 +23,10 @@
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/rss.xml</loc>
-  <lastmod>2018-01-08T01:43:00Z</lastmod>
+  <lastmod>2018-01-08T04:29:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/sitemap.xml</loc>
-  <lastmod>2018-01-08T01:43:00Z</lastmod>
+  <lastmod>2018-01-08T04:29:00Z</lastmod>
  </sitemap>
 </sitemapindex>

@@ -185,7 +185,7 @@ output
 <ol>
 <li>deploy用のコマンドを実行</li>
 </ol>
-<p>下記コマンドを実行する。</p>
+<p>下記コマンドを実行することでdeployが可能。</p>
 <pre class="code literal-block"><span></span>$ nikola github_deploy
 </pre>
 
@@ -193,6 +193,26 @@ output
 <p>下記のように表示された場合は<code>pip install ghp-import2</code>でghp-import2をインストールする。</p>
 <pre class="code literal-block"><span></span>[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.
 [2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.
+</pre>
+
+
+<p>通常はこれで改めて<code>nikola github_deploy</code>を実行すれば終わりのはずである。
+しかし、今回は過去に作成済の既にmasterが存在しているリポジトリにpushしようとしているため、当然先にfetchしろと警告が出て失敗する。</p>
+<pre class="code literal-block"><span></span><span class="o">[</span><span class="m">2018</span>-01-08T04:17:10Z<span class="o">]</span> INFO: github_deploy: <span class="o">==</span>&gt; <span class="o">[</span><span class="s1">'ghp-import'</span>, <span class="s1">'-n'</span>, <span class="s1">'-m'</span>, <span class="s1">'Nikola auto commit.\n\nSource commit: a37690e35a31dc4a108f53c62b8ee17e783aa28f\nNikola version: 7.8.11'</span>, <span class="s1">'-p'</span>, <span class="s1">'-r'</span>, <span class="s1">'origin'</span>, <span class="s1">'-b'</span>, <span class="s1">'master'</span>, <span class="s1">'output'</span><span class="o">]</span>
+To github.com:wrist/wrist.github.io
+ ! <span class="o">[</span>rejected<span class="o">]</span>        master -&gt; master <span class="o">(</span>fetch first<span class="o">)</span>
+error: failed to push some refs to <span class="s1">'git@github.com:wrist/wrist.github.io'</span>
+hint: Updates were rejected because the remote contains work that you <span class="k">do</span>
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: <span class="o">(</span>e.g., <span class="s1">'git pull ...'</span><span class="o">)</span> before pushing again.
+hint: See the <span class="s1">'Note about fast-forwards'</span> in <span class="s1">'git push --help'</span> <span class="k">for</span> details.
+</pre>
+
+
+<p>仕方ないので<a href="https://rcmdnk.com/blog/2013/11/01/computer-git/">この記事</a>に倣い、先にmasterを強制pushする。</p>
+<pre class="code literal-block"><span></span>$ git push -f origin master
+$ nikola github_deploy
 </pre>
 
 
