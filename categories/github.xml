@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (githubについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/github.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 08 Jan 2018 13:49:43 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Nikolaでブログ構築してGithub Pagesに設置</title><link>http://www.hiromasa.info/posts/1/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Nikolaとは&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (githubについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/github.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 08 Jan 2018 14:33:24 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Nikolaでブログ構築してGithub Pagesに設置</title><link>http://www.hiromasa.info/posts/1/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Nikolaとは&lt;/h3&gt;
 &lt;p&gt;Python製のstatic site generator。python製だとpelicanの方が有名だがipynbが使えると聞いたのでこちらを使うことにした。&lt;/p&gt;
 &lt;h3&gt;Nikolaでブログを生成&lt;/h3&gt;
 &lt;h4&gt;インストール&lt;/h4&gt;
@@ -166,6 +166,16 @@ $ nikola github_deploy
 &lt;p&gt;これにて無事に&lt;code&gt;http://wrist.github.io&lt;/code&gt;で閲覧できるようになった。&lt;/p&gt;
 &lt;h4&gt;5. 独自ドメインでの使用&lt;/h4&gt;
 &lt;p&gt;github pagesを独自ドメインで使用する場合にはCNAMEファイルを&lt;a href="https://qiita.com/nabettu/items/d11ac5ad42059626a687"&gt;リポジトリのルートに配置しておく必要がある&lt;/a&gt;が、このためにnikolaではソースブランチのfilesの下にCNAMEファイルを配置しておけば、これをbuild時にoutputディレクトリにコピーしてくれる。&lt;/p&gt;
+&lt;h3&gt;コメントシステムの設置&lt;/h3&gt;
+&lt;p&gt;init時には空白にしておいたコメントシステムを有効化する。
+ここではdisqusを用いることにする。&lt;code&gt;conf.py&lt;/code&gt;に下記を追記する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;COMMENT_SYSTEM&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"disqus"&lt;/span&gt;
+&lt;span class="n"&gt;COMMENT_SYSTEM_ID&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"hiromasa-info"&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;&lt;code&gt;COMMENT_SYSTEM_ID&lt;/code&gt;はdisqusの場合はshortnameを設定する。
+shortnameはdisqusのsiteのsettingsから確認できる。&lt;/p&gt;
 &lt;h3&gt;その他&lt;/h3&gt;
 &lt;p&gt;記事のデフォルト形式をmarkdownに変えたいが方法が分からないため&lt;a href="https://getnikola.com/handbook.html"&gt;Handbook&lt;/a&gt;を読んでもう少し調べる必要があるが、
 ReStructuredTextで書くとExtensionとして&lt;a href="https://getnikola.com/handbook.html#restructuredtext-extensions"&gt;いくつかのdirectiveやroleが使える&lt;/a&gt;ようでもあるため、もう少し使ってみてから考えたい。&lt;/p&gt;

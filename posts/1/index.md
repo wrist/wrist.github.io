@@ -222,6 +222,18 @@ $ nikola github_deploy
 
 github pagesを独自ドメインで使用する場合にはCNAMEファイルを[リポジトリのルートに配置しておく必要がある](https://qiita.com/nabettu/items/d11ac5ad42059626a687)が、このためにnikolaではソースブランチのfilesの下にCNAMEファイルを配置しておけば、これをbuild時にoutputディレクトリにコピーしてくれる。
 
+## コメントシステムの設置 ##
+
+init時には空白にしておいたコメントシステムを有効化する。
+ここではdisqusを用いることにする。`conf.py`に下記を追記する。
+
+```python
+COMMENT_SYSTEM = "disqus"
+COMMENT_SYSTEM_ID = "hiromasa-info"
+```
+
+`COMMENT_SYSTEM_ID`はdisqusの場合はshortnameを設定する。
+shortnameはdisqusのsiteのsettingsから確認できる。
 
 ## その他 ##
 

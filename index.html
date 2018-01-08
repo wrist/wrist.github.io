@@ -66,7 +66,13 @@
                 Hiromasa OHASHI
             </span></p>
             <p class="dateline"><a href="posts/1/" rel="bookmark"><time class="published dt-published" datetime="2018-01-07T23:35:28+09:00" title="2018-01-07 23:35">2018-01-07 23:35</time></a></p>
-        </div>
+                <p class="commentline">
+        
+    <a href="posts/1/#disqus_thread" data-disqus-identifier="cache/posts/1.html">Comments</a>
+
+
+        </p>
+</div>
     </header><div class="e-content entry-content">
     <div>
 <h3>Nikolaとは</h3>
@@ -236,6 +242,16 @@ $ nikola github_deploy
 <p>これにて無事に<code>http://wrist.github.io</code>で閲覧できるようになった。</p>
 <h4>5. 独自ドメインでの使用</h4>
 <p>github pagesを独自ドメインで使用する場合にはCNAMEファイルを<a href="https://qiita.com/nabettu/items/d11ac5ad42059626a687">リポジトリのルートに配置しておく必要がある</a>が、このためにnikolaではソースブランチのfilesの下にCNAMEファイルを配置しておけば、これをbuild時にoutputディレクトリにコピーしてくれる。</p>
+<h3>コメントシステムの設置</h3>
+<p>init時には空白にしておいたコメントシステムを有効化する。
+ここではdisqusを用いることにする。<code>conf.py</code>に下記を追記する。</p>
+<pre class="code literal-block"><span></span><span class="n">COMMENT_SYSTEM</span> <span class="o">=</span> <span class="s2">"disqus"</span>
+<span class="n">COMMENT_SYSTEM_ID</span> <span class="o">=</span> <span class="s2">"hiromasa-info"</span>
+</pre>
+
+
+<p><code>COMMENT_SYSTEM_ID</code>はdisqusの場合はshortnameを設定する。
+shortnameはdisqusのsiteのsettingsから確認できる。</p>
 <h3>その他</h3>
 <p>記事のデフォルト形式をmarkdownに変えたいが方法が分からないため<a href="https://getnikola.com/handbook.html">Handbook</a>を読んでもう少し調べる必要があるが、
 ReStructuredTextで書くとExtensionとして<a href="https://getnikola.com/handbook.html#restructuredtext-extensions">いくつかのdirectiveやroleが使える</a>ようでもあるため、もう少し使ってみてから考えたい。</p>
@@ -262,13 +278,8 @@ ReStructuredTextで書くとExtensionとして<a href="https://getnikola.com/han
 
 
 
-
-
-
-
-        <!--End of body content-->
-
-        <footer id="footer">
+        
+       <script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
             Contents © 2018         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>
