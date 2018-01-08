@@ -137,6 +137,8 @@ THEME = "libretto"
 この上で`nikola build`を実行すれば更新後のテーマに変わっている。
 記事の一文字目だけ大きく表示されるのが若干気に入らないがとりあえずこれで行く。
 
+※2017/1/8追記、librettoだとsyntax highlightが効かないようなのでbootstrap4のテーマに変えた
+
 ## Github Pagesに配置 ##
 
 [HandbookのDeployment](https://getnikola.com/handbook.html#deployment)の項を見るとGithubでホスティングする方法が記載されている。ここではGitHubのuser page(wrist.github.io)に配置することを考える。
