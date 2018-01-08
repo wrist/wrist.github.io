@@ -213,6 +213,14 @@ $ git push -f origin master
 $ nikola github_deploy
 ```
 
+これにて無事に`http://wrist.github.io`で閲覧できるようになった。
+
+
+### 5. 独自ドメインでの使用 ###
+
+github pagesを独自ドメインで使用する場合にはCNAMEファイルを[リポジトリのルートに配置しておく必要がある](https://qiita.com/nabettu/items/d11ac5ad42059626a687)が、このためにnikolaではソースブランチのfilesの下にCNAMEファイルを配置しておけば、これをbuild時にoutputディレクトリにコピーしてくれる。
+
+
 ## その他 ##
 
 記事のデフォルト形式をmarkdownに変えたいが方法が分からないため[Handbook](https://getnikola.com/handbook.html)を読んでもう少し調べる必要があるが、
@@ -224,7 +232,7 @@ ReStructuredTextで書くとExtensionとして[いくつかのdirectiveやrole�
 * [Handbook](https://getnikola.com/handbook.html)
 * [drillerさんによる基本的な使い方の記事](https://qiita.com/driller/items/4d998ca765717c7e0a6c)
 * [ipynb形式を扱う方法](https://qiita.com/driller/items/2f8a0dd66d4d8e59e05c)
-
+* [markdown周りの設定](http://iuk.hateblo.jp/entry/2016/10/27/024802)
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>

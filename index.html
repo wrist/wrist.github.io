@@ -208,6 +208,9 @@ $ nikola github_deploy
 </pre>
 
 
+<p>これにて無事に<code>http://wrist.github.io</code>で閲覧できるようになった。</p>
+<h4>5. 独自ドメインでの使用</h4>
+<p>github pagesを独自ドメインで使用する場合にはCNAMEファイルを<a href="https://qiita.com/nabettu/items/d11ac5ad42059626a687">リポジトリのルートに配置しておく必要がある</a>が、このためにnikolaではソースブランチのfilesの下にCNAMEファイルを配置しておけば、これをbuild時にoutputディレクトリにコピーしてくれる。</p>
 <h3>その他</h3>
 <p>記事のデフォルト形式をmarkdownに変えたいが方法が分からないため<a href="https://getnikola.com/handbook.html">Handbook</a>を読んでもう少し調べる必要があるが、
 ReStructuredTextで書くとExtensionとして<a href="https://getnikola.com/handbook.html#restructuredtext-extensions">いくつかのdirectiveやroleが使える</a>ようでもあるため、もう少し使ってみてから考えたい。</p>
@@ -216,6 +219,7 @@ ReStructuredTextで書くとExtensionとして<a href="https://getnikola.com/han
 <li><a href="https://getnikola.com/handbook.html">Handbook</a></li>
 <li><a href="https://qiita.com/driller/items/4d998ca765717c7e0a6c">drillerさんによる基本的な使い方の記事</a></li>
 <li><a href="https://qiita.com/driller/items/2f8a0dd66d4d8e59e05c">ipynb形式を扱う方法</a></li>
+<li><a href="http://iuk.hateblo.jp/entry/2016/10/27/024802">markdown周りの設定</a></li>
 </ul>
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. --><script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
