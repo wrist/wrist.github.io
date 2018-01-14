@@ -15,7 +15,7 @@
  </url>
  <url>
   <loc>http://www.hiromasa.info/archive.html</loc>
-  <lastmod>2018-01-08T14:27:00Z</lastmod>
+  <lastmod>2018-01-14T15:46:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/</loc>
@@ -40,5 +40,9 @@
  <url>
   <loc>http://www.hiromasa.info/posts/1/</loc>
   <lastmod>2018-01-08T01:42:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/posts/2/</loc>
+  <lastmod>2018-01-14T14:51:00Z</lastmod>
  </url>
 </urlset>

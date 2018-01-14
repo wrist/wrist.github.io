@@ -247,14 +247,3 @@ ReStructuredTextで書くとExtensionとして[いくつかのdirectiveやrole�
 * [drillerさんによる基本的な使い方の記事](https://qiita.com/driller/items/4d998ca765717c7e0a6c)
 * [ipynb形式を扱う方法](https://qiita.com/driller/items/2f8a0dd66d4d8e59e05c)
 * [markdown周りの設定](http://iuk.hateblo.jp/entry/2016/10/27/024802)
-
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-48887105-1', 'hiromasa.info');
-    ga('send', 'pageview');
-</script>

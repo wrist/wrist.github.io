@@ -2,15 +2,14 @@
 <html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="description" content="blog by Hiromasa OHASHI">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>hiromasa.info</title>
-<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<title>nikolaでCSP、Google Analytics、SNSボタンの設定を行う | hiromasa.info</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
-<link rel="canonical" href="http://www.hiromasa.info/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com;">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="http://www.hiromasa.info/posts/2/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com;">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -27,7 +26,19 @@
     vertical-align: baseline !important; 
 }
 </style>
-<link rel="prefetch" href="posts/2/" type="text/html">
+<meta name="author" content="Hiromasa OHASHI">
+<link rel="prev" href="../1/" title="Nikolaでブログ構築してGithub Pagesに設置" type="text/html">
+<meta property="og:site_name" content="hiromasa.info">
+<meta property="og:title" content="nikolaでCSP、Google Analytics、SNSボタンの設定を行う">
+<meta property="og:url" content="http://www.hiromasa.info/posts/2/">
+<meta property="og:description" content="概要
+nikolaでCSP(Content Security Policy)の設定を行った上でGoogle Analyticsの設定を行い、またTwitter、Facebook、はてなブックマークボタンを設置したので下記に作業メモを書いておく。
+Content Security Policy(CSP)の設定
+CSPについての細かい説明はここでは書かないが、要はXSSを防ぐためにスクリプトや画像など">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-01-14T23:31:58+09:00">
+<meta property="article:tag" content="nikola">
+<meta property="article:tag" content="python">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">本文を読み飛ばす</a>
@@ -52,21 +63,27 @@
         <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
             <ul class="nav navbar-nav">
 <li>
-<a href="archive.html">文書一覧</a>
+<a href="../../archive.html">文書一覧</a>
                 </li>
 <li>
-<a href="categories/">タグ</a>
+<a href="../../categories/">タグ</a>
                 </li>
 <li>
-<a href="pages/about/index.html">About</a>
+<a href="../../pages/about/index.html">About</a>
                 </li>
 <li>
-<a href="rss.xml">RSSフィード</a>
+<a href="../../rss.xml">RSSフィード</a>
 
                 
             </li>
 </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+    <a href="index.md" id="sourcelink">ソース</a>
+    </li>
+
+                
+            </ul>
 </div>
 <!-- /.navbar-collapse -->
     </div>
@@ -77,26 +94,26 @@
         <div class="row">
             
             
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">nikolaでCSP、Google Analytics、SNSボタンの設定を行う</a></h1>
 
-    
-
-
-    
-<div class="postindex">
-    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/2/" class="u-url">nikolaでCSP、Google Analytics、SNSボタンの設定を行う</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Hiromasa OHASHI
+                    Hiromasa OHASHI
             </span></p>
-            <p class="dateline"><a href="posts/2/" rel="bookmark"><time class="published dt-published" datetime="2018-01-14T23:31:58+09:00" title="2018-01-14 23:31">2018-01-14 23:31</time></a></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2018-01-14T23:31:58+09:00" itemprop="datePublished" title="2018-01-14 23:31">2018-01-14 23:31</time></a></p>
                 <p class="commentline">
         
-    <a href="posts/2/#disqus_thread" data-disqus-identifier="cache/posts/2.html">Comments</a>
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/2.html">Comments</a>
 
 
+            
         </p>
-</div>
-    </header><div class="e-content entry-content">
+<p class="sourceline"><a href="index.md" class="sourcelink">ソース</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
 <h3>概要</h3>
 <p>nikolaでCSP(Content Security Policy)の設定を行った上でGoogle Analyticsの設定を行い、またTwitter、Facebook、はてなブックマークボタンを設置したので下記に作業メモを書いておく。</p>
@@ -274,217 +291,37 @@ format関数の引数としては、別途設定されているオプション<c
 </ul>
 </div>
     </div>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/1/" class="u-url">Nikolaでブログ構築してGithub Pagesに設置</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Hiromasa OHASHI
-            </span></p>
-            <p class="dateline"><a href="posts/1/" rel="bookmark"><time class="published dt-published" datetime="2018-01-07T23:35:28+09:00" title="2018-01-07 23:35">2018-01-07 23:35</time></a></p>
-                <p class="commentline">
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/nikola/" rel="tag">nikola</a></li>
+            <li><a class="tag p-category" href="../../categories/python/" rel="tag">python</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../1/" rel="prev" title="Nikolaでブログ構築してGithub Pagesに設置">一つ前の文書</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>コメント</h2>
         
-    <a href="posts/1/#disqus_thread" data-disqus-identifier="cache/posts/1.html">Comments</a>
-
-
-        </p>
-</div>
-    </header><div class="e-content entry-content">
-    <div>
-<h3>Nikolaとは</h3>
-<p>Python製のstatic site generator。python製だとpelicanの方が有名だがipynbが使えると聞いたのでこちらを使うことにした。</p>
-<h3>Nikolaでブログを生成</h3>
-<h4>インストール</h4>
-<p>pipでインストールできる。</p>
-<pre class="code literal-block"><span></span>$ pip install nikola
-$ pip install webassets
-</pre>
-
-
-<p>後述するbuildの際などに下記のようなメッセージが出るので合わせてwebassetsもインストールしておくと良い。</p>
-<pre class="code literal-block"><span></span>[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.
-[2018-01-08T01:42:01Z] WARNING: bundles: Setting USE_BUNDLES to False.
-</pre>
-
-
-<h4>ブログの雛形生成</h4>
-<p>nikolaはgitのように<code>nikola サブコマンド</code>の形式で様々なコマンドを実行できる。
-雛形の生成のためには<code>nikola init</code>を実行する。</p>
-<pre class="code literal-block"><span></span>nikola init blog_name
-</pre>
-
-
-<p>これを実行するとCUIベースで対話的に様々な設定が可能。
-commentシステムとして何を使うかを聞かれるが、後でconf.pyを書き換えれば設定が可能な模様であるため一旦は空白で良い。</p>
-<p>なお<a href="https://getnikola.com/getting-started.html">Getting Started</a>ではinitの際に引数に<code>--demo</code>を付けているが、
-この引数を付けるとデモ用コンテンツが生成されてしまうので普通に真っさらな状態で始めたいならば付けない方が良い。</p>
-<h4>新記事生成</h4>
-<p>新記事生成は下記の通り。</p>
-<pre class="code literal-block"><span></span>$ nikola new_post -f markdown  <span class="c1"># formatを-fで指定(デフォルトはReStructuredText形式)</span>
-</pre>
-
-
-<p>実行すると記事タイトルを聞かれるので打ち込むと<code>-f</code>で指定した形式のファイルがposts以下に生成される。
-また、引数に<code>-e</code>を付けるとそのままエディタでの編集画面となる。</p>
-<p>生成されたファイルの冒頭には下記のような形のヘッダーが付いている。</p>
-<pre class="code literal-block"><span></span>&lt;!--
-.. title: Nikolaでブログ構築してGithub Pagesに設置
-.. slug: 1
-.. date: 2018-01-07 23:35:28 UTC+09:00
-.. tags: nikola, python, github
-.. category: 
-.. link: 
-.. description: 
-.. type: text
---&gt;
-</pre>
-
-
-<p>titleは記事タイトルである。
-slugはurlの一部となる文字列である。記事タイトルをアルファベットに直したものが記載されているが、適当に修正すると良い。1にしておくと<code>http://www.hiromasa.info/1/</code>のようなURLとなる。</p>
-<h4>固定ページ生成</h4>
-<p>固定ページはpostではなくpageとして生成する。</p>
-<pre class="code literal-block"><span></span>$ nikola new_page -f markdown pages/about
-</pre>
-
-
-<p>生成した固定ページを上部ナビゲーションに配置する方法は下記のように<code>conf.py</code>の<code>NAVIGATION_LINKS</code>に書けば良い。</p>
-<pre class="code literal-block"><span></span><span class="n">NAVIGATION_LINKS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">DEFAULT_LANG</span><span class="p">:</span> <span class="p">(</span>
-        <span class="p">(</span><span class="s2">"/archive.html"</span><span class="p">,</span> <span class="s2">"文書一覧"</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">"/categories/"</span><span class="p">,</span> <span class="s2">"タグ"</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">"/pages/about/index.html"</span><span class="p">,</span> <span class="s2">"About"</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">"/rss.xml"</span><span class="p">,</span> <span class="s2">"RSSフィード"</span><span class="p">),</span>
-    <span class="p">),</span>
-<span class="p">}</span>
-</pre>
-
-
-<h4>ブログ構築</h4>
-<p>postやpageを上記のように生成しただけでは単なるテキストが生成されているだけなので、これらを元にブログを構築する。</p>
-<pre class="code literal-block"><span></span>$ nikola build
-</pre>
-
-
-<p>これでブログが構築される。
-ローカルで確認するためには下記を実行する。</p>
-<pre class="code literal-block"><span></span>$ nikola serve -b  <span class="c1"># --browserでも良い</span>
-</pre>
-
-
-<h4>ブログテーマ設定</h4>
-<p>デフォルトはbootstrap3になるようであるが、他のものに変えたい場合は<a href="https://themes.getnikola.com/">themes</a>のページから好きなものを選ぶ。
-ここでは<a href="https://themes.getnikola.com/v7/libretto/">libretto</a>のテーマを選んだ。
-wordpressの同名テーマをベースにしたものらしい。</p>
-<p>テーマのインストールは下記の通り。</p>
-<pre class="code literal-block"><span></span>$ nikola thme -i libretto
-</pre>
-
-
-<p>実行するとthemesディレクトリ以下にlibrettoのテーマがダウンロードされる。</p>
-<p>このテーマを使用するためには更にconf.pyを編集する必要がある。</p>
-<pre class="code literal-block"><span></span><span class="c1"># Name of the theme to use.</span>
-<span class="c1"># THEME = "bootstrap3"</span>
-<span class="n">THEME</span> <span class="o">=</span> <span class="s2">"libretto"</span>
-</pre>
-
-
-<p>この上で<code>nikola build</code>を実行すれば更新後のテーマに変わっている。
-記事の一文字目だけ大きく表示されるのが若干気に入らないがとりあえずこれで行く。</p>
-<p>※2017/1/8追記、librettoだとsyntax highlightが効かないようなのでbootstrap4のテーマに変えた</p>
-<h3>Github Pagesに配置</h3>
-<p><a href="https://getnikola.com/handbook.html#deployment">HandbookのDeployment</a>の項を見るとGithubでホスティングする方法が記載されている。ここではGitHubのuser page(wrist.github.io)に配置することを考える。</p>
-<h4>1. gitリポジトリの設定を行う</h4>
-<p>過去にwrist.github.ioリポジトリを作成しているため、ブログのルートで<code>git init</code>してからremoteを設定する。</p>
-<pre class="code literal-block"><span></span>$ git init
-$ git remote add origin git@github.com:wrist/wrist.github.io
-</pre>
-
-
-<h4>2. (必要であれば)conf.pyを編集する</h4>
-<p>必要であれば下記を編集する。今回は不要であるため特に変更していない。</p>
-<pre class="code literal-block"><span></span><span class="c1"># siteのソースがdeployされるブランチ名、srcが推奨とのこと</span>
-<span class="n">GITHUB_SOURCE_BRANCH</span> <span class="o">=</span> <span class="s1">'src'</span>
-<span class="c1"># HTMLファイルがdeployされるブランチ、user pageの場合はmaster</span>
-<span class="n">GITHUB_DEPLOY_BRANCH</span> <span class="o">=</span> <span class="s1">'master'</span>
-<span class="c1"># gitのremote名</span>
-<span class="n">GITHUB_REMOTE_NAME</span> <span class="o">=</span> <span class="s1">'origin'</span>
-<span class="c1"># ソースブランチを自動的にコミットしプッシュするかの設定</span>
-<span class="n">GITHUB_COMMIT_SOURCE</span> <span class="o">=</span> <span class="bp">True</span>
-</pre>
-
-
-<h4>3. .gitignoreを追加</h4>
-<p>下記内容を.gitignoreに追加する。</p>
-<pre class="code literal-block"><span></span>cache
-.doit.db
-__pycache__
-output
-</pre>
-
-
-<h4>4. deploy用のコマンドを実行</h4>
-<p>下記コマンドを実行することでdeployが可能。</p>
-<pre class="code literal-block"><span></span>$ nikola github_deploy
-</pre>
-
-
-<p>下記のように表示された場合は<code>pip install ghp-import2</code>でghp-import2をインストールする。</p>
-<pre class="code literal-block"><span></span>[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.
-[2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.
-</pre>
-
-
-<p>通常はこれで改めて<code>nikola github_deploy</code>を実行すれば終わりのはずである。
-しかし、今回は過去に作成済の既にmasterが存在しているリポジトリにpushしようとしているため、当然先にfetchしろと警告が出て失敗する。</p>
-<pre class="code literal-block"><span></span><span class="o">[</span><span class="m">2018</span>-01-08T04:17:10Z<span class="o">]</span> INFO: github_deploy: <span class="o">==</span>&gt; <span class="o">[</span><span class="s1">'ghp-import'</span>, <span class="s1">'-n'</span>, <span class="s1">'-m'</span>, <span class="s1">'Nikola auto commit.\n\nSource commit: a37690e35a31dc4a108f53c62b8ee17e783aa28f\nNikola version: 7.8.11'</span>, <span class="s1">'-p'</span>, <span class="s1">'-r'</span>, <span class="s1">'origin'</span>, <span class="s1">'-b'</span>, <span class="s1">'master'</span>, <span class="s1">'output'</span><span class="o">]</span>
-To github.com:wrist/wrist.github.io
- ! <span class="o">[</span>rejected<span class="o">]</span>        master -&gt; master <span class="o">(</span>fetch first<span class="o">)</span>
-error: failed to push some refs to <span class="s1">'git@github.com:wrist/wrist.github.io'</span>
-hint: Updates were rejected because the remote contains work that you <span class="k">do</span>
-hint: not have locally. This is usually caused by another repository pushing
-hint: to the same ref. You may want to first integrate the remote changes
-hint: <span class="o">(</span>e.g., <span class="s1">'git pull ...'</span><span class="o">)</span> before pushing again.
-hint: See the <span class="s1">'Note about fast-forwards'</span> in <span class="s1">'git push --help'</span> <span class="k">for</span> details.
-</pre>
-
-
-<p>仕方ないので<a href="https://rcmdnk.com/blog/2013/11/01/computer-git/">この記事</a>に倣い、先にmasterを強制pushする。</p>
-<pre class="code literal-block"><span></span>$ git push -f origin master
-$ nikola github_deploy
-</pre>
-
-
-<p>これにて無事に<code>http://wrist.github.io</code>で閲覧できるようになった。</p>
-<h4>5. 独自ドメインでの使用</h4>
-<p>github pagesを独自ドメインで使用する場合にはCNAMEファイルを<a href="https://qiita.com/nabettu/items/d11ac5ad42059626a687">リポジトリのルートに配置しておく必要がある</a>が、このためにnikolaではソースブランチのfilesの下にCNAMEファイルを配置しておけば、これをbuild時にoutputディレクトリにコピーしてくれる。</p>
-<h3>コメントシステムの設置</h3>
-<p>init時には空白にしておいたコメントシステムを有効化する。
-ここではdisqusを用いることにする。<code>conf.py</code>に下記を追記する。</p>
-<pre class="code literal-block"><span></span><span class="n">COMMENT_SYSTEM</span> <span class="o">=</span> <span class="s2">"disqus"</span>
-<span class="n">COMMENT_SYSTEM_ID</span> <span class="o">=</span> <span class="s2">"hiromasa-info"</span>
-</pre>
-
-
-<p><code>COMMENT_SYSTEM_ID</code>はdisqusの場合はshortnameを設定する。
-shortnameはdisqusのsiteのsettingsから確認できる。</p>
-<h3>その他</h3>
-<p>記事のデフォルト形式をmarkdownに変えたいが方法が分からないため<a href="https://getnikola.com/handbook.html">Handbook</a>を読んでもう少し調べる必要があるが、
-ReStructuredTextで書くとExtensionとして<a href="https://getnikola.com/handbook.html#restructuredtext-extensions">いくつかのdirectiveやroleが使える</a>ようでもあるため、もう少し使ってみてから考えたい。</p>
-<h3>参考</h3>
-<ul>
-<li><a href="https://getnikola.com/handbook.html">Handbook</a></li>
-<li><a href="https://qiita.com/driller/items/4d998ca765717c7e0a6c">drillerさんによる基本的な使い方の記事</a></li>
-<li><a href="https://qiita.com/driller/items/2f8a0dd66d4d8e59e05c">ipynb形式を扱う方法</a></li>
-<li><a href="http://iuk.hateblo.jp/entry/2016/10/27/024802">markdown周りの設定</a></li>
-</ul>
-</div>
-    </div>
-    </article>
-</div>
-
-
-
         
-       <script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="hiromasa-info",
+            disqus_url="http://www.hiromasa.info/posts/2/",
+        disqus_title="nikola\u3067CSP\u3001Google Analytics\u3001SNS\u30dc\u30bf\u30f3\u306e\u8a2d\u5b9a\u3092\u884c\u3046",
+        disqus_identifier="cache/posts/2.html",
+        disqus_config = function () {
+            this.language = "ja";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
 </div>
         <!--End of body content-->
 
@@ -509,7 +346,7 @@ ReStructuredTextで書くとExtensionとして<a href="https://getnikola.com/han
 </div>
 
 
-            <script src="assets/js/all-nocdn.js"></script><script src="assets/js/colorbox-i18n/jquery.colorbox-ja.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+            <script src="../../assets/js/all-nocdn.js"></script><script src="../../assets/js/colorbox-i18n/jquery.colorbox-ja.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
     moment.locale("ja");
     fancydates(0, "YYYY-MM-DD HH:mm");
     </script><!-- end fancy dates -->
