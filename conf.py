@@ -142,7 +142,8 @@ NAVIGATION_LINKS = {
 }
 
 # Name of the theme to use.
-THEME = "bootstrap4"
+THEME = "bootstrap3"
+# THEME = "bootstrap4"
 # THEME = "libretto"
 
 # Primary color of your theme. This will be used to customize your theme and
@@ -943,7 +944,28 @@ LICENSE = ""
 
 # A small copyright notice for the page footer (in HTML).
 # (translatable)
-CONTENT_FOOTER = 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         {license}'
+CONTENT_FOOTER = """Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         {license}
+<!-- twitter -->
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<!-- facebook -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {{
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+<!-- hatena -->
+<a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-counter" title="このエントリーをはてなブックマークに追加">
+<img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" />
+</a>
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+"""
 
 # Things that will be passed to CONTENT_FOOTER.format().  This is done
 # for translatability, as dicts are not formattable.  Nikola will
@@ -1115,19 +1137,7 @@ MARKDOWN_EXTENSIONS = ['markdown.extensions.fenced_code', 'markdown.extensions.c
 # long time). Insert anything you want here, or even make it empty (which is
 # the default right now)
 # (translatable)
-# SOCIAL_BUTTONS_CODE = """
-# <!-- Social buttons -->
-# <div id="addthisbox" class="addthis_toolbox addthis_peekaboo_style addthis_default_style addthis_label_style addthis_32x32_style">
-# <a class="addthis_button_more">Share</a>
-# <ul><li><a class="addthis_button_facebook"></a>
-# <li><a class="addthis_button_google_plusone_share"></a>
-# <li><a class="addthis_button_linkedin"></a>
-# <li><a class="addthis_button_twitter"></a>
-# </ul>
-# </div>
-# <script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script>
-# <!-- End of social buttons -->
-# """
+#SOCIAL_BUTTONS_CODE = ""
 
 # Show link to source for the posts?
 # Formerly known as HIDE_SOURCELINK (inverse)
@@ -1231,11 +1241,38 @@ MARKDOWN_EXTENSIONS = ['markdown.extensions.fenced_code', 'markdown.extensions.c
 # Extra things you want in the pages HEAD tag. This will be added right
 # before </head>
 # (translatable)
-# EXTRA_HEAD_DATA = ""
+
+EXTRA_HEAD_DATA = """
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com;">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-48887105-1');
+</script>
+<!-- End Google Analytics -->
+
+<!-- for facebook button -->
+<style>
+.fb-like {
+    display: inline;
+}
+#fb-root {
+    display: inline;
+}
+.fb_iframe_widget > span {
+    vertical-align: baseline !important; 
+}
+</style>
+"""
+
 # Google Analytics or whatever else you use. Added to the bottom of <body>
 # in the default template (base.tmpl).
 # (translatable)
-# BODY_END = ""
+#BODY_END = ""
 
 # The possibility to extract metadata from the filename by using a
 # regular expression.
@@ -1280,7 +1317,7 @@ UNSLUGIFY_TITLES = True
 # Nikola supports Open Graph Protocol data for enhancing link sharing and
 # discoverability of your site on Facebook, Google+, and other services.
 # Open Graph is enabled by default.
-# USE_OPEN_GRAPH = True
+USE_OPEN_GRAPH = True
 
 # Nikola supports Twitter Card summaries, but they are disabled by default.
 # They make it possible for you to attach media to Tweets that link
