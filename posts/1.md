@@ -121,7 +121,7 @@ wordpressの同名テーマをベースにしたものらしい。
 テーマのインストールは下記の通り。
 
 ```sh
-$ nikola thme -i libretto
+$ nikola theme -i libretto
 ```
 
 実行するとthemesディレクトリ以下にlibrettoのテーマがダウンロードされる。
