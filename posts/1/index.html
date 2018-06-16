@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nikolaでブログ構築してGithub Pagesに設置 | hiromasa.info</title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="http://www.hiromasa.info/posts/1/">
-<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com;">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com;">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -68,7 +70,7 @@ $ pip install webassets
             </a>
         </div>
 <!-- /.navbar-header -->
-        <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
+        <div class="collapse navbar-collapse" id="bs-navbar" role="navigation" aria-expanded="false">
             <ul class="nav navbar-nav">
 <li>
 <a href="../../archive.html">文書一覧</a>
@@ -209,7 +211,7 @@ slugはurlの一部となる文字列である。記事タイトルをアルフ�
 ここでは<a href="https://themes.getnikola.com/v7/libretto/">libretto</a>のテーマを選んだ。
 wordpressの同名テーマをベースにしたものらしい。</p>
 <p>テーマのインストールは下記の通り。</p>
-<pre class="code literal-block"><span></span>$ nikola thme -i libretto
+<pre class="code literal-block"><span></span>$ nikola theme -i libretto
 </pre>
 
 

@@ -15,23 +15,47 @@
  </url>
  <url>
   <loc>http://www.hiromasa.info/archive.html</loc>
-  <lastmod>2018-01-14T15:46:00Z</lastmod>
+  <lastmod>2018-06-16T05:36:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/</loc>
-  <lastmod>2018-01-08T01:20:00Z</lastmod>
+  <lastmod>2018-06-16T05:38:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/github/</loc>
   <lastmod>2018-01-08T01:20:00Z</lastmod>
  </url>
  <url>
+  <loc>http://www.hiromasa.info/categories/librosa/</loc>
+  <lastmod>2018-06-16T05:24:00Z</lastmod>
+ </url>
+ <url>
   <loc>http://www.hiromasa.info/categories/nikola/</loc>
   <lastmod>2018-01-08T01:20:00Z</lastmod>
  </url>
  <url>
+  <loc>http://www.hiromasa.info/categories/numpy/</loc>
+  <lastmod>2018-06-16T05:24:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/categories/pycon/</loc>
+  <lastmod>2018-06-16T05:36:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/categories/pydata/</loc>
+  <lastmod>2018-06-15T09:12:00Z</lastmod>
+ </url>
+ <url>
   <loc>http://www.hiromasa.info/categories/python/</loc>
   <lastmod>2018-01-08T01:20:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/categories/scikit-learn/</loc>
+  <lastmod>2018-06-16T05:24:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/categories/scipy/</loc>
+  <lastmod>2018-06-16T05:24:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/pages/about/</loc>
@@ -44,5 +68,17 @@
  <url>
   <loc>http://www.hiromasa.info/posts/2/</loc>
   <lastmod>2018-01-14T14:51:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/posts/3/</loc>
+  <lastmod>2018-06-16T05:24:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/posts/4/</loc>
+  <lastmod>2018-06-16T05:24:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/posts/5/</loc>
+  <lastmod>2018-06-16T05:38:00Z</lastmod>
  </url>
 </urlset>
