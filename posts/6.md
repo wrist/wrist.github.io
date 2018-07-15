@@ -30,7 +30,7 @@ GITHUB_COMMIT_SOURCE = False
 nikolaブログのルートディレクトリ(`conf.py`が置いてあるディレクトリ)に以下のような`.travis.yml`ファイルを作成します。
 これは[Nikola公式の記事](https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html)に記載のtravis.ymlを改変したものになります。
 
-```yaml:.travis.yml
+```yaml
 language: python
 cache: apt
 sudo: false
