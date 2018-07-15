@@ -3,3 +3,5 @@ cache
 .doit.db.db
 __pycache__
 output
+id_rsa
+id_rsa.pub

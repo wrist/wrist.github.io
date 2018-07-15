@@ -1,0 +1,38 @@
+language: python
+cache: apt
+sudo: false
+addons:
+  apt:
+    packages:
+    - language-pack-ja-base
+    - language-pack-ja
+branches:
+  only:
+  - src
+python:
+- 3.6
+before_install:
+- openssl aes-256-cbc -K $encrypted_cfbe830f6fec_key -iv $encrypted_cfbe830f6fec_iv
+  -in id_rsa.enc -out id_rsa -d
+- git config --global user.name 'wrist'
+- git config --global user.email 'stoicheia1986+travisci@gmail.com'
+- git config --global push.default 'simple'
+- pip install --upgrade pip wheel
+- echo -e 'Host github.com\n    StrictHostKeyChecking no' >> ~/.ssh/config
+- eval "$(ssh-agent -s)"
+- chmod 600 id_rsa
+- ssh-add id_rsa
+- git remote rm origin
+- git remote add origin git@github.com:wrist/wrist.github.io.git
+- git fetch origin master
+- git branch master FETCH_HEAD
+install:
+- pip install 'ghp-import2'
+- pip install 'webassets'
+- pip install 'Nikola[extras]'
+script:
+- nikola build && nikola github_deploy -m 'Nikola auto deploy [ci skip]'
+notifications:
+  email:
+    on_success: change
+    on_failure: always
