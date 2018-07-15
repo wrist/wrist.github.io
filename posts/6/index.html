@@ -133,62 +133,62 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
 <code>.travis.yml</code>の作成</h4>
 <p>nikolaブログのルートディレクトリ(<code>conf.py</code>が置いてあるディレクトリ)に以下のような<code>.travis.yml</code>ファイルを作成します。
 これは<a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html">Nikola公式の記事</a>に記載のtravis.ymlを改変したものになります。</p>
-<p>```yaml:.travis.yml
-language: python
-cache: apt
-sudo: false
-addons:
-  apt:
-    packages:
-    - language-pack-ja-base
-    - language-pack-ja
-branches:
-  only:
-  - src
-python:
-- 3.6
-before_install:
-- git config --global user.name 'USERNAME'
+<pre class="code literal-block"><span></span><span class="l l-Scalar l-Scalar-Plain">language</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
+<span class="l l-Scalar l-Scalar-Plain">cache</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">apt</span>
+<span class="l l-Scalar l-Scalar-Plain">sudo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="l l-Scalar l-Scalar-Plain">addons</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">apt</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">packages</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-ja-base</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-ja</span>
+<span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">only</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">src</span>
+<span class="l l-Scalar l-Scalar-Plain">python</span><span class="p p-Indicator">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">3.6</span>
+<span class="l l-Scalar l-Scalar-Plain">before_install</span><span class="p p-Indicator">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config --global user.name 'USERNAME'</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config --global user.email 'travis@invalid'</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config --global push.default 'simple'</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install --upgrade pip wheel</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo -e 'Host github.com\n    StrictHostKeyChecking no' &gt;&gt; ~/.ssh/config</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">eval "$(ssh-agent -s)"</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">chmod 600 id_rsa</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ssh-add id_rsa</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git remote rm origin</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git remote add origin git@github.com:USERNAME/REPO.git</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git fetch origin master</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git branch master FETCH_HEAD</span>
+<span class="l l-Scalar l-Scalar-Plain">install</span><span class="p p-Indicator">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'ghp-import2'</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'webassets'</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'Nikola[extras]'</span>
+<span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nikola build &amp;&amp; nikola github_deploy -m 'Nikola auto deploy [ci skip]'</span>
+<span class="l l-Scalar l-Scalar-Plain">notifications</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">email</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">on_success</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">change</span>
+    <span class="l l-Scalar l-Scalar-Plain">on_failure</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">always</span>
+</pre>
+
+
+<p>ここで、</p>
+<pre class="code literal-block"><span></span>- git config --global user.name 'USERNAME'
 - git config --global user.email 'travis@invalid'
-- git config --global push.default 'simple'
-- pip install --upgrade pip wheel
-- echo -e 'Host github.com\n    StrictHostKeyChecking no' &gt;&gt; ~/.ssh/config
-- eval "$(ssh-agent -s)"
-- chmod 600 id_rsa
-- ssh-add id_rsa
-- git remote rm origin
-- git remote add origin git@github.com:USERNAME/REPO.git
-- git fetch origin master
-- git branch master FETCH_HEAD
-install:
-- pip install 'ghp-import2'
-- pip install 'webassets'
-- pip install 'Nikola[extras]'
-script:
-- nikola build &amp;&amp; nikola github_deploy -m 'Nikola auto deploy [ci skip]'
-notifications:
-  email:
-    on_success: change
-    on_failure: always</p>
-<pre class="code literal-block"><span></span>ここで、
+</pre>
 
-    - git config --global user.name 'USERNAME'
-    - git config --global user.email 'travis@invalid'
 
-の行は適切なユーザー名、メールアドレスに、
+<p>の行は適切なユーザー名、メールアドレスに、</p>
+<pre class="code literal-block"><span></span>- git remote add origin git@github.com:USERNAME/REPO.git
+</pre>
 
-    - git remote add origin git@github.com:USERNAME/REPO.git
 
-の行は適切なユーザー名およびリポジトリ名に変更する必要があります。
-
-### SSH鍵の生成 ###
-
-まず、`.gitignore`ファイルに`id_rsa`と`id_rsa.pub`を無視する設定を追記した上でSSH鍵を生成します。
-
-```sh
-$ echo id_rsa &gt;&gt; .gitignore
-$ echo id_rsa.pub &gt;&gt; .gitignore
-$ ssh-keygen -C TravisCI -f id_rsa -N ''
+<p>の行は適切なユーザー名およびリポジトリ名に変更する必要があります。</p>
+<h4>SSH鍵の生成</h4>
+<p>まず、<code>.gitignore</code>ファイルに<code>id_rsa</code>と<code>id_rsa.pub</code>を無視する設定を追記した上でSSH鍵を生成します。</p>
+<pre class="code literal-block"><span></span>$ <span class="nb">echo</span> id_rsa &gt;&gt; .gitignore
+$ <span class="nb">echo</span> id_rsa.pub &gt;&gt; .gitignore
+$ ssh-keygen -C TravisCI -f id_rsa -N <span class="s1">''</span>
 </pre>
 
 

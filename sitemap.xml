@@ -7,86 +7,86 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://www.hiromasa.info/</loc>
-  <lastmod>2018-07-15T09:29:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/2018/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/archive.html</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/</loc>
-  <lastmod>2018-07-15T09:29:00Z</lastmod>
+  <lastmod>2018-07-15T09:43:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/github/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/librosa/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/nikola/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/numpy/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/pycon/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/pydata/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/python/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/scikit-learn/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/scipy/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/travisci/</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:40:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/pages/about/</loc>
-  <lastmod>2018-07-15T09:29:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/1/</loc>
-  <lastmod>2018-07-15T09:28:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/2/</loc>
-  <lastmod>2018-07-15T09:29:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/3/</loc>
-  <lastmod>2018-07-15T09:28:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/4/</loc>
-  <lastmod>2018-07-15T09:28:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/5/</loc>
-  <lastmod>2018-07-15T09:30:00Z</lastmod>
+  <lastmod>2018-07-15T09:43:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/6/</loc>
-  <lastmod>2018-07-15T09:29:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </url>
 </urlset>

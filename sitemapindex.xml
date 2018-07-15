@@ -7,50 +7,50 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>http://www.hiromasa.info/categories/github.xml</loc>
-  <lastmod>2018-07-15T09:29:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/librosa.xml</loc>
-  <lastmod>2018-07-15T09:29:00Z</lastmod>
+  <lastmod>2018-07-15T09:42:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/nikola.xml</loc>
-  <lastmod>2018-07-15T09:28:00Z</lastmod>
+  <lastmod>2018-07-15T09:42:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/numpy.xml</loc>
-  <lastmod>2018-07-15T09:28:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/pycon.xml</loc>
-  <lastmod>2018-07-15T09:29:00Z</lastmod>
+  <lastmod>2018-07-15T09:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/pydata.xml</loc>
-  <lastmod>2018-07-15T09:27:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/python.xml</loc>
-  <lastmod>2018-07-15T09:28:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/scikit-learn.xml</loc>
-  <lastmod>2018-07-15T09:29:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/scipy.xml</loc>
-  <lastmod>2018-07-15T09:28:00Z</lastmod>
+  <lastmod>2018-07-15T09:42:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/travisci.xml</loc>
-  <lastmod>2018-07-15T09:28:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/rss.xml</loc>
-  <lastmod>2018-07-15T09:29:00Z</lastmod>
+  <lastmod>2018-07-15T09:41:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/sitemap.xml</loc>
-  <lastmod>2018-07-15T09:30:00Z</lastmod>
+  <lastmod>2018-07-15T09:43:00Z</lastmod>
  </sitemap>
 </sitemapindex>
