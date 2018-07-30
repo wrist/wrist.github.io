@@ -7,50 +7,58 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>http://www.hiromasa.info/categories/github.xml</loc>
-  <lastmod>2018-07-15T09:41:00Z</lastmod>
+  <lastmod>2018-07-30T14:47:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>http://www.hiromasa.info/categories/hexdump.xml</loc>
+  <lastmod>2018-07-30T14:47:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/librosa.xml</loc>
-  <lastmod>2018-07-15T09:42:00Z</lastmod>
+  <lastmod>2018-07-30T14:46:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>http://www.hiromasa.info/categories/ndarray.xml</loc>
+  <lastmod>2018-07-30T14:45:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/nikola.xml</loc>
-  <lastmod>2018-07-15T09:42:00Z</lastmod>
+  <lastmod>2018-07-30T14:45:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/numpy.xml</loc>
-  <lastmod>2018-07-15T09:41:00Z</lastmod>
+  <lastmod>2018-07-30T14:45:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/pycon.xml</loc>
-  <lastmod>2018-07-15T09:43:00Z</lastmod>
+  <lastmod>2018-07-30T14:46:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/pydata.xml</loc>
-  <lastmod>2018-07-15T09:41:00Z</lastmod>
+  <lastmod>2018-07-30T14:45:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/python.xml</loc>
-  <lastmod>2018-07-15T09:41:00Z</lastmod>
+  <lastmod>2018-07-30T14:47:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/scikit-learn.xml</loc>
-  <lastmod>2018-07-15T09:41:00Z</lastmod>
+  <lastmod>2018-07-30T14:47:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/scipy.xml</loc>
-  <lastmod>2018-07-15T09:42:00Z</lastmod>
+  <lastmod>2018-07-30T14:45:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/categories/travisci.xml</loc>
-  <lastmod>2018-07-15T09:41:00Z</lastmod>
+  <lastmod>2018-07-30T14:45:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/rss.xml</loc>
-  <lastmod>2018-07-15T09:41:00Z</lastmod>
+  <lastmod>2018-07-30T14:46:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://www.hiromasa.info/sitemap.xml</loc>
-  <lastmod>2018-07-15T09:43:00Z</lastmod>
+  <lastmod>2018-07-30T14:47:00Z</lastmod>
  </sitemap>
 </sitemapindex>
