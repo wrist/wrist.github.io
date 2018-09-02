@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>osx high sierraからSMBに接続できない問題の解決 | hiromasa.info</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="http://www.hiromasa.info/posts/9/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com;">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-48887105-1');
+</script><!-- End Google Analytics --><!-- for facebook button --><style>
+.fb-like {
+    display: inline;
+}
+#fb-root {
+    display: inline;
+}
+.fb_iframe_widget > span {
+    vertical-align: baseline !important; 
+}
+</style>
+<meta name="author" content="Hiromasa OHASHI">
+<link rel="prev" href="../8/" title="KaldiでVoxForgeの音響モデルを学習する(1)" type="text/html">
+<meta property="og:site_name" content="hiromasa.info">
+<meta property="og:title" content="osx high sierraからSMBに接続できない問題の解決">
+<meta property="og:url" content="http://www.hiromasa.info/posts/9/">
+<meta property="og:description" content="osx high sierraからSMBに接続できない問題の解決
+2018/8/26に突然自宅Ubuntuで立てているファイルサーバで動作しているSambaにアクセスできなくなったためその原因を調べた。
+現象
+
+ubuntu上のsambaサービスで提供している共有フォルダにアクセスしようとするとその瞬間接続できない
+自宅nasneや無線LANルータ上で動作しているsmbに関しても全く同じ症状で接続">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-09-02T11:01:00+09:00">
+<meta property="article:tag" content="osx">
+<meta property="article:tag" content="samba">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">本文を読み飛ばす</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-inverse navbar-static-top"><div class="container">
+<!-- This keeps the margins nice -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+            <span class="sr-only">ナビゲーションを隠す</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://www.hiromasa.info/">
+
+                <span id="blog-title">hiromasa.info</span>
+            </a>
+        </div>
+<!-- /.navbar-header -->
+        <div class="collapse navbar-collapse" id="bs-navbar" role="navigation" aria-expanded="false">
+            <ul class="nav navbar-nav">
+<li>
+<a href="../../archive.html">文書一覧</a>
+                </li>
+<li>
+<a href="../../categories/">タグ</a>
+                </li>
+<li>
+<a href="../../pages/about/index.html">About</a>
+                </li>
+<li>
+<a href="../../rss.xml">RSSフィード</a>
+
+                
+            </li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+    <a href="index.md" id="sourcelink">ソース</a>
+    </li>
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        <div class="row">
+            
+            
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">osx high sierraからSMBに接続できない問題の解決</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Hiromasa OHASHI
+            </span></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2018-09-02T11:01:00+09:00" itemprop="datePublished" title="2018-09-02 11:01">2018-09-02 11:01</time></a></p>
+                <p class="commentline">
+        
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/9.html">Comments</a>
+
+
+            
+        </p>
+<p class="sourceline"><a href="index.md" class="sourcelink">ソース</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<h3>osx high sierraからSMBに接続できない問題の解決</h3>
+<p>2018/8/26に突然自宅Ubuntuで立てているファイルサーバで動作しているSambaにアクセスできなくなったためその原因を調べた。</p>
+<h4>現象</h4>
+<ul>
+<li>ubuntu上のsambaサービスで提供している共有フォルダにアクセスしようとするとその瞬間接続できない</li>
+<li>自宅nasneや無線LANルータ上で動作しているsmbに関しても全く同じ症状で接続できない</li>
+<li>MacBookPro自体を再起動しても解決しない</li>
+<li>コンソール.appで確認したところ、接続時に諸々のエラーが生じていた<ul>
+<li><code>SDSharePointBrowser::handleOpenCallBack returned 2</code></li>
+<li>
+<code>NetAuthSysAgent 1025</code><ul>
+<li>「そのようなファイルやディレクトリは存在しない」的なエラーが出ていた</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>解決方法</h4>
+<p><code>NetAuthSysAgent 1025</code>でググって出てきた<a href="https://apple.stackexchange.com/questions/257836/mac-mini-cant-connect-to-my-corporate-smb-server-was-working-some-days-ago">stackexchangeの回答</a>で解決した。
+上記の記事いわく、Android SDKを過去にインストールした際などに入るアクセラレータであるHAXMのカーネルエクステンションがインストールされていることが原因であるとのことであり、</p>
+<pre class="code literal-block"><span></span>$ kextstat <span class="p">|</span> grep -iv apple
+</pre>
+
+
+<p>の出力に<code>intelhaxm</code>が含まれている場合がそれに該当する。
+現時点でAndroid SDK自体をもはや使っていないため、下記を実行してアンインストールした。</p>
+<pre class="code literal-block"><span></span>$ sudo /Library/Extensions/intelhaxm.kext/Contents/Resources/uninstall.sh
+</pre>
+
+
+<p>アンインストール後、再起動すれば接続できるようになった。</p>
+<h4>具体的なコマンド実行履歴</h4>
+<p><code>192.168.XX.XX</code>はsambaが動いているホストのIPアドレスであり、<code>smbutil view</code>は指定した<code>smb</code>プロトコルによる接続先が見えているかの確認である。</p>
+<pre class="code literal-block"><span></span><span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:04:33<span class="o">]</span> &gt; smbutil view smb://192.168.XX.XX                      <span class="o">[</span>~<span class="o">]</span>
+smbutil: server connection failed: No such file or directory
+<span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:05:48<span class="o">]</span> &gt; kextstat                                              <span class="o">[</span>~<span class="o">]</span>
+<span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:06:06<span class="o">]</span> &gt; kextstat <span class="p">|</span> grep -iv apple                             <span class="o">[</span>~<span class="o">]</span>
+Index Refs Address            Size       Wired      Name <span class="o">(</span>Version<span class="o">)</span> UUID &lt;Linked Against&gt;
+  ...
+  <span class="m">163</span>    <span class="m">0</span> 0xffffff7f83735000 0x14000    0x14000    com.intel.kext.intelhaxm <span class="o">(</span><span class="m">6</span>.0.1<span class="o">)</span> 8FF2C637-0A5E-367E-B007-5B08655B1E8A &lt;<span class="m">7</span> <span class="m">5</span> <span class="m">4</span> <span class="m">3</span> <span class="m">1</span>&gt;
+  ...
+<span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:07:58<span class="o">]</span> &gt; sudo /Library/Extensions/intelhaxm.kext/Contents/Resources/uninstall.sh                                                                          <span class="o">[</span>~<span class="o">]</span>
+
+This will remove Intel<span class="o">(</span>R<span class="o">)</span> HAXM from your computer.
+
+Important: Removing Intel HAXM will disable acceleration of all Intel<span class="o">(</span>R<span class="o">)</span> x86
+Android emulators. Your Android Virtual Devices will <span class="k">continue</span> to <span class="k">function</span>, but
+will no longer be accelerated.
+Installing Intel HAXM again will re-enable Android emulator acceleration.
+
+Warning: Please close all instances of the Android x86 emulator before
+proceeding.
+
+Do you wish to uninstall Intel HAXM <span class="o">(</span>y/n<span class="o">)</span>? y
+Removing Intel HAXM files
+
+Intel HAXM has been successfully uninstalled
+</pre>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/osx/" rel="tag">osx</a></li>
+            <li><a class="tag p-category" href="../../categories/samba/" rel="tag">samba</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../8/" rel="prev" title="KaldiでVoxForgeの音響モデルを学習する(1)">一つ前の文書</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>コメント</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="hiromasa-info",
+            disqus_url="http://www.hiromasa.info/posts/9/",
+        disqus_title="osx high sierra\u304b\u3089SMB\u306b\u63a5\u7d9a\u3067\u304d\u306a\u3044\u554f\u984c\u306e\u89e3\u6c7a",
+        disqus_identifier="cache/posts/9.html",
+        disqus_config = function () {
+            this.language = "ja";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+</div>
+        <!--End of body content-->
+
+        <footer id="footer">
+            Contents © 2018         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+<!-- twitter -->
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script><div class="fb-like" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+<!-- hatena -->
+<a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-counter" title="このエントリーをはてなブックマークに追加">
+<img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;"></a>
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script></footer>
+</div>
+</div>
+
+
+            <script src="../../assets/js/all-nocdn.js"></script><script src="../../assets/js/colorbox-i18n/jquery.colorbox-ja.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+    moment.locale("ja");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>
