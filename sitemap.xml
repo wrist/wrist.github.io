@@ -7,138 +7,154 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://www.hiromasa.info/</loc>
-  <lastmod>2018-09-02T02:07:00Z</lastmod>
+  <lastmod>2018-09-09T15:31:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/2018/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/archive.html</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/</loc>
-  <lastmod>2018-09-02T02:07:00Z</lastmod>
+  <lastmod>2018-09-09T15:33:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/categories/ganmafen-bu/</loc>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/github/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/hexdump/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/kaldi/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/librosa/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/ndarray/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/nikola/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/numpy/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/osx/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/pycon/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/pydata/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/python/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/categories/que-lu-fen-bu/</loc>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/samba/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/scikit-learn/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/scipy/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/travisci/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/yan-yu-moderu/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/yin-sheng-ren-shi/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/categories/yin-xiang-moderu/</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/index-1.html</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/index-2.html</loc>
-  <lastmod>2018-09-02T02:05:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/index-3.html</loc>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/pages/about/</loc>
-  <lastmod>2018-09-02T02:07:00Z</lastmod>
+  <lastmod>2018-09-09T15:33:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/1/</loc>
-  <lastmod>2018-09-02T02:06:00Z</lastmod>
+  <lastmod>2018-09-09T15:31:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://www.hiromasa.info/posts/10/</loc>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/2/</loc>
-  <lastmod>2018-09-02T02:06:00Z</lastmod>
+  <lastmod>2018-09-09T15:33:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/3/</loc>
-  <lastmod>2018-09-02T02:06:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/4/</loc>
-  <lastmod>2018-09-02T02:06:00Z</lastmod>
+  <lastmod>2018-09-09T15:31:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/5/</loc>
-  <lastmod>2018-09-02T02:06:00Z</lastmod>
+  <lastmod>2018-09-09T15:32:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/6/</loc>
-  <lastmod>2018-09-02T02:06:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/7/</loc>
-  <lastmod>2018-09-02T02:06:00Z</lastmod>
+  <lastmod>2018-09-09T15:31:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/8/</loc>
-  <lastmod>2018-09-02T02:06:00Z</lastmod>
+  <lastmod>2018-09-09T15:30:00Z</lastmod>
  </url>
  <url>
   <loc>http://www.hiromasa.info/posts/9/</loc>
-  <lastmod>2018-09-02T02:06:00Z</lastmod>
+  <lastmod>2018-09-09T15:31:00Z</lastmod>
  </url>
 </urlset>

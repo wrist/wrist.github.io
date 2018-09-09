@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (ndarrayについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/ndarray.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 02 Sep 2018 02:06:32 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ndarrayのfortran flagと実際のメモリ配列について</title><link>http://www.hiromasa.info/posts/7/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (ndarrayについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/ndarray.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 09 Sep 2018 15:31:12 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ndarrayのfortran flagと実際のメモリ配列について</title><link>http://www.hiromasa.info/posts/7/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
     &lt;div class="container" id="notebook-container"&gt;
 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h3 id="ndarrayのfortran-flagと実際のメモリ配列について"&gt;ndarrayのfortran flagと実際のメモリ配列について&lt;a class="anchor-link" href="http://www.hiromasa.info/posts/7/#ndarray%E3%81%AEfortran-flag%E3%81%A8%E5%AE%9F%E9%9A%9B%E3%81%AE%E3%83%A1%E3%83%A2%E3%83%AA%E9%85%8D%E5%88%97%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;h4 id="要約"&gt;要約&lt;a class="anchor-link" href="http://www.hiromasa.info/posts/7/#%E8%A6%81%E7%B4%84"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;ndarrayで&lt;code&gt;.T&lt;/code&gt;で転置を行った場合、実際のメモリ上の配列は変更されず、&lt;code&gt;.flags&lt;/code&gt;で確認できるC形式配列(row-major)であるかFortran形式配列(column-major)であるかのフラグが入れ替わるのみ&lt;/li&gt;
@@ -15,8 +14,7 @@
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h4 id="実験"&gt;実験&lt;a class="anchor-link" href="http://www.hiromasa.info/posts/7/#%E5%AE%9F%E9%A8%93"&gt;¶&lt;/a&gt;&lt;/h4&gt;
 &lt;/div&gt;
@@ -30,14 +28,13 @@
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;2x2のndarrayを生成する。&lt;/p&gt;
 
@@ -53,7 +50,7 @@
 &lt;span class="n"&gt;a&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -63,7 +60,7 @@
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[2]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[2]:&lt;/div&gt;
 
 
 
@@ -80,8 +77,7 @@
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;&lt;code&gt;.T&lt;/code&gt;で転置を取ると行と列が入れ替わる。&lt;/p&gt;
 
@@ -96,7 +92,7 @@
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -106,7 +102,7 @@
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[3]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[3]:&lt;/div&gt;
 
 
 
@@ -123,8 +119,7 @@
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;元のndarrayの&lt;code&gt;.flags&lt;/code&gt;を表示すると、&lt;code&gt;C_CONTIGUOUS&lt;/code&gt;が&lt;code&gt;True&lt;/code&gt;となっている一方、&lt;code&gt;F_CONTIGUOUS&lt;/code&gt;がFalseとなっていることが分かる。&lt;code&gt;C_CONTIGUOUS&lt;/code&gt;はC形式配列であるかを表すフラグであり、&lt;code&gt;F_CONTIGUOUS&lt;/code&gt;はFortran形式配列であるかを表すフラグである。&lt;/p&gt;
 
@@ -139,7 +134,7 @@
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -149,7 +144,7 @@
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[4]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[4]:&lt;/div&gt;
 
 
 
@@ -171,8 +166,7 @@
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;一方&lt;code&gt;.T&lt;/code&gt;を呼んだ後のndarrayの&lt;code&gt;.flags&lt;/code&gt;を表示すると、&lt;code&gt;C_CONTIGUOUS&lt;/code&gt;が&lt;code&gt;False&lt;/code&gt;に変化し、一方&lt;code&gt;F_CONTIGUOUS&lt;/code&gt;がTrueとなっている。&lt;/p&gt;
 
@@ -187,7 +181,7 @@
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -197,7 +191,7 @@
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[5]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[5]:&lt;/div&gt;
 
 
 
@@ -219,8 +213,7 @@
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h4 id="np.saveでの保存時の形式"&gt;&lt;code&gt;np.save&lt;/code&gt;での保存時の形式&lt;a class="anchor-link" href="http://www.hiromasa.info/posts/7/#np.save%E3%81%A7%E3%81%AE%E4%BF%9D%E5%AD%98%E6%99%82%E3%81%AE%E5%BD%A2%E5%BC%8F"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;&lt;code&gt;.T&lt;/code&gt;で転置を取ると&lt;code&gt;.flags&lt;/code&gt;のC形式配列であるかFortran形式配列であるかのフラグが入れ替わることが分かったが、実際の格納形式がどうなっているかを知るために、&lt;code&gt;np.save&lt;/code&gt;を用いて保存した&lt;code&gt;.npy&lt;/code&gt;ファイルに対して&lt;code&gt;!hexdump -Cv&lt;/code&gt;を実行することでバイナリの中身を調べる。ここで&lt;code&gt;hexdump&lt;/code&gt;コマンドの&lt;code&gt;-C&lt;/code&gt;はASCII表示を行うためのオプションであり、&lt;code&gt;-v&lt;/code&gt;は全データを表示するためのオプションである(おそらくBSD系のhexdumpのみ)。&lt;/p&gt;
 
@@ -228,8 +221,7 @@
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;まず、&lt;code&gt;np.save&lt;/code&gt;で転置前後の&lt;code&gt;ndarray&lt;/code&gt;を保存する。&lt;/p&gt;
 
@@ -245,14 +237,13 @@
 &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"a.T.npy"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;これらを&lt;code&gt;np.load&lt;/code&gt;で再度読み込み直すと、&lt;code&gt;.flags&lt;/code&gt;は読み込んだ後も保持されていることが分かる。&lt;/p&gt;
 
@@ -267,7 +258,7 @@
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"a.npy"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -277,7 +268,7 @@
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[7]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[7]:&lt;/div&gt;
 
 
 
@@ -306,7 +297,7 @@
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"a.T.npy"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -316,7 +307,7 @@
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[8]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[8]:&lt;/div&gt;
 
 
 
@@ -338,8 +329,7 @@
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;ディスクへダンプした際の実際の格納形式がどうなっているかをhexdumpコマンドを用いて調べる。&lt;/p&gt;
 
@@ -354,7 +344,7 @@
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;hexdump -Cv a.npy
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -364,7 +354,7 @@
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -395,7 +385,7 @@
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;hexdump -Cv a.T.npy
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -405,7 +395,7 @@
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -429,8 +419,7 @@
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;ヘッダーの&lt;code&gt;fortran_order&lt;/code&gt;が変化していることが分かる。更にbashのプロセス置換で両者のdiffを見てみる。&lt;/p&gt;
 
@@ -446,7 +435,7 @@
 diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class="o"&gt;)&lt;/span&gt; &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.T.npy&lt;span class="o"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -456,7 +445,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -477,8 +466,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;ヘッダーのみ差分が存在し、実際のデータが格納されている後半部は変化していないことが分かる。&lt;/p&gt;
 
@@ -486,16 +474,14 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h4 id="転置した状態のまま保存する方法"&gt;転置した状態のまま保存する方法&lt;a class="anchor-link" href="http://www.hiromasa.info/posts/7/#%E8%BB%A2%E7%BD%AE%E3%81%97%E3%81%9F%E7%8A%B6%E6%85%8B%E3%81%AE%E3%81%BE%E3%81%BE%E4%BF%9D%E5%AD%98%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95"&gt;¶&lt;/a&gt;&lt;/h4&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;ndarrayに対して&lt;code&gt;.copy()&lt;/code&gt;を呼んだ上で保存すれば良い。下記に実例を示す。
 まず、&lt;code&gt;.copy()&lt;/code&gt;を呼んだ後の&lt;code&gt;.flags&lt;/code&gt;を表示する。&lt;/p&gt;
@@ -511,7 +497,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -521,7 +507,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[12]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[12]:&lt;/div&gt;
 
 
 
@@ -543,8 +529,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;転置したにもかかわらず&lt;code&gt;C_CONTIGUOUS&lt;/code&gt;がTrueになっていることが分かる。
 更にこのndarrayを&lt;code&gt;np.save&lt;/code&gt;で保存し、&lt;code&gt;hexdump&lt;/code&gt;で中身を見てみる。&lt;/p&gt;
@@ -560,7 +545,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"a.T.copy.npy"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -573,7 +558,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;hexdump -C a.T.copy.npy
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -583,7 +568,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -607,8 +592,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;&lt;code&gt;C_CONTIGUOUS&lt;/code&gt;がTrue、&lt;code&gt;F_CONTIGUOUS&lt;/code&gt;がFalseになっていたことからも分かるように、ヘッダーの&lt;code&gt;fortran_order&lt;/code&gt;がFalseになっている。&lt;/p&gt;
 
@@ -616,8 +600,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;当然、再度&lt;code&gt;np.load&lt;/code&gt;で読み込んだ場合でもこの&lt;code&gt;.flags&lt;/code&gt;は保たれている。&lt;/p&gt;
 
@@ -632,7 +615,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"a.T.copy.npy"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;flags&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -642,7 +625,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[15]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[15]:&lt;/div&gt;
 
 
 
@@ -664,8 +647,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;元のndarrayと、転置した上で&lt;code&gt;.copy()&lt;/code&gt;を呼んだ後のndarrayを&lt;code&gt;np.save&lt;/code&gt;したバイナリを比較してみる。&lt;/p&gt;
 
@@ -681,7 +663,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class="o"&gt;)&lt;/span&gt; &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.T.copy.npy&lt;span class="o"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -691,7 +673,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -710,8 +692,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;両者ともにC形式配列となっているため、純粋にデータ部の並びのみが異なる。&lt;/p&gt;
 
@@ -719,8 +700,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;同様に転置を取った場合と、その上で&lt;code&gt;.copy()&lt;/code&gt;を呼んだ場合のバイナリを比較してみる。&lt;/p&gt;
 
@@ -736,7 +716,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.npy&lt;span class
 diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.T.npy&lt;span class="o"&gt;)&lt;/span&gt; &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.T.copy.npy&lt;span class="o"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -746,7 +726,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.T.npy&lt;span cla
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -773,8 +753,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.T.npy&lt;span cla
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;この場合、ヘッダーもデータ部も異なっていることが分かる。&lt;/p&gt;
 
@@ -782,8 +761,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.T.npy&lt;span cla
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h4 id="なぜこの記事を書いたか"&gt;なぜこの記事を書いたか&lt;a class="anchor-link" href="http://www.hiromasa.info/posts/7/#%E3%81%AA%E3%81%9C%E3%81%93%E3%81%AE%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%84%E3%81%9F%E3%81%8B"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;とある&lt;code&gt;.npy&lt;/code&gt;ファイルのデータ部分を直接読み込むCプログラムを触っていた際に、&lt;code&gt;.T&lt;/code&gt;で転置した&lt;code&gt;.npy&lt;/code&gt;を読み込んでも読み込んだデータ部分が全く変化していないということが発生したためである。
 当該プログラムではヘッダーの&lt;code&gt;fortran_order&lt;/code&gt;を完全に無視していたため、&lt;code&gt;.T&lt;/code&gt;しただけのndarrayを保存した&lt;code&gt;.npy&lt;/code&gt;ではデータ部分が転置されておらず、意図しない動作となってしまっていた。これを解決するためには前述のように&lt;code&gt;.copy()&lt;/code&gt;を呼んだ上で保存した&lt;code&gt;.npy&lt;/code&gt;ファイルを読み込む必要があった。&lt;/p&gt;
