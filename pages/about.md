@@ -1,7 +1,7 @@
 <!--
-.. title: About me
+.. title: このGitHub Pagesについて
 .. slug: about
-.. date: 2018-01-07 13:34:36 UTC+09:00
+.. date: 2018-10-07 15:30:00 UTC+09:00
 .. tags: 
 .. category: 
 .. link: 
@@ -9,25 +9,26 @@
 .. type: text
 -->
 
-## Welcome ##
+## このGitHub Pagesについて ##
 
-Welcome to my website. I'm Hiromasa OHASHI, a.k.a [@wrist](href="https://twitter.com/wrist") in some web services. For more detail, see about page.
+これは大橋宏正(twitter: [@wrist](href="https://twitter.com/wrist"))のGitHub Pagesです。pythonライブラリのnikolaを用いて構築しています。
 
-## About me ##
+## 私について ##
 
-I'm Hiromasa OHASHI, a.k.a @wrist. I'm a Japanese Engineer, main work is audio signal processing. I'm interested in speech recognition, stereophony, and array signal processing.
+日本の某メーカーで音声・音響信号処理の業務に従事しております。音声認識、アレイ信号処理、立体音響などに興味関心があります。
 
-## Language ##
+C, C++, Python, matlab, octave, rubyあたりの言語を日常的に書き、たまにjavascript, PHP, Haskellも触ります。最近rustに興味を持っているので勉強中です。
+エディタはvimを主に使用し、最近はvscodeも用途に応じて使い分けています。業務ではVisual StudioやDSPメーカーの提供するようなIDEをもっぱら触っています。
 
-C, C++, Ruby, Python, javascript, PHP, Haskell, matlab<
+最近は頻度が減ってしまいましたが関西地区でのIT系勉強会にも顔を出したり主催もしています。数年前まではPRMLの読書会を大阪で行なっていました。また近年はpydata osakaのオーガナイザーとして活動もしています。
 
-## Editor ##
+## 対外発表 ##
 
-vim
+追記予定
 
-## Web services I use ##
+## 使用しているウェブサービス一覧 ##
 
-In almost all services, I use Japanese.
+### 定期的に更新するもの ###
 
 * [github](https://github.com/wrist")
 * [Qiita](http://qiita.com/wrist")
@@ -35,25 +36,27 @@ In almost all services, I use Japanese.
 * [twilog](http://twilog.org/wrist")
 * [Facebook](https://www.facebook.com/hiromasa.ohashi")
 * [Instagram](http://instagram.com/wrist")
-* [Google+](http://google.com/+HiromasaOhashi")
-* [mixi](http://mixi.jp/show_profile.pl?id=3453935")
-* [tumblr](http://wrist.tumblr.com/")
 * [Linked In](http://www.linkedin.com/pub/hiromasa-ohashi/36/411/432")
-* [foursquare](https://ja.foursquare.com/wrist")
-* [Last.fm](http://www.lastfm.jp/user/wristed")
-* [youtube](http://www.youtube.com/user/wrist1986")
 * [Hatena](http://profile.hatena.ne.jp/wristed/")
 * [Hatena Blog](http://wrist.hatenablog.com/")
-* [Hatena Diary](http://d.hatena.ne.jp/wristed/")
 * [slideshare](http://www.slideshare.net/hiromasaohashi")
-* [携帯百景(keitai hyakkei)](http://movapic.com/wrist")
+* [youtube](http://www.youtube.com/user/wrist1986")
+
+### ほぼ更新していないもの ###
+
+* [foursquare](https://ja.foursquare.com/wrist")
+* [Last.fm](http://www.lastfm.jp/user/wristed")
+* [携帯百景](http://movapic.com/wrist")
 * [booklog](http://booklog.jp/users/wrist")
-* [Interviews](http://theinterviews.jp/wrist")
+* [mixi](http://mixi.jp/show_profile.pl?id=3453935")
+* [Google+](http://google.com/+HiromasaOhashi")
+* [tumblr](http://wrist.tumblr.com/")
 
-## Organize ##
+## オーガナイザ ##
 
-* [PRML読書会](http://osaka-prml-reading.doorkeeper.jp/")
+* [pydata osaka](https://pydataosaka.connpass.com)
+* [PRML読書会](https://osaka-prml-reading.connpass.com)
 
-## Contact ##
+## 連絡先 ##
 
-* please reply at twitter
+github記載のメールアドレス宛にご連絡を頂くかtwitterで話しかけてください。
