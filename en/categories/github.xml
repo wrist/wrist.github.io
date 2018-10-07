@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about github)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/github.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 07 Oct 2018 06:40:54 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Nikolaでブログ構築してGithub Pagesに設置</title><link>http://www.hiromasa.info/en/posts/1/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Nikolaとは&lt;/h3&gt;
+&lt;p&gt;Python製のstatic site generator。python製だとpelicanの方が有名だがipynbが使えると聞いたのでこちらを使うことにした。&lt;/p&gt;
+&lt;h3&gt;Nikolaでブログを生成&lt;/h3&gt;
+&lt;h4&gt;インストール&lt;/h4&gt;
+&lt;p&gt;pipでインストールできる。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ pip install nikola
+$ pip install webassets
+&lt;/pre&gt;
+
+
+&lt;p&gt;後述するbuildの際などに下記のようなメッセージが出るので合わせてwebassetsもインストールしておくと良い。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.
+[2018-01-08T01:42:01Z] WARNING: bundles: Setting USE_BUNDLES to False.
+&lt;/pre&gt;
+
+
+&lt;h4&gt;ブログの雛形生成&lt;/h4&gt;
+&lt;p&gt;nikolaはgitのように&lt;code&gt;nikola サブコマンド&lt;/code&gt;の形式で様々なコマンドを実行できる。
+雛形の生成のためには&lt;code&gt;nikola init&lt;/code&gt;を実行する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;nikola init blog_name
+&lt;/pre&gt;
+
+
+&lt;p&gt;これを実行するとCUIベースで対話的に様々な設定が可能。
+commentシステムとして何を使うかを聞かれるが、後でconf.pyを書き換えれば設定が可能な模様であるため一旦は空白で良い。&lt;/p&gt;
+&lt;p&gt;なお&lt;a href="https://getnikola.com/getting-started.html"&gt;Getting Started&lt;/a&gt;ではinitの際に引数に&lt;code&gt;--demo&lt;/code&gt;を付けているが、
+この引数を付けるとデモ用コンテンツが生成されてしまうので普通に真っさらな状態で始めたいならば付けない方が良い。&lt;/p&gt;
+&lt;h4&gt;新記事生成&lt;/h4&gt;
+&lt;p&gt;新記事生成は下記の通り。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola new_post -f markdown  &lt;span class="c1"&gt;# formatを-fで指定(デフォルトはReStructuredText形式)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;実行すると記事タイトルを聞かれるので打ち込むと&lt;code&gt;-f&lt;/code&gt;で指定した形式のファイルがposts以下に生成される。
+また、引数に&lt;code&gt;-e&lt;/code&gt;を付けるとそのままエディタでの編集画面となる。&lt;/p&gt;
+&lt;p&gt;生成されたファイルの冒頭には下記のような形のヘッダーが付いている。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&amp;lt;!--
+.. title: Nikolaでブログ構築してGithub Pagesに設置
+.. slug: 1
+.. date: 2018-01-07 23:35:28 UTC+09:00
+.. tags: nikola, python, github
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+--&amp;gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;titleは記事タイトルである。
+slugはurlの一部となる文字列である。記事タイトルをアルファベットに直したものが記載されているが、適当に修正すると良い。1にしておくと&lt;code&gt;http://www.hiromasa.info/1/&lt;/code&gt;のようなURLとなる。&lt;/p&gt;
+&lt;h4&gt;固定ページ生成&lt;/h4&gt;
+&lt;p&gt;固定ページはpostではなくpageとして生成する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola new_page -f markdown pages/about
+&lt;/pre&gt;
+
+
+&lt;p&gt;生成した固定ページを上部ナビゲーションに配置する方法は下記のように&lt;code&gt;conf.py&lt;/code&gt;の&lt;code&gt;NAVIGATION_LINKS&lt;/code&gt;に書けば良い。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;NAVIGATION_LINKS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/archive.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"文書一覧"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/categories/"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"タグ"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/pages/about/index.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"About"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/rss.xml"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"RSSフィード"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h4&gt;ブログ構築&lt;/h4&gt;
+&lt;p&gt;postやpageを上記のように生成しただけでは単なるテキストが生成されているだけなので、これらを元にブログを構築する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola build
+&lt;/pre&gt;
+
+
+&lt;p&gt;これでブログが構築される。
+ローカルで確認するためには下記を実行する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola serve -b  &lt;span class="c1"&gt;# --browserでも良い&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h4&gt;ブログテーマ設定&lt;/h4&gt;
+&lt;p&gt;デフォルトはbootstrap3になるようであるが、他のものに変えたい場合は&lt;a href="https://themes.getnikola.com/"&gt;themes&lt;/a&gt;のページから好きなものを選ぶ。
+ここでは&lt;a href="https://themes.getnikola.com/v7/libretto/"&gt;libretto&lt;/a&gt;のテーマを選んだ。
+wordpressの同名テーマをベースにしたものらしい。&lt;/p&gt;
+&lt;p&gt;テーマのインストールは下記の通り。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola theme -i libretto
+&lt;/pre&gt;
+
+
+&lt;p&gt;実行するとthemesディレクトリ以下にlibrettoのテーマがダウンロードされる。&lt;/p&gt;
+&lt;p&gt;このテーマを使用するためには更にconf.pyを編集する必要がある。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Name of the theme to use.&lt;/span&gt;
+&lt;span class="c1"&gt;# THEME = "bootstrap3"&lt;/span&gt;
+&lt;span class="n"&gt;THEME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"libretto"&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;この上で&lt;code&gt;nikola build&lt;/code&gt;を実行すれば更新後のテーマに変わっている。
+記事の一文字目だけ大きく表示されるのが若干気に入らないがとりあえずこれで行く。&lt;/p&gt;
+&lt;p&gt;※2017/1/8追記、librettoだとsyntax highlightが効かないようなのでbootstrap4のテーマに変えた&lt;/p&gt;
+&lt;h3&gt;Github Pagesに配置&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://getnikola.com/handbook.html#deployment"&gt;HandbookのDeployment&lt;/a&gt;の項を見るとGithubでホスティングする方法が記載されている。ここではGitHubのuser page(wrist.github.io)に配置することを考える。&lt;/p&gt;
+&lt;h4&gt;1. gitリポジトリの設定を行う&lt;/h4&gt;
+&lt;p&gt;過去にwrist.github.ioリポジトリを作成しているため、ブログのルートで&lt;code&gt;git init&lt;/code&gt;してからremoteを設定する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ git init
+$ git remote add origin git@github.com:wrist/wrist.github.io
+&lt;/pre&gt;
+
+
+&lt;h4&gt;2. (必要であれば)conf.pyを編集する&lt;/h4&gt;
+&lt;p&gt;必要であれば下記を編集する。今回は不要であるため特に変更していない。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# siteのソースがdeployされるブランチ名、srcが推奨とのこと&lt;/span&gt;
+&lt;span class="n"&gt;GITHUB_SOURCE_BRANCH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'src'&lt;/span&gt;
+&lt;span class="c1"&gt;# HTMLファイルがdeployされるブランチ、user pageの場合はmaster&lt;/span&gt;
+&lt;span class="n"&gt;GITHUB_DEPLOY_BRANCH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'master'&lt;/span&gt;
+&lt;span class="c1"&gt;# gitのremote名&lt;/span&gt;
+&lt;span class="n"&gt;GITHUB_REMOTE_NAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'origin'&lt;/span&gt;
+&lt;span class="c1"&gt;# ソースブランチを自動的にコミットしプッシュするかの設定&lt;/span&gt;
+&lt;span class="n"&gt;GITHUB_COMMIT_SOURCE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h4&gt;3. .gitignoreを追加&lt;/h4&gt;
+&lt;p&gt;下記内容を.gitignoreに追加する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;cache
+.doit.db
+__pycache__
+output
+&lt;/pre&gt;
+
+
+&lt;h4&gt;4. deploy用のコマンドを実行&lt;/h4&gt;
+&lt;p&gt;下記コマンドを実行することでdeployが可能。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola github_deploy
+&lt;/pre&gt;
+
+
+&lt;p&gt;下記のように表示された場合は&lt;code&gt;pip install ghp-import2&lt;/code&gt;でghp-import2をインストールする。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.
+[2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.
+&lt;/pre&gt;
+
+
+&lt;p&gt;通常はこれで改めて&lt;code&gt;nikola github_deploy&lt;/code&gt;を実行すれば終わりのはずである。
+しかし、今回は過去に作成済の既にmasterが存在しているリポジトリにpushしようとしているため、当然先にfetchしろと警告が出て失敗する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2018&lt;/span&gt;-01-08T04:17:10Z&lt;span class="o"&gt;]&lt;/span&gt; INFO: github_deploy: &lt;span class="o"&gt;==&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'ghp-import'&lt;/span&gt;, &lt;span class="s1"&gt;'-n'&lt;/span&gt;, &lt;span class="s1"&gt;'-m'&lt;/span&gt;, &lt;span class="s1"&gt;'Nikola auto commit.\n\nSource commit: a37690e35a31dc4a108f53c62b8ee17e783aa28f\nNikola version: 7.8.11'&lt;/span&gt;, &lt;span class="s1"&gt;'-p'&lt;/span&gt;, &lt;span class="s1"&gt;'-r'&lt;/span&gt;, &lt;span class="s1"&gt;'origin'&lt;/span&gt;, &lt;span class="s1"&gt;'-b'&lt;/span&gt;, &lt;span class="s1"&gt;'master'&lt;/span&gt;, &lt;span class="s1"&gt;'output'&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+To github.com:wrist/wrist.github.io
+ ! &lt;span class="o"&gt;[&lt;/span&gt;rejected&lt;span class="o"&gt;]&lt;/span&gt;        master -&amp;gt; master &lt;span class="o"&gt;(&lt;/span&gt;fetch first&lt;span class="o"&gt;)&lt;/span&gt;
+error: failed to push some refs to &lt;span class="s1"&gt;'git@github.com:wrist/wrist.github.io'&lt;/span&gt;
+hint: Updates were rejected because the remote contains work that you &lt;span class="k"&gt;do&lt;/span&gt;
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: &lt;span class="o"&gt;(&lt;/span&gt;e.g., &lt;span class="s1"&gt;'git pull ...'&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; before pushing again.
+hint: See the &lt;span class="s1"&gt;'Note about fast-forwards'&lt;/span&gt; in &lt;span class="s1"&gt;'git push --help'&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; details.
+&lt;/pre&gt;
+
+
+&lt;p&gt;仕方ないので&lt;a href="https://rcmdnk.com/blog/2013/11/01/computer-git/"&gt;この記事&lt;/a&gt;に倣い、先にmasterを強制pushする。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ git push -f origin master
+$ nikola github_deploy
+&lt;/pre&gt;
+
+
+&lt;p&gt;これにて無事に&lt;code&gt;http://wrist.github.io&lt;/code&gt;で閲覧できるようになった。&lt;/p&gt;
+&lt;h4&gt;5. 独自ドメインでの使用&lt;/h4&gt;
+&lt;p&gt;github pagesを独自ドメインで使用する場合にはCNAMEファイルを&lt;a href="https://qiita.com/nabettu/items/d11ac5ad42059626a687"&gt;リポジトリのルートに配置しておく必要がある&lt;/a&gt;が、このためにnikolaではソースブランチのfilesの下にCNAMEファイルを配置しておけば、これをbuild時にoutputディレクトリにコピーしてくれる。&lt;/p&gt;
+&lt;h3&gt;コメントシステムの設置&lt;/h3&gt;
+&lt;p&gt;init時には空白にしておいたコメントシステムを有効化する。
+ここではdisqusを用いることにする。&lt;code&gt;conf.py&lt;/code&gt;に下記を追記する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;COMMENT_SYSTEM&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"disqus"&lt;/span&gt;
+&lt;span class="n"&gt;COMMENT_SYSTEM_ID&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"hiromasa-info"&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;&lt;code&gt;COMMENT_SYSTEM_ID&lt;/code&gt;はdisqusの場合はshortnameを設定する。
+shortnameはdisqusのsiteのsettingsから確認できる。&lt;/p&gt;
+&lt;h3&gt;その他&lt;/h3&gt;
+&lt;p&gt;記事のデフォルト形式をmarkdownに変えたいが方法が分からないため&lt;a href="https://getnikola.com/handbook.html"&gt;Handbook&lt;/a&gt;を読んでもう少し調べる必要があるが、
+ReStructuredTextで書くとExtensionとして&lt;a href="https://getnikola.com/handbook.html#restructuredtext-extensions"&gt;いくつかのdirectiveやroleが使える&lt;/a&gt;ようでもあるため、もう少し使ってみてから考えたい。&lt;/p&gt;
+&lt;h3&gt;参考&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://getnikola.com/handbook.html"&gt;Handbook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://qiita.com/driller/items/4d998ca765717c7e0a6c"&gt;drillerさんによる基本的な使い方の記事&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://qiita.com/driller/items/2f8a0dd66d4d8e59e05c"&gt;ipynb形式を扱う方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://iuk.hateblo.jp/entry/2016/10/27/024802"&gt;markdown周りの設定&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><guid>http://www.hiromasa.info/en/posts/1/</guid><pubDate>Sun, 07 Jan 2018 14:35:28 GMT</pubDate></item></channel></rss>

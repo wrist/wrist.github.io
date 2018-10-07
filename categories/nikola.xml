@@ -1,5 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (nikolaについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/nikola.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 09 Sep 2018 15:33:44 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Travis CIによるNikolaブログ構築の自動化</title><link>http://www.hiromasa.info/posts/6/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Travis CIによるNikolaブログ構築の自動化&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (nikolaについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/nikola.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 07 Oct 2018 06:39:42 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>nikolaで多国語ポスト対応</title><link>http://www.hiromasa.info/posts/12/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;nikolaで多国語ポスト対応&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://getnikola.com/handbook.html"&gt;nikola handbook&lt;/a&gt;のMultilingual postsの項を見ながら多国語対応の設定を行う。&lt;/p&gt;
+&lt;h4&gt;基本的な設定&lt;/h4&gt;
+&lt;p&gt;記事や固定ページの多国語対応を行う場合、&lt;code&gt;conf.py&lt;/code&gt;の&lt;code&gt;TRANSLATIONS_PATTERN&lt;/code&gt;で指定されたパターンに沿ったファイル名で言語ごとに記事を作成することになる。デフォルトだと&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;TRANSLATIONS_PATTERN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"{path}.{lang}.{ext}"&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;という指定になっているため、この記事(&lt;code&gt;12.md&lt;/code&gt;)であれば英語ポストを作成する場合は&lt;code&gt;12.en.md&lt;/code&gt;というファイル名を付けることとなる。&lt;/p&gt;
+&lt;p&gt;上記パターンをどの国の言語に対応させるかどうかは&lt;code&gt;TRANSLATIONS&lt;/code&gt;の設定を変更する。この設定では各言語をkeyとしてprefixとなるパスをvalueに持つdictを設定する。デフォルトでは&lt;code&gt;DEFAULT_LANG : ""&lt;/code&gt;のみが指定されているため、新たに追加したい言語とprefixを次にような形で指定する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;TRANSLATIONS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;""&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"en"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"./en"&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;この設定を行った上で&lt;code&gt;nikola build&lt;/code&gt;を実行すると、過去の諸々のポストに対しても多言語対応のための再生成が走るためかブログ構築までに5分ほどを要する。構築後、&lt;code&gt;nikola serve -b&lt;/code&gt;でローカルのブラウザ上でブログを閲覧すると右上に&lt;code&gt;English&lt;/code&gt;という表示が増える(3カ国語以上設定した場合は試していないがおそらく選択できるようになると思われる)。
+独自ドメインを設定している場合はこの&lt;code&gt;English&lt;/code&gt;をクリックすると存在しないページにアクセスすることになるため、ローカルサーバ上でアクセスするためにはアドレスバーに&lt;code&gt;127.0.0.1:8000/en&lt;/code&gt;と手動で打ち込む必要がある。このページにアクセスすると、英語版のページが表示される。
+しかし、上記設定だけでは特に翻訳版の記事を用意していないため、ポストについては日本語版と全く同一の記事が表示され、また、それ以外の上部メニュー(ナビゲーションバー)なども翻訳されず日本語のままとなってしまっている。&lt;/p&gt;
+&lt;p&gt;以下ではこれらの多国語化について記す。多言語対応可能な設定項目については&lt;code&gt;conf.py&lt;/code&gt;において&lt;code&gt;(translatable)&lt;/code&gt;というコメントが添えられているため、基本的にはこれらの設定項目を調整していくことになる。&lt;/p&gt;
+&lt;h4&gt;ナビゲーションバーの日本語化&lt;/h4&gt;
+&lt;p&gt;ナビゲーションバーについては&lt;code&gt;NAVIGARTION_LINKS&lt;/code&gt;の設定を次のように変更する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;NAVIGATION_LINKS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/archive.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"文書一覧"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/categories/"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"タグ"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/pages/about/index.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"About"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/rss.xml"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"RSSフィード"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="s2"&gt;"en"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/en/archive.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"all posts"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/en/categories/"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"tag"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/en/pages/about/index.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"about"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/en/rss.xml"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"RSS feed"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;ここでは各言語をkeyとし、対応するパスとリンク名のタプルのタプルをvalueとするdictを設定している。
+"en"に対して"/en"で始まるパスを指定していることに注意。&lt;/p&gt;
+&lt;h4&gt;タグ、カテゴリの日本語化(調査中)&lt;/h4&gt;
+&lt;p&gt;nikola v8ではポストごとに複数の分類を与えるタグ(tags)と、単一の分類を与えるカテゴリ(categories)が提供されている。現時点で当ブログはタグしか用いていない。なお前のポストにも記したが、nikolaのversion 7まではセクション(sections)という分類方法も存在していたが、これはversion 8以降は削除されている(nikola handbookにはこの機能は&lt;code&gt;CATEGORY_DESTPATH&lt;/code&gt;の設定を用いて実現可能との記載がある)。
+タグやカテゴリの日本語化の仕方であるが、&lt;code&gt;conf.py&lt;/code&gt;を見ると&lt;code&gt;TAG_TRANSLATION&lt;/code&gt;や&lt;code&gt;CATEGORY_TRANSLATION&lt;/code&gt;に&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;   &lt;span class="p"&gt;[&lt;/span&gt;
+     &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;'en'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'private'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'de'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Privat'&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+     &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;'en'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'work'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'fr'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'travail'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'de'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Arbeit'&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+   &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;のような辞書のリストを指定すれば良いとの記載がある。しかしこれを日本語と英語の間の翻訳で試みたところ、英語ページにおいても日本語タグが指定した英語タグに翻訳されず日本語タグのままとなる現象を確認している。この現象の解決のためには調査を行う必要があるため、現時点ではタグ、カテゴリの日本語化は実現できていない。&lt;/p&gt;
+&lt;h4&gt;多言語ポストの混在&lt;/h4&gt;
+&lt;p&gt;多言語ブログを作成する場合、基本的に日本語で書いた記事は英語版では表示させず、翻訳を行った記事のみを英語版で表示するようにしたい。しかし、nikolaでは現状そのような制御を行うことができない。
+&lt;a href="https://github.com/getnikola/nikola/issues/2901"&gt;このissue&lt;/a&gt;において同様な要望が上がっているが、しばらくは対応されなさそうな雰囲気がある。&lt;/p&gt;
+&lt;h3&gt;その他&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;日本語タグに対応するURLが漢字部分については中国語の発音として変換されているが、これは依存ライブラリである&lt;a href="https://pypi.org/project/Unidecode/"&gt;unidecode&lt;/a&gt;のせいである。これは&lt;code&gt;utils.py&lt;/code&gt;に実装されている&lt;code&gt;slugify&lt;/code&gt;を呼ぶ際に呼び出される。このunidecodeであるが、元は&lt;a href="https://metacpan.org/pod/Text::Unidecode"&gt;perlのモジュール&lt;/a&gt;なのであるが、この説明において日本語では正しくない結果が出力されるだろうとの記載がある。したがって解決するためには日本語だけ特別扱いし、更にmecabなどで読み付与を行うといった作業が必要となる。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;結論&lt;/h3&gt;
+&lt;p&gt;現状nikolaで多言語サイトを作成する場合は中途半端な多言語サイトしか実現できないのが実情である。余裕があれば原因調査の上でこの記事についても追記を行なっていきたい。&lt;/p&gt;&lt;/div&gt;</description><category>nikola</category><guid>http://www.hiromasa.info/posts/12/</guid><pubDate>Sun, 16 Sep 2018 03:30:00 GMT</pubDate></item><item><title>nikolaのバージョンをv8.0.0にアップグレード</title><link>http://www.hiromasa.info/posts/11/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;nikolaのバージョンをv8.0.0にアップグレード&lt;/h3&gt;
+&lt;h4&gt;nikola v8.0.0&lt;/h4&gt;
+&lt;p&gt;2018/9/11にnikolaのメジャーバージョンが8.0にアップグレードされた。&lt;code&gt;pip install -U "Nikola[extras]"&lt;/code&gt;を実行しアップグーレドを施したところ、各種設定を変更しなければならなかったためその作業ログを以下に記す。&lt;/p&gt;
+&lt;p&gt;各種設定変更のためには&lt;a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html"&gt;Upgrading to Nikola v8&lt;/a&gt;を参照すると良い。
+ここでは単純に&lt;code&gt;pip install -U "Nikola[extras]"&lt;/code&gt;を実行してしまったが、実際には&lt;code&gt;How to upgrade&lt;/code&gt;の手順を読んだ上でアップグレードを行ったほうが良いと思われる。&lt;/p&gt;
+&lt;h4&gt;&lt;code&gt;conf.py&lt;/code&gt;の修正&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;nikola --version&lt;/code&gt;をブログが存在するディレクトリで実行したところ下記の警告が出た。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.
+[2018-09-16T03:11:45Z] WARNING: Nikola: The sections feature has been removed and its functionality has been merged into categories.
+[2018-09-16T03:11:45Z] WARNING: Nikola: For more information on how to migrate, please read: https://getnikola.com/blog/upgrading-to-nikola-v8.html#sections-were-replaced-by-categories
+[2018-09-16T03:11:45Z] INFO: Nikola: Setting CATEGORY_DESTPATH_AS_DEFAULT = True
+[2018-09-16T03:11:46Z] WARNING: Nikola: Cannot load theme "bootstrap3", using 'bootblog4' instead.
+... 以後bootstrap3が存在しない旨を示すpythonのTracebackが表示される ...
+&lt;/pre&gt;
+
+
+&lt;p&gt;これらのwarningを修正するために、下記に記した内容を実行した。&lt;/p&gt;
+&lt;h5&gt;名称が変更された設定の変更&lt;/h5&gt;
+&lt;p&gt;手元では&lt;code&gt;UNSLUGIFY_TITLES&lt;/code&gt;を&lt;code&gt;FILE_METADATA_UNSLUGIFY_TITLES&lt;/code&gt;に変更するのみで前述の最初のWARNINGは消えた。
+どうやら&lt;a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html"&gt;Upgrading to Nikola v8&lt;/a&gt;を参照すると他項目についても変更されたものがある模様。以下に抜粋する。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;削除されたもの&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;FEED_PREVIEWIMAGE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SITEMAP_INCLUDE_FILELESS_DIRS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;USE_OPEN_GRAPH&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;USE_BASE_TAG&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;名称が変更されたもの&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;UNSLUGIFY_TITLES&lt;/code&gt; -&amp;gt; &lt;code&gt;FILE_METADATA_UNSLUGIFY_TITLES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TAG_PAGES_TITLES&lt;/code&gt; -&amp;gt; &lt;code&gt;TAG_TITLES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TAG_PAGES_DESCRIPTIONS&lt;/code&gt; -&amp;gt; &lt;code&gt;TAG_DESCRIPTIONS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CATEGORY_PAGES_TITLES&lt;/code&gt; -&amp;gt; &lt;code&gt;CATEGORY_TITLES&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CATEGORY_PAGES_DESCRIPTIONS&lt;/code&gt; -&amp;gt; &lt;code&gt;CATEGORY_DESCRIPTIONS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DISABLE_INDEXES_PLUGIN_INDEX_AND_ATOM_FEED&lt;/code&gt; -&amp;gt; &lt;code&gt;DISABLE_INDEXES and DISABLE_MAIN_ATOM_FEED&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DISABLE_INDEXES_PLUGIN_RSS_FEED&lt;/code&gt; -&amp;gt; &lt;code&gt;DISABLE_MAIN_RSS_FEED&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;実際には他にも変更された項目が存在するため、調査した結果を末尾に示してある。&lt;/p&gt;
+&lt;h5&gt;セクション(Sections)関連の設定の変更&lt;/h5&gt;
+&lt;p&gt;v8からはセクション関連の機能が削除されカテゴリに統合されたため、関連設定を削除する必要がある。
+&lt;a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html"&gt;Upgrading to Nikola v8&lt;/a&gt;には書かれていないが、そもそも&lt;code&gt;POSTS_SECTIONS&lt;/code&gt;の項目を消す必要がある。
+これによって前述のログに存在したセクション関連の警告は消失する。&lt;/p&gt;
+&lt;h5&gt;デフォルトテーマの変更&lt;/h5&gt;
+&lt;p&gt;アップグレード前はデフォルトテーマの&lt;code&gt;bootstrap3&lt;/code&gt;を使っていたが、v8ではデフォルトテーマが&lt;code&gt;bootblog4&lt;/code&gt;に変更された。
+&lt;a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html"&gt;Upgrading to Nikola v8&lt;/a&gt;によれば&lt;code&gt;nikola theme -i bootstrap3&lt;/code&gt;を実行しテーマをインストールすることによってbootstrap3は依然として使用できるようであるが、新デフォルトテーマのbootblog4では&lt;code&gt;featured posts&lt;/code&gt;の表示などができるなど機能が追加されているとのことである。&lt;/p&gt;
+&lt;p&gt;ここでは&lt;code&gt;bootblog4&lt;/code&gt;への変更を行った。前述のログでは最後の部分でpythonのTracebackが大量に表示されていたため、この修正も合わせて行った。以下に修正のために実施した内容を順に記す。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;conf.py&lt;/code&gt;の&lt;code&gt;THEME&lt;/code&gt;を&lt;code&gt;bootblog4&lt;/code&gt;に変更&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nikola build&lt;/code&gt;を実行&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;nikola --version&lt;/code&gt;を実行したときと同様なbootstrap3が存在しないというExceptionが表示され、再構築を行うことができない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;キャッシュが影響していることを疑い&lt;code&gt;cache&lt;/code&gt;ディレクトリと&lt;code&gt;__pycache__&lt;/code&gt;ディレクトリを削除&lt;ul&gt;
+&lt;li&gt;状況は変化しない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nikola theme -i bootstrap3&lt;/code&gt;を実行&lt;ul&gt;
+&lt;li&gt;依然としてbootstrap3が存在しないというExceptionが表示されるためbootstrap3を再度導入することもできない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Exceptionを吐いている&lt;code&gt;site-packages/nikola/utils.py&lt;/code&gt;のソースを調査&lt;ul&gt;
+&lt;li&gt;エラーを吐いている&lt;code&gt;get_asset_path&lt;/code&gt;のメソッドにおいてthemesのディレクトリを走査していることが問題の模様&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ブログルート直下のthemesディレクトリを他の場所に一時的に退避&lt;ul&gt;
+&lt;li&gt;Exceptionを吐くエラーが消失&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nikola build&lt;/code&gt;を実行&lt;ul&gt;
+&lt;li&gt;無事にブログが再構築&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;したがって、theme関連のトラブルがなければ&lt;code&gt;conf.py&lt;/code&gt;の修正のみで済む内容であったと思われる。&lt;/p&gt;
+&lt;h4&gt;その他&lt;code&gt;conf.py&lt;/code&gt;の変化&lt;/h4&gt;
+&lt;p&gt;折角なので新規に&lt;code&gt;nikola init&lt;/code&gt;を実行して生成したブログの&lt;code&gt;conf.py&lt;/code&gt;とのdiffを取ってその他の変更を調べた。
+コメントの変更や前述した変更については記載していない。また各項目の意味については全て把握していないため必要な場合は新規生成した&lt;code&gt;conf.py&lt;/code&gt;に付与されたコメントなどを読んだほうが良い。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;from __future__ import unicode_literals&lt;/code&gt;の削除&lt;/li&gt;
+&lt;li&gt;対応言語の追加&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ml&lt;/code&gt;, &lt;code&gt;th&lt;/code&gt;, &lt;code&gt;vi&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;テーマ依存設定&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;THEME_CONFIG&lt;/code&gt;が追加されており、bootblog4テーマはこの設定によりfeatured postの設定やsidebarの設定が行えるようである&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DATE_FORMAT&lt;/code&gt;の変更&lt;ul&gt;
+&lt;li&gt;元はdatetime.datetime.strftimeで用いられる形式だったがCLDRで用いられるフォーマットに変更されたとのこと&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LOCALE_FALLBAK&lt;/code&gt;と&lt;code&gt;LOCALE_DEFAULT&lt;/code&gt;の削除&lt;/li&gt;
+&lt;li&gt;セクション関連の項目の削除&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;WRITE_TAG_CLUD&lt;/code&gt;, &lt;code&gt;POST_SECTIONS&lt;/code&gt;, &lt;code&gt;POST_SECTIONS_ARE_INDEXED&lt;/code&gt;, &lt;code&gt;SECTION_PATH&lt;/code&gt;, &lt;code&gt;POSTS_SECTION_COLORS&lt;/code&gt;, &lt;code&gt;POSTS_SECTION_DESCRIPTIONS&lt;/code&gt;, &lt;code&gt;POSTS_SECTION_FROM_META&lt;/code&gt;, &lt;code&gt;POSTS_SECTOIN_NAME&lt;/code&gt;, &lt;code&gt;POSTS_SECTION_TITLE&lt;/code&gt;, &lt;code&gt;POSTS_SECTION_TRANSLATIONS&lt;/code&gt;, &lt;code&gt;POSTS_SECTION_TRANSLATIONS_ADD_DEFAULTS&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;カテゴリー関連の項目の追加&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;CATEGORY_DESTPATH_AS_DEFAULT&lt;/code&gt;, &lt;code&gt;CATEGORY_DESTPATH_TRIM_PREFIX&lt;/code&gt;, &lt;code&gt;CATEGORY_DESTPATH_FIRST_DIRECTORY_ONLY&lt;/code&gt;, &lt;code&gt;CATEGORY_DESTPATH_NAMES&lt;/code&gt;, &lt;code&gt;CATEGORY_PAGES_FOLLOW_DESTPATH&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;RSS関連の項目のの追加&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;RSS_EXTENSION&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RSS_FILENAME_BASE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ATOM_PATH&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ATOM_FILENAME_BASE&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ATOM_EXTENSION&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;USE_BASE_TAG&lt;/code&gt;の削除&lt;/li&gt;
+&lt;li&gt;LESS, SASS関連設定の削除&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;LESS_COMPILER&lt;/code&gt;, &lt;code&gt;LESS_OPTIONS&lt;/code&gt;, &lt;code&gt;SASS_COMPILER&lt;/code&gt;, &lt;code&gt;SASS_OPTIONS&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PRESERVE_ICC_PROFILES&lt;/code&gt;の追加&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ANNOTATIONS&lt;/code&gt;の削除&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MARKDOWN_EXTENSION_CONFIGS&lt;/code&gt;の追加&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;METADATA_VALUE_MAPPING&lt;/code&gt;の追加&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;NO_DOCUTILS_TITLE_TRANSFORM&lt;/code&gt;の削除&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;USE_TAG_METADATA&lt;/code&gt;および&lt;code&gt;WARN_ABOUT_TAG_METADATA&lt;/code&gt;の追加&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><category>nikola</category><guid>http://www.hiromasa.info/posts/11/</guid><pubDate>Sun, 16 Sep 2018 03:30:00 GMT</pubDate></item><item><title>Travis CIによるNikolaブログ構築の自動化</title><link>http://www.hiromasa.info/posts/6/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Travis CIによるNikolaブログ構築の自動化&lt;/h3&gt;
 &lt;p&gt;Nikolaでブログを構築するための方法は過去の記事(&lt;a href="http://www.hiromasa.info/posts/1/"&gt;1&lt;/a&gt;, &lt;a href="http://www.hiromasa.info/posts/2/"&gt;2&lt;/a&gt;, &lt;a href="http://www.hiromasa.info/posts/3/"&gt;3&lt;/a&gt;)に書いていますが、手元でのビルドのためにpythonやnikolaがインストールされたPCが必要になるため、ブログ記事を書くための環境が限定されてしまうという問題がありました。
 そこで、この記事では&lt;a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html"&gt;Nikola公式の記事&lt;/a&gt;を参考に、Travis CIを用いることでsrcブランチにブログ記事をコミットするだけでTravis CI側で自動的にブログを構築し、masterブランチにプッシュしてくれる仕組みを構築する過程を紹介します。
 なお、以下の作業はすべてsrcブランチ上で行います。&lt;/p&gt;

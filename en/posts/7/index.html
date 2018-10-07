@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ndarrayのfortran flagと実際のメモリ配列について | hiromasa.info</title>
+<link href="../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="../../../rss.xml">
+<link rel="canonical" href="http://www.hiromasa.info/en/posts/7/">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+    },
+    displayAlign: 'center', // Change this to 'left' if you want left-aligned equations.
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}}
+    }
+});
+</script><!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com;">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-48887105-1');
+</script><!-- End Google Analytics --><!-- for facebook button --><style>
+.fb-like {
+    display: inline;
+}
+#fb-root {
+    display: inline;
+}
+.fb_iframe_widget > span {
+    vertical-align: baseline !important; 
+}
+</style>
+<meta name="author" content="Hiromasa OHASHI">
+<link rel="prev" href="../6/" title="Travis CIによるNikolaブログ構築の自動化" type="text/html">
+<link rel="next" href="../8/" title="KaldiでVoxForgeの音響モデルを学習する(1)" type="text/html">
+<meta property="og:site_name" content="hiromasa.info">
+<meta property="og:title" content="ndarrayのfortran flagと実際のメモリ配列について">
+<meta property="og:url" content="http://www.hiromasa.info/en/posts/7/">
+<meta property="og:description" content="ndarrayのfortran flagと実際のメモリ配列について¶要約¶
+ndarrayで.Tで転置を行った場合、実際のメモリ上の配列は変更されず、.flagsで確認できるC形式配列(row-major)であるかFortran形式配列(column-major)であるかのフラグが入れ替わるのみ
+np.saveで保存する場合も上記フラグは保たれたまま保存されるため、実際のレイアウトを転置させたい場">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-07-30T23:30:00+09:00">
+<meta property="article:tag" content="hexdump">
+<meta property="article:tag" content="ndarray">
+<meta property="article:tag" content="numpy">
+<meta property="article:tag" content="python">
+<link rel="alternate" hreflang="ja" href="../../../posts/7/">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="http://www.hiromasa.info/en/">
+
+            <span id="blog-title">hiromasa.info</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item"><a href="http://www.hiromasa.info/" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
+
+                    
+                    
+    
+    <li class="nav-item">
+    <a href="index.ipynb" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">all posts</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">tag</a>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about/index.html" class="nav-link">about</a>
+                </li>
+<li class="nav-item">
+<a href="../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">ndarrayのfortran flagと実際のメモリ配列について</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Hiromasa OHASHI
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2018-07-30T23:30:00+09:00" itemprop="datePublished" title="2018-07-30 23:30">2018-07-30 23:30</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/7.html">Comments</a>
+
+
+            
+        </p>
+<p class="sourceline"><a href="index.ipynb" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="ndarrayのfortran-flagと実際のメモリ配列について">ndarrayのfortran flagと実際のメモリ配列について<a class="anchor-link" href="#ndarray%E3%81%AEfortran-flag%E3%81%A8%E5%AE%9F%E9%9A%9B%E3%81%AE%E3%83%A1%E3%83%A2%E3%83%AA%E9%85%8D%E5%88%97%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">¶</a>
+</h3>
+<h4 id="要約">要約<a class="anchor-link" href="#%E8%A6%81%E7%B4%84">¶</a>
+</h4>
+<ul>
+<li>ndarrayで<code>.T</code>で転置を行った場合、実際のメモリ上の配列は変更されず、<code>.flags</code>で確認できるC形式配列(row-major)であるかFortran形式配列(column-major)であるかのフラグが入れ替わるのみ</li>
+<li>
+<code>np.save</code>で保存する場合も上記フラグは保たれたまま保存されるため、実際のレイアウトを転置させたい場合はndarrayに対し<code>.copy()</code>を読んだ上で保存する必要がある</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="実験">実験<a class="anchor-link" href="#%E5%AE%9F%E9%A8%93">¶</a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>2x2のndarrayを生成する。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
+<span class="n">a</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1, 2],
+       [3, 4]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>.T</code>で転置を取ると行と列が入れ替わる。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1, 3],
+       [2, 4]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>元のndarrayの<code>.flags</code>を表示すると、<code>C_CONTIGUOUS</code>が<code>True</code>となっている一方、<code>F_CONTIGUOUS</code>がFalseとなっていることが分かる。<code>C_CONTIGUOUS</code>はC形式配列であるかを表すフラグであり、<code>F_CONTIGUOUS</code>はFortran形式配列であるかを表すフラグである。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">flags</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  C_CONTIGUOUS : True
+  F_CONTIGUOUS : False
+  OWNDATA : True
+  WRITEABLE : True
+  ALIGNED : True
+  WRITEBACKIFCOPY : False
+  UPDATEIFCOPY : False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>一方<code>.T</code>を呼んだ後のndarrayの<code>.flags</code>を表示すると、<code>C_CONTIGUOUS</code>が<code>False</code>に変化し、一方<code>F_CONTIGUOUS</code>がTrueとなっている。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">flags</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  C_CONTIGUOUS : False
+  F_CONTIGUOUS : True
+  OWNDATA : False
+  WRITEABLE : True
+  ALIGNED : True
+  WRITEBACKIFCOPY : False
+  UPDATEIFCOPY : False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.saveでの保存時の形式">
+<code>np.save</code>での保存時の形式<a class="anchor-link" href="#np.save%E3%81%A7%E3%81%AE%E4%BF%9D%E5%AD%98%E6%99%82%E3%81%AE%E5%BD%A2%E5%BC%8F">¶</a>
+</h4>
+<p><code>.T</code>で転置を取ると<code>.flags</code>のC形式配列であるかFortran形式配列であるかのフラグが入れ替わることが分かったが、実際の格納形式がどうなっているかを知るために、<code>np.save</code>を用いて保存した<code>.npy</code>ファイルに対して<code>!hexdump -Cv</code>を実行することでバイナリの中身を調べる。ここで<code>hexdump</code>コマンドの<code>-C</code>はASCII表示を行うためのオプションであり、<code>-v</code>は全データを表示するためのオプションである(おそらくBSD系のhexdumpのみ)。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>まず、<code>np.save</code>で転置前後の<code>ndarray</code>を保存する。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"a.npy"</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"a.T.npy"</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>これらを<code>np.load</code>で再度読み込み直すと、<code>.flags</code>は読み込んだ後も保持されていることが分かる。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"a.npy"</span><span class="p">)</span><span class="o">.</span><span class="n">flags</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[7]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  C_CONTIGUOUS : True
+  F_CONTIGUOUS : False
+  OWNDATA : True
+  WRITEABLE : True
+  ALIGNED : True
+  WRITEBACKIFCOPY : False
+  UPDATEIFCOPY : False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"a.T.npy"</span><span class="p">)</span><span class="o">.</span><span class="n">flags</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[8]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  C_CONTIGUOUS : False
+  F_CONTIGUOUS : True
+  OWNDATA : False
+  WRITEABLE : True
+  ALIGNED : True
+  WRITEBACKIFCOPY : False
+  UPDATEIFCOPY : False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>ディスクへダンプした際の実際の格納形式がどうなっているかをhexdumpコマンドを用いて調べる。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>hexdump -Cv a.npy
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>00000000  93 4e 55 4d 50 59 01 00  76 00 7b 27 64 65 73 63  |.NUMPY..v.{'desc|
+00000010  72 27 3a 20 27 3c 69 38  27 2c 20 27 66 6f 72 74  |r': '&lt;i8', 'fort|
+00000020  72 61 6e 5f 6f 72 64 65  72 27 3a 20 46 61 6c 73  |ran_order': Fals|
+00000030  65 2c 20 27 73 68 61 70  65 27 3a 20 28 32 2c 20  |e, 'shape': (2, |
+00000040  32 29 2c 20 7d 20 20 20  20 20 20 20 20 20 20 20  |2), }           |
+00000050  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20  |                |
+00000060  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20  |                |
+00000070  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 0a  |               .|
+00000080  01 00 00 00 00 00 00 00  02 00 00 00 00 00 00 00  |................|
+00000090  03 00 00 00 00 00 00 00  04 00 00 00 00 00 00 00  |................|
+000000a0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>hexdump -Cv a.T.npy
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>00000000  93 4e 55 4d 50 59 01 00  76 00 7b 27 64 65 73 63  |.NUMPY..v.{'desc|
+00000010  72 27 3a 20 27 3c 69 38  27 2c 20 27 66 6f 72 74  |r': '&lt;i8', 'fort|
+00000020  72 61 6e 5f 6f 72 64 65  72 27 3a 20 54 72 75 65  |ran_order': True|
+00000030  2c 20 27 73 68 61 70 65  27 3a 20 28 32 2c 20 32  |, 'shape': (2, 2|
+00000040  29 2c 20 7d 20 20 20 20  20 20 20 20 20 20 20 20  |), }            |
+00000050  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20  |                |
+00000060  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20  |                |
+00000070  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 0a  |               .|
+00000080  01 00 00 00 00 00 00 00  02 00 00 00 00 00 00 00  |................|
+00000090  03 00 00 00 00 00 00 00  04 00 00 00 00 00 00 00  |................|
+000000a0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>ヘッダーの<code>fortran_order</code>が変化していることが分かる。更にbashのプロセス置換で両者のdiffを見てみる。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>%%bash
+diff &lt;<span class="o">(</span>hexdump -Cv a.npy<span class="o">)</span> &lt;<span class="o">(</span>hexdump -Cv a.T.npy<span class="o">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>3,5c3,5
+&lt; 00000020  72 61 6e 5f 6f 72 64 65  72 27 3a 20 46 61 6c 73  |ran_order': Fals|
+&lt; 00000030  65 2c 20 27 73 68 61 70  65 27 3a 20 28 32 2c 20  |e, 'shape': (2, |
+&lt; 00000040  32 29 2c 20 7d 20 20 20  20 20 20 20 20 20 20 20  |2), }           |
+---
+&gt; 00000020  72 61 6e 5f 6f 72 64 65  72 27 3a 20 54 72 75 65  |ran_order': True|
+&gt; 00000030  2c 20 27 73 68 61 70 65  27 3a 20 28 32 2c 20 32  |, 'shape': (2, 2|
+&gt; 00000040  29 2c 20 7d 20 20 20 20  20 20 20 20 20 20 20 20  |), }            |
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>ヘッダーのみ差分が存在し、実際のデータが格納されている後半部は変化していないことが分かる。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="転置した状態のまま保存する方法">転置した状態のまま保存する方法<a class="anchor-link" href="#%E8%BB%A2%E7%BD%AE%E3%81%97%E3%81%9F%E7%8A%B6%E6%85%8B%E3%81%AE%E3%81%BE%E3%81%BE%E4%BF%9D%E5%AD%98%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95">¶</a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>ndarrayに対して<code>.copy()</code>を呼んだ上で保存すれば良い。下記に実例を示す。
+まず、<code>.copy()</code>を呼んだ後の<code>.flags</code>を表示する。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">flags</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[12]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  C_CONTIGUOUS : True
+  F_CONTIGUOUS : False
+  OWNDATA : True
+  WRITEABLE : True
+  ALIGNED : True
+  WRITEBACKIFCOPY : False
+  UPDATEIFCOPY : False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>転置したにもかかわらず<code>C_CONTIGUOUS</code>がTrueになっていることが分かる。
+更にこのndarrayを<code>np.save</code>で保存し、<code>hexdump</code>で中身を見てみる。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"a.T.copy.npy"</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>hexdump -C a.T.copy.npy
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>00000000  93 4e 55 4d 50 59 01 00  76 00 7b 27 64 65 73 63  |.NUMPY..v.{'desc|
+00000010  72 27 3a 20 27 3c 69 38  27 2c 20 27 66 6f 72 74  |r': '&lt;i8', 'fort|
+00000020  72 61 6e 5f 6f 72 64 65  72 27 3a 20 46 61 6c 73  |ran_order': Fals|
+00000030  65 2c 20 27 73 68 61 70  65 27 3a 20 28 32 2c 20  |e, 'shape': (2, |
+00000040  32 29 2c 20 7d 20 20 20  20 20 20 20 20 20 20 20  |2), }           |
+00000050  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20  |                |
+*
+00000070  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 0a  |               .|
+00000080  01 00 00 00 00 00 00 00  03 00 00 00 00 00 00 00  |................|
+00000090  02 00 00 00 00 00 00 00  04 00 00 00 00 00 00 00  |................|
+000000a0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>C_CONTIGUOUS</code>がTrue、<code>F_CONTIGUOUS</code>がFalseになっていたことからも分かるように、ヘッダーの<code>fortran_order</code>がFalseになっている。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>当然、再度<code>np.load</code>で読み込んだ場合でもこの<code>.flags</code>は保たれている。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">"a.T.copy.npy"</span><span class="p">)</span><span class="o">.</span><span class="n">flags</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[15]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>  C_CONTIGUOUS : True
+  F_CONTIGUOUS : False
+  OWNDATA : True
+  WRITEABLE : True
+  ALIGNED : True
+  WRITEBACKIFCOPY : False
+  UPDATEIFCOPY : False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>元のndarrayと、転置した上で<code>.copy()</code>を呼んだ後のndarrayを<code>np.save</code>したバイナリを比較してみる。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>%%bash
+diff &lt;<span class="o">(</span>hexdump -Cv a.npy<span class="o">)</span> &lt;<span class="o">(</span>hexdump -Cv a.T.copy.npy<span class="o">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>9,10c9,10
+&lt; 00000080  01 00 00 00 00 00 00 00  02 00 00 00 00 00 00 00  |................|
+&lt; 00000090  03 00 00 00 00 00 00 00  04 00 00 00 00 00 00 00  |................|
+---
+&gt; 00000080  01 00 00 00 00 00 00 00  03 00 00 00 00 00 00 00  |................|
+&gt; 00000090  02 00 00 00 00 00 00 00  04 00 00 00 00 00 00 00  |................|
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>両者ともにC形式配列となっているため、純粋にデータ部の並びのみが異なる。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>同様に転置を取った場合と、その上で<code>.copy()</code>を呼んだ場合のバイナリを比較してみる。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>%%bash
+diff &lt;<span class="o">(</span>hexdump -Cv a.T.npy<span class="o">)</span> &lt;<span class="o">(</span>hexdump -Cv a.T.copy.npy<span class="o">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>3,5c3,5
+&lt; 00000020  72 61 6e 5f 6f 72 64 65  72 27 3a 20 54 72 75 65  |ran_order': True|
+&lt; 00000030  2c 20 27 73 68 61 70 65  27 3a 20 28 32 2c 20 32  |, 'shape': (2, 2|
+&lt; 00000040  29 2c 20 7d 20 20 20 20  20 20 20 20 20 20 20 20  |), }            |
+---
+&gt; 00000020  72 61 6e 5f 6f 72 64 65  72 27 3a 20 46 61 6c 73  |ran_order': Fals|
+&gt; 00000030  65 2c 20 27 73 68 61 70  65 27 3a 20 28 32 2c 20  |e, 'shape': (2, |
+&gt; 00000040  32 29 2c 20 7d 20 20 20  20 20 20 20 20 20 20 20  |2), }           |
+9,10c9,10
+&lt; 00000080  01 00 00 00 00 00 00 00  02 00 00 00 00 00 00 00  |................|
+&lt; 00000090  03 00 00 00 00 00 00 00  04 00 00 00 00 00 00 00  |................|
+---
+&gt; 00000080  01 00 00 00 00 00 00 00  03 00 00 00 00 00 00 00  |................|
+&gt; 00000090  02 00 00 00 00 00 00 00  04 00 00 00 00 00 00 00  |................|
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>この場合、ヘッダーもデータ部も異なっていることが分かる。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="なぜこの記事を書いたか">なぜこの記事を書いたか<a class="anchor-link" href="#%E3%81%AA%E3%81%9C%E3%81%93%E3%81%AE%E8%A8%98%E4%BA%8B%E3%82%92%E6%9B%B8%E3%81%84%E3%81%9F%E3%81%8B">¶</a>
+</h4>
+<p>とある<code>.npy</code>ファイルのデータ部分を直接読み込むCプログラムを触っていた際に、<code>.T</code>で転置した<code>.npy</code>を読み込んでも読み込んだデータ部分が全く変化していないということが発生したためである。
+当該プログラムではヘッダーの<code>fortran_order</code>を完全に無視していたため、<code>.T</code>しただけのndarrayを保存した<code>.npy</code>ではデータ部分が転置されておらず、意図しない動作となってしまっていた。これを解決するためには前述のように<code>.copy()</code>を呼んだ上で保存した<code>.npy</code>ファイルを読み込む必要があった。</p>
+
+</div>
+</div>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/hexdump/" rel="tag">hexdump</a></li>
+            <li><a class="tag p-category" href="../../categories/ndarray/" rel="tag">ndarray</a></li>
+            <li><a class="tag p-category" href="../../categories/numpy/" rel="tag">numpy</a></li>
+            <li><a class="tag p-category" href="../../categories/python/" rel="tag">python</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../6/" rel="prev" title="Travis CIによるNikolaブログ構築の自動化">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../8/" rel="next" title="KaldiでVoxForgeの音響モデルを学習する(1)">Next post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="hiromasa-info",
+            disqus_url="http://www.hiromasa.info/en/posts/7/",
+        disqus_title="ndarray\u306efortran flag\u3068\u5b9f\u969b\u306e\u30e1\u30e2\u30ea\u914d\u5217\u306b\u3064\u3044\u3066",
+        disqus_identifier="cache/posts/7.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+    },
+    displayAlign: 'center', // Change this to 'left' if you want left-aligned equations.
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}}
+    }
+});
+</script></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
+            Contents © 2018         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+<!-- twitter -->
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script><div class="fb-like" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+<!-- hatena -->
+<a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-counter" title="このエントリーをはてなブックマークに追加">
+<img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;"></a>
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script></footer>
+</div>
+</div>
+
+
+        <script src="../../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates --><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
