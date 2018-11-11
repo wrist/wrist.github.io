@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (nikolaについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/nikola.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 07 Oct 2018 06:39:42 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>nikolaで多国語ポスト対応</title><link>http://www.hiromasa.info/posts/12/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;nikolaで多国語ポスト対応&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (nikolaについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/nikola.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 11 Nov 2018 08:23:15 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>nikolaで多国語ポスト対応</title><link>http://www.hiromasa.info/posts/12/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;nikolaで多国語ポスト対応&lt;/h3&gt;
 &lt;p&gt;&lt;a href="https://getnikola.com/handbook.html"&gt;nikola handbook&lt;/a&gt;のMultilingual postsの項を見ながら多国語対応の設定を行う。&lt;/p&gt;
 &lt;h4&gt;基本的な設定&lt;/h4&gt;
 &lt;p&gt;記事や固定ページの多国語対応を行う場合、&lt;code&gt;conf.py&lt;/code&gt;の&lt;code&gt;TRANSLATIONS_PATTERN&lt;/code&gt;で指定されたパターンに沿ったファイル名で言語ごとに記事を作成することになる。デフォルトだと&lt;/p&gt;
@@ -20,7 +20,7 @@
 独自ドメインを設定している場合はこの&lt;code&gt;English&lt;/code&gt;をクリックすると存在しないページにアクセスすることになるため、ローカルサーバ上でアクセスするためにはアドレスバーに&lt;code&gt;127.0.0.1:8000/en&lt;/code&gt;と手動で打ち込む必要がある。このページにアクセスすると、英語版のページが表示される。
 しかし、上記設定だけでは特に翻訳版の記事を用意していないため、ポストについては日本語版と全く同一の記事が表示され、また、それ以外の上部メニュー(ナビゲーションバー)なども翻訳されず日本語のままとなってしまっている。&lt;/p&gt;
 &lt;p&gt;以下ではこれらの多国語化について記す。多言語対応可能な設定項目については&lt;code&gt;conf.py&lt;/code&gt;において&lt;code&gt;(translatable)&lt;/code&gt;というコメントが添えられているため、基本的にはこれらの設定項目を調整していくことになる。&lt;/p&gt;
-&lt;h4&gt;ナビゲーションバーの日本語化&lt;/h4&gt;
+&lt;h4&gt;ナビゲーションバーの多言語化&lt;/h4&gt;
 &lt;p&gt;ナビゲーションバーについては&lt;code&gt;NAVIGARTION_LINKS&lt;/code&gt;の設定を次のように変更する。&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;NAVIGATION_LINKS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
@@ -41,9 +41,9 @@
 
 &lt;p&gt;ここでは各言語をkeyとし、対応するパスとリンク名のタプルのタプルをvalueとするdictを設定している。
 "en"に対して"/en"で始まるパスを指定していることに注意。&lt;/p&gt;
-&lt;h4&gt;タグ、カテゴリの日本語化(調査中)&lt;/h4&gt;
+&lt;h4&gt;タグ、カテゴリの多言語化(調査中)&lt;/h4&gt;
 &lt;p&gt;nikola v8ではポストごとに複数の分類を与えるタグ(tags)と、単一の分類を与えるカテゴリ(categories)が提供されている。現時点で当ブログはタグしか用いていない。なお前のポストにも記したが、nikolaのversion 7まではセクション(sections)という分類方法も存在していたが、これはversion 8以降は削除されている(nikola handbookにはこの機能は&lt;code&gt;CATEGORY_DESTPATH&lt;/code&gt;の設定を用いて実現可能との記載がある)。
-タグやカテゴリの日本語化の仕方であるが、&lt;code&gt;conf.py&lt;/code&gt;を見ると&lt;code&gt;TAG_TRANSLATION&lt;/code&gt;や&lt;code&gt;CATEGORY_TRANSLATION&lt;/code&gt;に&lt;/p&gt;
+タグやカテゴリの多言語化の仕方であるが、&lt;code&gt;conf.py&lt;/code&gt;を見ると&lt;code&gt;TAG_TRANSLATION&lt;/code&gt;や&lt;code&gt;CATEGORY_TRANSLATION&lt;/code&gt;に&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;   &lt;span class="p"&gt;[&lt;/span&gt;
      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;'en'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'private'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'de'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Privat'&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;'en'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'work'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'fr'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'travail'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'de'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Arbeit'&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
@@ -51,7 +51,7 @@
 &lt;/pre&gt;
 
 
-&lt;p&gt;のような辞書のリストを指定すれば良いとの記載がある。しかしこれを日本語と英語の間の翻訳で試みたところ、英語ページにおいても日本語タグが指定した英語タグに翻訳されず日本語タグのままとなる現象を確認している。この現象の解決のためには調査を行う必要があるため、現時点ではタグ、カテゴリの日本語化は実現できていない。&lt;/p&gt;
+&lt;p&gt;のような辞書のリストを指定すれば良いとの記載がある。しかしこれを日本語と英語の間の翻訳で試みたところ、英語ページにおいても日本語タグが指定した英語タグに翻訳されず日本語タグのままとなる現象を確認している。この現象の解決のためには調査を行う必要があるため、現時点ではタグ、カテゴリの多言語化は実現できていない。&lt;/p&gt;
 &lt;h4&gt;多言語ポストの混在&lt;/h4&gt;
 &lt;p&gt;多言語ブログを作成する場合、基本的に日本語で書いた記事は英語版では表示させず、翻訳を行った記事のみを英語版で表示するようにしたい。しかし、nikolaでは現状そのような制御を行うことができない。
 &lt;a href="https://github.com/getnikola/nikola/issues/2901"&gt;このissue&lt;/a&gt;において同様な要望が上がっているが、しばらくは対応されなさそうな雰囲気がある。&lt;/p&gt;

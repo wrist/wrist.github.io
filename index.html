@@ -148,7 +148,7 @@ MathJax.Hub.Config({
 独自ドメインを設定している場合はこの<code>English</code>をクリックすると存在しないページにアクセスすることになるため、ローカルサーバ上でアクセスするためにはアドレスバーに<code>127.0.0.1:8000/en</code>と手動で打ち込む必要がある。このページにアクセスすると、英語版のページが表示される。
 しかし、上記設定だけでは特に翻訳版の記事を用意していないため、ポストについては日本語版と全く同一の記事が表示され、また、それ以外の上部メニュー(ナビゲーションバー)なども翻訳されず日本語のままとなってしまっている。</p>
 <p>以下ではこれらの多国語化について記す。多言語対応可能な設定項目については<code>conf.py</code>において<code>(translatable)</code>というコメントが添えられているため、基本的にはこれらの設定項目を調整していくことになる。</p>
-<h4>ナビゲーションバーの日本語化</h4>
+<h4>ナビゲーションバーの多言語化</h4>
 <p>ナビゲーションバーについては<code>NAVIGARTION_LINKS</code>の設定を次のように変更する。</p>
 <pre class="code literal-block"><span></span><span class="n">NAVIGATION_LINKS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">DEFAULT_LANG</span><span class="p">:</span> <span class="p">(</span>
@@ -169,9 +169,9 @@ MathJax.Hub.Config({
 
 <p>ここでは各言語をkeyとし、対応するパスとリンク名のタプルのタプルをvalueとするdictを設定している。
 "en"に対して"/en"で始まるパスを指定していることに注意。</p>
-<h4>タグ、カテゴリの日本語化(調査中)</h4>
+<h4>タグ、カテゴリの多言語化(調査中)</h4>
 <p>nikola v8ではポストごとに複数の分類を与えるタグ(tags)と、単一の分類を与えるカテゴリ(categories)が提供されている。現時点で当ブログはタグしか用いていない。なお前のポストにも記したが、nikolaのversion 7まではセクション(sections)という分類方法も存在していたが、これはversion 8以降は削除されている(nikola handbookにはこの機能は<code>CATEGORY_DESTPATH</code>の設定を用いて実現可能との記載がある)。
-タグやカテゴリの日本語化の仕方であるが、<code>conf.py</code>を見ると<code>TAG_TRANSLATION</code>や<code>CATEGORY_TRANSLATION</code>に</p>
+タグやカテゴリの多言語化の仕方であるが、<code>conf.py</code>を見ると<code>TAG_TRANSLATION</code>や<code>CATEGORY_TRANSLATION</code>に</p>
 <pre class="code literal-block"><span></span>   <span class="p">[</span>
      <span class="p">{</span><span class="s1">'en'</span><span class="p">:</span> <span class="s1">'private'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">:</span> <span class="s1">'Privat'</span><span class="p">},</span>
      <span class="p">{</span><span class="s1">'en'</span><span class="p">:</span> <span class="s1">'work'</span><span class="p">,</span> <span class="s1">'fr'</span><span class="p">:</span> <span class="s1">'travail'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">:</span> <span class="s1">'Arbeit'</span><span class="p">},</span>
@@ -179,7 +179,7 @@ MathJax.Hub.Config({
 </pre>
 
 
-<p>のような辞書のリストを指定すれば良いとの記載がある。しかしこれを日本語と英語の間の翻訳で試みたところ、英語ページにおいても日本語タグが指定した英語タグに翻訳されず日本語タグのままとなる現象を確認している。この現象の解決のためには調査を行う必要があるため、現時点ではタグ、カテゴリの日本語化は実現できていない。</p>
+<p>のような辞書のリストを指定すれば良いとの記載がある。しかしこれを日本語と英語の間の翻訳で試みたところ、英語ページにおいても日本語タグが指定した英語タグに翻訳されず日本語タグのままとなる現象を確認している。この現象の解決のためには調査を行う必要があるため、現時点ではタグ、カテゴリの多言語化は実現できていない。</p>
 <h4>多言語ポストの混在</h4>
 <p>多言語ブログを作成する場合、基本的に日本語で書いた記事は英語版では表示させず、翻訳を行った記事のみを英語版で表示するようにしたい。しかし、nikolaでは現状そのような制御を行うことができない。
 <a href="https://github.com/getnikola/nikola/issues/2901">このissue</a>において同様な要望が上がっているが、しばらくは対応されなさそうな雰囲気がある。</p>
