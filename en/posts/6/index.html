@@ -13,19 +13,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../rss.xml">
 <link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="../../../rss.xml">
 <link rel="canonical" href="http://www.hiromasa.info/en/posts/6/">
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-        processEscapes: true
-    },
-    displayAlign: 'center', // Change this to 'left' if you want left-aligned equations.
-    "HTML-CSS": {
-        styles: {'.MathJax_Display': {"margin": 0}}
-    }
-});
-</script><!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com;">
+<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -161,20 +149,20 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
 <code>.travis.yml</code>の作成</h4>
 <p>nikolaブログのルートディレクトリ(<code>conf.py</code>が置いてあるディレクトリ)に以下のような<code>.travis.yml</code>ファイルを作成します。
 これは<a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html">Nikola公式の記事</a>に記載のtravis.ymlを改変したものになります。</p>
-<pre class="code literal-block"><span></span><span class="l l-Scalar l-Scalar-Plain">language</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
-<span class="l l-Scalar l-Scalar-Plain">cache</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">apt</span>
-<span class="l l-Scalar l-Scalar-Plain">sudo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="l l-Scalar l-Scalar-Plain">addons</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">apt</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">packages</span><span class="p p-Indicator">:</span>
+<pre class="code literal-block"><span></span><span class="nt">language</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
+<span class="nt">cache</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apt</span>
+<span class="nt">sudo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">addons</span><span class="p">:</span>
+  <span class="nt">apt</span><span class="p">:</span>
+    <span class="nt">packages</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-ja-base</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-ja</span>
-<span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">only</span><span class="p p-Indicator">:</span>
+<span class="nt">branches</span><span class="p">:</span>
+  <span class="nt">only</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">src</span>
-<span class="l l-Scalar l-Scalar-Plain">python</span><span class="p p-Indicator">:</span>
+<span class="nt">python</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">3.6</span>
-<span class="l l-Scalar l-Scalar-Plain">before_install</span><span class="p p-Indicator">:</span>
+<span class="nt">before_install</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config --global user.name 'USERNAME'</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config --global user.email 'travis@invalid'</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config --global push.default 'simple'</span>
@@ -187,16 +175,16 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git remote add origin git@github.com:USERNAME/REPO.git</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git fetch origin master</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git branch master FETCH_HEAD</span>
-<span class="l l-Scalar l-Scalar-Plain">install</span><span class="p p-Indicator">:</span>
+<span class="nt">install</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'ghp-import2'</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'webassets'</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'Nikola[extras]'</span>
-<span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
+<span class="nt">script</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nikola build &amp;&amp; nikola github_deploy -m 'Nikola auto deploy [ci skip]'</span>
-<span class="l l-Scalar l-Scalar-Plain">notifications</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">email</span><span class="p p-Indicator">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">on_success</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">change</span>
-    <span class="l l-Scalar l-Scalar-Plain">on_failure</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="nt">notifications</span><span class="p">:</span>
+  <span class="nt">email</span><span class="p">:</span>
+    <span class="nt">on_success</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">change</span>
+    <span class="nt">on_failure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">always</span>
 </pre>
 
 
@@ -251,7 +239,7 @@ $ travis encrypt-file id_rsa --add
 更に<code>travis encrypt-file id_rsa --add</code>を実行すると、秘密鍵<code>id_rsa</code>が暗号化されて<code>id_rsa.enc</code>が生成されます。
 この<code>id_rsa.enc</code>は<code>.gitignore</code>に追加されていないため、<code>git add</code>によってgitの管理下に置かれることになります。
 なお引数の<code>--add</code>を付けておくと、<code>.travis.yml</code>ファイルに<code>id_rsa.enc</code>の復号化を行うための下記のようなopensslのコマンドを追加してくれます。</p>
-<pre class="code literal-block"><span></span><span class="l l-Scalar l-Scalar-Plain">before_install</span><span class="p p-Indicator">:</span>
+<pre class="code literal-block"><span></span><span class="nt">before_install</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">openssl aes-256-cbc -K $encrypted_XXXXXX_key -iv $encrypted_XXXXXX_iv</span>
   <span class="l l-Scalar l-Scalar-Plain">-in id_rsa.enc -out id_rsa -d</span>
 </pre>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about pyroomacoustics)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/pyroomacoustics.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 09 Dec 2018 15:02:02 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Pyroomacousticsの紹介</title><link>http://www.hiromasa.info/en/posts/13/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about pyroomacoustics)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/pyroomacoustics.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2018 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Thu, 20 Dec 2018 21:18:41 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Pyroomacousticsの紹介</title><link>http://www.hiromasa.info/en/posts/13/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h3 id="Pyroomacousticsの紹介"&gt;Pyroomacousticsの紹介&lt;a class="anchor-link" href="http://www.hiromasa.info/en/posts/13/#Pyroomacoustics%E3%81%AE%E7%B4%B9%E4%BB%8B"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;この記事はQiita Python Advent Calendar 2018の9日目の記事です。&lt;/p&gt;
@@ -25,7 +25,7 @@
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h4 id="インストール方法"&gt;インストール方法&lt;a class="anchor-link" href="http://www.hiromasa.info/en/posts/13/#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%96%B9%E6%B3%95"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;pipで下記のようにインストールできます。また別途pipでcookiecockerをインストールしておくと、後述のようにpyroomacousitcs用のシミュレーションスクリプトを対話的に生成することが可能であるため便利です。&lt;/p&gt;
+&lt;h4 id="インストール方法"&gt;インストール方法&lt;a class="anchor-link" href="http://www.hiromasa.info/en/posts/13/#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%96%B9%E6%B3%95"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;pipで下記のようにインストールできます。また別途pipでcookiecutterをインストールしておくと、後述のようにpyroomacousitcs用のシミュレーションスクリプトを対話的に生成することが可能であるため便利です。&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -823,14 +823,14 @@ roomオブジェクトに対してsimulateメソッドを呼ぶことで、室�
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h4 id="cookiecockerを用いたシミュレーションスクリプトの雛形作成"&gt;cookiecockerを用いたシミュレーションスクリプトの雛形作成&lt;a class="anchor-link" href="http://www.hiromasa.info/en/posts/13/#cookiecocker%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%AE%E9%9B%9B%E5%BD%A2%E4%BD%9C%E6%88%90"&gt;¶&lt;/a&gt;&lt;/h4&gt;
+&lt;h4 id="cookiecutterを用いたシミュレーションスクリプトの雛形作成"&gt;cookiecutterを用いたシミュレーションスクリプトの雛形作成&lt;a class="anchor-link" href="http://www.hiromasa.info/en/posts/13/#cookiecutter%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%AE%E9%9B%9B%E5%BD%A2%E4%BD%9C%E6%88%90"&gt;¶&lt;/a&gt;&lt;/h4&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;冒頭でpipでインストールしたcookiecockerを使うとここまでの内容を実行するためのシミュレーションスクリプトの雛形を下記のように対話的に作成することができます。
+&lt;p&gt;冒頭でpipでインストールしたcookiecutterを使うとここまでの内容を実行するためのシミュレーションスクリプトの雛形を下記のように対話的に作成することができます。
 ここで&lt;code&gt;$&lt;/code&gt;はシェルのプロンプトを表します。全質問に対して何も入力していないためデフォルトの項目([]内の値)が選択されています。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ cookiecutter gh:fakufaku/cookiecutter-pyroomacoustics-sim
