@@ -98,7 +98,188 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/10/" class="u-url">最尤推定によるガンマ分布のフィッティングについて</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/11/" class="u-url">nikolaのバージョンをv8.0.0にアップグレード</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hiromasa OHASHI
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/11/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-09-16T12:30:00+09:00" itemprop="datePublished" title="2018-09-16 12:30">2018-09-16 12:30</time></a>
+            </p>
+                        <p class="commentline">
+        
+    <a href="posts/11/#disqus_thread" data-disqus-identifier="cache/posts/11.html">Comments</a>
+
+
+                </p>
+</div>
+            </header><div class="e-content entry-content">
+                    <div>
+<h3>nikolaのバージョンをv8.0.0にアップグレード</h3>
+<h4>nikola v8.0.0</h4>
+<p>2018/9/11にnikolaのメジャーバージョンが8.0にアップグレードされた。<code>pip install -U "Nikola[extras]"</code>を実行しアップグーレドを施したところ、各種設定を変更しなければならなかったためその作業ログを以下に記す。</p>
+<p>各種設定変更のためには<a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html">Upgrading to Nikola v8</a>を参照すると良い。
+ここでは単純に<code>pip install -U "Nikola[extras]"</code>を実行してしまったが、実際には<code>How to upgrade</code>の手順を読んだ上でアップグレードを行ったほうが良いと思われる。</p>
+<h4>
+<code>conf.py</code>の修正</h4>
+<p><code>nikola --version</code>をブログが存在するディレクトリで実行したところ下記の警告が出た。</p>
+<pre class="code literal-block"><span></span>[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.
+[2018-09-16T03:11:45Z] WARNING: Nikola: The sections feature has been removed and its functionality has been merged into categories.
+[2018-09-16T03:11:45Z] WARNING: Nikola: For more information on how to migrate, please read: https://getnikola.com/blog/upgrading-to-nikola-v8.html#sections-were-replaced-by-categories
+[2018-09-16T03:11:45Z] INFO: Nikola: Setting CATEGORY_DESTPATH_AS_DEFAULT = True
+[2018-09-16T03:11:46Z] WARNING: Nikola: Cannot load theme "bootstrap3", using 'bootblog4' instead.
+... 以後bootstrap3が存在しない旨を示すpythonのTracebackが表示される ...
+</pre>
+
+
+<p>これらのwarningを修正するために、下記に記した内容を実行した。</p>
+<h5>名称が変更された設定の変更</h5>
+<p>手元では<code>UNSLUGIFY_TITLES</code>を<code>FILE_METADATA_UNSLUGIFY_TITLES</code>に変更するのみで前述の最初のWARNINGは消えた。
+どうやら<a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html">Upgrading to Nikola v8</a>を参照すると他項目についても変更されたものがある模様。以下に抜粋する。</p>
+<ul>
+<li>削除されたもの<ul>
+<li><code>FEED_PREVIEWIMAGE</code></li>
+<li><code>SITEMAP_INCLUDE_FILELESS_DIRS</code></li>
+<li><code>USE_OPEN_GRAPH</code></li>
+<li><code>USE_BASE_TAG</code></li>
+</ul>
+</li>
+<li>名称が変更されたもの<ul>
+<li>
+<code>UNSLUGIFY_TITLES</code> -&gt; <code>FILE_METADATA_UNSLUGIFY_TITLES</code>
+</li>
+<li>
+<code>TAG_PAGES_TITLES</code> -&gt; <code>TAG_TITLES</code>
+</li>
+<li>
+<code>TAG_PAGES_DESCRIPTIONS</code> -&gt; <code>TAG_DESCRIPTIONS</code>
+</li>
+<li>
+<code>CATEGORY_PAGES_TITLES</code> -&gt; <code>CATEGORY_TITLES</code>
+</li>
+<li>
+<code>CATEGORY_PAGES_DESCRIPTIONS</code> -&gt; <code>CATEGORY_DESCRIPTIONS</code>
+</li>
+<li>
+<code>DISABLE_INDEXES_PLUGIN_INDEX_AND_ATOM_FEED</code> -&gt; <code>DISABLE_INDEXES and DISABLE_MAIN_ATOM_FEED</code>
+</li>
+<li>
+<code>DISABLE_INDEXES_PLUGIN_RSS_FEED</code> -&gt; <code>DISABLE_MAIN_RSS_FEED</code>
+</li>
+</ul>
+</li>
+</ul>
+<p>実際には他にも変更された項目が存在するため、調査した結果を末尾に示してある。</p>
+<h5>セクション(Sections)関連の設定の変更</h5>
+<p>v8からはセクション関連の機能が削除されカテゴリに統合されたため、関連設定を削除する必要がある。
+<a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html">Upgrading to Nikola v8</a>には書かれていないが、そもそも<code>POSTS_SECTIONS</code>の項目を消す必要がある。
+これによって前述のログに存在したセクション関連の警告は消失する。</p>
+<h5>デフォルトテーマの変更</h5>
+<p>アップグレード前はデフォルトテーマの<code>bootstrap3</code>を使っていたが、v8ではデフォルトテーマが<code>bootblog4</code>に変更された。
+<a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html">Upgrading to Nikola v8</a>によれば<code>nikola theme -i bootstrap3</code>を実行しテーマをインストールすることによってbootstrap3は依然として使用できるようであるが、新デフォルトテーマのbootblog4では<code>featured posts</code>の表示などができるなど機能が追加されているとのことである。</p>
+<p>ここでは<code>bootblog4</code>への変更を行った。前述のログでは最後の部分でpythonのTracebackが大量に表示されていたため、この修正も合わせて行った。以下に修正のために実施した内容を順に記す。</p>
+<ul>
+<li>
+<code>conf.py</code>の<code>THEME</code>を<code>bootblog4</code>に変更</li>
+<li>
+<code>nikola build</code>を実行<ul>
+<li>
+<code>nikola --version</code>を実行したときと同様なbootstrap3が存在しないというExceptionが表示され、再構築を行うことができない</li>
+</ul>
+</li>
+<li>キャッシュが影響していることを疑い<code>cache</code>ディレクトリと<code>__pycache__</code>ディレクトリを削除<ul>
+<li>状況は変化しない</li>
+</ul>
+</li>
+<li>
+<code>nikola theme -i bootstrap3</code>を実行<ul>
+<li>依然としてbootstrap3が存在しないというExceptionが表示されるためbootstrap3を再度導入することもできない</li>
+</ul>
+</li>
+<li>Exceptionを吐いている<code>site-packages/nikola/utils.py</code>のソースを調査<ul>
+<li>エラーを吐いている<code>get_asset_path</code>のメソッドにおいてthemesのディレクトリを走査していることが問題の模様</li>
+</ul>
+</li>
+<li>ブログルート直下のthemesディレクトリを他の場所に一時的に退避<ul>
+<li>Exceptionを吐くエラーが消失</li>
+</ul>
+</li>
+<li>
+<code>nikola build</code>を実行<ul>
+<li>無事にブログが再構築</li>
+</ul>
+</li>
+</ul>
+<p>したがって、theme関連のトラブルがなければ<code>conf.py</code>の修正のみで済む内容であったと思われる。</p>
+<h4>その他<code>conf.py</code>の変化</h4>
+<p>折角なので新規に<code>nikola init</code>を実行して生成したブログの<code>conf.py</code>とのdiffを取ってその他の変更を調べた。
+コメントの変更や前述した変更については記載していない。また各項目の意味については全て把握していないため必要な場合は新規生成した<code>conf.py</code>に付与されたコメントなどを読んだほうが良い。</p>
+<ul>
+<li>
+<code>from __future__ import unicode_literals</code>の削除</li>
+<li>対応言語の追加<ul>
+<li>
+<code>ml</code>, <code>th</code>, <code>vi</code>
+</li>
+</ul>
+</li>
+<li>テーマ依存設定<ul>
+<li>
+<code>THEME_CONFIG</code>が追加されており、bootblog4テーマはこの設定によりfeatured postの設定やsidebarの設定が行えるようである</li>
+</ul>
+</li>
+<li>
+<code>DATE_FORMAT</code>の変更<ul>
+<li>元はdatetime.datetime.strftimeで用いられる形式だったがCLDRで用いられるフォーマットに変更されたとのこと</li>
+</ul>
+</li>
+<li>
+<code>LOCALE_FALLBAK</code>と<code>LOCALE_DEFAULT</code>の削除</li>
+<li>セクション関連の項目の削除<ul>
+<li>
+<code>WRITE_TAG_CLUD</code>, <code>POST_SECTIONS</code>, <code>POST_SECTIONS_ARE_INDEXED</code>, <code>SECTION_PATH</code>, <code>POSTS_SECTION_COLORS</code>, <code>POSTS_SECTION_DESCRIPTIONS</code>, <code>POSTS_SECTION_FROM_META</code>, <code>POSTS_SECTOIN_NAME</code>, <code>POSTS_SECTION_TITLE</code>, <code>POSTS_SECTION_TRANSLATIONS</code>, <code>POSTS_SECTION_TRANSLATIONS_ADD_DEFAULTS</code>
+</li>
+</ul>
+</li>
+<li>カテゴリー関連の項目の追加<ul>
+<li>
+<code>CATEGORY_DESTPATH_AS_DEFAULT</code>, <code>CATEGORY_DESTPATH_TRIM_PREFIX</code>, <code>CATEGORY_DESTPATH_FIRST_DIRECTORY_ONLY</code>, <code>CATEGORY_DESTPATH_NAMES</code>, <code>CATEGORY_PAGES_FOLLOW_DESTPATH</code>
+</li>
+</ul>
+</li>
+<li>RSS関連の項目のの追加<ul>
+<li><code>RSS_EXTENSION</code></li>
+<li><code>RSS_FILENAME_BASE</code></li>
+<li><code>ATOM_PATH</code></li>
+<li><code>ATOM_FILENAME_BASE</code></li>
+<li><code>ATOM_EXTENSION</code></li>
+</ul>
+</li>
+<li>
+<code>USE_BASE_TAG</code>の削除</li>
+<li>LESS, SASS関連設定の削除<ul>
+<li>
+<code>LESS_COMPILER</code>, <code>LESS_OPTIONS</code>, <code>SASS_COMPILER</code>, <code>SASS_OPTIONS</code>
+</li>
+</ul>
+</li>
+<li>
+<code>PRESERVE_ICC_PROFILES</code>の追加</li>
+<li>
+<code>ANNOTATIONS</code>の削除</li>
+<li>
+<code>MARKDOWN_EXTENSION_CONFIGS</code>の追加</li>
+<li>
+<code>METADATA_VALUE_MAPPING</code>の追加</li>
+<li>
+<code>NO_DOCUTILS_TITLE_TRANSFORM</code>の削除</li>
+<li>
+<code>USE_TAG_METADATA</code>および<code>WARN_ABOUT_TAG_METADATA</code>の追加</li>
+</ul>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/10/" class="u-url">最尤推定によるガンマ分布のフィッティングについて</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Hiromasa OHASHI

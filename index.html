@@ -32,7 +32,7 @@
     vertical-align: baseline !important; 
 }
 </style>
-<link rel="prefetch" href="posts/13/" type="text/html">
+<link rel="prefetch" href="posts/14/" type="text/html">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
 </head>
 <body>
@@ -98,7 +98,1486 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/13/" class="u-url">Pyroomacousticsの紹介</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/14/" class="u-url">2018/12/21にPyData Osakaの梅キャンPython勉強会コラボ回でpybind11について発表しました</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hiromasa OHASHI
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/14/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-02-10T15:30:00+09:00" itemprop="datePublished" title="2019-02-10 15:30">2019-02-10 15:30</time></a>
+            </p>
+                        <p class="commentline">
+        
+    <a href="posts/14/#disqus_thread" data-disqus-identifier="cache/posts/14.html">Comments</a>
+
+
+                </p>
+</div>
+            </header><div class="e-content entry-content">
+                    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2018/12/21(金)にPyData-Osakaの梅キャンPython勉強会コラボ回でpybind11について発表しました">2018/12/21(金)にPyData Osakaの梅キャンPython勉強会コラボ回でpybind11について発表しました<a class="anchor-link" href="posts/14/#2018/12/21(%E9%87%91)%E3%81%ABPyData-Osaka%E3%81%AE%E6%A2%85%E3%82%AD%E3%83%A3%E3%83%B3Python%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%B3%E3%83%A9%E3%83%9C%E5%9B%9E%E3%81%A7pybind11%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F">¶</a>
+</h3>
+<p>ブログ記事にするのが遅くなりましたが2018/12/21に<a href="https://studygroup-umecanoit.connpass.com/event/110422/">【大阪工業大学】特別回 梅キャンPython勉強会【梅田キャンパス】 </a>でpybind11に関する発表を行いました。
+下記はその際の資料になります。</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="pybind11の紹介">pybind11の紹介<a class="anchor-link" href="posts/14/#pybind11%E3%81%AE%E7%B4%B9%E4%BB%8B">¶</a>
+</h3>
+<p>大橋宏正(PyDataオーガナイザー)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="自己紹介">自己紹介<a class="anchor-link" href="posts/14/#%E8%87%AA%E5%B7%B1%E7%B4%B9%E4%BB%8B">¶</a>
+</h4>
+<ul>
+<li>大橋 宏正(@wrist)</li>
+<li>PyDataオーガナイザー</li>
+<li>某メーカー勤務<ul>
+<li>音響信号処理屋</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="pybind11とは">pybind11とは<a class="anchor-link" href="posts/14/#pybind11%E3%81%A8%E3%81%AF">¶</a>
+</h4>
+<ul>
+<li>C拡張モジュールをc++11で作成するためのライブラリ</li>
+<li>ヘッダオンリー</li>
+<li>numpy, Eigen連携</li>
+<li><a href="https://ep2017.europython.eu/media/conference/slides/pybind11-seamless-operability-between-c11-and-python.pdf">https://ep2017.europython.eu/media/conference/slides/pybind11-seamless-operability-between-c11-and-python.pdf</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="他のライブラリとの比較">他のライブラリとの比較<a class="anchor-link" href="posts/14/#%E4%BB%96%E3%81%AE%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%A8%E3%81%AE%E6%AF%94%E8%BC%83">¶</a>
+</h4>
+<ul>
+<li>Python C API<ul>
+<li>自分で参照カウント制御が必要</li>
+<li>学習障壁が高い</li>
+</ul>
+</li>
+<li>ctypes<ul>
+<li>dllがあればビルド不要で使える</li>
+<li>返り値や引数の型を厳密に設定する必要有</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>cython<ul>
+<li>pyxの独自記法を覚える必要</li>
+<li>一旦pyxファイルをcにコンパイル<ul>
+<li>更にcファイルをコンパイル</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Boost.python<ul>
+<li>Boostが必要</li>
+<li>便利だが巨大でありコンパイルに時間がかかる</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="インストール">インストール<a class="anchor-link" href="posts/14/#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">¶</a>
+</h4>
+<ul>
+<li><a href="https://github.com/pybind/pybind11">https://github.com/pybind/pybind11</a></li>
+<li>pipでインストール可能</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install pybind11
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Requirement already satisfied: pybind11 in /Users/wrist/.pyenv/versions/miniconda3-4.3.30/envs/py36/lib/python3.6/site-packages (2.2.4)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="ipybind">ipybind<a class="anchor-link" href="posts/14/#ipybind">¶</a>
+</h4>
+<ul>
+<li>pybind11のjupyter拡張</li>
+<li>jupyter notebookのセルから実行可能</li>
+<li><a href="https://github.com/aldanor/ipybind">https://github.com/aldanor/ipybind</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="ipybindのインストール">ipybindのインストール<a class="anchor-link" href="posts/14/#ipybind%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">¶</a>
+</h4>
+<ul>
+<li>リポジトリをクローン</li>
+<li><code>python setup.py build</code></li>
+<li><code>python setup.py install</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="使ってみる">使ってみる<a class="anchor-link" href="posts/14/#%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B">¶</a>
+</h4>
+<ul>
+<li>ipybind経由でpybind11を使用</li>
+<li>最初に<code>load_ext</code>でipybindを有効化</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> ipybind
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+<div id="7d240dcd-5697-41d4-b2fc-8bfac5a4a281"></div>
+<div class="output_subarea output_javascript ">
+<script type="text/javascript">
+var element = $('#7d240dcd-5697-41d4-b2fc-8bfac5a4a281');
+
+    require(['notebook/js/codecell'], function(cc) {
+        cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
+            {reg: [/^\s*%%pybind11/]};
+    });
+    
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <style>
+    .cm-s-ipython span.cm-variable-3 {
+        color: #208ffb;
+        font-weight: bold;
+    }
+    </style>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="pybind11の基本">pybind11の基本<a class="anchor-link" href="posts/14/#pybind11%E3%81%AE%E5%9F%BA%E6%9C%AC">¶</a>
+</h4>
+<ul>
+<li><code>PYBIND_MODULE(モジュール名, m)</code></li>
+<li><code>m.def(公開名, 関数へのポインタ, 説明)</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">pybind11</span>
+
+int add(int x, int y){
+    return x + y;
+}
+
+PYBIND11_MODULE(myadd, m){
+    m.def("c_add", &amp;add, "Add two integers.");
+}
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c_add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">c_add</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Help on built-in function c_add in module pybind11_3e2e466:
+
+c_add(...) method of builtins.PyCapsule instance
+    c_add(arg0: int, arg1: int) -&gt; int
+    
+    Add two integers.
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># c_add("foo", "bar")</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">pybind11</span>
+
+PYBIND11_MODULE(myadd, m){
+    m.def("lambda_add", [](int a, int b){ return a + b;},
+         "Add two integers.");
+}
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lambda_add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[8]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="その他のコンパイル方法">その他のコンパイル方法<a class="anchor-link" href="posts/14/#%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB%E6%96%B9%E6%B3%95">¶</a>
+</h4>
+<ul>
+<li>手動ビルド</li>
+<li>distutils<ul>
+<li>setup.pyを書く</li>
+</ul>
+</li>
+<li>cmake<ul>
+<li><code>pybind11_add_module(myadd myadd.cpp)</code></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="単純なクラスをラップ">単純なクラスをラップ<a class="anchor-link" href="posts/14/#%E5%8D%98%E7%B4%94%E3%81%AA%E3%82%AF%E3%83%A9%E3%82%B9%E3%82%92%E3%83%A9%E3%83%83%E3%83%97">¶</a>
+</h4>
+<ul>
+<li>c++のクラスを定義</li>
+<li>pybind11でラップ<ul>
+<li><code>py::classs_&lt;C++クラス名&gt;(m, 公開クラス名)</code></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">pybind11</span>
+
+namespace py = pybind11;
+
+class Coordinate {
+public:
+    int x_;
+    int y_;
+    Coordinate(){ x_ = 0; y_ = 0; }
+    Coordinate(int x, int y){ x_ = x; y_ = y; }
+    float Norm(){ return sqrt(x_*x_ + y_*y_); }
+};
+
+PYBIND11_MODULE(coord, m) {
+    py::class_&lt;Coordinate&gt;(m, "Coordinate")
+        .def(py::init&lt;&gt;())
+        .def(py::init&lt;int, int&gt;())
+        .def_readonly("x", &amp;Coordinate::x_)
+        .def_readonly("y", &amp;Coordinate::y_)
+        .def_property_readonly("norm", &amp;Coordinate::Norm);
+}
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="コンストラクタの定義">コンストラクタの定義<a class="anchor-link" href="posts/14/#%E3%82%B3%E3%83%B3%E3%82%B9%E3%83%88%E3%83%A9%E3%82%AF%E3%82%BF%E3%81%AE%E5%AE%9A%E7%BE%A9">¶</a>
+</h4>
+<ul>
+<li><code>... .def(py::init&lt;オーバーロード引数&gt;())</code></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">Coordinate</span><span class="p">(){</span> <span class="n">x_</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y_</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+    <span class="n">Coordinate</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">){</span> <span class="n">x_</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span> <span class="n">y_</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+<p>は下記のように記載</p>
+<div class="highlight"><pre><span></span><span class="n">py</span><span class="o">::</span><span class="n">class_</span><span class="o">&lt;</span><span class="n">Coordinate</span><span class="o">&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s">"Coordinate"</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="n">py</span><span class="o">::</span><span class="n">init</span><span class="o">&lt;&gt;</span><span class="p">())</span>
+        <span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="n">py</span><span class="o">::</span><span class="n">init</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="プロパティの定義">プロパティの定義<a class="anchor-link" href="posts/14/#%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3%E3%81%AE%E5%AE%9A%E7%BE%A9">¶</a>
+</h4>
+<ul>
+<li><code>... .def_readonly(公開変数名, メンバへのポインタ)</code></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">py</span><span class="o">::</span><span class="n">class_</span><span class="o">&lt;</span><span class="n">Coordinate</span><span class="o">&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s">"Coordinate"</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">def_readonly</span><span class="p">(</span><span class="s">"x"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Coordinate</span><span class="o">::</span><span class="n">x_</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">def_readonly</span><span class="p">(</span><span class="s">"y"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Coordinate</span><span class="o">::</span><span class="n">y_</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="computed-propetyの定義">computed propetyの定義<a class="anchor-link" href="posts/14/#computed-propety%E3%81%AE%E5%AE%9A%E7%BE%A9">¶</a>
+</h4>
+<ul>
+<li><code>... .def_propety_readonly(公開変数名, 計算関数へのポインタ)</code></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="kt">float</span> <span class="nf">Norm</span><span class="p">(){</span> <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x_</span><span class="o">*</span><span class="n">x_</span> <span class="o">+</span> <span class="n">y_</span><span class="o">*</span><span class="n">y_</span><span class="p">);</span> <span class="p">}</span>
+</pre></div>
+<p>は</p>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="n">def_property_readonly</span><span class="p">(</span><span class="s">"norm"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Coordinate</span><span class="o">::</span><span class="n">Norm</span><span class="p">);</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">point</span> <span class="o">=</span> <span class="n">Coordinate</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">point</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[10]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pybind11_c19ca2a.Coordinate at 0x10ba96df8&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>3 4
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">point</span><span class="o">.</span><span class="n">norm</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[12]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>5.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="さらなる例">さらなる例<a class="anchor-link" href="posts/14/#%E3%81%95%E3%82%89%E3%81%AA%E3%82%8B%E4%BE%8B">¶</a>
+</h4>
+<ul>
+<li>演算子オーバーロード、python特殊メソッド</li>
+<li>docstring、引数名、キーワード引数</li>
+<li><code>*arg, **kwarg</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="演算子オーバーロード">演算子オーバーロード<a class="anchor-link" href="posts/14/#%E6%BC%94%E7%AE%97%E5%AD%90%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%AD%E3%83%BC%E3%83%89">¶</a>
+</h4>
+<ul>
+<li>等値演算子<ul>
+<li>cppだと<code>bool operator==(const Cls&amp; rhs)</code>
+</li>
+<li>pythonだと<code>Cls.__eq__(self, other)</code>
+</li>
+<li>これらを対応付ける</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">int</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[13]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">pybind11</span>
+
+namespace py = pybind11;
+
+class Coordinate2 {
+public:
+    int x_; int y_;
+    Coordinate2(){ x_ = 0; y_ = 0; }
+    Coordinate2(int x, int y){ x_ = x; y_ = y; }
+    bool operator==(const Coordinate2&amp; rhs){
+        return (x_ == rhs.x_) &amp;&amp; (y_ == rhs.y_);
+    }
+};
+
+PYBIND11_MODULE(coord2, m) {
+    py::class_&lt;Coordinate2&gt;(m, "Coordinate2")
+        .def(py::init&lt;&gt;())
+        .def(py::init&lt;int, int&gt;())
+        .def_readonly("x", &amp;Coordinate2::x_)
+        .def_readonly("y", &amp;Coordinate2::y_)
+        .def("__eq__", &amp;Coordinate2::operator==);
+}
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">point1</span> <span class="o">=</span> <span class="n">Coordinate2</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">point2</span> <span class="o">=</span> <span class="n">Coordinate2</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">point3</span> <span class="o">=</span> <span class="n">Coordinate2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">point1</span> <span class="o">==</span> <span class="n">point2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[16]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">point1</span> <span class="o">==</span> <span class="n">point3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[17]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="演算子の代替記法">演算子の代替記法<a class="anchor-link" href="posts/14/#%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%AE%E4%BB%A3%E6%9B%BF%E8%A8%98%E6%B3%95">¶</a>
+</h4>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"__eq__"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Coordinate2</span><span class="o">::</span><span class="k">operator</span><span class="o">==</span><span class="p">);</span>
+</pre></div>
+<p>はc++のクラスで<code>operator==</code>が定義されていれば下記のようにも書ける</p>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"__eq__"</span><span class="p">,</span> 
+             <span class="p">[](</span><span class="k">const</span> <span class="n">Coordinate2</span><span class="o">&amp;</span> <span class="n">self</span><span class="p">,</span>
+                <span class="k">const</span> <span class="n">Coordinate2</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">){</span>
+                 <span class="k">return</span> <span class="n">self</span> <span class="o">==</span> <span class="n">other</span><span class="p">;</span> 
+             <span class="p">});</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Python特殊メソッド">Python特殊メソッド<a class="anchor-link" href="posts/14/#Python%E7%89%B9%E6%AE%8A%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89">¶</a>
+</h4>
+<ul>
+<li>
+<code>__repr__</code>の定義を考える</li>
+<li>先の<code>__eq__</code>と同様に第一引数にselfを取るメソッドを定義</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">pybind11</span>
+
+namespace py = pybind11;
+
+class Coordinate3 {
+public:
+    int x_; int y_;
+    Coordinate3(){ x_ = 0; y_ = 0; }
+    Coordinate3(int x, int y){ x_ = x; y_ = y; }
+};
+
+PYBIND11_MODULE(coord3, m) {
+    py::class_&lt;Coordinate3&gt;(m, "Coordinate3")
+        .def(py::init&lt;&gt;())
+        .def(py::init&lt;int, int&gt;())
+        .def_readonly("x", &amp;Coordinate3::x_)
+        .def_readonly("y", &amp;Coordinate3::y_)
+        .def("__repr__" , [](const Coordinate3&amp; self){
+            return std::string() + "(x, y) = (" + std::to_string(self.x_) + ", " + std::to_string(self.y_) + ")";
+        });
+} 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"__repr__"</span><span class="p">,</span> <span class="p">[](</span><span class="k">const</span> <span class="n">Coordinate3</span><span class="o">&amp;</span> <span class="n">self</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">()</span> <span class="o">+</span> 
+        <span class="s">"(x, y) = ("</span> <span class="o">+</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">x_</span><span class="p">)</span> <span class="o">+</span>
+        <span class="s">", "</span> <span class="o">+</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">y_</span><span class="p">)</span> <span class="o">+</span> <span class="s">")"</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">point</span> <span class="o">=</span> <span class="n">Coordinate3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">point</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[19]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(x, y) = (1, 2)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="docstirng、引数名、キーワード引数">docstirng、引数名、キーワード引数<a class="anchor-link" href="posts/14/#docstirng%E3%80%81%E5%BC%95%E6%95%B0%E5%90%8D%E3%80%81%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89%E5%BC%95%E6%95%B0">¶</a>
+</h4>
+<ul>
+<li>docstring<ul>
+<li>
+<code>m.def</code>の第三引数に文字列を渡す</li>
+</ul>
+</li>
+<li>引数名<ul>
+<li>第四引数以降に<code>py::arg("...")</code>を渡す</li>
+</ul>
+</li>
+<li>キーワード引数<ul>
+<li>
+<code>py::arg("...") = デフォルト値</code>とすれば良い</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">pybind11</span>
+
+namespace py = pybind11;
+
+class Coordinate4 {
+public:
+    int x_; int y_;
+    Coordinate4(){ x_ = 0; y_ = 0; }
+    Coordinate4(int x, int y){ x_ = x; y_ = y; }
+    float DistanceTo(const Coordinate4&amp; target){ 
+        int dx = target.x_ - x_, dy = target.y_ - y_;
+        return sqrt( dx*dx + dy*dy);
+    }
+};
+
+PYBIND11_MODULE(coord4, m) {
+    py::class_&lt;Coordinate4&gt;(m, "Coordinate4")
+        .def(py::init&lt;&gt;())
+        .def(py::init&lt;int, int&gt;())
+        .def_readonly("x", &amp;Coordinate4::x_)
+        .def_readonly("y", &amp;Coordinate4::y_)
+        .def("distance_to", &amp;Coordinate4::DistanceTo,
+             "distance to target",
+             py::arg("target"));
+}
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="kt">float</span> <span class="nf">DistanceTo</span><span class="p">(</span><span class="k">const</span> <span class="n">Coordinate4</span><span class="o">&amp;</span> <span class="n">target</span><span class="p">){</span> 
+        <span class="kt">int</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">target</span><span class="p">.</span><span class="n">x_</span> <span class="o">-</span> <span class="n">x_</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">target</span><span class="p">.</span><span class="n">y_</span> <span class="o">-</span> <span class="n">y_</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span> <span class="n">dx</span><span class="o">*</span><span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span><span class="o">*</span><span class="n">dy</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+<p>を下記のように設定</p>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"distance_to"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Coordinate4</span><span class="o">::</span><span class="n">DistanceTo</span><span class="p">,</span>
+             <span class="s">"distance to target"</span><span class="p">,</span>
+             <span class="n">py</span><span class="o">::</span><span class="n">arg</span><span class="p">(</span><span class="s">"target"</span><span class="p">));</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">point</span> <span class="o">=</span> <span class="n">Coordinate4</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">Coordinate4</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">point</span><span class="o">.</span><span class="n">distance_to</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[24]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>2.8284270763397217</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>point.distance_to<span class="o">?</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="*args,-**kwarg">
+<code>*args, **kwarg</code><a class="anchor-link" href="posts/14/#*args,-**kwarg">¶</a>
+</h4>
+<ul>
+<li>
+<code>py::args</code> (<code>py::tuple</code>のサブクラス)</li>
+<li>
+<code>py::kwargs</code> (<code>py::dict</code>のサブクラス)</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">m</span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"count_args"</span><span class="p">,</span> <span class="p">[](</span><span class="n">py</span><span class="o">::</span><span class="n">args</span> <span class="n">a</span><span class="p">,</span> <span class="n">py</span><span class="o">::</span><span class="n">kwargs</span> <span class="n">kw</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">py</span><span class="o">::</span><span class="n">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="s">"args,"</span><span class="p">,</span> <span class="n">kw</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="s">"kwargs"</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="その他の話題">その他の話題<a class="anchor-link" href="posts/14/#%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E8%A9%B1%E9%A1%8C">¶</a>
+</h4>
+<ul>
+<li>C++とPython間のオブジェクトの取扱</li>
+<li>関数とコールバック</li>
+<li>Numpy対応</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="C++とPython間のオブジェクトの取扱">C++とPython間のオブジェクトの取扱<a class="anchor-link" href="posts/14/#C++%E3%81%A8Python%E9%96%93%E3%81%AE%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E5%8F%96%E6%89%B1">¶</a>
+</h4>
+<ul>
+<li>C++とPythonのオブジェクトを混在してラッパーを定義可能</li>
+<li>3種類の方法<ul>
+<li>Python側でC++の型のインスタンスを引数に取る</li>
+<li>C++側でPythonの型のインスタンスを引数に取る</li>
+<li>C++の型とPythonの型を型変換する</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Python側でC++の型のインスタンスを引数に取る">Python側でC++の型のインスタンスを引数に取る<a class="anchor-link" href="posts/14/#Python%E5%81%B4%E3%81%A7C++%E3%81%AE%E5%9E%8B%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E3%82%92%E5%BC%95%E6%95%B0%E3%81%AB%E5%8F%96%E3%82%8B">¶</a>
+</h4>
+<div class="highlight"><pre><span></span><span class="n">py</span><span class="o">::</span><span class="n">class_</span><span class="o">&lt;</span><span class="n">Foo</span><span class="o">&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s">"Foo"</span><span class="p">);</span>
+<span class="n">m</span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"f1"</span><span class="p">,</span> <span class="p">[](</span><span class="k">const</span> <span class="n">Foo</span><span class="o">&amp;</span> <span class="n">foo</span><span class="p">){</span> <span class="p">...}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="C++側でPythonの型のインスタンスを引数に取る">C++側でPythonの型のインスタンスを引数に取る<a class="anchor-link" href="posts/14/#C++%E5%81%B4%E3%81%A7Python%E3%81%AE%E5%9E%8B%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E3%82%92%E5%BC%95%E6%95%B0%E3%81%AB%E5%8F%96%E3%82%8B">¶</a>
+</h4>
+<div class="highlight"><pre><span></span><span class="n">m</span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"f2"</span><span class="p">,</span> <span class="p">[](</span><span class="n">py</span><span class="o">::</span><span class="n">list</span> <span class="n">list</span><span class="p">){</span> <span class="p">...</span> <span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="C++の型とPythonの型を型変換する">C++の型とPythonの型を型変換する<a class="anchor-link" href="posts/14/#C++%E3%81%AE%E5%9E%8B%E3%81%A8Python%E3%81%AE%E5%9E%8B%E3%82%92%E5%9E%8B%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8B">¶</a>
+</h4>
+<div class="highlight"><pre><span></span><span class="n">m</span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"f3"</span><span class="p">,</span> <span class="p">[](</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+<span class="n">m</span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"f4"</span><span class="p">,</span> <span class="p">[](</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+<span class="n">m</span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"f5"</span><span class="p">,</span> <span class="p">[](</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="サポートされている型変換">サポートされている型変換<a class="anchor-link" href="posts/14/#%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E5%9E%8B%E5%A4%89%E6%8F%9B">¶</a>
+</h4>
+<ul>
+<li>スカラー値<ul>
+<li>integer types, float, double, bool, char</li>
+</ul>
+</li>
+<li>文字列<ul>
+<li>std::string, const char *</li>
+</ul>
+</li>
+<li>タプル<ul>
+<li>std::pair&lt;F, S&gt;, std::tuple&lt;...&gt;</li>
+</ul>
+</li>
+<li>シーケンス<ul>
+<li>std::vector<t>, std::list<t>, std::array&lt;T, n&gt;</t></t>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>マップ<ul>
+<li>std::map&lt;K, V&gt;, std::unordered_map&lt;K, V&gt;</li>
+</ul>
+</li>
+<li>集合<ul>
+<li>std::set<t>, std::unordered_set<t></t></t>
+</li>
+</ul>
+</li>
+<li>関数<ul>
+<li>std::function&lt;...&gt;</li>
+</ul>
+</li>
+<li>Date/time<ul>
+<li>std::chrono::duration, std::chrono::time_point</li>
+</ul>
+</li>
+<li>Optional<ul>
+<li>std::optional<t>, std::experimental::optional<t></t></t>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="関数とコールバック">関数とコールバック<a class="anchor-link" href="posts/14/#%E9%96%A2%E6%95%B0%E3%81%A8%E3%82%B3%E3%83%BC%E3%83%AB%E3%83%90%E3%83%83%E3%82%AF">¶</a>
+</h4>
+<ul>
+<li>
+<code>std::function</code>でpythonの関数を受け取れる</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [38]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">pybind11</span>
+
+#include &lt;pybind11/functional.h&gt;
+
+PYBIND11_MODULE(callback_test, m) {
+    m.def("for_even",
+          [](int n, std::function&lt;void(int)&gt; f) {
+              for (int i = 0; i &lt; n; ++i){ if (i % 2 == 0) f(i); }
+          }
+         );
+}
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [39]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">py_callback_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"called </span><span class="si">{0}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    
+<span class="n">for_even</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">py_callback_func</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>called 0
+called 2
+called 4
+called 6
+called 8
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="numpy対応">numpy対応<a class="anchor-link" href="posts/14/#numpy%E5%AF%BE%E5%BF%9C">¶</a>
+</h4>
+<ul>
+<li><code>#include &lt;pybind11/numpy.h&gt;</code></li>
+<li>
+<code>py::array_t&lt;type&gt;</code>型<ul>
+<li>ndarrayを受け取ることが可能</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<code>arr.ndim</code>, <code>arr.shape(n)</code>, <code>arr.size()</code>
+</li>
+<li>バッファへのポインタ<ul>
+<li>
+<code>arr.data()</code>, <code>arr.mutable_data()</code>
+</li>
+<li>インデックス指定も可能</li>
+</ul>
+</li>
+<li>要素への直接アクセス<ul>
+<li>
+<code>arr.unchecked()</code>, <code>arr.mutable_unchecked()</code>
+</li>
+<li>
+<code>ref(i, j, k)</code>としてアクセス可能</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">pybind11</span>
+
+#include &lt;pybind11/numpy.h&gt;
+
+namespace py = pybind11;
+
+PYBIND11_MODULE(numpy_bind, m) {
+    m.def("add_2d",
+          [](py::array_t&lt;double&gt; x, py::array_t&lt;double&gt; y){
+              auto r = x.mutable_unchecked&lt;2&gt;();
+              auto c = y.unchecked&lt;2&gt;();
+
+            for(ssize_t i = 0; i &lt; r.shape(0); i++){
+                for(ssize_t j = 0; j &lt; r.shape(1); j++){
+                    r(i, j) += c(i, j);
+                }
+            }
+          },  py::arg().noconvert(), py::arg().noconvert());
+}
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [33]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [34]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]])</span>
+<span class="n">add_2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[34]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[3., 5.],
+       [7., 9.]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="まとめ">まとめ<a class="anchor-link" href="posts/14/#%E3%81%BE%E3%81%A8%E3%82%81">¶</a>
+</h4>
+<ul>
+<li>Python向けのC拡張モジュールをC++11で作成するためのライブラリpybind11について紹介</li>
+<li>ipybindを用いたJupyter Notebookからの実行方法の紹介</li>
+<li>numpy連携を紹介</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/13/" class="u-url">Pyroomacousticsの紹介</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Hiromasa OHASHI
@@ -1764,187 +3243,6 @@ Pyroomacousticsが提供しているのは古典的な遅延和法(Delay and Sum
 </ul>
 <h3>結論</h3>
 <p>現状nikolaで多言語サイトを作成する場合は中途半端な多言語サイトしか実現できないのが実情である。余裕があれば原因調査の上でこの記事についても追記を行なっていきたい。</p>
-</div>
-                </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/11/" class="u-url">nikolaのバージョンをv8.0.0にアップグレード</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Hiromasa OHASHI
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/11/" rel="bookmark">
-            <time class="published dt-published" datetime="2018-09-16T12:30:00+09:00" itemprop="datePublished" title="2018-09-16 12:30">2018-09-16 12:30</time></a>
-            </p>
-                        <p class="commentline">
-        
-    <a href="posts/11/#disqus_thread" data-disqus-identifier="cache/posts/11.html">Comments</a>
-
-
-                </p>
-</div>
-            </header><div class="e-content entry-content">
-                    <div>
-<h3>nikolaのバージョンをv8.0.0にアップグレード</h3>
-<h4>nikola v8.0.0</h4>
-<p>2018/9/11にnikolaのメジャーバージョンが8.0にアップグレードされた。<code>pip install -U "Nikola[extras]"</code>を実行しアップグーレドを施したところ、各種設定を変更しなければならなかったためその作業ログを以下に記す。</p>
-<p>各種設定変更のためには<a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html">Upgrading to Nikola v8</a>を参照すると良い。
-ここでは単純に<code>pip install -U "Nikola[extras]"</code>を実行してしまったが、実際には<code>How to upgrade</code>の手順を読んだ上でアップグレードを行ったほうが良いと思われる。</p>
-<h4>
-<code>conf.py</code>の修正</h4>
-<p><code>nikola --version</code>をブログが存在するディレクトリで実行したところ下記の警告が出た。</p>
-<pre class="code literal-block"><span></span>[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.
-[2018-09-16T03:11:45Z] WARNING: Nikola: The sections feature has been removed and its functionality has been merged into categories.
-[2018-09-16T03:11:45Z] WARNING: Nikola: For more information on how to migrate, please read: https://getnikola.com/blog/upgrading-to-nikola-v8.html#sections-were-replaced-by-categories
-[2018-09-16T03:11:45Z] INFO: Nikola: Setting CATEGORY_DESTPATH_AS_DEFAULT = True
-[2018-09-16T03:11:46Z] WARNING: Nikola: Cannot load theme "bootstrap3", using 'bootblog4' instead.
-... 以後bootstrap3が存在しない旨を示すpythonのTracebackが表示される ...
-</pre>
-
-
-<p>これらのwarningを修正するために、下記に記した内容を実行した。</p>
-<h5>名称が変更された設定の変更</h5>
-<p>手元では<code>UNSLUGIFY_TITLES</code>を<code>FILE_METADATA_UNSLUGIFY_TITLES</code>に変更するのみで前述の最初のWARNINGは消えた。
-どうやら<a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html">Upgrading to Nikola v8</a>を参照すると他項目についても変更されたものがある模様。以下に抜粋する。</p>
-<ul>
-<li>削除されたもの<ul>
-<li><code>FEED_PREVIEWIMAGE</code></li>
-<li><code>SITEMAP_INCLUDE_FILELESS_DIRS</code></li>
-<li><code>USE_OPEN_GRAPH</code></li>
-<li><code>USE_BASE_TAG</code></li>
-</ul>
-</li>
-<li>名称が変更されたもの<ul>
-<li>
-<code>UNSLUGIFY_TITLES</code> -&gt; <code>FILE_METADATA_UNSLUGIFY_TITLES</code>
-</li>
-<li>
-<code>TAG_PAGES_TITLES</code> -&gt; <code>TAG_TITLES</code>
-</li>
-<li>
-<code>TAG_PAGES_DESCRIPTIONS</code> -&gt; <code>TAG_DESCRIPTIONS</code>
-</li>
-<li>
-<code>CATEGORY_PAGES_TITLES</code> -&gt; <code>CATEGORY_TITLES</code>
-</li>
-<li>
-<code>CATEGORY_PAGES_DESCRIPTIONS</code> -&gt; <code>CATEGORY_DESCRIPTIONS</code>
-</li>
-<li>
-<code>DISABLE_INDEXES_PLUGIN_INDEX_AND_ATOM_FEED</code> -&gt; <code>DISABLE_INDEXES and DISABLE_MAIN_ATOM_FEED</code>
-</li>
-<li>
-<code>DISABLE_INDEXES_PLUGIN_RSS_FEED</code> -&gt; <code>DISABLE_MAIN_RSS_FEED</code>
-</li>
-</ul>
-</li>
-</ul>
-<p>実際には他にも変更された項目が存在するため、調査した結果を末尾に示してある。</p>
-<h5>セクション(Sections)関連の設定の変更</h5>
-<p>v8からはセクション関連の機能が削除されカテゴリに統合されたため、関連設定を削除する必要がある。
-<a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html">Upgrading to Nikola v8</a>には書かれていないが、そもそも<code>POSTS_SECTIONS</code>の項目を消す必要がある。
-これによって前述のログに存在したセクション関連の警告は消失する。</p>
-<h5>デフォルトテーマの変更</h5>
-<p>アップグレード前はデフォルトテーマの<code>bootstrap3</code>を使っていたが、v8ではデフォルトテーマが<code>bootblog4</code>に変更された。
-<a href="https://getnikola.com/blog/upgrading-to-nikola-v8.html">Upgrading to Nikola v8</a>によれば<code>nikola theme -i bootstrap3</code>を実行しテーマをインストールすることによってbootstrap3は依然として使用できるようであるが、新デフォルトテーマのbootblog4では<code>featured posts</code>の表示などができるなど機能が追加されているとのことである。</p>
-<p>ここでは<code>bootblog4</code>への変更を行った。前述のログでは最後の部分でpythonのTracebackが大量に表示されていたため、この修正も合わせて行った。以下に修正のために実施した内容を順に記す。</p>
-<ul>
-<li>
-<code>conf.py</code>の<code>THEME</code>を<code>bootblog4</code>に変更</li>
-<li>
-<code>nikola build</code>を実行<ul>
-<li>
-<code>nikola --version</code>を実行したときと同様なbootstrap3が存在しないというExceptionが表示され、再構築を行うことができない</li>
-</ul>
-</li>
-<li>キャッシュが影響していることを疑い<code>cache</code>ディレクトリと<code>__pycache__</code>ディレクトリを削除<ul>
-<li>状況は変化しない</li>
-</ul>
-</li>
-<li>
-<code>nikola theme -i bootstrap3</code>を実行<ul>
-<li>依然としてbootstrap3が存在しないというExceptionが表示されるためbootstrap3を再度導入することもできない</li>
-</ul>
-</li>
-<li>Exceptionを吐いている<code>site-packages/nikola/utils.py</code>のソースを調査<ul>
-<li>エラーを吐いている<code>get_asset_path</code>のメソッドにおいてthemesのディレクトリを走査していることが問題の模様</li>
-</ul>
-</li>
-<li>ブログルート直下のthemesディレクトリを他の場所に一時的に退避<ul>
-<li>Exceptionを吐くエラーが消失</li>
-</ul>
-</li>
-<li>
-<code>nikola build</code>を実行<ul>
-<li>無事にブログが再構築</li>
-</ul>
-</li>
-</ul>
-<p>したがって、theme関連のトラブルがなければ<code>conf.py</code>の修正のみで済む内容であったと思われる。</p>
-<h4>その他<code>conf.py</code>の変化</h4>
-<p>折角なので新規に<code>nikola init</code>を実行して生成したブログの<code>conf.py</code>とのdiffを取ってその他の変更を調べた。
-コメントの変更や前述した変更については記載していない。また各項目の意味については全て把握していないため必要な場合は新規生成した<code>conf.py</code>に付与されたコメントなどを読んだほうが良い。</p>
-<ul>
-<li>
-<code>from __future__ import unicode_literals</code>の削除</li>
-<li>対応言語の追加<ul>
-<li>
-<code>ml</code>, <code>th</code>, <code>vi</code>
-</li>
-</ul>
-</li>
-<li>テーマ依存設定<ul>
-<li>
-<code>THEME_CONFIG</code>が追加されており、bootblog4テーマはこの設定によりfeatured postの設定やsidebarの設定が行えるようである</li>
-</ul>
-</li>
-<li>
-<code>DATE_FORMAT</code>の変更<ul>
-<li>元はdatetime.datetime.strftimeで用いられる形式だったがCLDRで用いられるフォーマットに変更されたとのこと</li>
-</ul>
-</li>
-<li>
-<code>LOCALE_FALLBAK</code>と<code>LOCALE_DEFAULT</code>の削除</li>
-<li>セクション関連の項目の削除<ul>
-<li>
-<code>WRITE_TAG_CLUD</code>, <code>POST_SECTIONS</code>, <code>POST_SECTIONS_ARE_INDEXED</code>, <code>SECTION_PATH</code>, <code>POSTS_SECTION_COLORS</code>, <code>POSTS_SECTION_DESCRIPTIONS</code>, <code>POSTS_SECTION_FROM_META</code>, <code>POSTS_SECTOIN_NAME</code>, <code>POSTS_SECTION_TITLE</code>, <code>POSTS_SECTION_TRANSLATIONS</code>, <code>POSTS_SECTION_TRANSLATIONS_ADD_DEFAULTS</code>
-</li>
-</ul>
-</li>
-<li>カテゴリー関連の項目の追加<ul>
-<li>
-<code>CATEGORY_DESTPATH_AS_DEFAULT</code>, <code>CATEGORY_DESTPATH_TRIM_PREFIX</code>, <code>CATEGORY_DESTPATH_FIRST_DIRECTORY_ONLY</code>, <code>CATEGORY_DESTPATH_NAMES</code>, <code>CATEGORY_PAGES_FOLLOW_DESTPATH</code>
-</li>
-</ul>
-</li>
-<li>RSS関連の項目のの追加<ul>
-<li><code>RSS_EXTENSION</code></li>
-<li><code>RSS_FILENAME_BASE</code></li>
-<li><code>ATOM_PATH</code></li>
-<li><code>ATOM_FILENAME_BASE</code></li>
-<li><code>ATOM_EXTENSION</code></li>
-</ul>
-</li>
-<li>
-<code>USE_BASE_TAG</code>の削除</li>
-<li>LESS, SASS関連設定の削除<ul>
-<li>
-<code>LESS_COMPILER</code>, <code>LESS_OPTIONS</code>, <code>SASS_COMPILER</code>, <code>SASS_OPTIONS</code>
-</li>
-</ul>
-</li>
-<li>
-<code>PRESERVE_ICC_PROFILES</code>の追加</li>
-<li>
-<code>ANNOTATIONS</code>の削除</li>
-<li>
-<code>MARKDOWN_EXTENSION_CONFIGS</code>の追加</li>
-<li>
-<code>METADATA_VALUE_MAPPING</code>の追加</li>
-<li>
-<code>NO_DOCUTILS_TITLE_TRANSFORM</code>の削除</li>
-<li>
-<code>USE_TAG_METADATA</code>および<code>WARN_ABOUT_TAG_METADATA</code>の追加</li>
-</ul>
 </div>
                 </div>
             </article>

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2018/12/21にPyData Osakaの梅キャンPython勉強会コラボ回でpybind11について発表しました | hiromasa.info</title>
-<link href="../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link href="../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
-<link href="../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../rss.xml">
-<link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="../../../rss.xml">
-<link rel="canonical" href="http://www.hiromasa.info/en/posts/14/">
-<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../en/rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="../../rss.xml">
+<link rel="canonical" href="http://www.hiromasa.info/posts/14/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -34,7 +34,7 @@
 <link rel="prev" href="../13/" title="Pyroomacousticsの紹介" type="text/html">
 <meta property="og:site_name" content="hiromasa.info">
 <meta property="og:title" content="2018/12/21にPyData Osakaの梅キャンPython勉強会コラボ回でpybind11について発表しました">
-<meta property="og:url" content="http://www.hiromasa.info/en/posts/14/">
+<meta property="og:url" content="http://www.hiromasa.info/posts/14/">
 <meta property="og:description" content="2018/12/21(金)にPyData Osakaの梅キャンPython勉強会コラボ回でpybind11について発表しました¶ブログ記事にするのが遅くなりましたが2018/12/21に【大阪工業大学】特別回 梅キャンPython勉強会【梅田キャンパス】 でpybind11に関する発表を行いました。
 下記はその際の資料になります。
 
@@ -51,11 +51,11 @@ pybind11の紹介¶大橋宏正(PyDataオーガ">
 <meta property="article:tag" content="pybind11">
 <meta property="article:tag" content="pydata">
 <meta property="article:tag" content="python">
-<link rel="alternate" hreflang="ja" href="../../../posts/14/">
+<link rel="alternate" hreflang="en" href="../../en/posts/14/">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
 </head>
 <body>
-<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+<a href="#content" class="sr-only sr-only-focusable">本文を読み飛ばす</a>
 
 <!-- Header and menu bar -->
 <div class="container">
@@ -69,20 +69,20 @@ pybind11の紹介¶大橋宏正(PyDataオーガ">
             </div>
         </div>
           <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="http://www.hiromasa.info/en/">
+            <a class="navbar-brand blog-header-logo text-dark" href="http://www.hiromasa.info/">
 
             <span id="blog-title">hiromasa.info</span>
         </a>
           </div>
             <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
             <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
-<li class="nav-item"><a href="http://www.hiromasa.info/" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
+<li class="nav-item"><a href="http://www.hiromasa.info/en/" rel="alternate" hreflang="en" class="nav-link">English</a></li>
 
                     
                     
     
     <li class="nav-item">
-    <a href="index.ipynb" id="sourcelink" class="nav-link">Source</a>
+    <a href="index.ipynb" id="sourcelink" class="nav-link">ソース</a>
     </li>
 
 
@@ -93,16 +93,16 @@ pybind11の紹介¶大橋宏正(PyDataオーガ">
 </header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
             <ul class="navbar-nav nav-fill d-flex w-100">
 <li class="nav-item">
-<a href="../../archive.html" class="nav-link">all posts</a>
+<a href="../../archive.html" class="nav-link">文書一覧</a>
                 </li>
 <li class="nav-item">
-<a href="../../categories/" class="nav-link">tag</a>
+<a href="../../categories/" class="nav-link">タグ</a>
                 </li>
 <li class="nav-item">
-<a href="../../pages/about/index.html" class="nav-link">about</a>
+<a href="../../pages/about/index.html" class="nav-link">About</a>
                 </li>
 <li class="nav-item">
-<a href="../../rss.xml" class="nav-link">RSS feed</a>
+<a href="../../rss.xml" class="nav-link">RSSフィード</a>
 
                 
             </li>
@@ -134,7 +134,7 @@ pybind11の紹介¶大橋宏正(PyDataオーガ">
 
             
         </p>
-<p class="sourceline"><a href="index.ipynb" class="sourcelink">Source</a></p>
+<p class="sourceline"><a href="index.ipynb" class="sourcelink">ソース</a></p>
 
         </div>
         
@@ -1610,19 +1610,19 @@ PYBIND11_MODULE(numpy_bind, m) {
         </ul>
 <ul class="pager hidden-print">
 <li class="previous">
-                <a href="../13/" rel="prev" title="Pyroomacousticsの紹介">Previous post</a>
+                <a href="../13/" rel="prev" title="Pyroomacousticsの紹介">一つ前の文書</a>
             </li>
-        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        </ul></nav></aside><section class="comments hidden-print"><h2>コメント</h2>
         
         
         <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="hiromasa-info",
-            disqus_url="http://www.hiromasa.info/en/posts/14/",
+            disqus_url="http://www.hiromasa.info/posts/14/",
         disqus_title="2018/12/21\u306bPyData Osaka\u306e\u6885\u30ad\u30e3\u30f3Python\u52c9\u5f37\u4f1a\u30b3\u30e9\u30dc\u56de\u3067pybind11\u306b\u3064\u3044\u3066\u767a\u8868\u3057\u307e\u3057\u305f",
         disqus_identifier="cache/posts/14.html",
         disqus_config = function () {
-            this.language = "en";
+            this.language = "ja";
         };
         (function() {
             var dsq = document.createElement('script'); dsq.async = true;
@@ -1669,8 +1669,8 @@ delimiters: [
 </div>
 
 
-        <script src="../../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
-    moment.locale("en");
+        <script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("ja");
     fancydates(0, "YYYY-MM-DD HH:mm");
     </script><!-- end fancy dates --><script>
     baguetteBox.run('div#content', {
