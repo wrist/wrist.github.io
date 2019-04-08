@@ -29,7 +29,7 @@ before_install:
 install:
 - pip install 'ghp-import2'
 - pip install 'webassets'
-- pip install 'Nikola[extras]'
+- pip install -U --upgrade-strategy=eager 'Nikola[extras]'
 script:
 - nikola build && nikola github_deploy -m 'Nikola auto deploy [ci skip]'
 notifications:
