@@ -30,6 +30,8 @@ GITHUB_COMMIT_SOURCE = False
 nikolaブログのルートディレクトリ(`conf.py`が置いてあるディレクトリ)に以下のような`.travis.yml`ファイルを作成します。
 これは[Nikola公式の記事](https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html)に記載のtravis.ymlを改変したものになります。
 
+※2019/4/8追記, [travis CIでのビルドに失敗する対策のissue](https://github.com/getnikola/nikola/issues/3237)の内容を反映
+
 ```yaml
 language: python
 cache: apt
@@ -60,7 +62,7 @@ before_install:
 install:
 - pip install 'ghp-import2'
 - pip install 'webassets'
-- pip install 'Nikola[extras]'
+- pip install -U --upgrade-strategy=eager 'Nikola[extras]'
 script:
 - nikola build && nikola github_deploy -m 'Nikola auto deploy [ci skip]'
 notifications:

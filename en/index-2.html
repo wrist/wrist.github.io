@@ -132,6 +132,7 @@
 <code>.travis.yml</code>の作成</h4>
 <p>nikolaブログのルートディレクトリ(<code>conf.py</code>が置いてあるディレクトリ)に以下のような<code>.travis.yml</code>ファイルを作成します。
 これは<a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html">Nikola公式の記事</a>に記載のtravis.ymlを改変したものになります。</p>
+<p>※2019/4/8追記, <a href="https://github.com/getnikola/nikola/issues/3237">travis CIでのビルドに失敗する対策のissue</a>の内容を反映</p>
 <pre class="code literal-block"><span></span><span class="nt">language</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
 <span class="nt">cache</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apt</span>
 <span class="nt">sudo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
@@ -161,7 +162,7 @@
 <span class="nt">install</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'ghp-import2'</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'webassets'</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'Nikola[extras]'</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install -U --upgrade-strategy=eager 'Nikola[extras]'</span>
 <span class="nt">script</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nikola build &amp;&amp; nikola github_deploy -m 'Nikola auto deploy [ci skip]'</span>
 <span class="nt">notifications</span><span class="p">:</span>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info</title><link>http://www.hiromasa.info/</link><description>blog by Hiromasa OHASHI</description><atom:link href="http://www.hiromasa.info/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 08 Apr 2019 02:08:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>2019/3/24にmatplotlibのアニメーション機能に関する発表を行いました</title><link>http://www.hiromasa.info/en/posts/15/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info</title><link>http://www.hiromasa.info/</link><description>blog by Hiromasa OHASHI</description><atom:link href="http://www.hiromasa.info/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 08 Apr 2019 02:27:00 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>2019/3/24にmatplotlibのアニメーション機能に関する発表を行いました</title><link>http://www.hiromasa.info/en/posts/15/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2 id="2019/3/24にmatplotlibのアニメーションの機能に関する発表を行いました"&gt;2019/3/24にmatplotlibのアニメーションの機能に関する発表を行いました&lt;a class="anchor-link" href="http://www.hiromasa.info/en/posts/15/#2019/3/24%E3%81%ABmatplotlib%E3%81%AE%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E6%A9%9F%E8%83%BD%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E7%99%BA%E8%A1%A8%E3%82%92%E8%A1%8C%E3%81%84%E3%81%BE%E3%81%97%E3%81%9F"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;2019/3/24に「はんなりPython+PyData Osakaの可視化特集会 」のイベントにて標題の発表を行いました。
@@ -1293,10 +1293,10 @@ test.gif
 
 
 
-&lt;div id="3cbdbed1-611a-4df2-af35-d45f9066897f"&gt;&lt;/div&gt;
+&lt;div id="8863ea41-062f-41f4-b3e4-94b5501d4c55"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#3cbdbed1-611a-4df2-af35-d45f9066897f');
+var element = $('#8863ea41-062f-41f4-b3e4-94b5501d4c55');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
@@ -8016,6 +8016,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.T.npy&lt;span cla
 &lt;h4&gt;&lt;code&gt;.travis.yml&lt;/code&gt;の作成&lt;/h4&gt;
 &lt;p&gt;nikolaブログのルートディレクトリ(&lt;code&gt;conf.py&lt;/code&gt;が置いてあるディレクトリ)に以下のような&lt;code&gt;.travis.yml&lt;/code&gt;ファイルを作成します。
 これは&lt;a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html"&gt;Nikola公式の記事&lt;/a&gt;に記載のtravis.ymlを改変したものになります。&lt;/p&gt;
+&lt;p&gt;※2019/4/8追記, &lt;a href="https://github.com/getnikola/nikola/issues/3237"&gt;travis CIでのビルドに失敗する対策のissue&lt;/a&gt;の内容を反映&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;language&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;python&lt;/span&gt;
 &lt;span class="nt"&gt;cache&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;apt&lt;/span&gt;
 &lt;span class="nt"&gt;sudo&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;false&lt;/span&gt;
@@ -8045,7 +8046,7 @@ diff &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;hexdump -Cv a.T.npy&lt;span cla
 &lt;span class="nt"&gt;install&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
 &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pip install 'ghp-import2'&lt;/span&gt;
 &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pip install 'webassets'&lt;/span&gt;
-&lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pip install 'Nikola[extras]'&lt;/span&gt;
+&lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pip install -U --upgrade-strategy=eager 'Nikola[extras]'&lt;/span&gt;
 &lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
 &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;nikola build &amp;amp;&amp;amp; nikola github_deploy -m 'Nikola auto deploy [ci skip]'&lt;/span&gt;
 &lt;span class="nt"&gt;notifications&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
