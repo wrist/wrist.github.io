@@ -109,10 +109,11 @@ TRANSLATIONS_PATTERN = "{path'>
         <!--Body content-->
         
         
+        
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">nikolaで多国語ポスト対応</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
                     Hiromasa OHASHI
             </span></p>
             <p class="dateline">
@@ -121,7 +122,7 @@ TRANSLATIONS_PATTERN = "{path'>
             </p>
                 <p class="commentline">
         
-    <a href="#disqus_thread" data-disqus-identifier="cache/posts/12.html">Comments</a>
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/12.html">コメント</a>
 
 
             
@@ -137,7 +138,7 @@ TRANSLATIONS_PATTERN = "{path'>
 <p><a href="https://getnikola.com/handbook.html">nikola handbook</a>のMultilingual postsの項を見ながら多国語対応の設定を行う。</p>
 <h4>基本的な設定</h4>
 <p>記事や固定ページの多国語対応を行う場合、<code>conf.py</code>の<code>TRANSLATIONS_PATTERN</code>で指定されたパターンに沿ったファイル名で言語ごとに記事を作成することになる。デフォルトだと</p>
-<pre class="code literal-block"><span></span><span class="n">TRANSLATIONS_PATTERN</span> <span class="o">=</span> <span class="s2">"{path}.{lang}.{ext}"</span>
+<pre class="code literal-block"><span></span><span class="n">TRANSLATIONS_PATTERN</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{path}</span><span class="s2">.</span><span class="si">{lang}</span><span class="s2">.</span><span class="si">{ext}</span><span class="s2">"</span>
 </pre>
 
 

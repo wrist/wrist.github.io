@@ -33,7 +33,7 @@
     vertical-align: baseline !important; 
 }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -92,6 +92,7 @@
         <!--Body content-->
         
         
+        
     
         
 
@@ -123,7 +124,7 @@
 <h4>
 <code>conf.py</code>の編集</h4>
 <p>まず、<code>nikola github_deploy</code>コマンド実行時に、デプロイと同時にsrcブランチもコミットするかどうかを制御するためのオプションをFalseに設定します。</p>
-<pre class="code literal-block"><span></span><span class="n">GITHUB_COMMIT_SOURCE</span> <span class="o">=</span> <span class="bp">False</span>
+<pre class="code literal-block"><span></span><span class="n">GITHUB_COMMIT_SOURCE</span> <span class="o">=</span> <span class="kc">False</span>
 </pre>
 
 
@@ -173,13 +174,13 @@
 
 
 <p>ここで、</p>
-<pre class="code literal-block"><span></span>- git config --global user.name 'USERNAME'
-- git config --global user.email 'travis@invalid'
+<pre class="code literal-block"><span></span><span class="err">- git config --global user.name 'USERNAME'</span>
+<span class="err">- git config --global user.email 'travis@invalid'</span>
 </pre>
 
 
 <p>の行は適切なユーザー名、メールアドレスに、</p>
-<pre class="code literal-block"><span></span>- git remote add origin git@github.com:USERNAME/REPO.git
+<pre class="code literal-block"><span></span><span class="err">- git remote add origin git@github.com:USERNAME/REPO.git</span>
 </pre>
 
 
@@ -855,7 +856,7 @@ length: 1355168[pt]=61.45886621315193[s]
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># strideトリックを使った信号を短時間波形フレームの配列に変換する関数</span>
-<span class="kn">from</span> <span class="nn">numpy.lib.stride_tricks</span> <span class="k">import</span> <span class="n">as_strided</span>
+<span class="kn">from</span> <span class="nn">numpy.lib.stride_tricks</span> <span class="kn">import</span> <span class="n">as_strided</span>
 
 <span class="k">def</span> <span class="nf">split_frames</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">frame_width</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
 
@@ -4356,7 +4357,7 @@ $$<ul>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">linalg</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">]])</span>
 
@@ -5872,7 +5873,7 @@ $$ M = U\Sigma V^* $$<ul>
 <div class="prompt input_prompt">In [44]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="k">import</span> <span class="n">distance</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
 <span class="n">coords</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">35.0456</span><span class="p">,</span> <span class="o">-</span><span class="mf">85.2672</span><span class="p">),</span>
           <span class="p">(</span><span class="mf">35.1174</span><span class="p">,</span> <span class="o">-</span><span class="mf">89.9711</span><span class="p">),</span>
           <span class="p">(</span><span class="mf">35.9728</span><span class="p">,</span> <span class="o">-</span><span class="mf">83.9422</span><span class="p">),</span>
@@ -6118,7 +6119,7 @@ uint8
 <div class="prompt input_prompt">In [49]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="k">import</span> <span class="n">derivative</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">derivative</span>
 
 <span class="c1"># x0の点におけるn次の中心差分を返す</span>
 <span class="c1"># n==1の場合はf(x+h)-f(x-h)/2h</span>
@@ -6370,7 +6371,7 @@ Requirement already satisfied: llvmlite&gt;=0.23.0dev0 in /Users/wrist/.pyenv/ve
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># strideトリックを使った信号を短時間波形フレームの配列に変換する関数</span>
-<span class="kn">from</span> <span class="nn">numpy.lib.stride_tricks</span> <span class="k">import</span> <span class="n">as_strided</span>
+<span class="kn">from</span> <span class="nn">numpy.lib.stride_tricks</span> <span class="kn">import</span> <span class="n">as_strided</span>
 
 <span class="k">def</span> <span class="nf">split_frames</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">frame_width</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
 
@@ -6673,7 +6674,7 @@ Requirement already satisfied: llvmlite&gt;=0.23.0dev0 in /Users/wrist/.pyenv/ve
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 得られたスペクトログラムnp.abs(my_D.T)に対してNMFを実行</span>
-<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="k">import</span> <span class="n">NMF</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">NMF</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">NMF</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">W</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">my_D</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
 <span class="n">H</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">components_</span>
@@ -6926,7 +6927,7 @@ Requirement already satisfied: llvmlite&gt;=0.23.0dev0 in /Users/wrist/.pyenv/ve
 <div class="prompt input_prompt">In [67]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.ndimage.interpolation</span> <span class="k">import</span> <span class="n">shift</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.ndimage.interpolation</span> <span class="kn">import</span> <span class="n">shift</span>
 <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">6.</span><span class="p">,</span> <span class="mf">7.</span><span class="p">,</span> <span class="mf">8.</span><span class="p">,</span> <span class="mf">9.</span><span class="p">])</span> 
 <span class="nb">print</span><span class="p">(</span><span class="n">shift</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">cval</span><span class="o">=</span><span class="mf">0.0</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">))</span>
@@ -6965,7 +6966,7 @@ Requirement already satisfied: llvmlite&gt;=0.23.0dev0 in /Users/wrist/.pyenv/ve
 <li class="previous"><a href="index-3.html" rel="prev">Newer posts</a></li>
             <li class="next"><a href="index-1.html" rel="next">Older posts</a></li>
         </ul>
-<script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script><script>
+<script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script><script>
                 renderMathInElement(document.body,
                     {
                         

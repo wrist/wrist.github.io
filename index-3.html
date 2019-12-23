@@ -33,7 +33,7 @@
     vertical-align: baseline !important; 
 }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">本文を読み飛ばす</a>
@@ -92,6 +92,7 @@
         <!--Body content-->
         
         
+        
     
         
 
@@ -109,7 +110,7 @@
             </p>
                         <p class="commentline">
         
-    <a href="posts/9/#disqus_thread" data-disqus-identifier="cache/posts/9.html">Comments</a>
+    <a href="posts/9/#disqus_thread" data-disqus-identifier="cache/posts/9.html">コメント</a>
 
 
                 </p>
@@ -187,7 +188,7 @@ Intel HAXM has been successfully uninstalled
             </p>
                         <p class="commentline">
         
-    <a href="posts/8/#disqus_thread" data-disqus-identifier="cache/posts/8.html">Comments</a>
+    <a href="posts/8/#disqus_thread" data-disqus-identifier="cache/posts/8.html">コメント</a>
 
 
                 </p>
@@ -287,32 +288,32 @@ $ make clean -j<span class="p">;</span> make depend -j<span class="p">;</span> m
 <span class="n">index</span> <span class="mi">1</span><span class="n">b4f5c413</span><span class="o">..</span><span class="mi">45</span><span class="n">a5b3a15</span> <span class="mi">100755</span>
 <span class="o">---</span> <span class="n">a</span><span class="o">/</span><span class="n">egs</span><span class="o">/</span><span class="n">voxforge</span><span class="o">/</span><span class="n">s5</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">make_trans</span><span class="o">.</span><span class="n">py</span>
 <span class="o">+++</span> <span class="n">b</span><span class="o">/</span><span class="n">egs</span><span class="o">/</span><span class="n">voxforge</span><span class="o">/</span><span class="n">s5</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">make_trans</span><span class="o">.</span><span class="n">py</span>
-<span class="err">@@</span> <span class="o">-</span><span class="mi">16</span><span class="p">,</span><span class="mi">7</span> <span class="o">+</span><span class="mi">16</span><span class="p">,</span><span class="mi">8</span> <span class="err">@@</span> <span class="n">prefix_a0405</span> <span class="n">IT</span> <span class="n">SEEMED</span> <span class="n">THE</span> <span class="n">ORDAINED</span> <span class="n">ORDER</span> <span class="n">OF</span> <span class="n">THINGS</span> <span class="n">THAT</span> <span class="n">DOGS</span> <span class="n">SHOULD</span> <span class="n">WORK</span>
+<span class="o">@@</span> <span class="o">-</span><span class="mi">16</span><span class="p">,</span><span class="mi">7</span> <span class="o">+</span><span class="mi">16</span><span class="p">,</span><span class="mi">8</span> <span class="o">@@</span> <span class="n">prefix_a0405</span> <span class="n">IT</span> <span class="n">SEEMED</span> <span class="n">THE</span> <span class="n">ORDAINED</span> <span class="n">ORDER</span> <span class="n">OF</span> <span class="n">THINGS</span> <span class="n">THAT</span> <span class="n">DOGS</span> <span class="n">SHOULD</span> <span class="n">WORK</span>
  <span class="kn">import</span> <span class="nn">sys</span>
 
  <span class="k">def</span> <span class="nf">err</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
-<span class="o">-</span>    <span class="k">print</span> <span class="o">&gt;&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">msg</span>
+<span class="o">-</span>    <span class="nb">print</span> <span class="o">&gt;&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">msg</span>
 <span class="o">+</span>    <span class="c1">#print &gt;&gt; sys.stderr, msg</span>
-<span class="o">+</span>    <span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<span class="o">+</span>    <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
 
  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
      <span class="n">err</span><span class="p">(</span><span class="s2">"Usage: </span><span class="si">%s</span><span class="s2"> &lt;prompts-file&gt; &lt;id-prefix&gt; &lt;utt-id1&gt; &lt;utt-id2&gt; ... "</span> <span class="o">%</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="err">@@</span> <span class="o">-</span><span class="mi">27</span><span class="p">,</span><span class="mi">7</span> <span class="o">+</span><span class="mi">28</span><span class="p">,</span><span class="mi">8</span> <span class="err">@@</span> <span class="n">id_prefix</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="o">@@</span> <span class="o">-</span><span class="mi">27</span><span class="p">,</span><span class="mi">7</span> <span class="o">+</span><span class="mi">28</span><span class="p">,</span><span class="mi">8</span> <span class="o">@@</span> <span class="n">id_prefix</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
  <span class="n">utt_ids</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
  <span class="n">utt2trans</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
  <span class="n">unnorm_utt</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-<span class="o">-</span><span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">file</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+<span class="o">-</span><span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">file</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
 <span class="o">+</span><span class="c1">#for l in file(sys.argv[1]):</span>
 <span class="o">+</span><span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-     <span class="n">u</span><span class="p">,</span> <span class="n">trans</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+     <span class="n">u</span><span class="p">,</span> <span class="n">trans</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
      <span class="n">u</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
      <span class="n">trans</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"-"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span>
-<span class="err">@@</span> <span class="o">-</span><span class="mi">46</span><span class="p">,</span><span class="mi">5</span> <span class="o">+</span><span class="mi">48</span><span class="p">,</span><span class="mi">5</span> <span class="err">@@</span> <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="n">utt_ids</span><span class="p">:</span>
+<span class="o">@@</span> <span class="o">-</span><span class="mi">46</span><span class="p">,</span><span class="mi">5</span> <span class="o">+</span><span class="mi">48</span><span class="p">,</span><span class="mi">5</span> <span class="o">@@</span> <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="n">utt_ids</span><span class="p">:</span>
      <span class="k">if</span> <span class="ow">not</span> <span class="n">uid</span> <span class="ow">in</span> <span class="n">utt2trans</span><span class="p">:</span>
          <span class="n">err</span><span class="p">(</span><span class="s2">"No transcript found for </span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">id_prefix</span><span class="p">,</span> <span class="n">uid</span><span class="p">))</span>
          <span class="k">continue</span>
-<span class="o">-</span>    <span class="k">print</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">id_prefix</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">utt2trans</span><span class="p">[</span><span class="n">uid</span><span class="p">])</span>
-<span class="o">+</span>    <span class="k">print</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">id_prefix</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">utt2trans</span><span class="p">[</span><span class="n">uid</span><span class="p">]))</span>
+<span class="o">-</span>    <span class="nb">print</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">id_prefix</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">utt2trans</span><span class="p">[</span><span class="n">uid</span><span class="p">])</span>
+<span class="o">+</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">id_prefix</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">utt2trans</span><span class="p">[</span><span class="n">uid</span><span class="p">]))</span>
 </pre>
 
 
@@ -3029,7 +3030,7 @@ exp/combine_sgmm2_4a_mmi_3b_fmmic5/decode/wer_9
             </p>
                         <p class="commentline">
         
-    <a href="posts/7/#disqus_thread" data-disqus-identifier="cache/posts/7.html">Comments</a>
+    <a href="posts/7/#disqus_thread" data-disqus-identifier="cache/posts/7.html">コメント</a>
 
 
                 </p>
@@ -3867,7 +3868,7 @@ diff &lt;<span class="o">(</span>hexdump -Cv a.T.npy<span class="o">)</span> &lt
 <li class="previous"><a href="index-4.html" rel="prev">新しい文書</a></li>
             <li class="next"><a href="index-2.html" rel="next">過去の文書</a></li>
         </ul>
-<script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script><script>
+<script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script><script>
                 renderMathInElement(document.body,
                     {
                         

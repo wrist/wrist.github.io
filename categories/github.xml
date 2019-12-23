@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (githubについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/github.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2019 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 08 Apr 2019 02:27:03 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Nikolaでブログ構築してGithub Pagesに設置</title><link>http://www.hiromasa.info/posts/1/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Nikolaとは&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (githubについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/github.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2019 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 23 Dec 2019 00:18:45 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Nikolaでブログ構築してGithub Pagesに設置</title><link>http://www.hiromasa.info/posts/1/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Nikolaとは&lt;/h3&gt;
 &lt;p&gt;Python製のstatic site generator。python製だとpelicanの方が有名だがipynbが使えると聞いたのでこちらを使うことにした。&lt;/p&gt;
 &lt;h3&gt;Nikolaでブログを生成&lt;/h3&gt;
 &lt;h4&gt;インストール&lt;/h4&gt;
@@ -10,8 +10,8 @@ $ pip install webassets
 
 
 &lt;p&gt;後述するbuildの際などに下記のようなメッセージが出るので合わせてwebassetsもインストールしておくと良い。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.
-[2018-01-08T01:42:01Z] WARNING: bundles: Setting USE_BUNDLES to False.
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.&lt;/span&gt;
+&lt;span class="err"&gt;[2018-01-08T01:42:01Z] WARNING: bundles: Setting USE_BUNDLES to False.&lt;/span&gt;
 &lt;/pre&gt;
 
 
@@ -35,16 +35,16 @@ commentシステムとして何を使うかを聞かれるが、後でconf.pyを
 &lt;p&gt;実行すると記事タイトルを聞かれるので打ち込むと&lt;code&gt;-f&lt;/code&gt;で指定した形式のファイルがposts以下に生成される。
 また、引数に&lt;code&gt;-e&lt;/code&gt;を付けるとそのままエディタでの編集画面となる。&lt;/p&gt;
 &lt;p&gt;生成されたファイルの冒頭には下記のような形のヘッダーが付いている。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&amp;lt;!--
-.. title: Nikolaでブログ構築してGithub Pagesに設置
-.. slug: 1
-.. date: 2018-01-07 23:35:28 UTC+09:00
-.. tags: nikola, python, github
-.. category: 
-.. link: 
-.. description: 
-.. type: text
---&amp;gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;&amp;lt;!--&lt;/span&gt;
+&lt;span class="err"&gt;.. title: Nikolaでブログ構築してGithub Pagesに設置&lt;/span&gt;
+&lt;span class="err"&gt;.. slug: 1&lt;/span&gt;
+&lt;span class="err"&gt;.. date: 2018-01-07 23:35:28 UTC+09:00&lt;/span&gt;
+&lt;span class="err"&gt;.. tags: nikola, python, github&lt;/span&gt;
+&lt;span class="err"&gt;.. category: &lt;/span&gt;
+&lt;span class="err"&gt;.. link: &lt;/span&gt;
+&lt;span class="err"&gt;.. description: &lt;/span&gt;
+&lt;span class="err"&gt;.. type: text&lt;/span&gt;
+&lt;span class="err"&gt;--&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 
 
@@ -118,16 +118,16 @@ $ git remote add origin git@github.com:wrist/wrist.github.io
 &lt;span class="c1"&gt;# gitのremote名&lt;/span&gt;
 &lt;span class="n"&gt;GITHUB_REMOTE_NAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'origin'&lt;/span&gt;
 &lt;span class="c1"&gt;# ソースブランチを自動的にコミットしプッシュするかの設定&lt;/span&gt;
-&lt;span class="n"&gt;GITHUB_COMMIT_SOURCE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+&lt;span class="n"&gt;GITHUB_COMMIT_SOURCE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;
 &lt;/pre&gt;
 
 
 &lt;h4&gt;3. .gitignoreを追加&lt;/h4&gt;
 &lt;p&gt;下記内容を.gitignoreに追加する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;cache
-.doit.db
-__pycache__
-output
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;cache&lt;/span&gt;
+&lt;span class="err"&gt;.doit.db&lt;/span&gt;
+&lt;span class="err"&gt;__pycache__&lt;/span&gt;
+&lt;span class="err"&gt;output&lt;/span&gt;
 &lt;/pre&gt;
 
 
@@ -138,8 +138,8 @@ output
 
 
 &lt;p&gt;下記のように表示された場合は&lt;code&gt;pip install ghp-import2&lt;/code&gt;でghp-import2をインストールする。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.
-[2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.&lt;/span&gt;
+&lt;span class="err"&gt;[2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.&lt;/span&gt;
 &lt;/pre&gt;
 
 

@@ -14,7 +14,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS (en)" href="en/rss.xml">
 <link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="rss.xml">
 <link rel="canonical" href="http://www.hiromasa.info/index-4.html">
-<link rel="prev" href="." type="text/html">
+<link rel="prev" href="index-5.html" type="text/html">
 <link rel="next" href="index-3.html" type="text/html">
 <!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
@@ -33,7 +33,7 @@
     vertical-align: baseline !important; 
 }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">本文を読み飛ばす</a>
@@ -92,6 +92,7 @@
         <!--Body content-->
         
         
+        
     
         
 
@@ -109,7 +110,7 @@
             </p>
                         <p class="commentline">
         
-    <a href="posts/12/#disqus_thread" data-disqus-identifier="cache/posts/12.html">Comments</a>
+    <a href="posts/12/#disqus_thread" data-disqus-identifier="cache/posts/12.html">コメント</a>
 
 
                 </p>
@@ -120,7 +121,7 @@
 <p><a href="https://getnikola.com/handbook.html">nikola handbook</a>のMultilingual postsの項を見ながら多国語対応の設定を行う。</p>
 <h4>基本的な設定</h4>
 <p>記事や固定ページの多国語対応を行う場合、<code>conf.py</code>の<code>TRANSLATIONS_PATTERN</code>で指定されたパターンに沿ったファイル名で言語ごとに記事を作成することになる。デフォルトだと</p>
-<pre class="code literal-block"><span></span><span class="n">TRANSLATIONS_PATTERN</span> <span class="o">=</span> <span class="s2">"{path}.{lang}.{ext}"</span>
+<pre class="code literal-block"><span></span><span class="n">TRANSLATIONS_PATTERN</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{path}</span><span class="s2">.</span><span class="si">{lang}</span><span class="s2">.</span><span class="si">{ext}</span><span class="s2">"</span>
 </pre>
 
 
@@ -191,7 +192,7 @@
             </p>
                         <p class="commentline">
         
-    <a href="posts/11/#disqus_thread" data-disqus-identifier="cache/posts/11.html">Comments</a>
+    <a href="posts/11/#disqus_thread" data-disqus-identifier="cache/posts/11.html">コメント</a>
 
 
                 </p>
@@ -206,12 +207,12 @@
 <h4>
 <code>conf.py</code>の修正</h4>
 <p><code>nikola --version</code>をブログが存在するディレクトリで実行したところ下記の警告が出た。</p>
-<pre class="code literal-block"><span></span>[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.
-[2018-09-16T03:11:45Z] WARNING: Nikola: The sections feature has been removed and its functionality has been merged into categories.
-[2018-09-16T03:11:45Z] WARNING: Nikola: For more information on how to migrate, please read: https://getnikola.com/blog/upgrading-to-nikola-v8.html#sections-were-replaced-by-categories
-[2018-09-16T03:11:45Z] INFO: Nikola: Setting CATEGORY_DESTPATH_AS_DEFAULT = True
-[2018-09-16T03:11:46Z] WARNING: Nikola: Cannot load theme "bootstrap3", using 'bootblog4' instead.
-... 以後bootstrap3が存在しない旨を示すpythonのTracebackが表示される ...
+<pre class="code literal-block"><span></span><span class="err">[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.</span>
+<span class="err">[2018-09-16T03:11:45Z] WARNING: Nikola: The sections feature has been removed and its functionality has been merged into categories.</span>
+<span class="err">[2018-09-16T03:11:45Z] WARNING: Nikola: For more information on how to migrate, please read: https://getnikola.com/blog/upgrading-to-nikola-v8.html#sections-were-replaced-by-categories</span>
+<span class="err">[2018-09-16T03:11:45Z] INFO: Nikola: Setting CATEGORY_DESTPATH_AS_DEFAULT = True</span>
+<span class="err">[2018-09-16T03:11:46Z] WARNING: Nikola: Cannot load theme "bootstrap3", using 'bootblog4' instead.</span>
+<span class="err">... 以後bootstrap3が存在しない旨を示すpythonのTracebackが表示される ...</span>
 </pre>
 
 
@@ -372,7 +373,7 @@
             </p>
                         <p class="commentline">
         
-    <a href="posts/10/#disqus_thread" data-disqus-identifier="cache/posts/10.html">Comments</a>
+    <a href="posts/10/#disqus_thread" data-disqus-identifier="cache/posts/10.html">コメント</a>
 
 
                 </p>
@@ -650,10 +651,10 @@ $$ a_{n+1} = \Psi^{-1}\left(\overline{\log{x}} - \log{\overline{x}} + \log{a_n}\
 </div>
     
         <ul class="pager postindexpager clearfix">
-<li class="previous"><a href="." rel="prev">新しい文書</a></li>
+<li class="previous"><a href="index-5.html" rel="prev">新しい文書</a></li>
             <li class="next"><a href="index-3.html" rel="next">過去の文書</a></li>
         </ul>
-<script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script><script>
+<script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script><script>
                 renderMathInElement(document.body,
                     {
                         

@@ -108,10 +108,11 @@ nikola v8.0.0
         <!--Body content-->
         
         
+        
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">nikolaのバージョンをv8.0.0にアップグレード</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
                     Hiromasa OHASHI
             </span></p>
             <p class="dateline">
@@ -120,7 +121,7 @@ nikola v8.0.0
             </p>
                 <p class="commentline">
         
-    <a href="#disqus_thread" data-disqus-identifier="cache/posts/11.html">Comments</a>
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/11.html">コメント</a>
 
 
             
@@ -140,12 +141,12 @@ nikola v8.0.0
 <h4>
 <code>conf.py</code>の修正</h4>
 <p><code>nikola --version</code>をブログが存在するディレクトリで実行したところ下記の警告が出た。</p>
-<pre class="code literal-block"><span></span>[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.
-[2018-09-16T03:11:45Z] WARNING: Nikola: The sections feature has been removed and its functionality has been merged into categories.
-[2018-09-16T03:11:45Z] WARNING: Nikola: For more information on how to migrate, please read: https://getnikola.com/blog/upgrading-to-nikola-v8.html#sections-were-replaced-by-categories
-[2018-09-16T03:11:45Z] INFO: Nikola: Setting CATEGORY_DESTPATH_AS_DEFAULT = True
-[2018-09-16T03:11:46Z] WARNING: Nikola: Cannot load theme "bootstrap3", using 'bootblog4' instead.
-... 以後bootstrap3が存在しない旨を示すpythonのTracebackが表示される ...
+<pre class="code literal-block"><span></span><span class="err">[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.</span>
+<span class="err">[2018-09-16T03:11:45Z] WARNING: Nikola: The sections feature has been removed and its functionality has been merged into categories.</span>
+<span class="err">[2018-09-16T03:11:45Z] WARNING: Nikola: For more information on how to migrate, please read: https://getnikola.com/blog/upgrading-to-nikola-v8.html#sections-were-replaced-by-categories</span>
+<span class="err">[2018-09-16T03:11:45Z] INFO: Nikola: Setting CATEGORY_DESTPATH_AS_DEFAULT = True</span>
+<span class="err">[2018-09-16T03:11:46Z] WARNING: Nikola: Cannot load theme "bootstrap3", using 'bootblog4' instead.</span>
+<span class="err">... 以後bootstrap3が存在しない旨を示すpythonのTracebackが表示される ...</span>
 </pre>
 
 

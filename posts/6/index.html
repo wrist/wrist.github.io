@@ -109,10 +109,11 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
         <!--Body content-->
         
         
+        
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Travis CIによるNikolaブログ構築の自動化</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
                     Hiromasa OHASHI
             </span></p>
             <p class="dateline">
@@ -121,7 +122,7 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
             </p>
                 <p class="commentline">
         
-    <a href="#disqus_thread" data-disqus-identifier="cache/posts/6.html">Comments</a>
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/6.html">コメント</a>
 
 
             
@@ -140,7 +141,7 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
 <h4>
 <code>conf.py</code>の編集</h4>
 <p>まず、<code>nikola github_deploy</code>コマンド実行時に、デプロイと同時にsrcブランチもコミットするかどうかを制御するためのオプションをFalseに設定します。</p>
-<pre class="code literal-block"><span></span><span class="n">GITHUB_COMMIT_SOURCE</span> <span class="o">=</span> <span class="bp">False</span>
+<pre class="code literal-block"><span></span><span class="n">GITHUB_COMMIT_SOURCE</span> <span class="o">=</span> <span class="kc">False</span>
 </pre>
 
 
@@ -190,13 +191,13 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
 
 
 <p>ここで、</p>
-<pre class="code literal-block"><span></span>- git config --global user.name 'USERNAME'
-- git config --global user.email 'travis@invalid'
+<pre class="code literal-block"><span></span><span class="err">- git config --global user.name 'USERNAME'</span>
+<span class="err">- git config --global user.email 'travis@invalid'</span>
 </pre>
 
 
 <p>の行は適切なユーザー名、メールアドレスに、</p>
-<pre class="code literal-block"><span></span>- git remote add origin git@github.com:USERNAME/REPO.git
+<pre class="code literal-block"><span></span><span class="err">- git remote add origin git@github.com:USERNAME/REPO.git</span>
 </pre>
 
 

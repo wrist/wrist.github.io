@@ -109,10 +109,11 @@ CSPについての細かい説明はここでは書かないが、要はXSSを�
         <!--Body content-->
         
         
+        
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">nikolaでCSP、Google Analytics、SNSボタンの設定を行う</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
                     Hiromasa OHASHI
             </span></p>
             <p class="dateline">
@@ -121,7 +122,7 @@ CSPについての細かい説明はここでは書かないが、要はXSSを�
             </p>
                 <p class="commentline">
         
-    <a href="#disqus_thread" data-disqus-identifier="cache/posts/2.html">Comments</a>
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/2.html">コメント</a>
 
 
             
@@ -186,7 +187,7 @@ METAタグによる設定はHEADタグの最初に書くべきであるが、nik
 <p>などの理由から、結果として各サービスのSNSのボタンを個別に追加した方がトラブルを避けられたため、ここでは個別にどのように追加したかについて記載する。</p>
 <h4>SNSボタンの設定方法</h4>
 <p>前述のように<code>SOCIAL_BUTTONS_CODE</code>のオプションは使わない。代わりに<code>CONTENT_FOOTER</code>のオプションを使用する。<code>CONTENT_FOOTER</code>は当初下記のような記述になっている。</p>
-<pre class="code literal-block"><span></span><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"Contents &amp;copy; {date}         &lt;a href="</span><span class="n">mailto</span><span class="p">:{</span><span class="n">email</span><span class="p">}</span><span class="s2">"&gt;{author}&lt;/a&gt; - Powered by         &lt;a href="</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">getnikola</span><span class="o">.</span><span class="n">com</span><span class="s2">" rel="</span><span class="n">nofollow</span><span class="s2">"&gt;Nikola&lt;/a&gt;         {license}"</span>
+<pre class="code literal-block"><span></span><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"Contents &amp;copy; </span><span class="si">{date}</span><span class="s2">         &lt;a href="</span><span class="n">mailto</span><span class="p">:{</span><span class="n">email</span><span class="p">}</span><span class="s2">"&gt;</span><span class="si">{author}</span><span class="s2">&lt;/a&gt; - Powered by         &lt;a href="</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">getnikola</span><span class="o">.</span><span class="n">com</span><span class="s2">" rel="</span><span class="n">nofollow</span><span class="s2">"&gt;Nikola&lt;/a&gt;         </span><span class="si">{license}</span><span class="s2">"</span>
 </pre>
 
 
@@ -197,7 +198,7 @@ format関数の引数としては、別途設定されているオプション<c
 そのため、<code>CONTENT_FOOTER</code>中で<code>{</code>や<code>}</code>を用いる場合は、pythonのformat関数の仕様に合わせて<code>{{</code>や<code>}}</code>のように記述する必要があることに注意されたい。</p>
 <p>SNSボタン設定に関する記述は、<code>CONTENT_FOOTER</code>の後続する部分にタグを埋め込むことで行う。
 最終的には下記のような記述となっている。facebookのscript部分の中括弧を'{{'と'}}'に変えている。</p>
-<pre class="code literal-block"><span></span><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"""Contents &amp;copy; {date}         &lt;a href="mailto:{email}"&gt;{author}&lt;/a&gt; - Powered by         &lt;a href="https://getnikola.com" rel="nofollow"&gt;Nikola&lt;/a&gt;         {license}</span>
+<pre class="code literal-block"><span></span><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"""Contents &amp;copy; </span><span class="si">{date}</span><span class="s2">         &lt;a href="mailto:</span><span class="si">{email}</span><span class="s2">"&gt;</span><span class="si">{author}</span><span class="s2">&lt;/a&gt; - Powered by         &lt;a href="https://getnikola.com" rel="nofollow"&gt;Nikola&lt;/a&gt;         </span><span class="si">{license}</span><span class="s2"></span>
 <span class="s2">&lt;!-- twitter --&gt;</span>
 <span class="s2">&lt;a href="https://twitter.com/share?ref_src=twsrc</span><span class="si">%5E</span><span class="s2">tfw" class="twitter-share-button" data-show-count="false"&gt;Tweet&lt;/a&gt;</span>
 <span class="s2">&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;</span>
@@ -230,7 +231,7 @@ format関数の引数としては、別途設定されているオプション<c
 「いいね！」するURLは空白、レイアウトは"button"、アクションタイプは"like"、ボタンサイズは"small"、友達の顔は表示する、シェアボタンを追加、のチェックは共にOnにした状態でコードを取得し、そのコードを<code>CONTENT_FOOTER</code>オプションに追加した。</p>
 <h5>Open Graph対応</h5>
 <p>facebookのいいね・シェアボタンやGoogle Plusの+1ボタンなどが対応しているOpen Graphへの対応は<code>conf.py</code>のオプションを有効化することによって実現できる。下記オプションをTrueに設定すると、</p>
-<pre class="code literal-block"><span></span><span class="n">USE_OPEN_GRAPH</span> <span class="o">=</span> <span class="bp">True</span>
+<pre class="code literal-block"><span></span><span class="n">USE_OPEN_GRAPH</span> <span class="o">=</span> <span class="kc">True</span>
 </pre>
 
 
