@@ -1,7 +1,7 @@
 <!--
 .. title: このGitHub Pagesについて
 .. slug: about
-.. date: 2018-10-07 15:30:00 UTC+09:00
+.. date: 2020-02-16 23:00:00 UTC+09:00
 .. tags: 
 .. category: 
 .. link: 
@@ -24,7 +24,32 @@ C, C++, Python, matlab, octave, rubyあたりの言語を日常的に書き、�
 
 ## 対外発表 ##
 
-追記予定
+* SciPyの概要と各モジュールの紹介(2018/2/28; PyData Osaka)
+    * [ブログ記事](https://www.hiromasa.info/post/4/)
+    * [イベントページ](https://pydataosaka.connpass.com/event/77713/)
+    * [スライド](https://www.hiromasa.info/slide/4.slides.html)
+    <iframe src="https://www.hiromasa.info/slide/4.slides.html" width="100%" height="450px" />
+* librosaで始める音楽情報検索(2018/5/19; PyCon mini Osaka)
+    * [ブログ記事](https://www.hiromasa.info/post/5/)
+    * [イベントページ](https://osaka.pycon.jp/)
+    * [スライド](https://www.hiromasa.info/slide/5.slides.html)
+    <iframe src="https://www.hiromasa.info/slide/5.slides.html" width="100%" height="450px" />
+* pybind11の紹介(2018/12/21; 大阪工業大学 梅キャンPython勉強会 PyData Osakaコラボ回)
+    * [ブログ記事](https://www.hiromasa.info/post/14/)
+    * [イベントページ](https://studygroup-umecanoit.connpass.com/event/110422/)
+    * [スライド](https://www.hiromasa.info/slide/14.slides.html)
+    <iframe src="https://www.hiromasa.info/slide/14.slides.html" width="100%" height="450px" />
+* matplotlibのアニメーション機能の紹介(2019/3/24; はんなりPython+PyData Osakaコラボ回)
+    * [ブログ記事](https://www.hiromasa.info/post/15/)
+    * [イベントページ](https://pydataosaka.connpass.com/event/124089/)
+    * [スライド](https://www.hiromasa.info/slide/15.slides.html)
+    <iframe src="https://www.hiromasa.info/slide/15.slides.html" width="100%" height="450px" />
+* Jupyter LabおよびExtensionの紹介(2020/1/25; PyData Osaka Meetup #12)
+    * [ブログ記事](https://www.hiromasa.info/post/17/)
+    * [イベントページ](https://pydataosaka.connpass.com/event/156820/)
+    * [スライド](https://www.hiromasa.info/slide/17.slides.html)
+    <iframe src="https://www.hiromasa.info/slide/17.slides.html" width="100%" height="450px" />
+
 
 ## 使用しているウェブサービス一覧 ##
 
@@ -56,6 +81,7 @@ C, C++, Python, matlab, octave, rubyあたりの言語を日常的に書き、�
 
 * [pydata osaka](https://pydataosaka.connpass.com)
 * [PRML読書会](https://osaka-prml-reading.connpass.com)
+* [Python KANSAI](https://kansai-python.connpass.com/)
 
 ## 連絡先 ##
 

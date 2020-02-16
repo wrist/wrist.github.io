@@ -140,13 +140,15 @@ NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         ("/archive.html", "文書一覧"),
         ("/categories/", "タグ"),
-        ("/pages/about/index.html", "About"),
+        ("/pages/about/index.html", "about"),
+        ("/pages/slides/index.html", "slide一覧"),
         ("/rss.xml", "RSSフィード"),
     ),
     "en": (
         ("/en/archive.html", "all posts"),
         ("/en/categories/", "tag"),
         ("/en/pages/about/index.html", "about"),
+        ("/en/pages/slides/index.html", "slides"),
         ("/en/rss.xml", "RSS feed"),
     )
 }
