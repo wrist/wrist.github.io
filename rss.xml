@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info</title><link>http://www.hiromasa.info/</link><description>blog by Hiromasa OHASHI</description><atom:link href="http://www.hiromasa.info/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 16 Feb 2020 05:32:42 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Jupyter LabおよびExtensionの紹介</title><link>http://www.hiromasa.info/posts/17/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info</title><link>http://www.hiromasa.info/</link><description>blog by Hiromasa OHASHI</description><atom:link href="http://www.hiromasa.info/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 16 Feb 2020 07:04:13 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Jupyter LabおよびExtensionの紹介</title><link>http://www.hiromasa.info/posts/17/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2 id="Jupyter-LabおよびExtensionの紹介"&gt;Jupyter LabおよびExtensionの紹介&lt;a class="anchor-link" href="http://www.hiromasa.info/posts/17/#Jupyter-Lab%E3%81%8A%E3%82%88%E3%81%B3Extension%E3%81%AE%E7%B4%B9%E4%BB%8B"&gt;¶&lt;/a&gt;&lt;/h2&gt;
@@ -21,7 +21,7 @@
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;IPython.display&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;IFrame&lt;/span&gt;
-&lt;span class="n"&gt;IFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://www.hiromasa.info/slide/17.slides.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;450&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;IFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://www.hiromasa.info/slide/17.slides.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"100%"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"450px"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
     &lt;/div&gt;
@@ -40,7 +40,7 @@
 
 &lt;div class="output_html rendered_html output_subarea output_execute_result"&gt;
 
-        &lt;iframe width="800" height="450" src="https://www.hiromasa.info/slide/17.slides.html" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+        &lt;iframe width="100%" height="450px" src="https://www.hiromasa.info/slide/17.slides.html" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
         
 &lt;/div&gt;
 
@@ -2294,10 +2294,10 @@ test.gif
 
 
 
-&lt;div id="eb51c5ff-4efb-4a4f-9dee-900c20f21db7"&gt;&lt;/div&gt;
+&lt;div id="deccea0a-6027-4612-9dec-c1525e838644"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#eb51c5ff-4efb-4a4f-9dee-900c20f21db7');
+var element = $('#deccea0a-6027-4612-9dec-c1525e838644');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
