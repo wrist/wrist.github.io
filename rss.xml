@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info</title><link>http://www.hiromasa.info/</link><description>blog by Hiromasa OHASHI</description><atom:link href="http://www.hiromasa.info/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sat, 25 Jan 2020 00:37:03 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Jupyter LabおよびExtensionの紹介</title><link>http://www.hiromasa.info/posts/17/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info</title><link>http://www.hiromasa.info/</link><description>blog by Hiromasa OHASHI</description><atom:link href="http://www.hiromasa.info/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 16 Feb 2020 05:19:19 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Jupyter LabおよびExtensionの紹介</title><link>http://www.hiromasa.info/posts/17/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2 id="Jupyter-LabおよびExtensionの紹介"&gt;Jupyter LabおよびExtensionの紹介&lt;a class="anchor-link" href="http://www.hiromasa.info/posts/17/#Jupyter-Lab%E3%81%8A%E3%82%88%E3%81%B3Extension%E3%81%AE%E7%B4%B9%E4%BB%8B"&gt;¶&lt;/a&gt;&lt;/h2&gt;
@@ -2178,10 +2178,10 @@ test.gif
 
 
 
-&lt;div id="66a925f6-34a3-4c8e-8cd3-da9cd3787a19"&gt;&lt;/div&gt;
+&lt;div id="5d64f146-c64e-42eb-8cc4-e57563e91136"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#66a925f6-34a3-4c8e-8cd3-da9cd3787a19');
+var element = $('#5d64f146-c64e-42eb-8cc4-e57563e91136');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
@@ -4821,17 +4821,17 @@ Pyroomacousticsが提供しているのは古典的な遅延和法(Delay and Sum
 &lt;p&gt;&lt;a href="https://getnikola.com/handbook.html"&gt;nikola handbook&lt;/a&gt;のMultilingual postsの項を見ながら多国語対応の設定を行う。&lt;/p&gt;
 &lt;h4&gt;基本的な設定&lt;/h4&gt;
 &lt;p&gt;記事や固定ページの多国語対応を行う場合、&lt;code&gt;conf.py&lt;/code&gt;の&lt;code&gt;TRANSLATIONS_PATTERN&lt;/code&gt;で指定されたパターンに沿ったファイル名で言語ごとに記事を作成することになる。デフォルトだと&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;TRANSLATIONS_PATTERN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;{path}&lt;/span&gt;&lt;span class="s2"&gt;.&lt;/span&gt;&lt;span class="si"&gt;{lang}&lt;/span&gt;&lt;span class="s2"&gt;.&lt;/span&gt;&lt;span class="si"&gt;{ext}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;TRANSLATIONS_PATTERN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;{path}&lt;/span&gt;&lt;span class="s2"&gt;.&lt;/span&gt;&lt;span class="si"&gt;{lang}&lt;/span&gt;&lt;span class="s2"&gt;.&lt;/span&gt;&lt;span class="si"&gt;{ext}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;という指定になっているため、この記事(&lt;code&gt;12.md&lt;/code&gt;)であれば英語ポストを作成する場合は&lt;code&gt;12.en.md&lt;/code&gt;というファイル名を付けることとなる。&lt;/p&gt;
 &lt;p&gt;上記パターンをどの国の言語に対応させるかどうかは&lt;code&gt;TRANSLATIONS&lt;/code&gt;の設定を変更する。この設定では各言語をkeyとしてprefixとなるパスをvalueに持つdictを設定する。デフォルトでは&lt;code&gt;DEFAULT_LANG : ""&lt;/code&gt;のみが指定されているため、新たに追加したい言語とprefixを次にような形で指定する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;TRANSLATIONS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;TRANSLATIONS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;""&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="s2"&gt;"en"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"./en"&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;この設定を行った上で&lt;code&gt;nikola build&lt;/code&gt;を実行すると、過去の諸々のポストに対しても多言語対応のための再生成が走るためかブログ構築までに5分ほどを要する。構築後、&lt;code&gt;nikola serve -b&lt;/code&gt;でローカルのブラウザ上でブログを閲覧すると右上に&lt;code&gt;English&lt;/code&gt;という表示が増える(3カ国語以上設定した場合は試していないがおそらく選択できるようになると思われる)。
@@ -4840,7 +4840,7 @@ Pyroomacousticsが提供しているのは古典的な遅延和法(Delay and Sum
 &lt;p&gt;以下ではこれらの多国語化について記す。多言語対応可能な設定項目については&lt;code&gt;conf.py&lt;/code&gt;において&lt;code&gt;(translatable)&lt;/code&gt;というコメントが添えられているため、基本的にはこれらの設定項目を調整していくことになる。&lt;/p&gt;
 &lt;h4&gt;ナビゲーションバーの多言語化&lt;/h4&gt;
 &lt;p&gt;ナビゲーションバーについては&lt;code&gt;NAVIGARTION_LINKS&lt;/code&gt;の設定を次のように変更する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;NAVIGATION_LINKS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;NAVIGATION_LINKS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
         &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/archive.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"文書一覧"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
         &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/categories/"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"タグ"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
@@ -4854,7 +4854,7 @@ Pyroomacousticsが提供しているのは古典的な遅延和法(Delay and Sum
         &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/en/rss.xml"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"RSS feed"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
     &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;ここでは各言語をkeyとし、対応するパスとリンク名のタプルのタプルをvalueとするdictを設定している。
@@ -4862,11 +4862,11 @@ Pyroomacousticsが提供しているのは古典的な遅延和法(Delay and Sum
 &lt;h4&gt;タグ、カテゴリの多言語化(調査中)&lt;/h4&gt;
 &lt;p&gt;nikola v8ではポストごとに複数の分類を与えるタグ(tags)と、単一の分類を与えるカテゴリ(categories)が提供されている。現時点で当ブログはタグしか用いていない。なお前のポストにも記したが、nikolaのversion 7まではセクション(sections)という分類方法も存在していたが、これはversion 8以降は削除されている(nikola handbookにはこの機能は&lt;code&gt;CATEGORY_DESTPATH&lt;/code&gt;の設定を用いて実現可能との記載がある)。
 タグやカテゴリの多言語化の仕方であるが、&lt;code&gt;conf.py&lt;/code&gt;を見ると&lt;code&gt;TAG_TRANSLATION&lt;/code&gt;や&lt;code&gt;CATEGORY_TRANSLATION&lt;/code&gt;に&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;   &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;   &lt;span class="p"&gt;[&lt;/span&gt;
      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;'en'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'private'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'de'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Privat'&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;'en'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'work'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'fr'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'travail'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'de'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Arbeit'&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
    &lt;span class="p"&gt;]&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;のような辞書のリストを指定すれば良いとの記載がある。しかしこれを日本語と英語の間の翻訳で試みたところ、英語ページにおいても日本語タグが指定した英語タグに翻訳されず日本語タグのままとなる現象を確認している。この現象の解決のためには調査を行う必要があるため、現時点ではタグ、カテゴリの多言語化は実現できていない。&lt;/p&gt;
@@ -4885,13 +4885,13 @@ Pyroomacousticsが提供しているのは古典的な遅延和法(Delay and Sum
 ここでは単純に&lt;code&gt;pip install -U "Nikola[extras]"&lt;/code&gt;を実行してしまったが、実際には&lt;code&gt;How to upgrade&lt;/code&gt;の手順を読んだ上でアップグレードを行ったほうが良いと思われる。&lt;/p&gt;
 &lt;h4&gt;&lt;code&gt;conf.py&lt;/code&gt;の修正&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;nikola --version&lt;/code&gt;をブログが存在するディレクトリで実行したところ下記の警告が出た。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.&lt;/span&gt;
 &lt;span class="err"&gt;[2018-09-16T03:11:45Z] WARNING: Nikola: The sections feature has been removed and its functionality has been merged into categories.&lt;/span&gt;
 &lt;span class="err"&gt;[2018-09-16T03:11:45Z] WARNING: Nikola: For more information on how to migrate, please read: https://getnikola.com/blog/upgrading-to-nikola-v8.html#sections-were-replaced-by-categories&lt;/span&gt;
 &lt;span class="err"&gt;[2018-09-16T03:11:45Z] INFO: Nikola: Setting CATEGORY_DESTPATH_AS_DEFAULT = True&lt;/span&gt;
 &lt;span class="err"&gt;[2018-09-16T03:11:46Z] WARNING: Nikola: Cannot load theme "bootstrap3", using 'bootblog4' instead.&lt;/span&gt;
 &lt;span class="err"&gt;... 以後bootstrap3が存在しない旨を示すpythonのTracebackが表示される ...&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;これらのwarningを修正するために、下記に記した内容を実行した。&lt;/p&gt;
@@ -5270,20 +5270,20 @@ $$ a_{n+1} = \Psi^{-1}\left(\overline{\log{x}} - \log{\overline{x}} + \log{a_n}\
 &lt;h4&gt;解決方法&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;NetAuthSysAgent 1025&lt;/code&gt;でググって出てきた&lt;a href="https://apple.stackexchange.com/questions/257836/mac-mini-cant-connect-to-my-corporate-smb-server-was-working-some-days-ago"&gt;stackexchangeの回答&lt;/a&gt;で解決した。
 上記の記事いわく、Android SDKを過去にインストールした際などに入るアクセラレータであるHAXMのカーネルエクステンションがインストールされていることが原因であるとのことであり、&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ kextstat &lt;span class="p"&gt;|&lt;/span&gt; grep -iv apple
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ kextstat &lt;span class="p"&gt;|&lt;/span&gt; grep -iv apple
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;の出力に&lt;code&gt;intelhaxm&lt;/code&gt;が含まれている場合がそれに該当する。
 現時点でAndroid SDK自体をもはや使っていないため、下記を実行してアンインストールした。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ sudo /Library/Extensions/intelhaxm.kext/Contents/Resources/uninstall.sh
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo /Library/Extensions/intelhaxm.kext/Contents/Resources/uninstall.sh
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;アンインストール後、再起動すれば接続できるようになった。&lt;/p&gt;
 &lt;h4&gt;具体的なコマンド実行履歴&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;192.168.XX.XX&lt;/code&gt;はsambaが動いているホストのIPアドレスであり、&lt;code&gt;smbutil view&lt;/code&gt;は指定した&lt;code&gt;smb&lt;/code&gt;プロトコルによる接続先が見えているかの確認である。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;16&lt;/span&gt;:04:33&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; smbutil view smb://192.168.XX.XX                      &lt;span class="o"&gt;[&lt;/span&gt;~&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;16&lt;/span&gt;:04:33&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; smbutil view smb://192.168.XX.XX                      &lt;span class="o"&gt;[&lt;/span&gt;~&lt;span class="o"&gt;]&lt;/span&gt;
 smbutil: server connection failed: No such file or directory
 &lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;16&lt;/span&gt;:05:48&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; kextstat                                              &lt;span class="o"&gt;[&lt;/span&gt;~&lt;span class="o"&gt;]&lt;/span&gt;
 &lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;16&lt;/span&gt;:06:06&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; kextstat &lt;span class="p"&gt;|&lt;/span&gt; grep -iv apple                             &lt;span class="o"&gt;[&lt;/span&gt;~&lt;span class="o"&gt;]&lt;/span&gt;
@@ -5307,7 +5307,7 @@ Do you wish to uninstall Intel HAXM &lt;span class="o"&gt;(&lt;/span&gt;y/n&lt;s
 Removing Intel HAXM files
 
 Intel HAXM has been successfully uninstalled
-&lt;/pre&gt;&lt;/div&gt;</description><category>osx</category><category>samba</category><guid>http://www.hiromasa.info/posts/9/</guid><pubDate>Sun, 02 Sep 2018 02:01:00 GMT</pubDate></item><item><title>KaldiでVoxForgeの音響モデルを学習する(1)</title><link>http://www.hiromasa.info/posts/8/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;KaldiでVoxForgeの音響モデルを学習する(1)&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>osx</category><category>samba</category><guid>http://www.hiromasa.info/posts/9/</guid><pubDate>Sun, 02 Sep 2018 02:01:00 GMT</pubDate></item><item><title>KaldiでVoxForgeの音響モデルを学習する(1)</title><link>http://www.hiromasa.info/posts/8/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;KaldiでVoxForgeの音響モデルを学習する(1)&lt;/h3&gt;
 &lt;p&gt;近年の音声認識のモデル学習ではデファクトスタンダードになっている&lt;a href="https://github.com/kaldi-asr/kaldi"&gt;Kaldi&lt;/a&gt;の使い方を少しずつ学んでいくためにVoxForgeに対する学習レシピをローカルのマシンで実行したのでメモを下記に記す。&lt;/p&gt;
 &lt;h3&gt;実行環境および学習完了までの所要時間&lt;/h3&gt;
 &lt;ul&gt;
@@ -5345,13 +5345,13 @@ Intel HAXM has been successfully uninstalled
 &lt;h5&gt;&lt;code&gt;path.sh&lt;/code&gt;の書き換え&lt;/h5&gt;
 &lt;p&gt;データダウンロードのためにまずダウンロード先フォルダを指定する必要がある。
 &lt;code&gt;path.sh&lt;/code&gt;においてコメントアウトされている下記を有効化すると同ディレクトリ下にvoxforgeディレクトリを作成しその下にダウンロードしたデータを保存する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;DATA_ROOT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$KALDI_ROOT&lt;/span&gt;&lt;span class="s2"&gt;/egs/voxforge/s5/voxforge"&lt;/span&gt;    &lt;span class="c1"&gt;# e.g. something like /media/secondary/voxforge&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;DATA_ROOT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$KALDI_ROOT&lt;/span&gt;&lt;span class="s2"&gt;/egs/voxforge/s5/voxforge"&lt;/span&gt;    &lt;span class="c1"&gt;# e.g. something like /media/secondary/voxforge&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h5&gt;&lt;code&gt;getdata.sh&lt;/code&gt;の実行&lt;/h5&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ ./getdata.sh
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ ./getdata.sh
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;を実行してデータのダウンロードを実行する。
@@ -5369,28 +5369,28 @@ Intel HAXM has been successfully uninstalled
 &lt;h4&gt;Kaldiのビルド&lt;/h4&gt;
 &lt;p&gt;学習のためにはKaldiのビルド自体を予め行っておく必要がある。
 ビルドは下記のように実施した。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;KALDI_ROOT&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/src"&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;KALDI_ROOT&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/src"&lt;/span&gt;
 $ ./configure
 $ make clean -j&lt;span class="p"&gt;;&lt;/span&gt; make depend -j&lt;span class="p"&gt;;&lt;/span&gt; make -j
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;外出したためいまいち正確ではないが完了までに約3時間要した。&lt;/p&gt;
 &lt;h4&gt;学習スクリプトの実行&lt;/h4&gt;
 &lt;h5&gt;&lt;code&gt;cmd.sh&lt;/code&gt;の書き換え&lt;/h5&gt;
 &lt;p&gt;KaldiではGridEngineを搭載したサーバクラスタ(qsubなどが使える環境)であれば並列計算が可能であるが、そうでない場合はシングルノードで学習を行う必要がある。これを変更するためには&lt;code&gt;cmd.sh&lt;/code&gt;を下記のように&lt;code&gt;queue.pl&lt;/code&gt;ではなく&lt;code&gt;run.pl&lt;/code&gt;を実行するように書き換える。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# export train_cmd="queue.pl --mem 2G"&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# export train_cmd="queue.pl --mem 2G"&lt;/span&gt;
 &lt;span class="c1"&gt;# export decode_cmd="queue.pl --mem 4G"&lt;/span&gt;
 &lt;span class="c1"&gt;# export mkgraph_cmd="queue.pl --mem 8G"&lt;/span&gt;
 &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;train_cmd&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"run.pl --mem 2G"&lt;/span&gt;
 &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;decode_cmd&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"run.pl --mem 4G"&lt;/span&gt;
 &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;mkgraph_cmd&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"run.pl --mem 8G"&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h5&gt;&lt;code&gt;local/make_trans.py&lt;/code&gt;の書き換え&lt;/h5&gt;
 &lt;p&gt;python2.x系のスクリプトであるためpython3.x系で動くように下記のように修正する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;diff&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;diff&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
 &lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;b4f5c413&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="n"&gt;a5b3a15&lt;/span&gt; &lt;span class="mi"&gt;100755&lt;/span&gt;
 &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
 &lt;span class="o"&gt;+++&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
@@ -5420,12 +5420,12 @@ $ make clean -j&lt;span class="p"&gt;;&lt;/span&gt; make depend -j&lt;span class
          &lt;span class="k"&gt;continue&lt;/span&gt;
 &lt;span class="o"&gt;-&lt;/span&gt;    &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;-&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt; &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id_prefix&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;utt2trans&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 &lt;span class="o"&gt;+&lt;/span&gt;    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;-&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt; &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id_prefix&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;utt2trans&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h5&gt;&lt;code&gt;local/voxforge_prepare_dict.sh&lt;/code&gt;の書き換え&lt;/h5&gt;
 &lt;p&gt;sequitur-g2pの名前がsequiturになっているため、これを修正する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gh"&gt;diff --git a/egs/voxforge/s5/local/voxforge_prepare_dict.sh b/egs/voxforge/s5/local/voxforge_prepare_dict.sh&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gh"&gt;diff --git a/egs/voxforge/s5/local/voxforge_prepare_dict.sh b/egs/voxforge/s5/local/voxforge_prepare_dict.sh&lt;/span&gt;
 &lt;span class="gh"&gt;index 4242af29d..18d4498b3 100755&lt;/span&gt;
 &lt;span class="gd"&gt;--- a/egs/voxforge/s5/local/voxforge_prepare_dict.sh&lt;/span&gt;
 &lt;span class="gi"&gt;+++ b/egs/voxforge/s5/local/voxforge_prepare_dict.sh&lt;/span&gt;
@@ -5438,14 +5438,14 @@ $ make clean -j&lt;span class="p"&gt;;&lt;/span&gt; make depend -j&lt;span class
 &lt;span class="gi"&gt;+sequitur=$KALDI_ROOT/tools/sequitur-g2p&lt;/span&gt;
  export PATH=$PATH:$sequitur/bin
  export PYTHONPATH=$PYTHONPATH:`utils/make_absolute.sh $sequitur/lib/python*/site-packages`
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h5&gt;学習の実行&lt;/h5&gt;
 &lt;p&gt;上記の変更を加えておけば&lt;code&gt;run.sh&lt;/code&gt;で学習が実行されるはずである。&lt;/p&gt;
 &lt;h3&gt;実行結果&lt;/h3&gt;
 &lt;p&gt;上記試行錯誤を行ったため、ログとしては途中(&lt;code&gt;utils/prepare_lang.sh&lt;/code&gt;実行時)からになるが具体的な実行ログを下記に記す。2600行ぐらいあるので注意。当初は30%近くであったWERが学習が進むにつれて10%以下になっていくことが分かる。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# * Begin 8/3(Fri)&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# * Begin 8/3(Fri)&lt;/span&gt;
 &lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;20&lt;/span&gt;:42:47&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; ./run.sh                                                     &lt;span class="o"&gt;[&lt;/span&gt;~/work/asr/kaldi/egs/voxforge/s5 &lt;span class="o"&gt;(&lt;/span&gt;git&lt;span class="o"&gt;)&lt;/span&gt;-&lt;span class="o"&gt;[&lt;/span&gt;master&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;]&lt;/span&gt;
 utils/prepare_lang.sh --position-dependent-phones &lt;span class="nb"&gt;true&lt;/span&gt; data/local/dict !SIL data/local/lang data/lang
 Checking data/local/dict/silence_phones.txt ...
@@ -8107,7 +8107,7 @@ exp/combine_sgmm2_4a_mmi_3b_fmmic5/decode/wer_9
 %SER &lt;span class="m"&gt;38&lt;/span&gt;.00 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;190&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
 &lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;21&lt;/span&gt;:56:35&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt;                                                             &lt;span class="o"&gt;[&lt;/span&gt;~/work/asr/kaldi/egs/voxforge/s5 &lt;span class="o"&gt;(&lt;/span&gt;git&lt;span class="o"&gt;)&lt;/span&gt;-&lt;span class="o"&gt;[&lt;/span&gt;master&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;]&lt;/span&gt;
 &lt;span class="c1"&gt;# * Finished at 8/8(Wed)&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h3&gt;今後&lt;/h3&gt;

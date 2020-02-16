@@ -142,8 +142,8 @@ conf.pyのPOSTSとPAGESにipynb用のエント">
 <p><code>conf.py</code>の<code>POSTS</code>と<code>PAGES</code>に<code>ipynb</code>用のエントリを追加しておきます。</p>
 <h4>ipynbファイルでのブログ記事新規作成</h4>
 <p>mdファイルでの作成と同じように<code>nikola new_post -f 形式</code>で形式にipynbを指定すれば良いです。</p>
-<pre class="code literal-block"><span></span>$ nikola new_post -f ipynb
-</pre>
+<pre class="code literal-block"><span></span><code>$ nikola new_post -f ipynb
+</code></pre>
 
 
 <p>記事タイトルを聞かれるので入力すると<code>posts</code>ディレクトリ下にipynbファイルが生成されます。</p>
@@ -154,7 +154,7 @@ conf.pyのPOSTSとPAGESにipynb用のエント">
 <li>Jupyter Notebookで<code>Menu -&gt; Edit -&gt; Edit Notebook Metadata</code>を選択</li>
 <li>下記のようなエントリを追加(最初の{...}は元々metadataに書かれていたエントリを省略したものです)</li>
 </ul>
-<pre class="code literal-block"><span></span><span class="p">{</span> <span class="err">{...</span><span class="p">}</span><span class="err">,</span>
+<pre class="code literal-block"><span></span><code><span class="p">{</span> <span class="err">{...</span><span class="p">}</span><span class="err">,</span>
   <span class="s2">"nikola"</span><span class="err">:</span> <span class="p">{</span>
     <span class="nt">"tags"</span><span class="p">:</span> <span class="s2">"python,pydata,numpy,scipy,librosa,scikit-learn"</span><span class="p">,</span>
     <span class="nt">"title"</span><span class="p">:</span> <span class="s2">"2018/2/28にPydata Osakaで'SciPyの概要と各モジュールの紹介'というタイトルで発表しました"</span><span class="p">,</span>
@@ -166,15 +166,15 @@ conf.pyのPOSTSとPAGESにipynb用のエント">
     <span class="nt">"description"</span><span class="p">:</span> <span class="s2">""</span>
   <span class="p">}</span>
 <span class="err">}</span>
-</pre>
+</code></pre>
 
 
 <h4>ブログポストの構築</h4>
 <p>markdownのときと同じように<code>nikola build</code>でブログを構築します。
 <code>nikola serve</code>でローカルでの確認を取ります。</p>
-<pre class="code literal-block"><span></span>$ nikola build
+<pre class="code literal-block"><span></span><code>$ nikola build
 $ nikola serve -b
-</pre>
+</code></pre>
 
 
 <h4>MathJaxの描画</h4>

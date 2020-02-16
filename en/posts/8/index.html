@@ -177,14 +177,14 @@ MacBook Pro (13-inch, 2017, Four Thunderbolt 3 P">
 <code>path.sh</code>の書き換え</h5>
 <p>データダウンロードのためにまずダウンロード先フォルダを指定する必要がある。
 <code>path.sh</code>においてコメントアウトされている下記を有効化すると同ディレクトリ下にvoxforgeディレクトリを作成しその下にダウンロードしたデータを保存する。</p>
-<pre class="code literal-block"><span></span><span class="nb">export</span> <span class="nv">DATA_ROOT</span><span class="o">=</span><span class="s2">"</span><span class="nv">$KALDI_ROOT</span><span class="s2">/egs/voxforge/s5/voxforge"</span>    <span class="c1"># e.g. something like /media/secondary/voxforge</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="nb">export</span> <span class="nv">DATA_ROOT</span><span class="o">=</span><span class="s2">"</span><span class="nv">$KALDI_ROOT</span><span class="s2">/egs/voxforge/s5/voxforge"</span>    <span class="c1"># e.g. something like /media/secondary/voxforge</span>
+</code></pre>
 
 
 <h5>
 <code>getdata.sh</code>の実行</h5>
-<pre class="code literal-block"><span></span>$ ./getdata.sh
-</pre>
+<pre class="code literal-block"><span></span><code>$ ./getdata.sh
+</code></pre>
 
 
 <p>を実行してデータのダウンロードを実行する。
@@ -204,10 +204,10 @@ MacBook Pro (13-inch, 2017, Four Thunderbolt 3 P">
 <h4>Kaldiのビルド</h4>
 <p>学習のためにはKaldiのビルド自体を予め行っておく必要がある。
 ビルドは下記のように実施した。</p>
-<pre class="code literal-block"><span></span>$ <span class="nb">cd</span> <span class="s2">"</span><span class="si">${</span><span class="nv">KALDI_ROOT</span><span class="si">}</span><span class="s2">/src"</span>
+<pre class="code literal-block"><span></span><code>$ <span class="nb">cd</span> <span class="s2">"</span><span class="si">${</span><span class="nv">KALDI_ROOT</span><span class="si">}</span><span class="s2">/src"</span>
 $ ./configure
 $ make clean -j<span class="p">;</span> make depend -j<span class="p">;</span> make -j
-</pre>
+</code></pre>
 
 
 <p>外出したためいまいち正確ではないが完了までに約3時間要した。</p>
@@ -215,19 +215,19 @@ $ make clean -j<span class="p">;</span> make depend -j<span class="p">;</span> m
 <h5>
 <code>cmd.sh</code>の書き換え</h5>
 <p>KaldiではGridEngineを搭載したサーバクラスタ(qsubなどが使える環境)であれば並列計算が可能であるが、そうでない場合はシングルノードで学習を行う必要がある。これを変更するためには<code>cmd.sh</code>を下記のように<code>queue.pl</code>ではなく<code>run.pl</code>を実行するように書き換える。</p>
-<pre class="code literal-block"><span></span><span class="c1"># export train_cmd="queue.pl --mem 2G"</span>
+<pre class="code literal-block"><span></span><code><span class="c1"># export train_cmd="queue.pl --mem 2G"</span>
 <span class="c1"># export decode_cmd="queue.pl --mem 4G"</span>
 <span class="c1"># export mkgraph_cmd="queue.pl --mem 8G"</span>
 <span class="nb">export</span> <span class="nv">train_cmd</span><span class="o">=</span><span class="s2">"run.pl --mem 2G"</span>
 <span class="nb">export</span> <span class="nv">decode_cmd</span><span class="o">=</span><span class="s2">"run.pl --mem 4G"</span>
 <span class="nb">export</span> <span class="nv">mkgraph_cmd</span><span class="o">=</span><span class="s2">"run.pl --mem 8G"</span>
-</pre>
+</code></pre>
 
 
 <h5>
 <code>local/make_trans.py</code>の書き換え</h5>
 <p>python2.x系のスクリプトであるためpython3.x系で動くように下記のように修正する。</p>
-<pre class="code literal-block"><span></span><span class="n">diff</span> <span class="o">--</span><span class="n">git</span> <span class="n">a</span><span class="o">/</span><span class="n">egs</span><span class="o">/</span><span class="n">voxforge</span><span class="o">/</span><span class="n">s5</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">make_trans</span><span class="o">.</span><span class="n">py</span> <span class="n">b</span><span class="o">/</span><span class="n">egs</span><span class="o">/</span><span class="n">voxforge</span><span class="o">/</span><span class="n">s5</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">make_trans</span><span class="o">.</span><span class="n">py</span>
+<pre class="code literal-block"><span></span><code><span class="n">diff</span> <span class="o">--</span><span class="n">git</span> <span class="n">a</span><span class="o">/</span><span class="n">egs</span><span class="o">/</span><span class="n">voxforge</span><span class="o">/</span><span class="n">s5</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">make_trans</span><span class="o">.</span><span class="n">py</span> <span class="n">b</span><span class="o">/</span><span class="n">egs</span><span class="o">/</span><span class="n">voxforge</span><span class="o">/</span><span class="n">s5</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">make_trans</span><span class="o">.</span><span class="n">py</span>
 <span class="n">index</span> <span class="mi">1</span><span class="n">b4f5c413</span><span class="o">..</span><span class="mi">45</span><span class="n">a5b3a15</span> <span class="mi">100755</span>
 <span class="o">---</span> <span class="n">a</span><span class="o">/</span><span class="n">egs</span><span class="o">/</span><span class="n">voxforge</span><span class="o">/</span><span class="n">s5</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">make_trans</span><span class="o">.</span><span class="n">py</span>
 <span class="o">+++</span> <span class="n">b</span><span class="o">/</span><span class="n">egs</span><span class="o">/</span><span class="n">voxforge</span><span class="o">/</span><span class="n">s5</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">make_trans</span><span class="o">.</span><span class="n">py</span>
@@ -257,13 +257,13 @@ $ make clean -j<span class="p">;</span> make depend -j<span class="p">;</span> m
          <span class="k">continue</span>
 <span class="o">-</span>    <span class="nb">print</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">id_prefix</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">utt2trans</span><span class="p">[</span><span class="n">uid</span><span class="p">])</span>
 <span class="o">+</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">id_prefix</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">utt2trans</span><span class="p">[</span><span class="n">uid</span><span class="p">]))</span>
-</pre>
+</code></pre>
 
 
 <h5>
 <code>local/voxforge_prepare_dict.sh</code>の書き換え</h5>
 <p>sequitur-g2pの名前がsequiturになっているため、これを修正する。</p>
-<pre class="code literal-block"><span></span><span class="gh">diff --git a/egs/voxforge/s5/local/voxforge_prepare_dict.sh b/egs/voxforge/s5/local/voxforge_prepare_dict.sh</span>
+<pre class="code literal-block"><span></span><code><span class="gh">diff --git a/egs/voxforge/s5/local/voxforge_prepare_dict.sh b/egs/voxforge/s5/local/voxforge_prepare_dict.sh</span>
 <span class="gh">index 4242af29d..18d4498b3 100755</span>
 <span class="gd">--- a/egs/voxforge/s5/local/voxforge_prepare_dict.sh</span>
 <span class="gi">+++ b/egs/voxforge/s5/local/voxforge_prepare_dict.sh</span>
@@ -276,14 +276,14 @@ $ make clean -j<span class="p">;</span> make depend -j<span class="p">;</span> m
 <span class="gi">+sequitur=$KALDI_ROOT/tools/sequitur-g2p</span>
  export PATH=$PATH:$sequitur/bin
  export PYTHONPATH=$PYTHONPATH:`utils/make_absolute.sh $sequitur/lib/python*/site-packages`
-</pre>
+</code></pre>
 
 
 <h5>学習の実行</h5>
 <p>上記の変更を加えておけば<code>run.sh</code>で学習が実行されるはずである。</p>
 <h3>実行結果</h3>
 <p>上記試行錯誤を行ったため、ログとしては途中(<code>utils/prepare_lang.sh</code>実行時)からになるが具体的な実行ログを下記に記す。2600行ぐらいあるので注意。当初は30%近くであったWERが学習が進むにつれて10%以下になっていくことが分かる。</p>
-<pre class="code literal-block"><span></span><span class="c1"># * Begin 8/3(Fri)</span>
+<pre class="code literal-block"><span></span><code><span class="c1"># * Begin 8/3(Fri)</span>
 <span class="o">[</span>wrist@wrist-pro <span class="m">20</span>:42:47<span class="o">]</span> &gt; ./run.sh                                                     <span class="o">[</span>~/work/asr/kaldi/egs/voxforge/s5 <span class="o">(</span>git<span class="o">)</span>-<span class="o">[</span>master<span class="o">]</span>-<span class="o">]</span>
 utils/prepare_lang.sh --position-dependent-phones <span class="nb">true</span> data/local/dict !SIL data/local/lang data/lang
 Checking data/local/dict/silence_phones.txt ...
@@ -2945,7 +2945,7 @@ exp/combine_sgmm2_4a_mmi_3b_fmmic5/decode/wer_9
 %SER <span class="m">38</span>.00 <span class="o">[</span> <span class="m">190</span> / <span class="m">500</span> <span class="o">]</span>
 <span class="o">[</span>wrist@wrist-pro <span class="m">21</span>:56:35<span class="o">]</span> &gt;                                                             <span class="o">[</span>~/work/asr/kaldi/egs/voxforge/s5 <span class="o">(</span>git<span class="o">)</span>-<span class="o">[</span>master<span class="o">]</span>-<span class="o">]</span>
 <span class="c1"># * Finished at 8/8(Wed)</span>
-</pre>
+</code></pre>
 
 
 <h3>今後</h3>

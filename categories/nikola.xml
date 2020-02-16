@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (nikolaについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/nikola.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sat, 25 Jan 2020 00:37:04 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>nikolaの記事をjupyter labで書く</title><link>http://www.hiromasa.info/posts/16/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (nikolaについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/nikola.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 16 Feb 2020 05:19:21 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>nikolaの記事をjupyter labで書く</title><link>http://www.hiromasa.info/posts/16/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h3 id="nikolaの記事をjupyter-labで書く"&gt;nikolaの記事をjupyter labで書く&lt;a class="anchor-link" href="http://www.hiromasa.info/posts/16/#nikola%E3%81%AE%E8%A8%98%E4%BA%8B%E3%82%92jupyter-lab%E3%81%A7%E6%9B%B8%E3%81%8F"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;この記事はPython その2 Advent Calendarの22日目の記事です。
@@ -265,17 +265,17 @@ $ nikola serve -b
 &lt;p&gt;&lt;a href="https://getnikola.com/handbook.html"&gt;nikola handbook&lt;/a&gt;のMultilingual postsの項を見ながら多国語対応の設定を行う。&lt;/p&gt;
 &lt;h4&gt;基本的な設定&lt;/h4&gt;
 &lt;p&gt;記事や固定ページの多国語対応を行う場合、&lt;code&gt;conf.py&lt;/code&gt;の&lt;code&gt;TRANSLATIONS_PATTERN&lt;/code&gt;で指定されたパターンに沿ったファイル名で言語ごとに記事を作成することになる。デフォルトだと&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;TRANSLATIONS_PATTERN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;{path}&lt;/span&gt;&lt;span class="s2"&gt;.&lt;/span&gt;&lt;span class="si"&gt;{lang}&lt;/span&gt;&lt;span class="s2"&gt;.&lt;/span&gt;&lt;span class="si"&gt;{ext}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;TRANSLATIONS_PATTERN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;{path}&lt;/span&gt;&lt;span class="s2"&gt;.&lt;/span&gt;&lt;span class="si"&gt;{lang}&lt;/span&gt;&lt;span class="s2"&gt;.&lt;/span&gt;&lt;span class="si"&gt;{ext}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;という指定になっているため、この記事(&lt;code&gt;12.md&lt;/code&gt;)であれば英語ポストを作成する場合は&lt;code&gt;12.en.md&lt;/code&gt;というファイル名を付けることとなる。&lt;/p&gt;
 &lt;p&gt;上記パターンをどの国の言語に対応させるかどうかは&lt;code&gt;TRANSLATIONS&lt;/code&gt;の設定を変更する。この設定では各言語をkeyとしてprefixとなるパスをvalueに持つdictを設定する。デフォルトでは&lt;code&gt;DEFAULT_LANG : ""&lt;/code&gt;のみが指定されているため、新たに追加したい言語とprefixを次にような形で指定する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;TRANSLATIONS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;TRANSLATIONS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;""&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="s2"&gt;"en"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"./en"&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;この設定を行った上で&lt;code&gt;nikola build&lt;/code&gt;を実行すると、過去の諸々のポストに対しても多言語対応のための再生成が走るためかブログ構築までに5分ほどを要する。構築後、&lt;code&gt;nikola serve -b&lt;/code&gt;でローカルのブラウザ上でブログを閲覧すると右上に&lt;code&gt;English&lt;/code&gt;という表示が増える(3カ国語以上設定した場合は試していないがおそらく選択できるようになると思われる)。
@@ -284,7 +284,7 @@ $ nikola serve -b
 &lt;p&gt;以下ではこれらの多国語化について記す。多言語対応可能な設定項目については&lt;code&gt;conf.py&lt;/code&gt;において&lt;code&gt;(translatable)&lt;/code&gt;というコメントが添えられているため、基本的にはこれらの設定項目を調整していくことになる。&lt;/p&gt;
 &lt;h4&gt;ナビゲーションバーの多言語化&lt;/h4&gt;
 &lt;p&gt;ナビゲーションバーについては&lt;code&gt;NAVIGARTION_LINKS&lt;/code&gt;の設定を次のように変更する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;NAVIGATION_LINKS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;NAVIGATION_LINKS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
         &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/archive.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"文書一覧"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
         &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/categories/"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"タグ"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
@@ -298,7 +298,7 @@ $ nikola serve -b
         &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/en/rss.xml"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"RSS feed"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
     &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;ここでは各言語をkeyとし、対応するパスとリンク名のタプルのタプルをvalueとするdictを設定している。
@@ -306,11 +306,11 @@ $ nikola serve -b
 &lt;h4&gt;タグ、カテゴリの多言語化(調査中)&lt;/h4&gt;
 &lt;p&gt;nikola v8ではポストごとに複数の分類を与えるタグ(tags)と、単一の分類を与えるカテゴリ(categories)が提供されている。現時点で当ブログはタグしか用いていない。なお前のポストにも記したが、nikolaのversion 7まではセクション(sections)という分類方法も存在していたが、これはversion 8以降は削除されている(nikola handbookにはこの機能は&lt;code&gt;CATEGORY_DESTPATH&lt;/code&gt;の設定を用いて実現可能との記載がある)。
 タグやカテゴリの多言語化の仕方であるが、&lt;code&gt;conf.py&lt;/code&gt;を見ると&lt;code&gt;TAG_TRANSLATION&lt;/code&gt;や&lt;code&gt;CATEGORY_TRANSLATION&lt;/code&gt;に&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;   &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;   &lt;span class="p"&gt;[&lt;/span&gt;
      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;'en'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'private'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'de'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Privat'&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;'en'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'work'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'fr'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'travail'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'de'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Arbeit'&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
    &lt;span class="p"&gt;]&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;のような辞書のリストを指定すれば良いとの記載がある。しかしこれを日本語と英語の間の翻訳で試みたところ、英語ページにおいても日本語タグが指定した英語タグに翻訳されず日本語タグのままとなる現象を確認している。この現象の解決のためには調査を行う必要があるため、現時点ではタグ、カテゴリの多言語化は実現できていない。&lt;/p&gt;
@@ -329,13 +329,13 @@ $ nikola serve -b
 ここでは単純に&lt;code&gt;pip install -U "Nikola[extras]"&lt;/code&gt;を実行してしまったが、実際には&lt;code&gt;How to upgrade&lt;/code&gt;の手順を読んだ上でアップグレードを行ったほうが良いと思われる。&lt;/p&gt;
 &lt;h4&gt;&lt;code&gt;conf.py&lt;/code&gt;の修正&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;nikola --version&lt;/code&gt;をブログが存在するディレクトリで実行したところ下記の警告が出た。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;[2018-09-16T03:11:45Z] WARNING: Nikola: The UNSLUGIFY_TITLES setting was renamed to FILE_METADATA_UNSLUGIFY_TITLES.&lt;/span&gt;
 &lt;span class="err"&gt;[2018-09-16T03:11:45Z] WARNING: Nikola: The sections feature has been removed and its functionality has been merged into categories.&lt;/span&gt;
 &lt;span class="err"&gt;[2018-09-16T03:11:45Z] WARNING: Nikola: For more information on how to migrate, please read: https://getnikola.com/blog/upgrading-to-nikola-v8.html#sections-were-replaced-by-categories&lt;/span&gt;
 &lt;span class="err"&gt;[2018-09-16T03:11:45Z] INFO: Nikola: Setting CATEGORY_DESTPATH_AS_DEFAULT = True&lt;/span&gt;
 &lt;span class="err"&gt;[2018-09-16T03:11:46Z] WARNING: Nikola: Cannot load theme "bootstrap3", using 'bootblog4' instead.&lt;/span&gt;
 &lt;span class="err"&gt;... 以後bootstrap3が存在しない旨を示すpythonのTracebackが表示される ...&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;これらのwarningを修正するために、下記に記した内容を実行した。&lt;/p&gt;
@@ -449,8 +449,8 @@ $ nikola serve -b
 なお、以下の作業はすべてsrcブランチ上で行います。&lt;/p&gt;
 &lt;h4&gt;&lt;code&gt;conf.py&lt;/code&gt;の編集&lt;/h4&gt;
 &lt;p&gt;まず、&lt;code&gt;nikola github_deploy&lt;/code&gt;コマンド実行時に、デプロイと同時にsrcブランチもコミットするかどうかを制御するためのオプションをFalseに設定します。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;GITHUB_COMMIT_SOURCE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;False&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;GITHUB_COMMIT_SOURCE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;False&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;これはTravis CIではソースブランチへのコミットをトリガーに&lt;code&gt;nikola build &amp;amp;&amp;amp; nikola github_deploy&lt;/code&gt;を実行するため、&lt;code&gt;nikola github_deploy&lt;/code&gt;によってsrcブランチがコミットされると再度それがトリガーとなって無限ループに陥ってしまうことを防ぐためです。&lt;/p&gt;
@@ -458,7 +458,7 @@ $ nikola serve -b
 &lt;p&gt;nikolaブログのルートディレクトリ(&lt;code&gt;conf.py&lt;/code&gt;が置いてあるディレクトリ)に以下のような&lt;code&gt;.travis.yml&lt;/code&gt;ファイルを作成します。
 これは&lt;a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html"&gt;Nikola公式の記事&lt;/a&gt;に記載のtravis.ymlを改変したものになります。&lt;/p&gt;
 &lt;p&gt;※2019/4/8追記, &lt;a href="https://github.com/getnikola/nikola/issues/3237"&gt;travis CIでのビルドに失敗する対策のissue&lt;/a&gt;の内容を反映&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;language&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;python&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;language&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;python&lt;/span&gt;
 &lt;span class="nt"&gt;cache&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;apt&lt;/span&gt;
 &lt;span class="nt"&gt;sudo&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;false&lt;/span&gt;
 &lt;span class="nt"&gt;addons&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
@@ -494,27 +494,27 @@ $ nikola serve -b
   &lt;span class="nt"&gt;email&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="nt"&gt;on_success&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;change&lt;/span&gt;
     &lt;span class="nt"&gt;on_failure&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;always&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;ここで、&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;- git config --global user.name 'USERNAME'&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;- git config --global user.name 'USERNAME'&lt;/span&gt;
 &lt;span class="err"&gt;- git config --global user.email 'travis@invalid'&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;の行は適切なユーザー名、メールアドレスに、&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;- git remote add origin git@github.com:USERNAME/REPO.git&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;- git remote add origin git@github.com:USERNAME/REPO.git&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;の行は適切なユーザー名およびリポジトリ名に変更する必要があります。&lt;/p&gt;
 &lt;h4&gt;SSH鍵の生成&lt;/h4&gt;
 &lt;p&gt;まず、&lt;code&gt;.gitignore&lt;/code&gt;ファイルに&lt;code&gt;id_rsa&lt;/code&gt;と&lt;code&gt;id_rsa.pub&lt;/code&gt;を無視する設定を追記した上でSSH鍵を生成します。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; id_rsa &amp;gt;&amp;gt; .gitignore
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; id_rsa &amp;gt;&amp;gt; .gitignore
 $ &lt;span class="nb"&gt;echo&lt;/span&gt; id_rsa.pub &amp;gt;&amp;gt; .gitignore
 $ ssh-keygen -C TravisCI -f id_rsa -N &lt;span class="s1"&gt;''&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;上記を実行すると秘密鍵&lt;code&gt;id_rsa&lt;/code&gt;および公開鍵&lt;code&gt;id_rsa.pub&lt;/code&gt;が作成されます。
@@ -530,16 +530,16 @@ $ ssh-keygen -C TravisCI -f id_rsa -N &lt;span class="s1"&gt;''&lt;/span&gt;
 &lt;p&gt;生成した秘密鍵&lt;code&gt;id_rsa&lt;/code&gt;は&lt;code&gt;travis encrypt-file&lt;/code&gt;によって&lt;code&gt;id_rsa.enc&lt;/code&gt;に共通鍵による暗号化を施した上でリポジトリに追加します。
 この暗号化された&lt;code&gt;id_rsa.enc&lt;/code&gt;はTravis CIでの自動ビルド時に共通鍵によって復号化され、Travis CIのgithubへのアクセスに使用されます。&lt;/p&gt;
 &lt;p&gt;この作業を実行するためにはtravisコマンドが必要となりますが、これはrubyのgemとして配布されているため、インストールされていない場合は下記にようにgemでインストールする必要があります。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ gem install --user-install travis
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ gem install --user-install travis
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;なおtravisコマンドがインストールされる場所にPATHが通っていない場合はPATHに追加するか、下記一連のコマンドをフルパスで実行する必要があります。&lt;/p&gt;
 &lt;p&gt;travisコマンドが実行可能になったら、更に下記を実行します。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ travis login
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ travis login
 $ travis &lt;span class="nb"&gt;enable&lt;/span&gt;
 $ travis encrypt-file id_rsa --add
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;&lt;code&gt;travis login&lt;/code&gt;を実行するとgithubアカウントのユーザ名、パスワードを求められるため入力してください。
@@ -547,20 +547,20 @@ $ travis encrypt-file id_rsa --add
 更に&lt;code&gt;travis encrypt-file id_rsa --add&lt;/code&gt;を実行すると、秘密鍵&lt;code&gt;id_rsa&lt;/code&gt;が暗号化されて&lt;code&gt;id_rsa.enc&lt;/code&gt;が生成されます。
 この&lt;code&gt;id_rsa.enc&lt;/code&gt;は&lt;code&gt;.gitignore&lt;/code&gt;に追加されていないため、&lt;code&gt;git add&lt;/code&gt;によってgitの管理下に置かれることになります。
 なお引数の&lt;code&gt;--add&lt;/code&gt;を付けておくと、&lt;code&gt;.travis.yml&lt;/code&gt;ファイルに&lt;code&gt;id_rsa.enc&lt;/code&gt;の復号化を行うための下記のようなopensslのコマンドを追加してくれます。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;before_install&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;before_install&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
 &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;openssl aes-256-cbc -K $encrypted_XXXXXX_key -iv $encrypted_XXXXXX_iv&lt;/span&gt;
   &lt;span class="l l-Scalar l-Scalar-Plain"&gt;-in id_rsa.enc -out id_rsa -d&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;&lt;code&gt;-K&lt;/code&gt;は共通鍵、&lt;code&gt;-iv&lt;/code&gt;は初期ベクトルの指定であり、指定されている値はTravis CI側で環境変数として設定されています。
 (ブラウザからTravis CIの設定を見ると確認することができます)&lt;/p&gt;
 &lt;h4&gt;srcブランチへの各種ファイルのadd, commitおよびgithubへのpush&lt;/h4&gt;
 &lt;p&gt;以上の作業により&lt;code&gt;conf.py&lt;/code&gt;、&lt;code&gt;.gitignore&lt;/code&gt;、&lt;code&gt;.travis.yml&lt;/code&gt;、&lt;code&gt;id_rsa.enc&lt;/code&gt;の4つのファイルが編集・生成されているため、これをsrcブランチにaddした上でcommitし、更にremoteとなっているgithubにpushします。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ git add .
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ git add .
 $ git commit -am &lt;span class="s2"&gt;"Automate builds with Travis CI"&lt;/span&gt;
 $ git push origin src
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;これによりTravis CIの自動ビルドが実行されるはずなので、あとはブラウザからTravis CIのページを確認し、ビルドが通っているかを確認するのが良いでしょう。&lt;/p&gt;
@@ -582,8 +582,8 @@ $ git push origin src
 &lt;p&gt;&lt;code&gt;conf.py&lt;/code&gt;の&lt;code&gt;POSTS&lt;/code&gt;と&lt;code&gt;PAGES&lt;/code&gt;に&lt;code&gt;ipynb&lt;/code&gt;用のエントリを追加しておきます。&lt;/p&gt;
 &lt;h4&gt;ipynbファイルでのブログ記事新規作成&lt;/h4&gt;
 &lt;p&gt;mdファイルでの作成と同じように&lt;code&gt;nikola new_post -f 形式&lt;/code&gt;で形式にipynbを指定すれば良いです。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola new_post -f ipynb
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nikola new_post -f ipynb
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;記事タイトルを聞かれるので入力すると&lt;code&gt;posts&lt;/code&gt;ディレクトリ下にipynbファイルが生成されます。&lt;/p&gt;
@@ -593,7 +593,7 @@ $ git push origin src
 &lt;li&gt;Jupyter Notebookで&lt;code&gt;Menu -&amp;gt; Edit -&amp;gt; Edit Notebook Metadata&lt;/code&gt;を選択&lt;/li&gt;
 &lt;li&gt;下記のようなエントリを追加(最初の{...}は元々metadataに書かれていたエントリを省略したものです)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="err"&gt;{...&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="err"&gt;{...&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;
   &lt;span class="s2"&gt;"nikola"&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="nt"&gt;"tags"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"python,pydata,numpy,scipy,librosa,scikit-learn"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nt"&gt;"title"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"2018/2/28にPydata Osakaで'SciPyの概要と各モジュールの紹介'というタイトルで発表しました"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -605,15 +605,15 @@ $ git push origin src
     &lt;span class="nt"&gt;"description"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;""&lt;/span&gt;
   &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="err"&gt;}&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h4&gt;ブログポストの構築&lt;/h4&gt;
 &lt;p&gt;markdownのときと同じように&lt;code&gt;nikola build&lt;/code&gt;でブログを構築します。
 &lt;code&gt;nikola serve&lt;/code&gt;でローカルでの確認を取ります。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola build
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nikola build
 $ nikola serve -b
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h4&gt;MathJaxの描画&lt;/h4&gt;
@@ -642,10 +642,10 @@ $ nikola serve -b
 nikolaはstaticファイルを吐き出すgeneratorなので後者のMETAタグを用いた設定を行うこととなる。
 METAタグによる設定はHEADタグの最初に書くべきであるが、nikolaではHEADタグの頭に書くようなオプションはないため、仕方なく&lt;code&gt;EXTRA_HEAD_DATA&lt;/code&gt;オプションにこのための設定を記述する。
 実際に設定しているCSPの設定は下記の通りである。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;EXTRA_HEAD_DATA&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"""&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;EXTRA_HEAD_DATA&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"""&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com;"&amp;gt;&lt;/span&gt;
 &lt;span class="s2"&gt;"""&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;基本的には"default-src"に対して'self'、'unsafe-inline'、および各ドメインに対する設定をhttpとhttpsに分けて記述している形になる。
@@ -658,7 +658,7 @@ METAタグによる設定はHEADタグの最初に書くべきであるが、nik
 リンク先ページにも記述があるように、evalを要求してくるような部分は上記CSP設定でもブロックされるが、これはdisqusによる広告の挿入のためであるとのことであるため、特に許可していない。&lt;/p&gt;
 &lt;h3&gt;Google Analyticsの設定&lt;/h3&gt;
 &lt;p&gt;Google Analyticsの設定はCSPと同様にHEADタグ内に書く必要があるため、&lt;code&gt;EXTRA_HEAD_DATA&lt;/code&gt;のオプションに追加で設定する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;EXTRA_HEAD_DATA&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"""&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;EXTRA_HEAD_DATA&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"""&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;!-- Global site tag (gtag.js) - Google Analytics --&amp;gt;&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
@@ -669,7 +669,7 @@ METAタグによる設定はHEADタグの最初に書くべきであるが、nik
 &lt;span class="s2"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;!-- End Google Analytics --&amp;gt;&lt;/span&gt;
 &lt;span class="s2"&gt;"""&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;ここでは従来使われていたトラッキング用のコードではなく、Google Tag Managerを使用するコードの記載としている。"UA-XXXX"のXXXXの部分は各自独自の設定に書き換える必要がある。&lt;/p&gt;
@@ -683,8 +683,8 @@ METAタグによる設定はHEADタグの最初に書くべきであるが、nik
 &lt;p&gt;などの理由から、結果として各サービスのSNSのボタンを個別に追加した方がトラブルを避けられたため、ここでは個別にどのように追加したかについて記載する。&lt;/p&gt;
 &lt;h4&gt;SNSボタンの設定方法&lt;/h4&gt;
 &lt;p&gt;前述のように&lt;code&gt;SOCIAL_BUTTONS_CODE&lt;/code&gt;のオプションは使わない。代わりに&lt;code&gt;CONTENT_FOOTER&lt;/code&gt;のオプションを使用する。&lt;code&gt;CONTENT_FOOTER&lt;/code&gt;は当初下記のような記述になっている。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;CONTENT_FOOTER&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Contents &amp;amp;copy; &lt;/span&gt;&lt;span class="si"&gt;{date}&lt;/span&gt;&lt;span class="s2"&gt;         &amp;lt;a href="&lt;/span&gt;&lt;span class="n"&gt;mailto&lt;/span&gt;&lt;span class="p"&gt;:{&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&amp;gt;&lt;/span&gt;&lt;span class="si"&gt;{author}&lt;/span&gt;&lt;span class="s2"&gt;&amp;lt;/a&amp;gt; - Powered by         &amp;lt;a href="&lt;/span&gt;&lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;getnikola&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="s2"&gt;" rel="&lt;/span&gt;&lt;span class="n"&gt;nofollow&lt;/span&gt;&lt;span class="s2"&gt;"&amp;gt;Nikola&amp;lt;/a&amp;gt;         &lt;/span&gt;&lt;span class="si"&gt;{license}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;CONTENT_FOOTER&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Contents &amp;amp;copy; &lt;/span&gt;&lt;span class="si"&gt;{date}&lt;/span&gt;&lt;span class="s2"&gt;         &amp;lt;a href="&lt;/span&gt;&lt;span class="n"&gt;mailto&lt;/span&gt;&lt;span class="p"&gt;:{&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&amp;gt;&lt;/span&gt;&lt;span class="si"&gt;{author}&lt;/span&gt;&lt;span class="s2"&gt;&amp;lt;/a&amp;gt; - Powered by         &amp;lt;a href="&lt;/span&gt;&lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;getnikola&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="s2"&gt;" rel="&lt;/span&gt;&lt;span class="n"&gt;nofollow&lt;/span&gt;&lt;span class="s2"&gt;"&amp;gt;Nikola&amp;lt;/a&amp;gt;         &lt;/span&gt;&lt;span class="si"&gt;{license}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;上記は設定年、著者名、Nikolaによる生成であることをfooterとして設定するための記述となっている。
@@ -694,7 +694,7 @@ format関数の引数としては、別途設定されているオプション&l
 そのため、&lt;code&gt;CONTENT_FOOTER&lt;/code&gt;中で&lt;code&gt;{&lt;/code&gt;や&lt;code&gt;}&lt;/code&gt;を用いる場合は、pythonのformat関数の仕様に合わせて&lt;code&gt;{{&lt;/code&gt;や&lt;code&gt;}}&lt;/code&gt;のように記述する必要があることに注意されたい。&lt;/p&gt;
 &lt;p&gt;SNSボタン設定に関する記述は、&lt;code&gt;CONTENT_FOOTER&lt;/code&gt;の後続する部分にタグを埋め込むことで行う。
 最終的には下記のような記述となっている。facebookのscript部分の中括弧を'{{'と'}}'に変えている。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;CONTENT_FOOTER&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"""Contents &amp;amp;copy; &lt;/span&gt;&lt;span class="si"&gt;{date}&lt;/span&gt;&lt;span class="s2"&gt;         &amp;lt;a href="mailto:&lt;/span&gt;&lt;span class="si"&gt;{email}&lt;/span&gt;&lt;span class="s2"&gt;"&amp;gt;&lt;/span&gt;&lt;span class="si"&gt;{author}&lt;/span&gt;&lt;span class="s2"&gt;&amp;lt;/a&amp;gt; - Powered by         &amp;lt;a href="https://getnikola.com" rel="nofollow"&amp;gt;Nikola&amp;lt;/a&amp;gt;         &lt;/span&gt;&lt;span class="si"&gt;{license}&lt;/span&gt;&lt;span class="s2"&gt;&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;CONTENT_FOOTER&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"""Contents &amp;amp;copy; &lt;/span&gt;&lt;span class="si"&gt;{date}&lt;/span&gt;&lt;span class="s2"&gt;         &amp;lt;a href="mailto:&lt;/span&gt;&lt;span class="si"&gt;{email}&lt;/span&gt;&lt;span class="s2"&gt;"&amp;gt;&lt;/span&gt;&lt;span class="si"&gt;{author}&lt;/span&gt;&lt;span class="s2"&gt;&amp;lt;/a&amp;gt; - Powered by         &amp;lt;a href="https://getnikola.com" rel="nofollow"&amp;gt;Nikola&amp;lt;/a&amp;gt;         &lt;/span&gt;&lt;span class="si"&gt;{license}&lt;/span&gt;&lt;span class="s2"&gt;&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;!-- twitter --&amp;gt;&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;a href="https://twitter.com/share?ref_src=twsrc&lt;/span&gt;&lt;span class="si"&gt;%5E&lt;/span&gt;&lt;span class="s2"&gt;tfw" class="twitter-share-button" data-show-count="false"&amp;gt;Tweet&amp;lt;/a&amp;gt;&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
@@ -716,7 +716,7 @@ format関数の引数としては、別途設定されているオプション&l
 &lt;span class="s2"&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
 &lt;span class="s2"&gt;"""&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;各SNSボタン用コードの取得に関しては以下に記述する。実際の見た目については一番下までスクロールすれば見えると思われる。&lt;/p&gt;
@@ -727,16 +727,16 @@ format関数の引数としては、別途設定されているオプション&l
 「いいね！」するURLは空白、レイアウトは"button"、アクションタイプは"like"、ボタンサイズは"small"、友達の顔は表示する、シェアボタンを追加、のチェックは共にOnにした状態でコードを取得し、そのコードを&lt;code&gt;CONTENT_FOOTER&lt;/code&gt;オプションに追加した。&lt;/p&gt;
 &lt;h5&gt;Open Graph対応&lt;/h5&gt;
 &lt;p&gt;facebookのいいね・シェアボタンやGoogle Plusの+1ボタンなどが対応しているOpen Graphへの対応は&lt;code&gt;conf.py&lt;/code&gt;のオプションを有効化することによって実現できる。下記オプションをTrueに設定すると、&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;USE_OPEN_GRAPH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;USE_OPEN_GRAPH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;出力されるHTMLのheadタグ内に下記記述が追加される。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;property&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"og:site_name"&lt;/span&gt; &lt;span class="na"&gt;content&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"hiromasa.info"&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;property&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"og:site_name"&lt;/span&gt; &lt;span class="na"&gt;content&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"hiromasa.info"&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;property&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"og:title"&lt;/span&gt; &lt;span class="na"&gt;content&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"nikolaでCSP、Google Analytics、SNSボタンの設定を行う"&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;property&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"og:url"&lt;/span&gt; &lt;span class="na"&gt;content&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"http://www.hiromasa.info/posts/2/"&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;property&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"og:description"&lt;/span&gt; &lt;span class="na"&gt;content&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"..."&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;description内のcontentの記述は省略したが、本文(主にh2など)から抽出した内容が記載される。
@@ -748,7 +748,7 @@ format関数の引数としては、別途設定されているオプション&l
 この理由はボタンウィジェットに対するCSSの&lt;code&gt;vertical-align&lt;/code&gt;がbottomになっているせいである(&lt;a href="https://developers.google.com/web/fundamentals/security/csp/?hl=ja"&gt;参考&lt;/a&gt;)。
 これを調整するためには&lt;code&gt;vertical-align&lt;/code&gt;をbaselineにしてやれば良い。
 これらのCSS設定は&lt;code&gt;HEAD&lt;/code&gt;タグ内で設定する必要があるため、&lt;code&gt;EXTRA_HEAD_DATA&lt;/code&gt;オプションにstyleタグおよび設定を追加する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;EXTRA_HEAD_DATA = """
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;EXTRA_HEAD_DATA = """
 &lt;span class="c"&gt;&amp;lt;!-- for facebook button --&amp;gt;&lt;/span&gt;
 &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;style&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;fb-like&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -762,7 +762,7 @@ format関数の引数としては、別途設定されているオプション&l
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;style&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 """
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h4&gt;はてなブックマークボタン&lt;/h4&gt;
@@ -770,7 +770,7 @@ format関数の引数としては、別途設定されているオプション&l
 ボタンのラベルは非表示、ブックマーク数は表示、保存するURLはページのURLを使う、に設定して取得したコードを&lt;code&gt;CONTENT_FOOTER&lt;/code&gt;に追加している。&lt;/p&gt;
 &lt;h3&gt;最終的な&lt;code&gt;EXTRA_HEAD_DATA&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;上記の複数箇所で触れた&lt;code&gt;EXTRA_HEAD_DATA&lt;/code&gt;は最終的に以下のような形で記述している。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;EXTRA_HEAD_DATA&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"""&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;EXTRA_HEAD_DATA&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"""&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com;"&amp;gt;&lt;/span&gt;
 
 &lt;span class="s2"&gt;&amp;lt;!-- Global site tag (gtag.js) - Google Analytics --&amp;gt;&lt;/span&gt;
@@ -796,7 +796,7 @@ format関数の引数としては、別途設定されているオプション&l
 &lt;span class="s2"&gt;}&lt;/span&gt;
 &lt;span class="s2"&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
 &lt;span class="s2"&gt;"""&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h3&gt;参考&lt;/h3&gt;
@@ -807,22 +807,22 @@ format関数の引数としては、別途設定されているオプション&l
 &lt;h3&gt;Nikolaでブログを生成&lt;/h3&gt;
 &lt;h4&gt;インストール&lt;/h4&gt;
 &lt;p&gt;pipでインストールできる。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ pip install nikola
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ pip install nikola
 $ pip install webassets
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;後述するbuildの際などに下記のようなメッセージが出るので合わせてwebassetsもインストールしておくと良い。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.&lt;/span&gt;
 &lt;span class="err"&gt;[2018-01-08T01:42:01Z] WARNING: bundles: Setting USE_BUNDLES to False.&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h4&gt;ブログの雛形生成&lt;/h4&gt;
 &lt;p&gt;nikolaはgitのように&lt;code&gt;nikola サブコマンド&lt;/code&gt;の形式で様々なコマンドを実行できる。
 雛形の生成のためには&lt;code&gt;nikola init&lt;/code&gt;を実行する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;nikola init blog_name
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;nikola init blog_name
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;これを実行するとCUIベースで対話的に様々な設定が可能。
@@ -831,14 +831,14 @@ commentシステムとして何を使うかを聞かれるが、後でconf.pyを
 この引数を付けるとデモ用コンテンツが生成されてしまうので普通に真っさらな状態で始めたいならば付けない方が良い。&lt;/p&gt;
 &lt;h4&gt;新記事生成&lt;/h4&gt;
 &lt;p&gt;新記事生成は下記の通り。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola new_post -f markdown  &lt;span class="c1"&gt;# formatを-fで指定(デフォルトはReStructuredText形式)&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nikola new_post -f markdown  &lt;span class="c1"&gt;# formatを-fで指定(デフォルトはReStructuredText形式)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;実行すると記事タイトルを聞かれるので打ち込むと&lt;code&gt;-f&lt;/code&gt;で指定した形式のファイルがposts以下に生成される。
 また、引数に&lt;code&gt;-e&lt;/code&gt;を付けるとそのままエディタでの編集画面となる。&lt;/p&gt;
 &lt;p&gt;生成されたファイルの冒頭には下記のような形のヘッダーが付いている。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;&amp;lt;!--&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;&amp;lt;!--&lt;/span&gt;
 &lt;span class="err"&gt;.. title: Nikolaでブログ構築してGithub Pagesに設置&lt;/span&gt;
 &lt;span class="err"&gt;.. slug: 1&lt;/span&gt;
 &lt;span class="err"&gt;.. date: 2018-01-07 23:35:28 UTC+09:00&lt;/span&gt;
@@ -848,19 +848,19 @@ commentシステムとして何を使うかを聞かれるが、後でconf.pyを
 &lt;span class="err"&gt;.. description: &lt;/span&gt;
 &lt;span class="err"&gt;.. type: text&lt;/span&gt;
 &lt;span class="err"&gt;--&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;titleは記事タイトルである。
 slugはurlの一部となる文字列である。記事タイトルをアルファベットに直したものが記載されているが、適当に修正すると良い。1にしておくと&lt;code&gt;http://www.hiromasa.info/1/&lt;/code&gt;のようなURLとなる。&lt;/p&gt;
 &lt;h4&gt;固定ページ生成&lt;/h4&gt;
 &lt;p&gt;固定ページはpostではなくpageとして生成する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola new_page -f markdown pages/about
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nikola new_page -f markdown pages/about
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;生成した固定ページを上部ナビゲーションに配置する方法は下記のように&lt;code&gt;conf.py&lt;/code&gt;の&lt;code&gt;NAVIGATION_LINKS&lt;/code&gt;に書けば良い。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;NAVIGATION_LINKS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;NAVIGATION_LINKS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;DEFAULT_LANG&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
         &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/archive.html"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"文書一覧"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
         &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/categories/"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"タグ"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
@@ -868,19 +868,19 @@ slugはurlの一部となる文字列である。記事タイトルをアルフ�
         &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/rss.xml"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"RSSフィード"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
     &lt;span class="p"&gt;),&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h4&gt;ブログ構築&lt;/h4&gt;
 &lt;p&gt;postやpageを上記のように生成しただけでは単なるテキストが生成されているだけなので、これらを元にブログを構築する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola build
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nikola build
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;これでブログが構築される。
 ローカルで確認するためには下記を実行する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola serve -b  &lt;span class="c1"&gt;# --browserでも良い&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nikola serve -b  &lt;span class="c1"&gt;# --browserでも良い&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h4&gt;ブログテーマ設定&lt;/h4&gt;
@@ -888,16 +888,16 @@ slugはurlの一部となる文字列である。記事タイトルをアルフ�
 ここでは&lt;a href="https://themes.getnikola.com/v7/libretto/"&gt;libretto&lt;/a&gt;のテーマを選んだ。
 wordpressの同名テーマをベースにしたものらしい。&lt;/p&gt;
 &lt;p&gt;テーマのインストールは下記の通り。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola theme -i libretto
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nikola theme -i libretto
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;実行するとthemesディレクトリ以下にlibrettoのテーマがダウンロードされる。&lt;/p&gt;
 &lt;p&gt;このテーマを使用するためには更にconf.pyを編集する必要がある。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Name of the theme to use.&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# Name of the theme to use.&lt;/span&gt;
 &lt;span class="c1"&gt;# THEME = "bootstrap3"&lt;/span&gt;
 &lt;span class="n"&gt;THEME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"libretto"&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;この上で&lt;code&gt;nikola build&lt;/code&gt;を実行すれば更新後のテーマに変わっている。
@@ -907,14 +907,14 @@ wordpressの同名テーマをベースにしたものらしい。&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://getnikola.com/handbook.html#deployment"&gt;HandbookのDeployment&lt;/a&gt;の項を見るとGithubでホスティングする方法が記載されている。ここではGitHubのuser page(wrist.github.io)に配置することを考える。&lt;/p&gt;
 &lt;h4&gt;1. gitリポジトリの設定を行う&lt;/h4&gt;
 &lt;p&gt;過去にwrist.github.ioリポジトリを作成しているため、ブログのルートで&lt;code&gt;git init&lt;/code&gt;してからremoteを設定する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ git init
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ git init
 $ git remote add origin git@github.com:wrist/wrist.github.io
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h4&gt;2. (必要であれば)conf.pyを編集する&lt;/h4&gt;
 &lt;p&gt;必要であれば下記を編集する。今回は不要であるため特に変更していない。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# siteのソースがdeployされるブランチ名、srcが推奨とのこと&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# siteのソースがdeployされるブランチ名、srcが推奨とのこと&lt;/span&gt;
 &lt;span class="n"&gt;GITHUB_SOURCE_BRANCH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'src'&lt;/span&gt;
 &lt;span class="c1"&gt;# HTMLファイルがdeployされるブランチ、user pageの場合はmaster&lt;/span&gt;
 &lt;span class="n"&gt;GITHUB_DEPLOY_BRANCH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'master'&lt;/span&gt;
@@ -922,33 +922,33 @@ $ git remote add origin git@github.com:wrist/wrist.github.io
 &lt;span class="n"&gt;GITHUB_REMOTE_NAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'origin'&lt;/span&gt;
 &lt;span class="c1"&gt;# ソースブランチを自動的にコミットしプッシュするかの設定&lt;/span&gt;
 &lt;span class="n"&gt;GITHUB_COMMIT_SOURCE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h4&gt;3. .gitignoreを追加&lt;/h4&gt;
 &lt;p&gt;下記内容を.gitignoreに追加する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;cache&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;cache&lt;/span&gt;
 &lt;span class="err"&gt;.doit.db&lt;/span&gt;
 &lt;span class="err"&gt;__pycache__&lt;/span&gt;
 &lt;span class="err"&gt;output&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;h4&gt;4. deploy用のコマンドを実行&lt;/h4&gt;
 &lt;p&gt;下記コマンドを実行することでdeployが可能。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ nikola github_deploy
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nikola github_deploy
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;下記のように表示された場合は&lt;code&gt;pip install ghp-import2&lt;/code&gt;でghp-import2をインストールする。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.&lt;/span&gt;
 &lt;span class="err"&gt;[2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;通常はこれで改めて&lt;code&gt;nikola github_deploy&lt;/code&gt;を実行すれば終わりのはずである。
 しかし、今回は過去に作成済の既にmasterが存在しているリポジトリにpushしようとしているため、当然先にfetchしろと警告が出て失敗する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2018&lt;/span&gt;-01-08T04:17:10Z&lt;span class="o"&gt;]&lt;/span&gt; INFO: github_deploy: &lt;span class="o"&gt;==&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'ghp-import'&lt;/span&gt;, &lt;span class="s1"&gt;'-n'&lt;/span&gt;, &lt;span class="s1"&gt;'-m'&lt;/span&gt;, &lt;span class="s1"&gt;'Nikola auto commit.\n\nSource commit: a37690e35a31dc4a108f53c62b8ee17e783aa28f\nNikola version: 7.8.11'&lt;/span&gt;, &lt;span class="s1"&gt;'-p'&lt;/span&gt;, &lt;span class="s1"&gt;'-r'&lt;/span&gt;, &lt;span class="s1"&gt;'origin'&lt;/span&gt;, &lt;span class="s1"&gt;'-b'&lt;/span&gt;, &lt;span class="s1"&gt;'master'&lt;/span&gt;, &lt;span class="s1"&gt;'output'&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2018&lt;/span&gt;-01-08T04:17:10Z&lt;span class="o"&gt;]&lt;/span&gt; INFO: github_deploy: &lt;span class="o"&gt;==&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'ghp-import'&lt;/span&gt;, &lt;span class="s1"&gt;'-n'&lt;/span&gt;, &lt;span class="s1"&gt;'-m'&lt;/span&gt;, &lt;span class="s1"&gt;'Nikola auto commit.\n\nSource commit: a37690e35a31dc4a108f53c62b8ee17e783aa28f\nNikola version: 7.8.11'&lt;/span&gt;, &lt;span class="s1"&gt;'-p'&lt;/span&gt;, &lt;span class="s1"&gt;'-r'&lt;/span&gt;, &lt;span class="s1"&gt;'origin'&lt;/span&gt;, &lt;span class="s1"&gt;'-b'&lt;/span&gt;, &lt;span class="s1"&gt;'master'&lt;/span&gt;, &lt;span class="s1"&gt;'output'&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
 To github.com:wrist/wrist.github.io
  ! &lt;span class="o"&gt;[&lt;/span&gt;rejected&lt;span class="o"&gt;]&lt;/span&gt;        master -&amp;gt; master &lt;span class="o"&gt;(&lt;/span&gt;fetch first&lt;span class="o"&gt;)&lt;/span&gt;
 error: failed to push some refs to &lt;span class="s1"&gt;'git@github.com:wrist/wrist.github.io'&lt;/span&gt;
@@ -957,13 +957,13 @@ hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
 hint: &lt;span class="o"&gt;(&lt;/span&gt;e.g., &lt;span class="s1"&gt;'git pull ...'&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; before pushing again.
 hint: See the &lt;span class="s1"&gt;'Note about fast-forwards'&lt;/span&gt; in &lt;span class="s1"&gt;'git push --help'&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; details.
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;仕方ないので&lt;a href="https://rcmdnk.com/blog/2013/11/01/computer-git/"&gt;この記事&lt;/a&gt;に倣い、先にmasterを強制pushする。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ git push -f origin master
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ git push -f origin master
 $ nikola github_deploy
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;これにて無事に&lt;code&gt;http://wrist.github.io&lt;/code&gt;で閲覧できるようになった。&lt;/p&gt;
@@ -972,9 +972,9 @@ $ nikola github_deploy
 &lt;h3&gt;コメントシステムの設置&lt;/h3&gt;
 &lt;p&gt;init時には空白にしておいたコメントシステムを有効化する。
 ここではdisqusを用いることにする。&lt;code&gt;conf.py&lt;/code&gt;に下記を追記する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;COMMENT_SYSTEM&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"disqus"&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;COMMENT_SYSTEM&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"disqus"&lt;/span&gt;
 &lt;span class="n"&gt;COMMENT_SYSTEM_ID&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"hiromasa-info"&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;&lt;code&gt;COMMENT_SYSTEM_ID&lt;/code&gt;はdisqusの場合はshortnameを設定する。

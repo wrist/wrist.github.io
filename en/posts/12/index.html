@@ -138,17 +138,17 @@ TRANSLATIONS_PATTERN = "{path'>
 <p><a href="https://getnikola.com/handbook.html">nikola handbook</a>のMultilingual postsの項を見ながら多国語対応の設定を行う。</p>
 <h4>基本的な設定</h4>
 <p>記事や固定ページの多国語対応を行う場合、<code>conf.py</code>の<code>TRANSLATIONS_PATTERN</code>で指定されたパターンに沿ったファイル名で言語ごとに記事を作成することになる。デフォルトだと</p>
-<pre class="code literal-block"><span></span><span class="n">TRANSLATIONS_PATTERN</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{path}</span><span class="s2">.</span><span class="si">{lang}</span><span class="s2">.</span><span class="si">{ext}</span><span class="s2">"</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="n">TRANSLATIONS_PATTERN</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{path}</span><span class="s2">.</span><span class="si">{lang}</span><span class="s2">.</span><span class="si">{ext}</span><span class="s2">"</span>
+</code></pre>
 
 
 <p>という指定になっているため、この記事(<code>12.md</code>)であれば英語ポストを作成する場合は<code>12.en.md</code>というファイル名を付けることとなる。</p>
 <p>上記パターンをどの国の言語に対応させるかどうかは<code>TRANSLATIONS</code>の設定を変更する。この設定では各言語をkeyとしてprefixとなるパスをvalueに持つdictを設定する。デフォルトでは<code>DEFAULT_LANG : ""</code>のみが指定されているため、新たに追加したい言語とprefixを次にような形で指定する。</p>
-<pre class="code literal-block"><span></span><span class="n">TRANSLATIONS</span> <span class="o">=</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="n">TRANSLATIONS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">DEFAULT_LANG</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
     <span class="s2">"en"</span><span class="p">:</span> <span class="s2">"./en"</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
 
 
 <p>この設定を行った上で<code>nikola build</code>を実行すると、過去の諸々のポストに対しても多言語対応のための再生成が走るためかブログ構築までに5分ほどを要する。構築後、<code>nikola serve -b</code>でローカルのブラウザ上でブログを閲覧すると右上に<code>English</code>という表示が増える(3カ国語以上設定した場合は試していないがおそらく選択できるようになると思われる)。
@@ -157,7 +157,7 @@ TRANSLATIONS_PATTERN = "{path'>
 <p>以下ではこれらの多国語化について記す。多言語対応可能な設定項目については<code>conf.py</code>において<code>(translatable)</code>というコメントが添えられているため、基本的にはこれらの設定項目を調整していくことになる。</p>
 <h4>ナビゲーションバーの多言語化</h4>
 <p>ナビゲーションバーについては<code>NAVIGARTION_LINKS</code>の設定を次のように変更する。</p>
-<pre class="code literal-block"><span></span><span class="n">NAVIGATION_LINKS</span> <span class="o">=</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="n">NAVIGATION_LINKS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">DEFAULT_LANG</span><span class="p">:</span> <span class="p">(</span>
         <span class="p">(</span><span class="s2">"/archive.html"</span><span class="p">,</span> <span class="s2">"文書一覧"</span><span class="p">),</span>
         <span class="p">(</span><span class="s2">"/categories/"</span><span class="p">,</span> <span class="s2">"タグ"</span><span class="p">),</span>
@@ -171,7 +171,7 @@ TRANSLATIONS_PATTERN = "{path'>
         <span class="p">(</span><span class="s2">"/en/rss.xml"</span><span class="p">,</span> <span class="s2">"RSS feed"</span><span class="p">),</span>
     <span class="p">)</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
 
 
 <p>ここでは各言語をkeyとし、対応するパスとリンク名のタプルのタプルをvalueとするdictを設定している。
@@ -179,11 +179,11 @@ TRANSLATIONS_PATTERN = "{path'>
 <h4>タグ、カテゴリの多言語化(調査中)</h4>
 <p>nikola v8ではポストごとに複数の分類を与えるタグ(tags)と、単一の分類を与えるカテゴリ(categories)が提供されている。現時点で当ブログはタグしか用いていない。なお前のポストにも記したが、nikolaのversion 7まではセクション(sections)という分類方法も存在していたが、これはversion 8以降は削除されている(nikola handbookにはこの機能は<code>CATEGORY_DESTPATH</code>の設定を用いて実現可能との記載がある)。
 タグやカテゴリの多言語化の仕方であるが、<code>conf.py</code>を見ると<code>TAG_TRANSLATION</code>や<code>CATEGORY_TRANSLATION</code>に</p>
-<pre class="code literal-block"><span></span>   <span class="p">[</span>
+<pre class="code literal-block"><span></span><code>   <span class="p">[</span>
      <span class="p">{</span><span class="s1">'en'</span><span class="p">:</span> <span class="s1">'private'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">:</span> <span class="s1">'Privat'</span><span class="p">},</span>
      <span class="p">{</span><span class="s1">'en'</span><span class="p">:</span> <span class="s1">'work'</span><span class="p">,</span> <span class="s1">'fr'</span><span class="p">:</span> <span class="s1">'travail'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">:</span> <span class="s1">'Arbeit'</span><span class="p">},</span>
    <span class="p">]</span>
-</pre>
+</code></pre>
 
 
 <p>のような辞書のリストを指定すれば良いとの記載がある。しかしこれを日本語と英語の間の翻訳で試みたところ、英語ページにおいても日本語タグが指定した英語タグに翻訳されず日本語タグのままとなる現象を確認している。この現象の解決のためには調査を行う必要があるため、現時点ではタグ、カテゴリの多言語化は実現できていない。</p>
