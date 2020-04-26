@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info</title><link>http://www.hiromasa.info/</link><description>blog by Hiromasa OHASHI</description><atom:link href="http://www.hiromasa.info/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 20 Mar 2020 05:31:52 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Jupyter LabおよびExtensionの紹介</title><link>http://www.hiromasa.info/en/posts/17/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info</title><link>http://www.hiromasa.info/</link><description>blog by Hiromasa OHASHI</description><atom:link href="http://www.hiromasa.info/en/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 26 Apr 2020 02:35:13 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Jupyter LabおよびExtensionの紹介</title><link>http://www.hiromasa.info/en/posts/17/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2 id="Jupyter-LabおよびExtensionの紹介"&gt;Jupyter LabおよびExtensionの紹介&lt;a class="anchor-link" href="http://www.hiromasa.info/en/posts/17/#Jupyter-Lab%E3%81%8A%E3%82%88%E3%81%B3Extension%E3%81%AE%E7%B4%B9%E4%BB%8B"&gt;¶&lt;/a&gt;&lt;/h2&gt;
@@ -2454,10 +2454,10 @@ test.gif
 
 
 
-&lt;div id="2ac8319d-6bd1-40cf-9870-4861bc15295d"&gt;&lt;/div&gt;
+&lt;div id="310b7fd6-964d-467f-baab-dfe793b9df40"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#2ac8319d-6bd1-40cf-9870-4861bc15295d');
+var element = $('#310b7fd6-964d-467f-baab-dfe793b9df40');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
