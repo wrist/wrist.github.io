@@ -1,3 +1,11 @@
 div.prompt {
     background-color: #fff !important;
 }
+
+div.text_cell > div.prompt {
+  display: none;
+}
+
+div.cell {
+  padding: 0;
+}
