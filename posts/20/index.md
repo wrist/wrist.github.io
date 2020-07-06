@@ -12,7 +12,7 @@
 
 ## 概要
 
-jupyterlabでwavファイルが開けなかったので下記のチュートリアルを参考にMIMEレンダラーを作成しました。
+jupyterlab内でwavファイルが開けなかったので下記のチュートリアルを参考にMIMEレンダラーを作成しました。
 https://github.com/jupyterlab/jupyterlab-mp4/blob/master/tutorial.md
 正直wavファイルの場合は上記チュートリアルと全く同じ操作で作成できてしまいました。
 
@@ -188,6 +188,7 @@ export default extension;
 
 ![audio要素](/images/20/wav_renderer.png)
 
+ちなみにwavファイルを右クリックして表示される「Open in New Browser tab」を実行するとこのExtensionがなくてもブラウザの別タブで再生は元々可能です。
 
 ## npmjsへの投稿
 

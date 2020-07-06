@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlab)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlab.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 06 Jul 2020 15:26:46 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>jupyterlabのwav用MIMEレンダラーを作成しました</title><link>http://www.hiromasa.info/en/posts/20/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;概要&lt;/h3&gt;
-&lt;p&gt;jupyterlabでwavファイルが開けなかったので下記のチュートリアルを参考にMIMEレンダラーを作成しました。
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlab)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlab.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 06 Jul 2020 15:53:48 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>jupyterlabのwav用MIMEレンダラーを作成しました</title><link>http://www.hiromasa.info/en/posts/20/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;概要&lt;/h3&gt;
+&lt;p&gt;jupyterlab内でwavファイルが開けなかったので下記のチュートリアルを参考にMIMEレンダラーを作成しました。
 https://github.com/jupyterlab/jupyterlab-mp4/blob/master/tutorial.md
 正直wavファイルの場合は上記チュートリアルと全く同じ操作で作成できてしまいました。&lt;/p&gt;
 &lt;h3&gt;プロジェクトの初期化&lt;/h3&gt;
@@ -173,6 +173,7 @@ https://github.com/jupyterlab/jupyterlab/issues/7907&lt;/p&gt;
 &lt;h3&gt;実際の表示の例&lt;/h3&gt;
 &lt;p&gt;左のファイルブラウザからwavファイルをダブルクリックすると下記のようにaudio要素が表示されます。&lt;/p&gt;
 &lt;p&gt;&lt;img alt="audio要素" src="http://www.hiromasa.info/images/20/wav_renderer.png"&gt;&lt;/p&gt;
+&lt;p&gt;ちなみにwavファイルを右クリックして表示される「Open in New Browser tab」を実行するとこのExtensionがなくてもブラウザの別タブで再生は元々可能です。&lt;/p&gt;
 &lt;h3&gt;npmjsへの投稿&lt;/h3&gt;
 &lt;p&gt;&lt;a href="https://jupyterlab.readthedocs.io/en/stable/developer/extension_dev.html"&gt;Extension Developer GUid&lt;/a&gt;の&lt;code&gt;Shipping Packages&lt;/code&gt;の項を読むと
 extensionは単一のJavascriptパッケージであり、npmjs.orgから配布できることや、
@@ -268,10 +269,10 @@ $ pip install openfst-python
 
 
 
-&lt;div id="bce503cb-499c-480c-8c8a-2e565e4b1556"&gt;&lt;/div&gt;
+&lt;div id="aa0620a5-ff5e-436c-bb9f-a066b5a0e23e"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#bce503cb-499c-480c-8c8a-2e565e4b1556');
+var element = $('#aa0620a5-ff5e-436c-bb9f-a066b5a0e23e');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
