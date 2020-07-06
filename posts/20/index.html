@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jupyterlabのwav用MIMEレンダラーを作成しました | hiromasa.info</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" hreflang="ja" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" hreflang="en" href="../../en/rss.xml">
+<link rel="canonical" href="http://www.hiromasa.info/posts/20/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.hiromasa.info https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-48887105-1');
+</script><!-- End Google Analytics --><!-- for facebook button --><style>
+.fb-like {
+    display: inline;
+}
+#fb-root {
+    display: inline;
+}
+.fb_iframe_widget > span {
+    vertical-align: baseline !important; 
+}
+</style>
+<meta name="author" content="Hiromasa OHASHI">
+<link rel="prev" href="../19/" title="nbmediasplitというipynbファイルから画像・音声を抽出するためのスクリプトをPyPIで公開しました" type="text/html">
+<meta property="og:site_name" content="hiromasa.info">
+<meta property="og:title" content="jupyterlabのwav用MIMEレンダラーを作成しました">
+<meta property="og:url" content="http://www.hiromasa.info/posts/20/">
+<meta property="og:description" content="概要
+jupyterlabでwavファイルが開けなかったので下記のチュートリアルを参考にMIMEレンダラーを作成しました。
+https://github.com/jupyterlab/jupyterlab-mp4/blob/master/tutorial.md
+正直wavファイルの場合は上記チュートリアルと全く同じ操作で作成できてしまいました。
+プロジェクトの初期化
+cookiecutterを使っ">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-07-07T00:00:00+09:00">
+<meta property="article:tag" content="jupyterlab">
+<meta property="article:tag" content="typescript">
+<link rel="alternate" hreflang="en" href="../../en/posts/20/">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">本文を読み飛ばす</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
+
+            <span id="blog-title">hiromasa.info</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item"><a href="../../en/" rel="alternate" hreflang="en" class="nav-link">English</a></li>
+
+                    
+                    
+    
+    <li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">ソース</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">文書一覧</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">タグ</a>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about/index.html" class="nav-link">about</a>
+                </li>
+<li class="nav-item">
+<a href="../../pages/slides/index.html" class="nav-link">slide一覧</a>
+                </li>
+<li class="nav-item">
+<a href="../../rss.xml" class="nav-link">RSSフィード</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">jupyterlabのwav用MIMEレンダラーを作成しました</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Hiromasa OHASHI
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-07-07T00:00:00+09:00" itemprop="datePublished" title="2020-07-07 00:00">2020-07-07 00:00</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/20.html">コメント</a>
+
+
+            
+        </p>
+<p class="sourceline"><a href="index.md" class="sourcelink">ソース</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<h3>概要</h3>
+<p>jupyterlabでwavファイルが開けなかったので下記のチュートリアルを参考にMIMEレンダラーを作成しました。
+https://github.com/jupyterlab/jupyterlab-mp4/blob/master/tutorial.md
+正直wavファイルの場合は上記チュートリアルと全く同じ操作で作成できてしまいました。</p>
+<h3>プロジェクトの初期化</h3>
+<p><code>cookiecutter</code>を使って雛形を生成します。</p>
+<pre class="code literal-block"><span></span><code>❯ cookiecutter https://github.com/jupyterlab/mimerender-cookiecutter-ts.git
+author_name <span class="o">[]</span>: wrist
+author_email <span class="o">[]</span>: stoicheia1986@gmail.com
+extension_name <span class="o">[</span>myextension<span class="o">]</span>: jupyterlab-wav
+viewer_name <span class="o">[</span>My Viewer<span class="o">]</span>: JupyterLab wav viewer
+mimetype <span class="o">[</span>application/vnd.my_organization.my_type<span class="o">]</span>: audio/wav
+mimetype_name <span class="o">[</span>my_type<span class="o">]</span>: wav
+file_extension <span class="o">[</span>.my_type<span class="o">]</span>: .wav
+Select data_format:
+<span class="m">1</span> - string
+<span class="m">2</span> - json
+Choose from <span class="m">1</span>, <span class="m">2</span> <span class="o">(</span><span class="m">1</span>, <span class="m">2</span><span class="o">)</span> <span class="o">[</span><span class="m">1</span><span class="o">]</span>: <span class="m">1</span>
+</code></pre>
+
+
+<h3>Extensionのビルドとインストール</h3>
+<p>Extensionの作成には<code>yarn</code>のバージョンが固定された<code>jlpm</code>というjupyterlab付属のツールを用いて行います。
+依存パッケージをインストールし、Extensionをビルドし、jupyterlabのextensionとしてインストールするためには下記を実行します。</p>
+<pre class="code literal-block"><span></span><code>jlpm install
+jlpm run build
+jupyter labextension install . --no-build
+</code></pre>
+
+
+<p>ここで上記をローカル環境で試したところ、jupyterlabのバージョンが1.2.1の場合は現在のJupyterlabとはバージョンの互換性がないというエラーがでてしまいました(既に2.0.0以上を想定している模様です)。</p>
+<p>このためjupyterlabを動作させるために使用しているdocker imageである<a href="https://hub.docker.com/repository/docker/wrist/jupyterlab-custom">wrist/jupyterlab-custom</a>を更新したのですが、
+jupyterlab-vimは2.x系に対応してなかったので代わりに https://github.com/jwkvam/jupyterlab-vim/pull/115 などを参照し、
+<a href="https://www.npmjs.com/package/@axlair/jupyterlab_vim">@axlair/jupyterlab_vim</a>をインストールしています。
+なお、ローカルでdocker imageをビルドする際に当初<code>jupyter lab build</code>を実行すると
+下記issueと同じように<code>ensure-max-old-space</code>実行時にエラーが出てbuildできなくなりましたが、
+osx上でDockerが使用するメモリを4096MBにしたところエラーが生じなくなりました。
+https://github.com/jupyterlab/jupyterlab/issues/7907</p>
+<h3>コードの監視</h3>
+<p><code>jlpm run watch</code>でextensionのコードに変更があるとすぐにrecompileしてくれるようになります。
+またjupyterlabを<code>jupyter lab --watch</code>として立ち上げるとその変更を監視しアプリケーションに取り込んでくれるようになります。
+しかし手元ではwebpackがファイル監視に使用している<code>chokdair</code>を見つけられないというエラーで動作しないため一旦諦めました。
+なお、上記watchを施さなくてもjupyterlab自体をreloadするとコードに変更があった場合はbuildを促されるので大きな問題は生じませんでした。</p>
+<h3>コードの構造</h3>
+<p>自動生成されたコードの<code>src/index.ts</code>を見ると主に3つのデータ構造を含んでいます。</p>
+<ul>
+<li>
+<code>OutputWidget</code>クラス<ul>
+<li>指定したMIMEタイプのデータを受け取りHTML DOMノードの中にどのように描画するのかを扱うクラス</li>
+<li>extensionのほとんどのロジックを含む</li>
+</ul>
+</li>
+<li>
+<code>rendererFactory</code>オブジェクト<ul>
+<li>
+<code>OutputWidget</code>クラスのインスタンスをどのようにアプリケーション内で生成するのかを扱うクラス</li>
+</ul>
+</li>
+<li>
+<code>extension</code>オブジェクト<ul>
+<li>extensionのメインのエントリーポイントとなる部分</li>
+<li>jupyterlabがextensionをロードする際に必要となるメタデータを書く</li>
+</ul>
+</li>
+</ul>
+<h3>コードの編集</h3>
+<p>下記編集を実施します。</p>
+<ul>
+<li>
+<code>OutputWidget</code>のリネーム<ul>
+<li>
+<code>src/index.ts</code>内の<code>OutputWidget</code>を<code>WavWidget</code>へとリネームします(2箇所)</li>
+</ul>
+</li>
+<li>
+<code>extension</code>オブジェクトの<code>fileTypes</code>と<code>modelName</code>にbase64エンコードを指定<ul>
+<li>デフォルトだとプレーンテキストとして読もうとするのでbase64エンコードされたものとして読むための指定を追記</li>
+<li>
+<code>fileType</code>に<code>fileFormat: 'base64'</code>、<code>documentWidgetFactoryOptions</code>に<code>modelName: 'base64'</code>を追加する</li>
+</ul>
+</li>
+<li>レンダー方法の指定<ul>
+<li>
+<code>WavWidget</code>クラスを編集<ul>
+<li>コンストラクタにaudioタグを追加するためのコードを追加</li>
+<li>
+<code>renderModel</code>メソッド内でaudioタグのsrcを指定</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>大した量ではないためコード全体を下記に記します。</p>
+<pre class="code literal-block"><span></span><code><span class="kr">import</span> <span class="p">{</span> <span class="nx">IRenderMime</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@jupyterlab/rendermime-interfaces'</span><span class="p">;</span>
+
+
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Widget</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@lumino/widgets'</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * The default mime type for the extension.</span>
+<span class="cm"> */</span>
+<span class="kr">const</span> <span class="nx">MIME_TYPE</span> <span class="o">=</span> <span class="s1">'audio/wav'</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * The class name added to the extension.</span>
+<span class="cm"> */</span>
+<span class="kr">const</span> <span class="nx">CLASS_NAME</span> <span class="o">=</span> <span class="s1">'mimerenderer-wav'</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * A widget for rendering wav.</span>
+<span class="cm"> */</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">WavWidget</span> <span class="kr">extends</span> <span class="nx">Widget</span> <span class="kr">implements</span> <span class="nx">IRenderMime</span><span class="p">.</span><span class="nx">IRenderer</span> <span class="p">{</span>
+  <span class="cm">/**</span>
+<span class="cm">   * Construct a new output widget.</span>
+<span class="cm">   */</span>
+  <span class="kr">constructor</span><span class="p">(</span><span class="nx">options</span>: <span class="kt">IRenderMime.IRendererOptions</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">super</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">mimeType</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">CLASS_NAME</span><span class="p">);</span>
+    <span class="cm">/* 追加 */</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_audio</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'audio'</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_audio</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">'controls'</span><span class="p">,</span> <span class="s1">''</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_audio</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="cm">/**</span>
+<span class="cm">   * Render wav into this widget's node.</span>
+<span class="cm">   */</span>
+  <span class="nx">renderModel</span><span class="p">(</span><span class="nx">model</span>: <span class="kt">IRenderMime.IMimeModel</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span><span class="p">]</span> <span class="kr">as</span> <span class="kt">string</span><span class="p">;</span>
+    <span class="cm">/* 元コードを削除し下記を追加 */</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_audio</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="sb">`data:</span><span class="si">${</span><span class="nx">MIME_TYPE</span><span class="si">}</span><span class="sb">;base64,</span><span class="si">${</span><span class="nx">data</span><span class="si">}</span><span class="sb">`</span>
+
+    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kr">private</span> <span class="nx">_audio</span>: <span class="kt">HTMLAudioElement</span><span class="p">;</span>
+  <span class="kr">private</span> <span class="nx">_mimeType</span>: <span class="kt">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * A mime renderer factory for wav data.</span>
+<span class="cm"> */</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">rendererFactory</span>: <span class="kt">IRenderMime.IRendererFactory</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">safe</span>: <span class="kt">true</span><span class="p">,</span>
+  <span class="nx">mimeTypes</span><span class="o">:</span> <span class="p">[</span><span class="nx">MIME_TYPE</span><span class="p">],</span>
+  <span class="nx">createRenderer</span>: <span class="kt">options</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">WavWidget</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Extension definition.</span>
+<span class="cm"> */</span>
+<span class="kr">const</span> <span class="nx">extension</span>: <span class="kt">IRenderMime.IExtension</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span> <span class="s1">'jupyterlab-wav:plugin'</span><span class="p">,</span>
+  <span class="nx">rendererFactory</span><span class="p">,</span>
+  <span class="nx">rank</span>: <span class="kt">0</span><span class="p">,</span>
+  <span class="nx">dataType</span><span class="o">:</span> <span class="s1">'string'</span><span class="p">,</span>
+  <span class="nx">fileTypes</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">'wav'</span><span class="p">,</span>
+      <span class="nx">fileFormat</span><span class="o">:</span> <span class="s1">'base64'</span><span class="p">,</span>  <span class="c1">// 追加</span>
+      <span class="nx">mimeTypes</span><span class="o">:</span> <span class="p">[</span><span class="nx">MIME_TYPE</span><span class="p">],</span>
+      <span class="nx">extensions</span><span class="o">:</span> <span class="p">[</span><span class="s1">'.wav'</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nx">documentWidgetFactoryOptions</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">'JupyterLab wav viewer'</span><span class="p">,</span>
+    <span class="nx">primaryFileType</span><span class="o">:</span> <span class="s1">'wav'</span><span class="p">,</span>
+    <span class="nx">modelName</span><span class="o">:</span> <span class="s1">'base64'</span><span class="p">,</span>  <span class="c1">// 追加</span>
+    <span class="nx">fileTypes</span><span class="o">:</span> <span class="p">[</span><span class="s1">'wav'</span><span class="p">],</span>
+    <span class="nx">defaultFor</span><span class="o">:</span> <span class="p">[</span><span class="s1">'wav'</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">extension</span><span class="p">;</span>
+</code></pre>
+
+
+<p>上記コードを再度ビルドしてjupyterlabを再読み込みすれば完了です。</p>
+<h3>実際の表示の例</h3>
+<p>左のファイルブラウザからwavファイルをダブルクリックすると下記のようにaudio要素が表示されます。</p>
+<p><img alt="audio要素" src="../../images/20/wav_renderer.png"></p>
+<h3>npmjsへの投稿</h3>
+<p><a href="https://jupyterlab.readthedocs.io/en/stable/developer/extension_dev.html">Extension Developer GUid</a>の<code>Shipping Packages</code>の項を読むと
+extensionは単一のJavascriptパッケージであり、npmjs.orgから配布できることや、
+<code>jupyterlab-extension</code>というキーワードが<code>package.json</code>に含まれている場合JupyterLabのextension managerが見つけ出すことができるとの記載があります。
+このキーワードはcookiecutterで自動生成された場合既に含まれているため、自ら追加する必要はありません。</p>
+<p>よってnpmjs.orgへと登録することを考えます。
+まずコマンドラインからnpmjsにログインしておきます。</p>
+<pre class="code literal-block"><span></span><code>$ npm adduser  <span class="c1"># ユーザをnpmjs上に作成していない場合</span>
+$ npm login
+</code></pre>
+
+
+<p>次に<code>package.json</code>を編集し、<code>name</code>の値を<code>jupyterlab-wav</code>から<code>@wrist/jupyterlab-wav</code>というように<code>@username/extension-name</code>へと変えます。
+更に必要に応じて<code>homepage</code>、<code>license</code>、<code>repository</code>などのフィールドを追加します。</p>
+<p>最後に、<code>README.md</code>を編集して<code>jupyter labextension install</code>の部分を<code>@wrist/jupyterlab-wav</code>のように変更します。</p>
+<p>上記を終えたら下記でnpmjsへとアップロードして終了です。</p>
+<pre class="code literal-block"><span></span><code>$ npm publish --access<span class="o">=</span>public
+</code></pre>
+
+
+<p>無事にhttps://www.npmjs.com/package/@wrist/jupyterlab-wav へとアップロードされていれば、以後</p>
+<pre class="code literal-block"><span></span><code>$ jupyter labextension install @wrist/jupyterlab-wav
+</code></pre>
+
+
+<p>と打つことでインストールできるようになります。
+実際に新規にコンテナを生成し直して上記を試したところ使えるようになりました。</p>
+<h3>今後</h3>
+<ul>
+<li>他のMIMEタイプにも対応させる</li>
+<li>人によってはmp3も同様に開きたいこともあるかもしれませんが、<code>MIME_TYPE</code>の部分が配列になっていることから複数拡張子に対して同じような実装を使いませせるような気がしています</li>
+<li>Web Audio APIを用いて波形描画やスペクトログラムを描画する</li>
+</ul>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/jupyterlab/" rel="tag">jupyterlab</a></li>
+            <li><a class="tag p-category" href="../../categories/typescript/" rel="tag">typescript</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../19/" rel="prev" title="nbmediasplitというipynbファイルから画像・音声を抽出するためのスクリプトをPyPIで公開しました">一つ前の記事</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>コメント</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="hiromasa-info",
+            disqus_url="http://www.hiromasa.info/posts/20/",
+        disqus_title="jupyterlab\u306ewav\u7528MIME\u30ec\u30f3\u30c0\u30e9\u30fc\u3092\u4f5c\u6210\u3057\u307e\u3057\u305f",
+        disqus_identifier="cache/posts/20.html",
+        disqus_config = function () {
+            this.language = "ja";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+<!-- twitter -->
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script><div class="fb-like" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+<!-- hatena -->
+<a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-counter" title="このエントリーをはてなブックマークに追加">
+<img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;"></a>
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script></footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
