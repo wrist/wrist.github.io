@@ -179,6 +179,7 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
 またjupyterlabを<code>jupyter lab --watch</code>として立ち上げるとその変更を監視しアプリケーションに取り込んでくれるようになります。
 しかし手元ではwebpackがファイル監視に使用している<code>chokdair</code>を見つけられないというエラーで動作しないため一旦諦めました。
 なお、上記watchを施さなくてもjupyterlab自体をreloadするとコードに変更があった場合はbuildを促されるので大きな問題は生じませんでした。</p>
+<p>※7/8追記: この監視がうまく行かない件ですが<a href="https://github.com/jupyterlab/jupyterlab/issues/8469">このissue</a>によればv2.1.3のバグとのことでv2.1.4にjupyterlabのバージョンを上げたら解決しました。</p>
 <h3>コードの構造</h3>
 <p>自動生成されたコードの<code>src/index.ts</code>を見ると主に3つのデータ構造を含んでいます。</p>
 <ul>

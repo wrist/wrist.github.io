@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlab)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlab.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Tue, 07 Jul 2020 15:28:36 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>jupyterlabのwav用MIMEレンダラーを作成しました</title><link>http://www.hiromasa.info/en/posts/20/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;概要&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlab)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlab.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Tue, 07 Jul 2020 16:21:11 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>jupyterlabのwav用MIMEレンダラーを作成しました</title><link>http://www.hiromasa.info/en/posts/20/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;概要&lt;/h3&gt;
 &lt;p&gt;jupyterlab内でwavファイルが開けなかったので&lt;a href="https://github.com/jupyterlab/jupyterlab-mp4/blob/master/tutorial.md"&gt;チュートリアル&lt;/a&gt;を参考にMIMEレンダラーを作成しました。
 正直wavファイルの場合は上記チュートリアルと全く同じ操作で作成できてしまいました。&lt;/p&gt;
 &lt;h3&gt;プロジェクトの初期化&lt;/h3&gt;
@@ -40,6 +40,7 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
 またjupyterlabを&lt;code&gt;jupyter lab --watch&lt;/code&gt;として立ち上げるとその変更を監視しアプリケーションに取り込んでくれるようになります。
 しかし手元ではwebpackがファイル監視に使用している&lt;code&gt;chokdair&lt;/code&gt;を見つけられないというエラーで動作しないため一旦諦めました。
 なお、上記watchを施さなくてもjupyterlab自体をreloadするとコードに変更があった場合はbuildを促されるので大きな問題は生じませんでした。&lt;/p&gt;
+&lt;p&gt;※7/8追記: この監視がうまく行かない件ですが&lt;a href="https://github.com/jupyterlab/jupyterlab/issues/8469"&gt;このissue&lt;/a&gt;によればv2.1.3のバグとのことでv2.1.4にjupyterlabのバージョンを上げたら解決しました。&lt;/p&gt;
 &lt;h3&gt;コードの構造&lt;/h3&gt;
 &lt;p&gt;自動生成されたコードの&lt;code&gt;src/index.ts&lt;/code&gt;を見ると主に3つのデータ構造を含んでいます。&lt;/p&gt;
 &lt;ul&gt;
@@ -269,10 +270,10 @@ $ pip install openfst-python
 
 
 
-&lt;div id="963b611e-3986-4a82-a044-24d2dd1d4db3"&gt;&lt;/div&gt;
+&lt;div id="f64b272f-5179-44d5-a221-b158178919ac"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#963b611e-3986-4a82-a044-24d2dd1d4db3');
+var element = $('#f64b272f-5179-44d5-a221-b158178919ac');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
