@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about typescript)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/typescript.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 06 Jul 2020 15:53:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>jupyterlabのwav用MIMEレンダラーを作成しました</title><link>http://www.hiromasa.info/en/posts/20/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;概要&lt;/h3&gt;
-&lt;p&gt;jupyterlab内でwavファイルが開けなかったので下記のチュートリアルを参考にMIMEレンダラーを作成しました。
-https://github.com/jupyterlab/jupyterlab-mp4/blob/master/tutorial.md
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about typescript)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/typescript.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Tue, 07 Jul 2020 15:28:37 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>jupyterlabのwav用MIMEレンダラーを作成しました</title><link>http://www.hiromasa.info/en/posts/20/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;概要&lt;/h3&gt;
+&lt;p&gt;jupyterlab内でwavファイルが開けなかったので&lt;a href="https://github.com/jupyterlab/jupyterlab-mp4/blob/master/tutorial.md"&gt;チュートリアル&lt;/a&gt;を参考にMIMEレンダラーを作成しました。
 正直wavファイルの場合は上記チュートリアルと全く同じ操作で作成できてしまいました。&lt;/p&gt;
 &lt;h3&gt;プロジェクトの初期化&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;cookiecutter&lt;/code&gt;を使って雛形を生成します。&lt;/p&gt;
@@ -31,12 +30,11 @@ jupyter labextension install . --no-build
 
 &lt;p&gt;ここで上記をローカル環境で試したところ、jupyterlabのバージョンが1.2.1の場合は現在のJupyterlabとはバージョンの互換性がないというエラーがでてしまいました(既に2.0.0以上を想定している模様です)。&lt;/p&gt;
 &lt;p&gt;このためjupyterlabを動作させるために使用しているdocker imageである&lt;a href="https://hub.docker.com/repository/docker/wrist/jupyterlab-custom"&gt;wrist/jupyterlab-custom&lt;/a&gt;を更新したのですが、
-jupyterlab-vimは2.x系に対応してなかったので代わりに https://github.com/jwkvam/jupyterlab-vim/pull/115 などを参照し、
+jupyterlab-vimは2.x系に対応してなかったので代わりに &lt;a href="https://github.com/jwkvam/jupyterlab-vim/pull/115"&gt;https://github.com/jwkvam/jupyterlab-vim/pull/115&lt;/a&gt; などを参照し、
 &lt;a href="https://www.npmjs.com/package/@axlair/jupyterlab_vim"&gt;@axlair/jupyterlab_vim&lt;/a&gt;をインストールしています。
 なお、ローカルでdocker imageをビルドする際に当初&lt;code&gt;jupyter lab build&lt;/code&gt;を実行すると
-下記issueと同じように&lt;code&gt;ensure-max-old-space&lt;/code&gt;実行時にエラーが出てbuildできなくなりましたが、
-osx上でDockerが使用するメモリを4096MBにしたところエラーが生じなくなりました。
-https://github.com/jupyterlab/jupyterlab/issues/7907&lt;/p&gt;
+&lt;a href="https://github.com/jupyterlab/jupyterlab/issues/7907"&gt;このissue&lt;/a&gt;と同じように&lt;code&gt;ensure-max-old-space&lt;/code&gt;実行時にエラーが出てbuildできなくなりましたが、
+osx上でDockerが使用するメモリを4096MBにしたところエラーが生じなくなりました。&lt;/p&gt;
 &lt;h3&gt;コードの監視&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;jlpm run watch&lt;/code&gt;でextensionのコードに変更があるとすぐにrecompileしてくれるようになります。
 またjupyterlabを&lt;code&gt;jupyter lab --watch&lt;/code&gt;として立ち上げるとその変更を監視しアプリケーションに取り込んでくれるようになります。
@@ -194,7 +192,7 @@ $ npm login
 &lt;/code&gt;&lt;/pre&gt;
 
 
-&lt;p&gt;無事にhttps://www.npmjs.com/package/@wrist/jupyterlab-wav へとアップロードされていれば、以後&lt;/p&gt;
+&lt;p&gt;無事に&lt;a href="https://www.npmjs.com/package/@wrist/jupyterlab-wav"&gt;https://www.npmjs.com/package/@wrist/jupyterlab-wav&lt;/a&gt;へとアップロードされていれば、以後&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ jupyter labextension install @wrist/jupyterlab-wav
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -203,7 +201,9 @@ $ npm login
 実際に新規にコンテナを生成し直して上記を試したところ使えるようになりました。&lt;/p&gt;
 &lt;h3&gt;今後&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;他のMIMEタイプにも対応させる&lt;/li&gt;
+&lt;li&gt;他のMIMEタイプにも対応させる&lt;ul&gt;
 &lt;li&gt;人によってはmp3も同様に開きたいこともあるかもしれませんが、&lt;code&gt;MIME_TYPE&lt;/code&gt;の部分が配列になっていることから複数拡張子に対して同じような実装を使いませせるような気がしています&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Web Audio APIを用いて波形描画やスペクトログラムを描画する&lt;/li&gt;
 &lt;/ul&gt;&lt;/div&gt;</description><guid>http://www.hiromasa.info/en/posts/20/</guid><pubDate>Mon, 06 Jul 2020 15:00:00 GMT</pubDate></item></channel></rss>

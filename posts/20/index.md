@@ -12,8 +12,7 @@
 
 ## 概要
 
-jupyterlab内でwavファイルが開けなかったので下記のチュートリアルを参考にMIMEレンダラーを作成しました。
-https://github.com/jupyterlab/jupyterlab-mp4/blob/master/tutorial.md
+jupyterlab内でwavファイルが開けなかったので[チュートリアル](https://github.com/jupyterlab/jupyterlab-mp4/blob/master/tutorial.md)を参考にMIMEレンダラーを作成しました。
 正直wavファイルの場合は上記チュートリアルと全く同じ操作で作成できてしまいました。
 
 ## プロジェクトの初期化
@@ -49,12 +48,11 @@ jupyter labextension install . --no-build
 ここで上記をローカル環境で試したところ、jupyterlabのバージョンが1.2.1の場合は現在のJupyterlabとはバージョンの互換性がないというエラーがでてしまいました(既に2.0.0以上を想定している模様です)。
 
 このためjupyterlabを動作させるために使用しているdocker imageである[wrist/jupyterlab-custom](https://hub.docker.com/repository/docker/wrist/jupyterlab-custom)を更新したのですが、
-jupyterlab-vimは2.x系に対応してなかったので代わりに https://github.com/jwkvam/jupyterlab-vim/pull/115 などを参照し、
+jupyterlab-vimは2.x系に対応してなかったので代わりに [https://github.com/jwkvam/jupyterlab-vim/pull/115](https://github.com/jwkvam/jupyterlab-vim/pull/115) などを参照し、
 [@axlair/jupyterlab_vim](https://www.npmjs.com/package/@axlair/jupyterlab_vim)をインストールしています。
 なお、ローカルでdocker imageをビルドする際に当初`jupyter lab build`を実行すると
-下記issueと同じように`ensure-max-old-space`実行時にエラーが出てbuildできなくなりましたが、
+[このissue](https://github.com/jupyterlab/jupyterlab/issues/7907)と同じように`ensure-max-old-space`実行時にエラーが出てbuildできなくなりましたが、
 osx上でDockerが使用するメモリを4096MBにしたところエラーが生じなくなりました。
-https://github.com/jupyterlab/jupyterlab/issues/7907
 
 ## コードの監視
 
@@ -216,7 +214,7 @@ $ npm login
 $ npm publish --access=public
 ```
 
-無事にhttps://www.npmjs.com/package/@wrist/jupyterlab-wav へとアップロードされていれば、以後
+無事に[https://www.npmjs.com/package/@wrist/jupyterlab-wav](https://www.npmjs.com/package/@wrist/jupyterlab-wav)へとアップロードされていれば、以後
 
 ```sh
 $ jupyter labextension install @wrist/jupyterlab-wav
@@ -227,6 +225,6 @@ $ jupyter labextension install @wrist/jupyterlab-wav
 
 ## 今後
 
-*  他のMIMEタイプにも対応させる
-   * 人によってはmp3も同様に開きたいこともあるかもしれませんが、`MIME_TYPE`の部分が配列になっていることから複数拡張子に対して同じような実装を使いませせるような気がしています
+* 他のMIMEタイプにも対応させる
+    * 人によってはmp3も同様に開きたいこともあるかもしれませんが、`MIME_TYPE`の部分が配列になっていることから複数拡張子に対して同じような実装を使いませせるような気がしています
 * Web Audio APIを用いて波形描画やスペクトログラムを描画する
