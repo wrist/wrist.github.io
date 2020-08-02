@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xeus関連の情報(PyData Osaka 2020/8/2用の記事) | hiromasa.info</title>
+<link href="../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" hreflang="en" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" hreflang="ja" href="../../../rss.xml">
+<link rel="canonical" href="http://www.hiromasa.info/en/posts/21/">
+<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.hiromasa.info https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-48887105-1');
+</script><!-- End Google Analytics --><!-- for facebook button --><style>
+.fb-like {
+    display: inline;
+}
+#fb-root {
+    display: inline;
+}
+.fb_iframe_widget > span {
+    vertical-align: baseline !important; 
+}
+</style>
+<meta name="author" content="Hiromasa OHASHI">
+<link rel="prev" href="../20/" title="jupyterlabのwav用MIMEレンダラーを作成しました" type="text/html">
+<meta property="og:site_name" content="hiromasa.info">
+<meta property="og:title" content="Xeus関連の情報(PyData Osaka 2020/8/2用の記事)">
+<meta property="og:url" content="http://www.hiromasa.info/en/posts/21/">
+<meta property="og:description" content="Xeus関連の情報(PyData Osaka 2020/8/2用の記事)
+
+最近のJupyter Blogから一部記事を抜粋して紹介します。
+Xeus関連の情報がメインです
+
+Xeus is now Jupyter subproject (2020/2/4)
+Xeusとは
+
+Jupyter kernel protocolのC++実装
+ipykernelの代替として使用可能
+
+
+Xeusはカーネルで">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-08-02T13:30:00+09:00">
+<meta property="article:tag" content="jupyterlab">
+<meta property="article:tag" content="slicerjupyter">
+<meta property="article:tag" content="xeus">
+<meta property="article:tag" content="xeus-python">
+<meta property="article:tag" content="xeus-sqlite">
+<link rel="alternate" hreflang="ja" href="../../../posts/21/">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
+
+            <span id="blog-title">hiromasa.info</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item"><a href="../../../" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
+
+                    
+                    
+    
+    <li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">all posts</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">tag</a>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about/index.html" class="nav-link">about</a>
+                </li>
+<li class="nav-item">
+<a href="../../pages/slides/index.html" class="nav-link">slides</a>
+                </li>
+<li class="nav-item">
+<a href="../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Hiromasa OHASHI
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-08-02T13:30:00+09:00" itemprop="datePublished" title="2020-08-02 13:30">2020-08-02 13:30</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/21.html">Comments</a>
+
+
+            
+        </p>
+<p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<h2>Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</h2>
+<ul>
+<li>最近のJupyter Blogから一部記事を抜粋して紹介します。</li>
+<li>Xeus関連の情報がメインです</li>
+</ul>
+<h3><a href="https://blog.jupyter.org/xeus-is-now-a-jupyter-subproject-c4ec5a1bf30b">Xeus is now Jupyter subproject (2020/2/4)</a></h3>
+<h4>
+<code>Xeus</code>とは</h4>
+<ul>
+<li>Jupyter kernel protocolのC++実装<ul>
+<li>ipykernelの代替として使用可能</li>
+</ul>
+</li>
+<li>
+<code>Xeus</code>はカーネルではなくカーネルを作るためのライブラリ</li>
+<li>いくつかのカーネルは<code>Xeus</code>を元に作られている<ul>
+<li>下記はXeusメンテナたちによるもの</li>
+<li>
+<a href="https://github.com/jupyter-xeus/xeus-cling"><code>xeus-cling</code></a><ul>
+<li>CERNのCling C++インタプリタベースのカーネル</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/jupyter-xeus/xeus-python"><code>xeus-python</code></a><ul>
+<li>pythonインタプリタを埋め込んだpython用カーネル</li>
+<li>
+<a href="https://github.com/jupyterlab/debugger">@jupyterlab/debugger</a>で用いられる<code>Jupyter debugger protocol</code>を初めて実装(後述)</li>
+<li>
+<a href="https://microsoft.github.io/debug-adapter-protocol/">Debug Adapter Protocol</a>に対応</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/jupyter-xeus/xeus-calc"><code>xeus-calc</code></a><ul>
+<li>電卓カーネル、Xeusの使い方を学ぶためのプロジェクト</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Xeusプロジェクトとは関係なく作成されているカーネル<ul>
+<li>
+<a href="https://github.com/JuniperKernel/JuniperKernel"><code>JuniperKernel</code></a><ul>
+<li>R用カーネル</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/atomex-me/xeus-fift"><code>xeus-fift</code></a><ul>
+<li>fiftなるTelegramによって作られたTON blockchain contractのためのプログラミング言語向けカーネル</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/Slicer/SlicerJupyter"><code>SlicerJupyter</code></a><ul>
+<li>Kitwareによる"Slicer"プロジェクトのQtイベントループと統合されたPython向けカーネル</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>
+<code>Xeus</code>がJupyter管轄下へと移行した理由</h4>
+<p>以下に引用</p>
+<pre class="code literal-block"><span></span><code><span class="err">While Xeus started as a side project for QuantStack engineers,</span>
+<span class="err">the project now has several stakeholders who depend on it.</span>
+<span class="err">We think that moving the project to an open governance organization may be a better way to reflect this situation.</span>
+</code></pre>
+
+
+<h3><a href="https://blog.jupyter.org/a-visual-debugger-for-jupyter-914e61716559">A visual debugger for Jupyter (2020/3/26)</a></h3>
+<ul>
+<li>日本語の紹介記事<ul>
+<li>https://www.publickey1.jp/blog/20/jupyterlab.html</li>
+</ul>
+</li>
+</ul>
+<h4>概要</h4>
+<ul>
+<li>Jupyter向けのvisual debuggerに関する紹介</li>
+<li>debuggerでできることの例<ul>
+<li>ブレークポイントの設定(ノートブックのセルおよびソースファイル)</li>
+<li>変数一覧の表示</li>
+<li>コールスタックの表示</li>
+</ul>
+</li>
+<li>リンク先のbinderから試しに実行可能</li>
+</ul>
+<h4>インストール方法</h4>
+<p>フロントエンドとなるプラグインとバックエンドとなるカーネルが必要</p>
+<h5>フロントエンド</h5>
+<pre class="code literal-block"><span></span><code>$ jupyter labextension install @jupyterlab/debugger
+</code></pre>
+
+
+<p>このデバッガフロントエンドは将来のリリースにおいてはデフォルトで同梱される予定。</p>
+<h5>バックエンド</h5>
+<ul>
+<li>
+<code>Jupyter Debug Protocol</code>(次の節で説明)を実装したカーネルが必要<ul>
+<li>このプロトコルを実装したカーネルはいまのところ<code>xeus-python</code>のみ</li>
+</ul>
+</li>
+<li>ipykernelにデバッガプロトコルを実装するのはロードマップには存在</li>
+</ul>
+<pre class="code literal-block"><span></span><code>$ conda install xeus-python -c conda-forge
+</code></pre>
+
+
+<ul>
+<li>
+<p>プラットフォームによってはPyPIのwheelsも使えるがまだ実験段階のもの</p>
+</li>
+<li>
+<p>condaで試しにinstallして試してみたところxeus-pythonではmatplotlibがうまく扱えない模様</p>
+<ul>
+<li>https://github.com/jupyter-xeus/xeus-python/issues/224</li>
+</ul>
+</li>
+</ul>
+<h4>Jupyter Debug Protocol</h4>
+<h5>ControlおよびIOPub Channelに対する新しいメッセージタイプ</h5>
+<ul>
+<li>Jupyter kernelはプロセス間コミュニケーションプロトコル(https://jupyter-client.readthedocs.io/en/stable/messaging.html)に基づき動作<ul>
+<li>Shellチャンネルはコード実行のリクエストなどのrequest/replyを行う</li>
+<li>IOPubチャンネルはkernelからclientへの片方向のチャンネル(標準出力やエラー出力で使用)</li>
+<li>ControlチャンネルはShellチャンネルに似ているが別ソケットで実行され、実行キューに溜めないhigh priorityなメッセージを扱う<ul>
+<li>InterruptやShutdownリクエストなど</li>
+<li>debuggerに送られるコマンドに対してControlチャンネルを使うことに決めた</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>protocolに2つのメッセージタイプを追加<ul>
+<li>
+<a href="https://jupyter-client.readthedocs.io/en/latest/messaging.html#debug-request">debug_request/reply</a><ul>
+<li>breakpointの追加やコードに対するstep into操作などのdebuggerによって実行される特定のアクションのrequest</li>
+<li>Controlチャンネルに送られる</li>
+</ul>
+</li>
+<li>
+<a href="https://jupyter-client.readthedocs.io/en/latest/messaging.html#debug-event">debug_event</a><ul>
+<li>debugging kernelからフロントエンドに対して片方向に送られるdebug eventメッセージ</li>
+<li>IOPubチャンネルを通じて送られる</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5>Debug Adapter Protocolの拡張</h5>
+<ul>
+<li>Jupyterにおけるデザインのキーとなる原理としてプログラミング言語について不可知であるというものがある<ul>
+<li>Jupyter debug protocolが他のカーネル実装に対しても適用できるものであることは重要である</li>
+</ul>
+</li>
+<li>標準的なプロトコルとしてMicrosoftの"Debug Adapter Protocol"(DAP)がある<ul>
+<li>JSONベースのprotocolでありVSCode下で様々な言語のバックエンドとして既に動作</li>
+</ul>
+</li>
+<li>JupyterでDAPを用いることが自然であるが、Jupyterにおける要件を満たすためには十分ではない<ul>
+<li>ページ再読み込みのサポートが必要<ul>
+<li>Jupyter kernelはデバッガの状態(breakpointや現在どこでstopしているか)を後から接続したclientのために保持しなければならない</li>
+<li>フロントエンドはその状態を<code>debug_request</code>メッセージで要求できる</li>
+</ul>
+</li>
+<li>ソースファイルベースではないnotebookのcellとconsoleに対するデバッグのサポートが必要<ul>
+<li>ブレークポイントを追加できるコードをdebuggerに送るためのメッセージが必要</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>これらの変更は<a href="https://github.com/jupyter/enhancement-proposals/pull/47">JEP</a>として提案されている<ul>
+<li>文書は<a href="https://github.com/jupyter/enhancement-proposals/blob/master/jupyter-debugger-protocol/jupyter-debugger-protocol.md">こちら</a>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Xeus-python, the first Jupyter Kernel to support debugging</h4>
+<ul>
+<li>XeusはC++はJupyter kernelプロトコルのC++実装<ul>
+<li>それ自身がkernelではなくkernel作成を補助するlibrary</li>
+<li>CやC++ APIを持つ言語に対するカーネルを作成するのに便利<ul>
+<li>Python、Lua、SQLなど</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Xeus-pythonはdebugging protocolを実装する最初の実装として適切<ul>
+<li>プラガブルなconcurrencyモデルを持っているためControlチャンネルを別スレッドで動作させることが可能</li>
+<li>上記を繰り返し動作させるために便利なサンドボックスを持つ軽量なコードベースを持つ<ul>
+<li>ipykernelでdebuggingプロトコルを実装することはかなりのリファクタリングを要し早い段階でのconsensus buildingが必要となる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Xeus-pythonのロードマップ<ul>
+<li>ipykernelに対して失われているmagicを追加</li>
+<li>PyPI wheelsを改善</li>
+</ul>
+</li>
+<li>他のカーネルにおけるdebugging<ul>
+<li>xeusベースのkernelについては大部分の実装が共有可能であるため例えばxeus-clingなどでは早期に使用可能となる</li>
+</ul>
+</li>
+</ul>
+<h4>Diving into the debugger front-end architecture</h4>
+<ul>
+<li>jupyterlabのdebugger extensionはユーザーが典型的なIDEから予想するようなUIを含む<ul>
+<li>サイドバーに変数エクスプローラ、ブレークポイントのリスト、ソースプレビュー、コールスタックを表示</li>
+<li>コードの横に直接ブレークポイントを設定できる(cell/console)</li>
+<li>現在コードのどの部分で停止しているかを示すヴィジュアルマーカー</li>
+</ul>
+</li>
+<li>screencastで種々の機能を説明<ul>
+<li>実行後に削除したセルに対するstep intoはread-only viewとして表示される</li>
+<li>コンソールおよびファイルに対してもデバッガは有効</li>
+<li>デバッグはノートブックレベルで実行されるため異なるノートブックに対して同時にデバッグを実行できる</li>
+<li>変数一覧はtree形式およびtable形式で閲覧可能</li>
+</ul>
+</li>
+</ul>
+<h4>Future developments</h4>
+<ul>
+<li>2020年の予定<ul>
+<li>変数ビューワでmime type renderingのサポート</li>
+<li>条件付きブレークポイントのサポート</li>
+<li>debugger UXの向上</li>
+<li>Voilå dashboardのデバッグの有効化</li>
+</ul>
+</li>
+</ul>
+<h3><a href="https://blog.jupyter.org/a-jupyter-kernel-for-sqlite-9549c5dcf551">A Jupyter Kernel for SQLite</a></h3>
+<h4>概要</h4>
+<ul>
+<li>SQLite用jupyterカーネルの紹介<ul>
+<li>SQLiteのシンタックスをcode cellで受け付ける</li>
+<li>magixコマンドでDBのオープンやクローズなどを行う</li>
+</ul>
+</li>
+<li>Xeusを用いて作成<ul>
+<li>wrapperの<a href="https://github.com/SRombauts/SQLiteCpp">SQLiteCpp</a>を使用</li>
+</ul>
+</li>
+</ul>
+<h4>現在の状況</h4>
+<ul>
+<li>現在進行形で開発中だが下記を備えている<ul>
+<li>SQLiteインタフェースに対する完全な機能</li>
+<li>高レベル操作のためのmagic<ul>
+<li>DBの作成、オープン、クローズ、バックアップ</li>
+<li>テーブルの存在チェック、keyの設定および解除、それらの情報の取得</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>テーブル表示<ul>
+<li>jupyter lab/notebookではHTMLで表示</li>
+<li>コンソールでは<a href="https://github.com/p-ranav/tabulate">tabulate</a>ライブラリを使って表示</li>
+</ul>
+</li>
+</ul>
+<h4>future</h4>
+<ul>
+<li>直感的なデータ表示(plot, graph, chart, mapsなど)の描画<ul>
+<li>Vegaを使えないかを検討中(ブログの画像を参照)</li>
+</ul>
+</li>
+<li>xeus-SQLiteとSQLiteライブラリのstaticビルドをバンドルしたシングルバイナリの供給</li>
+</ul>
+<h4>その他</h4>
+<ul>
+<li>binderで試しに実行可能(ブログ記事にリンク有)</li>
+<li>インストール方法<ul>
+<li><code>mamba install xeus-sqlite -c conda-forge</code></li>
+<li><code>conda install xeus-sqlite -c conda-forge</code></li>
+<li>
+<a href="https://github.com/TheSnakePit/mamba">mamba</a>はcondaのc++による再実装らしい<ul>
+<li>並列ダウンロードや高速な依存性解決を備えるとのこと</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3><a href="https://blog.jupyter.org/slicerjupyter-a-3d-slicer-kernel-for-interactive-publications-6f2ad829f635">SlicerJupyter: a 3D Slicer kernel for interactive publications</a></h3>
+<h4>概要</h4>
+<ul>
+<li>
+<a href="https://www.slicer.org/">3D Slicer</a><ul>
+<li>Qtを用いたC++で書かれたデスクトップアプリケーション<ul>
+<li>医用画像の分析および可視化に使用</li>
+</ul>
+</li>
+<li>3D描画に<a href="https://vtk.org/">Visualization Toolkit(VTK)</a>を用い、画像処理に<a href="https://itk.org/">Insight Toolkit(ITK)</a>を用いている</li>
+<li>pythonインタプリタが埋め込まれている</li>
+<li>xeus-pythonのインタプリタを統合すればQtベースのデスクトップアプリケーションがnotebookを通じて操作できることを紹介</li>
+</ul>
+</li>
+<li>githubの<a href="https://github.com/Slicer/SlicerJupyter">SlicerJupyter</a>に実装が存在<ul>
+<li>BlenderやFreeCAD、ParaViewといったpythonが埋め込まれた他のアプリケーションに対しても拡張可能</li>
+</ul>
+</li>
+<li>xeus-python integrationがJupyterのエコシステムとデスクトップアプリケーションの両方に対して必要不可欠</li>
+</ul>
+<h4>Powerful Medical Imaging Capabilities Available Through Jupyter</h4>
+<ul>
+<li>3D Slicer(以下Slicer)は内蔵しているpythonインタプリタを通じてすべての機能をpyhonから操作可能<ul>
+<li>pythonインタプリタに対する単純なコンソールは備えているがcellベースのインタラクティブ環境は備えていない</li>
+</ul>
+</li>
+<li>xeus-pythonを統合することによってSlicerのプロセスをJupyter kernelとして使用可能</li>
+<li>xeus-pythonは<a href="https://github.com/InsightSoftwareConsortium/itkwidgets">itkwidgets</a>のようなJupyter widgetsへのインタフェースとなるだけではなく、SlicerインタプリタのようなカスタムインタプリタやQtイベントループのようなGUIイベントループとも統合することが可能<ul>
+<li>これによりSlicer内部表現であるMedical Reality Markup Language(MRML)の表現が可能となる</li>
+<li>ノートブック内でpandasやNumPy配列のようなpythonのエコシステムを通じて完全なmedical imaging APIとデータへとアクセスが可能となる</li>
+</ul>
+</li>
+</ul>
+<h4>対話的操作におけるレベル</h4>
+<ul>
+<li>JupyterのWidget(sliderやボタンなど)をSlicer操作やデータ変更、処理やパラメータ可視化のために使える</li>
+<li>
+<p>Widgetを通じた対話的操作は異なるレベルごとに実装されている</p>
+</li>
+<li>
+<p>Level1</p>
+<ul>
+<li>Jupyter Widgetがアプリケーション固有のオブジェクトを自動変換の上で表示</li>
+<li>例えばSlicer markup fiducial listはフォーマット済みのテーブルとして表示され、モデルnodeは3Dオブジェクトとして描画される</li>
+</ul>
+</li>
+<li>Level2<ul>
+<li>Static image widgetがデスクトップアプリケーションが描画したコンテンツを描画</li>
+<li>これらのwidgetは追加された標準Widgetを用いてデータや描画パラメータが変更されることによって作成される</li>
+<li>様々なデータ型や非常に大きなデータセットなどの洗練された描画をJupyterから直接可能とする</li>
+</ul>
+</li>
+<li>Level3<ul>
+<li>Dynamic viewer Widgetがデスクトップアプリケーションが描画した2D/3D viewをを描画</li>
+<li>マウス/キーボードのイベントがデスクトップアプリケーションへと送られズームや回転を実現<ul>
+<li>アノテーションの付与、測定、画像分割のような3D対話操作をデスクトップアプリケーション上と同じように行える</li>
+<li>これは<a href="https://ipycanvas.readthedocs.io/en/latest/">ipycanvas</a>と<a href="https://github.com/mwcraig/ipyevents">ipyevents</a>パッケージを用いて実現される</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Level4</p>
+<ul>
+<li>完全なGUI統合<ul>
+<li>ユーザーはアプリケーションウインドウを標準デスクトップWidget(スライダーやメニューなど)を含めてノートブックセルの中から見ることができる</li>
+<li>これはSlicer Jupyterの中ではnoVNCとTigerVNCを用いて実現される</li>
+<li>リモートサーバー上でアプリケーションが実行されているときに便利</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>現在は大部分の実装については安定しているが、まだデザイン面での改善やパフォーマンスの改善の余地がある</p>
+<ul>
+<li>自動変換(display hookの複雑な実装による)</li>
+<li>xeus-pythonのスレッディングモデルはメインスレッドをロックしないように改良する余地がある</li>
+<li>Level3の統合におけるdynamic viewer widgetはより高いリフレッシュレート実現のためにパフォーマンス最適化の余地がある</li>
+</ul>
+</li>
+</ul>
+<h4>History of Slicer and this integration</h4>
+<ul>
+<li>QtベースのデスクトップアプリケーションによってXeusカーネルのイベントループが駆動されている？</li>
+</ul>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/jupyterlab/" rel="tag">jupyterlab</a></li>
+            <li><a class="tag p-category" href="../../categories/slicerjupyter/" rel="tag">slicerjupyter</a></li>
+            <li><a class="tag p-category" href="../../categories/xeus/" rel="tag">xeus</a></li>
+            <li><a class="tag p-category" href="../../categories/xeus-python/" rel="tag">xeus-python</a></li>
+            <li><a class="tag p-category" href="../../categories/xeus-sqlite/" rel="tag">xeus-sqlite</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../20/" rel="prev" title="jupyterlabのwav用MIMEレンダラーを作成しました">Previous post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="hiromasa-info",
+            disqus_url="http://www.hiromasa.info/en/posts/21/",
+        disqus_title="Xeus\u95a2\u9023\u306e\u60c5\u5831(PyData Osaka 2020/8/2\u7528\u306e\u8a18\u4e8b)",
+        disqus_identifier="cache/posts/21.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+<!-- twitter -->
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script><div class="fb-like" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+<!-- hatena -->
+<a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-counter" title="このエントリーをはてなブックマークに追加">
+<img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;"></a>
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script></footer>
+</div>
+</div>
+
+
+        <script src="../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

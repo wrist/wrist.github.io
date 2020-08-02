@@ -101,7 +101,391 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/20/" class="u-url">jupyterlabのwav用MIMEレンダラーを作成しました</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/21/" class="u-url">Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hiromasa OHASHI
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/21/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-08-02T13:30:00+09:00" itemprop="datePublished" title="2020-08-02 13:30">2020-08-02 13:30</time></a>
+            </p>
+                        <p class="commentline">
+        
+    <a href="posts/21/#disqus_thread" data-disqus-identifier="cache/posts/21.html">Comments</a>
+
+
+                </p>
+</div>
+            </header><div class="e-content entry-content">
+                    <div>
+<h2>Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</h2>
+<ul>
+<li>最近のJupyter Blogから一部記事を抜粋して紹介します。</li>
+<li>Xeus関連の情報がメインです</li>
+</ul>
+<h3><a href="https://blog.jupyter.org/xeus-is-now-a-jupyter-subproject-c4ec5a1bf30b">Xeus is now Jupyter subproject (2020/2/4)</a></h3>
+<h4>
+<code>Xeus</code>とは</h4>
+<ul>
+<li>Jupyter kernel protocolのC++実装<ul>
+<li>ipykernelの代替として使用可能</li>
+</ul>
+</li>
+<li>
+<code>Xeus</code>はカーネルではなくカーネルを作るためのライブラリ</li>
+<li>いくつかのカーネルは<code>Xeus</code>を元に作られている<ul>
+<li>下記はXeusメンテナたちによるもの</li>
+<li>
+<a href="https://github.com/jupyter-xeus/xeus-cling"><code>xeus-cling</code></a><ul>
+<li>CERNのCling C++インタプリタベースのカーネル</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/jupyter-xeus/xeus-python"><code>xeus-python</code></a><ul>
+<li>pythonインタプリタを埋め込んだpython用カーネル</li>
+<li>
+<a href="https://github.com/jupyterlab/debugger">@jupyterlab/debugger</a>で用いられる<code>Jupyter debugger protocol</code>を初めて実装(後述)</li>
+<li>
+<a href="https://microsoft.github.io/debug-adapter-protocol/">Debug Adapter Protocol</a>に対応</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/jupyter-xeus/xeus-calc"><code>xeus-calc</code></a><ul>
+<li>電卓カーネル、Xeusの使い方を学ぶためのプロジェクト</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Xeusプロジェクトとは関係なく作成されているカーネル<ul>
+<li>
+<a href="https://github.com/JuniperKernel/JuniperKernel"><code>JuniperKernel</code></a><ul>
+<li>R用カーネル</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/atomex-me/xeus-fift"><code>xeus-fift</code></a><ul>
+<li>fiftなるTelegramによって作られたTON blockchain contractのためのプログラミング言語向けカーネル</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/Slicer/SlicerJupyter"><code>SlicerJupyter</code></a><ul>
+<li>Kitwareによる"Slicer"プロジェクトのQtイベントループと統合されたPython向けカーネル</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>
+<code>Xeus</code>がJupyter管轄下へと移行した理由</h4>
+<p>以下に引用</p>
+<pre class="code literal-block"><span></span><code><span class="err">While Xeus started as a side project for QuantStack engineers,</span>
+<span class="err">the project now has several stakeholders who depend on it.</span>
+<span class="err">We think that moving the project to an open governance organization may be a better way to reflect this situation.</span>
+</code></pre>
+
+
+<h3><a href="https://blog.jupyter.org/a-visual-debugger-for-jupyter-914e61716559">A visual debugger for Jupyter (2020/3/26)</a></h3>
+<ul>
+<li>日本語の紹介記事<ul>
+<li>https://www.publickey1.jp/blog/20/jupyterlab.html</li>
+</ul>
+</li>
+</ul>
+<h4>概要</h4>
+<ul>
+<li>Jupyter向けのvisual debuggerに関する紹介</li>
+<li>debuggerでできることの例<ul>
+<li>ブレークポイントの設定(ノートブックのセルおよびソースファイル)</li>
+<li>変数一覧の表示</li>
+<li>コールスタックの表示</li>
+</ul>
+</li>
+<li>リンク先のbinderから試しに実行可能</li>
+</ul>
+<h4>インストール方法</h4>
+<p>フロントエンドとなるプラグインとバックエンドとなるカーネルが必要</p>
+<h5>フロントエンド</h5>
+<pre class="code literal-block"><span></span><code>$ jupyter labextension install @jupyterlab/debugger
+</code></pre>
+
+
+<p>このデバッガフロントエンドは将来のリリースにおいてはデフォルトで同梱される予定。</p>
+<h5>バックエンド</h5>
+<ul>
+<li>
+<code>Jupyter Debug Protocol</code>(次の節で説明)を実装したカーネルが必要<ul>
+<li>このプロトコルを実装したカーネルはいまのところ<code>xeus-python</code>のみ</li>
+</ul>
+</li>
+<li>ipykernelにデバッガプロトコルを実装するのはロードマップには存在</li>
+</ul>
+<pre class="code literal-block"><span></span><code>$ conda install xeus-python -c conda-forge
+</code></pre>
+
+
+<ul>
+<li>
+<p>プラットフォームによってはPyPIのwheelsも使えるがまだ実験段階のもの</p>
+</li>
+<li>
+<p>condaで試しにinstallして試してみたところxeus-pythonではmatplotlibがうまく扱えない模様</p>
+<ul>
+<li>https://github.com/jupyter-xeus/xeus-python/issues/224</li>
+</ul>
+</li>
+</ul>
+<h4>Jupyter Debug Protocol</h4>
+<h5>ControlおよびIOPub Channelに対する新しいメッセージタイプ</h5>
+<ul>
+<li>Jupyter kernelはプロセス間コミュニケーションプロトコル(https://jupyter-client.readthedocs.io/en/stable/messaging.html)に基づき動作<ul>
+<li>Shellチャンネルはコード実行のリクエストなどのrequest/replyを行う</li>
+<li>IOPubチャンネルはkernelからclientへの片方向のチャンネル(標準出力やエラー出力で使用)</li>
+<li>ControlチャンネルはShellチャンネルに似ているが別ソケットで実行され、実行キューに溜めないhigh priorityなメッセージを扱う<ul>
+<li>InterruptやShutdownリクエストなど</li>
+<li>debuggerに送られるコマンドに対してControlチャンネルを使うことに決めた</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>protocolに2つのメッセージタイプを追加<ul>
+<li>
+<a href="https://jupyter-client.readthedocs.io/en/latest/messaging.html#debug-request">debug_request/reply</a><ul>
+<li>breakpointの追加やコードに対するstep into操作などのdebuggerによって実行される特定のアクションのrequest</li>
+<li>Controlチャンネルに送られる</li>
+</ul>
+</li>
+<li>
+<a href="https://jupyter-client.readthedocs.io/en/latest/messaging.html#debug-event">debug_event</a><ul>
+<li>debugging kernelからフロントエンドに対して片方向に送られるdebug eventメッセージ</li>
+<li>IOPubチャンネルを通じて送られる</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5>Debug Adapter Protocolの拡張</h5>
+<ul>
+<li>Jupyterにおけるデザインのキーとなる原理としてプログラミング言語について不可知であるというものがある<ul>
+<li>Jupyter debug protocolが他のカーネル実装に対しても適用できるものであることは重要である</li>
+</ul>
+</li>
+<li>標準的なプロトコルとしてMicrosoftの"Debug Adapter Protocol"(DAP)がある<ul>
+<li>JSONベースのprotocolでありVSCode下で様々な言語のバックエンドとして既に動作</li>
+</ul>
+</li>
+<li>JupyterでDAPを用いることが自然であるが、Jupyterにおける要件を満たすためには十分ではない<ul>
+<li>ページ再読み込みのサポートが必要<ul>
+<li>Jupyter kernelはデバッガの状態(breakpointや現在どこでstopしているか)を後から接続したclientのために保持しなければならない</li>
+<li>フロントエンドはその状態を<code>debug_request</code>メッセージで要求できる</li>
+</ul>
+</li>
+<li>ソースファイルベースではないnotebookのcellとconsoleに対するデバッグのサポートが必要<ul>
+<li>ブレークポイントを追加できるコードをdebuggerに送るためのメッセージが必要</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>これらの変更は<a href="https://github.com/jupyter/enhancement-proposals/pull/47">JEP</a>として提案されている<ul>
+<li>文書は<a href="https://github.com/jupyter/enhancement-proposals/blob/master/jupyter-debugger-protocol/jupyter-debugger-protocol.md">こちら</a>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Xeus-python, the first Jupyter Kernel to support debugging</h4>
+<ul>
+<li>XeusはC++はJupyter kernelプロトコルのC++実装<ul>
+<li>それ自身がkernelではなくkernel作成を補助するlibrary</li>
+<li>CやC++ APIを持つ言語に対するカーネルを作成するのに便利<ul>
+<li>Python、Lua、SQLなど</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Xeus-pythonはdebugging protocolを実装する最初の実装として適切<ul>
+<li>プラガブルなconcurrencyモデルを持っているためControlチャンネルを別スレッドで動作させることが可能</li>
+<li>上記を繰り返し動作させるために便利なサンドボックスを持つ軽量なコードベースを持つ<ul>
+<li>ipykernelでdebuggingプロトコルを実装することはかなりのリファクタリングを要し早い段階でのconsensus buildingが必要となる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Xeus-pythonのロードマップ<ul>
+<li>ipykernelに対して失われているmagicを追加</li>
+<li>PyPI wheelsを改善</li>
+</ul>
+</li>
+<li>他のカーネルにおけるdebugging<ul>
+<li>xeusベースのkernelについては大部分の実装が共有可能であるため例えばxeus-clingなどでは早期に使用可能となる</li>
+</ul>
+</li>
+</ul>
+<h4>Diving into the debugger front-end architecture</h4>
+<ul>
+<li>jupyterlabのdebugger extensionはユーザーが典型的なIDEから予想するようなUIを含む<ul>
+<li>サイドバーに変数エクスプローラ、ブレークポイントのリスト、ソースプレビュー、コールスタックを表示</li>
+<li>コードの横に直接ブレークポイントを設定できる(cell/console)</li>
+<li>現在コードのどの部分で停止しているかを示すヴィジュアルマーカー</li>
+</ul>
+</li>
+<li>screencastで種々の機能を説明<ul>
+<li>実行後に削除したセルに対するstep intoはread-only viewとして表示される</li>
+<li>コンソールおよびファイルに対してもデバッガは有効</li>
+<li>デバッグはノートブックレベルで実行されるため異なるノートブックに対して同時にデバッグを実行できる</li>
+<li>変数一覧はtree形式およびtable形式で閲覧可能</li>
+</ul>
+</li>
+</ul>
+<h4>Future developments</h4>
+<ul>
+<li>2020年の予定<ul>
+<li>変数ビューワでmime type renderingのサポート</li>
+<li>条件付きブレークポイントのサポート</li>
+<li>debugger UXの向上</li>
+<li>Voilå dashboardのデバッグの有効化</li>
+</ul>
+</li>
+</ul>
+<h3><a href="https://blog.jupyter.org/a-jupyter-kernel-for-sqlite-9549c5dcf551">A Jupyter Kernel for SQLite</a></h3>
+<h4>概要</h4>
+<ul>
+<li>SQLite用jupyterカーネルの紹介<ul>
+<li>SQLiteのシンタックスをcode cellで受け付ける</li>
+<li>magixコマンドでDBのオープンやクローズなどを行う</li>
+</ul>
+</li>
+<li>Xeusを用いて作成<ul>
+<li>wrapperの<a href="https://github.com/SRombauts/SQLiteCpp">SQLiteCpp</a>を使用</li>
+</ul>
+</li>
+</ul>
+<h4>現在の状況</h4>
+<ul>
+<li>現在進行形で開発中だが下記を備えている<ul>
+<li>SQLiteインタフェースに対する完全な機能</li>
+<li>高レベル操作のためのmagic<ul>
+<li>DBの作成、オープン、クローズ、バックアップ</li>
+<li>テーブルの存在チェック、keyの設定および解除、それらの情報の取得</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>テーブル表示<ul>
+<li>jupyter lab/notebookではHTMLで表示</li>
+<li>コンソールでは<a href="https://github.com/p-ranav/tabulate">tabulate</a>ライブラリを使って表示</li>
+</ul>
+</li>
+</ul>
+<h4>future</h4>
+<ul>
+<li>直感的なデータ表示(plot, graph, chart, mapsなど)の描画<ul>
+<li>Vegaを使えないかを検討中(ブログの画像を参照)</li>
+</ul>
+</li>
+<li>xeus-SQLiteとSQLiteライブラリのstaticビルドをバンドルしたシングルバイナリの供給</li>
+</ul>
+<h4>その他</h4>
+<ul>
+<li>binderで試しに実行可能(ブログ記事にリンク有)</li>
+<li>インストール方法<ul>
+<li><code>mamba install xeus-sqlite -c conda-forge</code></li>
+<li><code>conda install xeus-sqlite -c conda-forge</code></li>
+<li>
+<a href="https://github.com/TheSnakePit/mamba">mamba</a>はcondaのc++による再実装らしい<ul>
+<li>並列ダウンロードや高速な依存性解決を備えるとのこと</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3><a href="https://blog.jupyter.org/slicerjupyter-a-3d-slicer-kernel-for-interactive-publications-6f2ad829f635">SlicerJupyter: a 3D Slicer kernel for interactive publications</a></h3>
+<h4>概要</h4>
+<ul>
+<li>
+<a href="https://www.slicer.org/">3D Slicer</a><ul>
+<li>Qtを用いたC++で書かれたデスクトップアプリケーション<ul>
+<li>医用画像の分析および可視化に使用</li>
+</ul>
+</li>
+<li>3D描画に<a href="https://vtk.org/">Visualization Toolkit(VTK)</a>を用い、画像処理に<a href="https://itk.org/">Insight Toolkit(ITK)</a>を用いている</li>
+<li>pythonインタプリタが埋め込まれている</li>
+<li>xeus-pythonのインタプリタを統合すればQtベースのデスクトップアプリケーションがnotebookを通じて操作できることを紹介</li>
+</ul>
+</li>
+<li>githubの<a href="https://github.com/Slicer/SlicerJupyter">SlicerJupyter</a>に実装が存在<ul>
+<li>BlenderやFreeCAD、ParaViewといったpythonが埋め込まれた他のアプリケーションに対しても拡張可能</li>
+</ul>
+</li>
+<li>xeus-python integrationがJupyterのエコシステムとデスクトップアプリケーションの両方に対して必要不可欠</li>
+</ul>
+<h4>Powerful Medical Imaging Capabilities Available Through Jupyter</h4>
+<ul>
+<li>3D Slicer(以下Slicer)は内蔵しているpythonインタプリタを通じてすべての機能をpyhonから操作可能<ul>
+<li>pythonインタプリタに対する単純なコンソールは備えているがcellベースのインタラクティブ環境は備えていない</li>
+</ul>
+</li>
+<li>xeus-pythonを統合することによってSlicerのプロセスをJupyter kernelとして使用可能</li>
+<li>xeus-pythonは<a href="https://github.com/InsightSoftwareConsortium/itkwidgets">itkwidgets</a>のようなJupyter widgetsへのインタフェースとなるだけではなく、SlicerインタプリタのようなカスタムインタプリタやQtイベントループのようなGUIイベントループとも統合することが可能<ul>
+<li>これによりSlicer内部表現であるMedical Reality Markup Language(MRML)の表現が可能となる</li>
+<li>ノートブック内でpandasやNumPy配列のようなpythonのエコシステムを通じて完全なmedical imaging APIとデータへとアクセスが可能となる</li>
+</ul>
+</li>
+</ul>
+<h4>対話的操作におけるレベル</h4>
+<ul>
+<li>JupyterのWidget(sliderやボタンなど)をSlicer操作やデータ変更、処理やパラメータ可視化のために使える</li>
+<li>
+<p>Widgetを通じた対話的操作は異なるレベルごとに実装されている</p>
+</li>
+<li>
+<p>Level1</p>
+<ul>
+<li>Jupyter Widgetがアプリケーション固有のオブジェクトを自動変換の上で表示</li>
+<li>例えばSlicer markup fiducial listはフォーマット済みのテーブルとして表示され、モデルnodeは3Dオブジェクトとして描画される</li>
+</ul>
+</li>
+<li>Level2<ul>
+<li>Static image widgetがデスクトップアプリケーションが描画したコンテンツを描画</li>
+<li>これらのwidgetは追加された標準Widgetを用いてデータや描画パラメータが変更されることによって作成される</li>
+<li>様々なデータ型や非常に大きなデータセットなどの洗練された描画をJupyterから直接可能とする</li>
+</ul>
+</li>
+<li>Level3<ul>
+<li>Dynamic viewer Widgetがデスクトップアプリケーションが描画した2D/3D viewをを描画</li>
+<li>マウス/キーボードのイベントがデスクトップアプリケーションへと送られズームや回転を実現<ul>
+<li>アノテーションの付与、測定、画像分割のような3D対話操作をデスクトップアプリケーション上と同じように行える</li>
+<li>これは<a href="https://ipycanvas.readthedocs.io/en/latest/">ipycanvas</a>と<a href="https://github.com/mwcraig/ipyevents">ipyevents</a>パッケージを用いて実現される</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Level4</p>
+<ul>
+<li>完全なGUI統合<ul>
+<li>ユーザーはアプリケーションウインドウを標準デスクトップWidget(スライダーやメニューなど)を含めてノートブックセルの中から見ることができる</li>
+<li>これはSlicer Jupyterの中ではnoVNCとTigerVNCを用いて実現される</li>
+<li>リモートサーバー上でアプリケーションが実行されているときに便利</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>現在は大部分の実装については安定しているが、まだデザイン面での改善やパフォーマンスの改善の余地がある</p>
+<ul>
+<li>自動変換(display hookの複雑な実装による)</li>
+<li>xeus-pythonのスレッディングモデルはメインスレッドをロックしないように改良する余地がある</li>
+<li>Level3の統合におけるdynamic viewer widgetはより高いリフレッシュレート実現のためにパフォーマンス最適化の余地がある</li>
+</ul>
+</li>
+</ul>
+<h4>History of Slicer and this integration</h4>
+<ul>
+<li>QtベースのデスクトップアプリケーションによってXeusカーネルのイベントループが駆動されている？</li>
+</ul>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/20/" class="u-url">jupyterlabのwav用MIMEレンダラーを作成しました</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Hiromasa OHASHI
@@ -1246,1594 +1630,6 @@ poetryでは新規にプロジェクトを始める場合でなくとも、<code
 
 </div>
 </div>
-</div>
-</div>
-                </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/18/" class="u-url">openfst quick tourをjupyterlab上で実行</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Hiromasa OHASHI
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/18/" rel="bookmark">
-            <time class="published dt-published" datetime="2020-06-27T14:00:00+09:00" itemprop="datePublished" title="2020-06-27 14:00">2020-06-27 14:00</time></a>
-            </p>
-                        <p class="commentline">
-        
-    <a href="posts/18/#disqus_thread" data-disqus-identifier="cache/posts/18.html">Comments</a>
-
-
-                </p>
-</div>
-            </header><div class="e-content entry-content">
-                    <div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="openfst-quick-tourをjupyterlab上で実行">openfst quick tourをjupyterlab上で実行<a class="anchor-link" href="posts/18/#openfst-quick-tour%E3%82%92jupyterlab%E4%B8%8A%E3%81%A7%E5%AE%9F%E8%A1%8C">¶</a>
-</h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="http://www.openfst.org/twiki/bin/view/FST/FstQuickTour">Open Fst Quick Tour</a>をpython上からbinding経由で実行してみたりシェルコマンドを実行したりして試してみます。
-若干内容が中途半端なので後日追記するかもしれません。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="前提">前提<a class="anchor-link" href="posts/18/#%E5%89%8D%E6%8F%90">¶</a>
-</h3>
-<p>下記を実行済の状態で実行しています。</p>
-<div class="highlight"><pre><span></span>$ pip install pybind11
-$ git clone https://github.com/aldanor/ipybind.git <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ipybind <span class="p">&amp;</span> python setup build <span class="o">&amp;&amp;</span> python setup.py install
-$ conda install -c conda-forge openfst
-$ apt install graphviz
-$ pip install openfst-python
-</pre></div>
-<p>ビルド済のopenfstがcondaでインストールできるようになってて驚きました。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="ipybindのロード">ipybindのロード<a class="anchor-link" href="posts/18/#ipybind%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%89">¶</a>
-</h4>
-<p>jupyter labでは<code>Javascript Error: require is not defined</code>と表示されるが問題なく動作はする。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> ipybind
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-
-<div id="f64b272f-5179-44d5-a221-b158178919ac"></div>
-<div class="output_subarea output_javascript ">
-<script type="text/javascript">
-var element = $('#f64b272f-5179-44d5-a221-b158178919ac');
-
-    require(['notebook/js/codecell'], function(cc) {
-        cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
-            {reg: [/^\s*%%pybind11/]};
-    });
-    
-</script>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-    <style>
-    .cm-s-ipython span.cm-variable-3 {
-        color: #208ffb;
-        font-weight: bold;
-    }
-    </style>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="openfstがインストールされているかの確認">openfstがインストールされているかの確認<a class="anchor-link" href="posts/18/#openfst%E3%81%8C%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%81%8B%E3%81%AE%E7%A2%BA%E8%AA%8D">¶</a>
-</h4>
-<p>condaで入れた場合<code>conda/bin</code>に格納されている模様</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>which fstprint
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>/opt/conda/bin/fstprint
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="ipybind11での実行">ipybind11での実行<a class="anchor-link" href="posts/18/#ipybind11%E3%81%A7%E3%81%AE%E5%AE%9F%E8%A1%8C">¶</a>
-</h3>
-<ul>
-<li>
-<code>-Wl="-lfst"</code>でlibfst.soをリンクする必要がある</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">pybind11</span> -fv -Wl="-lfst"
-
-#include &lt;fst/fst-decl.h&gt;
-#include &lt;fst/fstlib.h&gt;
-
-namespace fst {
-    void openfst_basic_operation(void){
-        // Vector FSTは一般的にmutableなFST 
-        StdVectorFst fst;
-
-        // 状態0を最初に空のFSTに追加しstart stateとする
-        fst.AddState();   // 最初の状態は状態0となる(AddStateの返り値になる) 
-        fst.SetStart(0);  // 引数は状態ID
-        
-        // 状態0から分岐する2つのarcを追加
-        // arcのコンストラクタの引数は入力ラベル、出力ラベル、重み、宛先となる状態ID
-        fst.AddArc(0, StdArc(1, 1, 0.5, 1));  // 最初の引数は分岐元の状態ID 
-        fst.AddArc(0, StdArc(2, 2, 1.5, 1)); 
-        
-        // 状態1を追加し状態1から2に至るarcを追加 
-        fst.AddState();
-        fst.AddArc(1, StdArc(3, 3, 2.5, 2));
-
-        // 状態2を追加し状態2を最終状態とする(最終状態の重みも追加) 
-        fst.AddState();
-        fst.SetFinal(2, 3.5);  // 最初の引数は状態IDであり、2番目の引数は重みである 
-        
-        // FSTをWriteでファイルに保存
-        fst.Write("work/binary.fst");
-    }
-}
-
-PYBIND11_MODULE(myadd, m){
-    m.def("openfst_basic_operation", &amp;fst::openfst_basic_operation, "Tutorial method.");
-}
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>running build_ext
-setting C++ standard: -std=c++14
-building 'pybind11_41f0e60' extension
-creating /home/jovyan/.cache/ipython/pybind11/pybind11_41f0e60/home
-creating /home/jovyan/.cache/ipython/pybind11/pybind11_41f0e60/home/jovyan
-creating /home/jovyan/.cache/ipython/pybind11/pybind11_41f0e60/home/jovyan/.cache
-creating /home/jovyan/.cache/ipython/pybind11/pybind11_41f0e60/home/jovyan/.cache/ipython
-creating /home/jovyan/.cache/ipython/pybind11/pybind11_41f0e60/home/jovyan/.cache/ipython/pybind11
-/usr/bin/gcc -pthread -B /opt/conda/compiler_compat -Wl,--sysroot=/ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -D_IPYBIND_MODULE_NAME=pybind11_41f0e60 -I/opt/conda/include/python3.7m -c /home/jovyan/.cache/ipython/pybind11/pybind11_41f0e60.cpp -o /home/jovyan/.cache/ipython/pybind11/pybind11_41f0e60/home/jovyan/.cache/ipython/pybind11/pybind11_41f0e60.o -std=c++14 -fvisibility=hidden -flto -isystem /opt/conda/lib/python3.7/site-packages/ipybind-0.1.0-py3.7.egg/ipybind/include -isystem /opt/conda/include -isystem /opt/conda/include -isystem /opt/conda/include
-/usr/bin/g++ -pthread -shared -B /opt/conda/compiler_compat -L/opt/conda/lib -Wl,-rpath=/opt/conda/lib -Wl,--no-as-needed -Wl,--sysroot=/ /home/jovyan/.cache/ipython/pybind11/pybind11_41f0e60/home/jovyan/.cache/ipython/pybind11/pybind11_41f0e60.o -L/opt/conda/lib -o build/lib.linux-x86_64-3.7/pybind11_41f0e60.cpython-37m-x86_64-linux-gnu.so -flto -lfst
-copying build/lib.linux-x86_64-3.7/pybind11_41f0e60.cpython-37m-x86_64-linux-gnu.so -&gt; /home/jovyan/.cache/ipython/pybind11
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>ipybind経由で上記の関数をpythonから実行</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">openfst_basic_operation</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>作成したbinary形式のfstはfstprintで表示が可能</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstprint work/binary.fst
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0	1	1	1	0.5
-0	1	2	2	1.5
-1	2	3	3	2.5
-2	3.5
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>fstinfoコマンドでfstの情報を表示可能</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstinfo work/binary.fst
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>fst type                                          vector
-arc type                                          standard
-input symbol table                                none
-output symbol table                               none
-# of states                                       3
-# of arcs                                         3
-initial state                                     0
-# of final states                                 1
-# of input/output epsilons                        0
-# of input epsilons                               0
-# of output epsilons                              0
-input label multiplicity                          1
-output label multiplicity                         1
-# of accessible states                            3
-# of coaccessible states                          3
-# of connected states                             3
-# of connected components                         1
-# of strongly conn components                     3
-input matcher                                     y
-output matcher                                    y
-input lookahead                                   n
-output lookahead                                  n
-expanded                                          y
-mutable                                           y
-error                                             n
-acceptor                                          y
-input deterministic                               y
-output deterministic                              y
-input/output epsilons                             n
-input epsilons                                    n
-output epsilons                                   n
-input label sorted                                y
-output label sorted                               y
-weighted                                          y
-cyclic                                            n
-cyclic at initial state                           n
-top sorted                                        y
-accessible                                        y
-coaccessible                                      y
-string                                            n
-weighted cycles                                   n
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>fstdrawコマンドでbinary形式のfstをgraphvizのdot形式へと変換が可能</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstdraw work/binary.fst work/binary.dot
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>dot形式はテキストなのでcatで中身を表示</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat work/binary.dot
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>digraph FST {
-rankdir = LR;
-size = "8.5,11";
-center = 1;
-orientation = Landscape;
-ranksep = "0.4";
-nodesep = "0.25";
-0 [label = "0", shape = circle, style = bold, fontsize = 14]
-	0 -&gt; 1 [label = "1:1/0.5", fontsize = 14];
-	0 -&gt; 1 [label = "2:2/1.5", fontsize = 14];
-1 [label = "1", shape = circle, style = solid, fontsize = 14]
-	1 -&gt; 2 [label = "3:3/2.5", fontsize = 14];
-2 [label = "2/3.5", shape = doublecircle, style = solid, fontsize = 14]
-}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>上記のままだとorientationがLandscapeになっており縦に表示されるのでsedでPortraitに変換した上でgraphvizの<code>dot</code>コマンドでpngファイルに変換する。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>sed -e <span class="s2">"s/Landscape/Portrait/g"</span> work/binary.dot <span class="p">|</span> dot -Tpng &gt; work/binary.png
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="n">Image</span><span class="p">(</span><span class="s2">"work/binary.png"</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[10]:</div>
-
-
-
-
-<div class="output_png output_subarea output_execute_result">
-<img src="data:image/png;base64,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">
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="シェルからの実行">シェルからの実行<a class="anchor-link" href="posts/18/#%E3%82%B7%E3%82%A7%E3%83%AB%E3%81%8B%E3%82%89%E3%81%AE%E5%AE%9F%E8%A1%8C">¶</a>
-</h3>
-<p>上記のfstはシェルからテキストで定義したFSTの構造ファイルと入力シンボル、出力シンボルを組み合わせることでも作成可能である。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>fstのフォーマットは AT&amp;T FSMフォーマットである。
-fstの各行のフォーマットは
-    <code>遷移元状態ID</code> <code>遷移先状態ID</code> <code>入力ラベル</code> <code>出力ラベル</code> <code>[重み]</code>
-最終状態はのフォーマットは
-    <code>状態ID</code> <code>[重み]</code>
-である。
-最初の状態が最初の行でなければならないことを除いて他の行についてはどんな順番で書いても良い。
-重みが指定されない場合は0.0(ライブラリのデフォルトであるWeight型に対する値)となる。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> work/text.fst
-<span class="mi">0</span> <span class="mi">1</span> <span class="n">a</span> <span class="n">x</span> <span class="o">.</span><span class="mi">5</span>
-<span class="mi">0</span> <span class="mi">1</span> <span class="n">b</span> <span class="n">y</span> <span class="mf">1.5</span>
-<span class="mi">1</span> <span class="mi">2</span> <span class="n">c</span> <span class="n">z</span> <span class="mf">2.5</span>
-<span class="mi">2</span> <span class="mf">3.5</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Overwriting work/text.fst
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>上記定義で入力ラベルに指定されていたa,b,cを1,2,3へと変換するためのファイルとしてisyms.txtを作成する。</p>
-<p><eps>については後述する。</eps></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> work/isyms.txt
-<span class="o">&lt;</span><span class="n">eps</span><span class="o">&gt;</span> <span class="mi">0</span>
-<span class="n">a</span> <span class="mi">1</span>
-<span class="n">b</span> <span class="mi">2</span>
-<span class="n">c</span> <span class="mi">3</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Overwriting work/isyms.txt
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>同様に上記定義で出力ラベルに指定されていたx,y,zを1,2,3へと変換するためのファイルとしてosyms.txtを作成する。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> work/osyms.txt
-<span class="o">&lt;</span><span class="n">eps</span><span class="o">&gt;</span> <span class="mi">0</span>
-<span class="n">x</span> <span class="mi">1</span>
-<span class="n">y</span> <span class="mi">2</span>
-<span class="n">z</span> <span class="mi">3</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Overwriting work/osyms.txt
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>これらのファイルを組み合わせることで<code>fstcompile</code>コマンドによってbinary形式のfstを作成可能である。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstcompile --isymbols<span class="o">=</span>work/isyms.txt --osymbols<span class="o">=</span>work/osyms.txt work/text.fst work/binary2.fst
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>念の為再度画像に変換して確認してみると同一のWFSTが作成できていることが分かる。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstdraw work/binary2.fst work/binary2.dot
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>sed -e <span class="s2">"s/Landscape/Portrait/g"</span> work/binary2.dot <span class="p">|</span> dot -Tpng &gt; work/binary2.png
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">"work/binary2.png"</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[17]:</div>
-
-
-
-
-<div class="output_png output_subarea output_execute_result">
-<img src="data:image/png;base64,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">
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>ラベルにはどんな文字列を用いても良く、ラベルIDには非負整数であれば何を用いても良い。
-ラベルID 0はepsilonラベルとして予約されている、これは空文字列を表す。
-先の例ではテーブルに0を含めたがFSTの作成には用いていない。
-後続するFSTの操作ではepsilonを追加するかもしれないので、シンボルファイルに含めておくのは良い心がけである。</p>
-<p>このテキスト形式のFSTはOpenFstライブラリにで使用される前にbinary形式へとコンバートしなければならない。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>FSTにシンボルテーブルを含める場合は<code>--keep_isymbols</code>、<code>--keep_osymbols</code>のオプションを付けて実行する。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [36]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstcompile --isymbols<span class="o">=</span>work/isyms.txt --osymbols<span class="o">=</span>work/osyms.txt --keep_isymbols --keep_osymbols work/text.fst work/binary2symkeep.fst
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [34]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstinfo work/binary2.fst
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>fst type                                          vector
-arc type                                          standard
-input symbol table                                none
-output symbol table                               none
-# of states                                       3
-# of arcs                                         3
-initial state                                     0
-# of final states                                 1
-# of input/output epsilons                        0
-# of input epsilons                               0
-# of output epsilons                              0
-input label multiplicity                          1
-output label multiplicity                         1
-# of accessible states                            3
-# of coaccessible states                          3
-# of connected states                             3
-# of connected components                         1
-# of strongly conn components                     3
-input matcher                                     y
-output matcher                                    y
-input lookahead                                   n
-output lookahead                                  n
-expanded                                          y
-mutable                                           y
-error                                             n
-acceptor                                          y
-input deterministic                               y
-output deterministic                              y
-input/output epsilons                             n
-input epsilons                                    n
-output epsilons                                   n
-input label sorted                                y
-output label sorted                               y
-weighted                                          y
-cyclic                                            n
-cyclic at initial state                           n
-top sorted                                        y
-accessible                                        y
-coaccessible                                      y
-string                                            n
-weighted cycles                                   n
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [37]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstinfo work/binary2symkeep.fst
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>fst type                                          vector
-arc type                                          standard
-input symbol table                                work/isyms.txt
-output symbol table                               work/osyms.txt
-# of states                                       3
-# of arcs                                         3
-initial state                                     0
-# of final states                                 1
-# of input/output epsilons                        0
-# of input epsilons                               0
-# of output epsilons                              0
-input label multiplicity                          1
-output label multiplicity                         1
-# of accessible states                            3
-# of coaccessible states                          3
-# of connected states                             3
-# of connected components                         1
-# of strongly conn components                     3
-input matcher                                     y
-output matcher                                    y
-input lookahead                                   n
-output lookahead                                  n
-expanded                                          y
-mutable                                           y
-error                                             n
-acceptor                                          y
-input deterministic                               y
-output deterministic                              y
-input/output epsilons                             n
-input epsilons                                    n
-output epsilons                                   n
-input label sorted                                y
-output label sorted                               y
-weighted                                          y
-cyclic                                            n
-cyclic at initial state                           n
-top sorted                                        y
-accessible                                        y
-coaccessible                                      y
-string                                            n
-weighted cycles                                   n
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>input/output symbol tableに元のテーブルの情報が残っていることが分かる。この場合、fstprintで表示するとラベル文字列が表示される。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [41]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstprint work/binary2.fst
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0	1	1	1	0.5
-0	1	2	2	1.5
-1	2	3	3	2.5
-2	3.5
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [40]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstprint work/binary2symkeep.fst
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0	1	a	x	0.5
-0	1	b	y	1.5
-1	2	c	z	2.5
-2	3.5
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>シンボルテーブルファイルを指定せずにFSTを作った場合を試してみる。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [38]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstcompile work/text.fst work/binary2wosym.fst
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>FATAL: FstCompiler: Bad arc ilabel integer = "a", source = work/text.fst, line = 1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>このようにtext.fstで入出力ラベルに非負整数以外が使用されている場合は警告が出るようである。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>一方でテキスト形式のFST内においてもしラベルが非負整数で表現されているのであればシンボルテーブルのファイルは不要となる。
-この場合はのFSTの内部表現は先に描画した図と同じようになるはずである。
-これを確かめるためにラベルを保持していない場合のバイナリ形式FSTである<code>binary2.fst</code>をfstprintし、その結果をfstcompileした上で再度fstprintしてみる。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [44]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstprint work/binary2.fst <span class="p">|</span> fstcompile - <span class="p">|</span> fstprint -
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0	1	1	1	0.5
-0	1	2	2	1.5
-1	2	3	3	2.5
-2	3.5
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>このようにラベルが非負整数の場合は問題なく<code>fstcompile</code>が可能であることが分かる。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>なお、ラベルが非負整数の場合に先のと同じシンボルテーブルを与えてもシンボルテーブル内に非負整数のラベルに対応したエントリが存在していないためエラーが生じる。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [47]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstprint work/binary2.fst <span class="p">|</span> fstcompile --isymbols<span class="o">=</span>work/isyms.txt --osymbols<span class="o">=</span>work/osyms.txt - <span class="p">|</span> fstprint -
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>FATAL: FstCompiler: Symbol "1" is not mapped to any integer arc ilabel, symbol table = work/isyms.txt, source = standard input, line = 1
-ERROR: FstHeader::Read: Bad FST header: standard input. Magic number not matched. Got: 0
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>一度バイナリ形式のFSTが作成されると、(同じアーキテクチャのマシン上であれば)他のシェルレベルのプログラムと組み合わせて使うことも可能である。
-またC++コードでは下記コードでコード中でロードすることも可能である。</p>
-<div class="highlight"><pre><span></span><span class="n">StdFst</span> <span class="o">*</span><span class="n">fst</span> <span class="o">=</span> <span class="n">StdFst</span><span class="o">::</span><span class="n">Read</span><span class="p">(</span><span class="s">"binary.fst"</span><span class="p">);</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="pythonバインディングでの実行">pythonバインディングでの実行<a class="anchor-link" href="posts/18/#python%E3%83%90%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A7%E3%81%AE%E5%AE%9F%E8%A1%8C">¶</a>
-</h3>
-<p>openfstには公式に提供されている<code>pywrapfst</code>というラッパーがあるが、
-openfst自体は別にインストールしておく必要があるため新規環境に導入しにくいため別途openfst本体を導入する必要を無くした
-<a href="https://pypi.org/project/openfst-python/">openfst-python</a>というライブラリが公開されている。
-ここではこのopenfst-pythonを使って先程までと同様の内容を実施する。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [18]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install openfst-python
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Requirement already satisfied: openfst-python in /opt/conda/lib/python3.7/site-packages (1.7.3)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">openfst_python</span> <span class="k">as</span> <span class="nn">fst</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>c++の<code>StdVectorFST</code>は<code>fst.Fst</code>という名前で生成できる模様である(要確認)。
-またc++の<code>StdArc</code>は<code>fst.Arc</code>で生成している。</p>
-<p><code>fst.add_arc</code>メソッドは"遷移元状態ID、Arcオブジェクト、遷移先状態ID"を取る模様であり
-第2引数のArcオブジェクトは"入力ラベル、出力ラベル、Weightオブジェクト"を引数に取る。
-このWeightオブジェクトは第一引数にFSTのweight_typeを取り、第2引数に重みの値を取る。
-ここでは0-&gt;1への2つ目の遷移の重みだけは<code>fst.Weight.One</code>メソッドで与えているが、この第一引数もFSTのweight_typeである。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">fst</span><span class="o">.</span><span class="n">Fst</span><span class="p">()</span>
-<span class="n">s0</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">add_state</span><span class="p">()</span>
-<span class="n">s1</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">add_state</span><span class="p">()</span>
-<span class="n">s2</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">add_state</span><span class="p">()</span>
-
-<span class="n">f</span><span class="o">.</span><span class="n">set_start</span><span class="p">(</span><span class="n">s0</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">add_arc</span><span class="p">(</span><span class="n">s0</span><span class="p">,</span> <span class="n">fst</span><span class="o">.</span><span class="n">Arc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">fst</span><span class="o">.</span><span class="n">Weight</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">weight_type</span><span class="p">(),</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">s1</span><span class="p">))</span>
-<span class="n">f</span><span class="o">.</span><span class="n">add_arc</span><span class="p">(</span><span class="n">s0</span><span class="p">,</span> <span class="n">fst</span><span class="o">.</span><span class="n">Arc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">fst</span><span class="o">.</span><span class="n">Weight</span><span class="o">.</span><span class="n">One</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">weight_type</span><span class="p">()),</span>  <span class="n">s1</span><span class="p">))</span>
-<span class="n">f</span><span class="o">.</span><span class="n">add_arc</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">fst</span><span class="o">.</span><span class="n">Arc</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">fst</span><span class="o">.</span><span class="n">Weight</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">weight_type</span><span class="p">(),</span> <span class="mf">2.5</span><span class="p">),</span> <span class="n">s2</span><span class="p">))</span>
-<span class="n">f</span><span class="o">.</span><span class="n">set_final</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">fst</span><span class="o">.</span><span class="n">Weight</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">weight_type</span><span class="p">(),</span> <span class="mf">3.5</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[20]:</div>
-
-
-
-<div class="output_svg output_subarea output_execute_result">
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generated by graphviz version 2.40.1 (20161225.0304)
- --><!-- Title: FST Pages: 1 --><svg width="293pt" height="77pt" viewbox="0.00 0.00 293.09 77.09" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 73.0946)"><title>FST</title>
-<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-73.0946 289.0946,-73.0946 289.0946,4 -4,4"></polygon><!-- 0 --><g id="node1" class="node"><title>0</title>
-<ellipse fill="none" stroke="#000000" stroke-width="2" cx="18" cy="-34.5473" rx="18" ry="18"></ellipse><text text-anchor="middle" x="18" y="-30.8473" font-family="Times,serif" font-size="14.00" fill="#000000">0</text></g><!-- 1 --><g id="node2" class="node"><title>1</title>
-<ellipse fill="none" stroke="#000000" cx="126" cy="-34.5473" rx="18" ry="18"></ellipse><text text-anchor="middle" x="126" y="-30.8473" font-family="Times,serif" font-size="14.00" fill="#000000">1</text></g><!-- 0&#45;&gt;1 --><g id="edge1" class="edge"><title>0-&gt;1</title>
-<path fill="none" stroke="#000000" d="M36.3207,-34.5473C53.179,-34.5473 78.4349,-34.5473 97.853,-34.5473"></path><polygon fill="#000000" stroke="#000000" points="97.9499,-38.0474 107.9498,-34.5473 97.9498,-31.0474 97.9499,-38.0474"></polygon><text text-anchor="middle" x="72" y="-38.3473" font-family="Times,serif" font-size="14.00" fill="#000000">1:2/0.5</text></g><!-- 0&#45;&gt;1 --><g id="edge2" class="edge"><title>0-&gt;1</title>
-<path fill="none" stroke="#000000" d="M32.7129,-23.8817C38.1808,-20.5271 44.6133,-17.2545 51,-15.5473 69.0335,-10.7268 74.9665,-10.7268 93,-15.5473 96.1933,-16.4009 99.3981,-17.6459 102.4881,-19.0967"></path><polygon fill="#000000" stroke="#000000" points="100.83,-22.1791 111.2871,-23.8817 104.1742,-16.0295 100.83,-22.1791"></polygon><text text-anchor="middle" x="72" y="-19.3473" font-family="Times,serif" font-size="14.00" fill="#000000">1:3</text></g><!-- 2 --><g id="node3" class="node"><title>2</title>
-<ellipse fill="none" stroke="#000000" cx="250.5473" cy="-34.5473" rx="30.5892" ry="30.5892"></ellipse><ellipse fill="none" stroke="#000000" cx="250.5473" cy="-34.5473" rx="34.5946" ry="34.5946"></ellipse><text text-anchor="middle" x="250.5473" y="-30.8473" font-family="Times,serif" font-size="14.00" fill="#000000">2/3.5</text></g><!-- 1&#45;&gt;2 --><g id="edge3" class="edge"><title>1-&gt;2</title>
-<path fill="none" stroke="#000000" d="M144.1102,-34.5473C160.2284,-34.5473 184.4791,-34.5473 205.7633,-34.5473"></path><polygon fill="#000000" stroke="#000000" points="205.9251,-38.0474 215.925,-34.5473 205.925,-31.0474 205.9251,-38.0474"></polygon><text text-anchor="middle" x="180" y="-38.3473" font-family="Times,serif" font-size="14.00" fill="#000000">3:3/2.5</text></g></g></svg>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[21]:</div>
-
-
-
-<div class="output_svg output_subarea output_execute_result">
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generated by graphviz version 2.40.1 (20161225.0304)
- --><!-- Title: FST Pages: 1 --><svg width="293pt" height="77pt" viewbox="0.00 0.00 293.09 77.09" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 73.0946)"><title>FST</title>
-<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-73.0946 289.0946,-73.0946 289.0946,4 -4,4"></polygon><!-- 0 --><g id="node1" class="node"><title>0</title>
-<ellipse fill="none" stroke="#000000" stroke-width="2" cx="18" cy="-34.5473" rx="18" ry="18"></ellipse><text text-anchor="middle" x="18" y="-30.8473" font-family="Times,serif" font-size="14.00" fill="#000000">0</text></g><!-- 1 --><g id="node2" class="node"><title>1</title>
-<ellipse fill="none" stroke="#000000" cx="126" cy="-34.5473" rx="18" ry="18"></ellipse><text text-anchor="middle" x="126" y="-30.8473" font-family="Times,serif" font-size="14.00" fill="#000000">1</text></g><!-- 0&#45;&gt;1 --><g id="edge1" class="edge"><title>0-&gt;1</title>
-<path fill="none" stroke="#000000" d="M36.3207,-34.5473C53.179,-34.5473 78.4349,-34.5473 97.853,-34.5473"></path><polygon fill="#000000" stroke="#000000" points="97.9499,-38.0474 107.9498,-34.5473 97.9498,-31.0474 97.9499,-38.0474"></polygon><text text-anchor="middle" x="72" y="-38.3473" font-family="Times,serif" font-size="14.00" fill="#000000">1:2/0.5</text></g><!-- 0&#45;&gt;1 --><g id="edge2" class="edge"><title>0-&gt;1</title>
-<path fill="none" stroke="#000000" d="M32.7129,-23.8817C38.1808,-20.5271 44.6133,-17.2545 51,-15.5473 69.0335,-10.7268 74.9665,-10.7268 93,-15.5473 96.1933,-16.4009 99.3981,-17.6459 102.4881,-19.0967"></path><polygon fill="#000000" stroke="#000000" points="100.83,-22.1791 111.2871,-23.8817 104.1742,-16.0295 100.83,-22.1791"></polygon><text text-anchor="middle" x="72" y="-19.3473" font-family="Times,serif" font-size="14.00" fill="#000000">1:3</text></g><!-- 2 --><g id="node3" class="node"><title>2</title>
-<ellipse fill="none" stroke="#000000" cx="250.5473" cy="-34.5473" rx="30.5892" ry="30.5892"></ellipse><ellipse fill="none" stroke="#000000" cx="250.5473" cy="-34.5473" rx="34.5946" ry="34.5946"></ellipse><text text-anchor="middle" x="250.5473" y="-30.8473" font-family="Times,serif" font-size="14.00" fill="#000000">2/3.5</text></g><!-- 1&#45;&gt;2 --><g id="edge3" class="edge"><title>1-&gt;2</title>
-<path fill="none" stroke="#000000" d="M144.1102,-34.5473C160.2284,-34.5473 184.4791,-34.5473 205.7633,-34.5473"></path><polygon fill="#000000" stroke="#000000" points="205.9251,-38.0474 215.925,-34.5473 205.925,-31.0474 205.9251,-38.0474"></polygon><text text-anchor="middle" x="180" y="-38.3473" font-family="Times,serif" font-size="14.00" fill="#000000">3:3/2.5</text></g></g></svg>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>上記のようにpythonラッパーはfstオブジェクトを評価すると自動的に画像に変換して描画してくれるようである。
-使い方の詳細はドキュメント <a href="http://www.openfst.org/twiki/bin/view/FST/PythonExtension">http://www.openfst.org/twiki/bin/view/FST/PythonExtension</a> を確認すること。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="(おまけ)自作pythonバインディングでの実行">(おまけ)自作pythonバインディングでの実行<a class="anchor-link" href="posts/18/#(%E3%81%8A%E3%81%BE%E3%81%91)%E8%87%AA%E4%BD%9Cpython%E3%83%90%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%A7%E3%81%AE%E5%AE%9F%E8%A1%8C">¶</a>
-</h3>
-<p>この記事を書き始めた当初はpybind11でラッパーを作ろうかと思ったのですが分量が結構膨大なのと途中で公式でpythonラッパーを提供していることに気づいたので下記に微妙な痕跡を残しておきます。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">pybind11</span> -fv -Wl="-lfst"
-
-#include &lt;fst/fst-decl.h&gt;
-#include &lt;fst/fstlib.h&gt;
-
-namespace py = pybind11;
-
-PYBIND11_MODULE(myadd, m){
-    py::class_&lt;fst::StdArc&gt;(m, "StdArc")
-    .def(py::init&lt;int, int, double, int&gt;());
-    
-    py::class_&lt;fst::StdVectorFst&gt;(m, "StdVectorFst")
-    .def(py::init&lt;&gt;())
-    .def("add_state", &amp;fst::StdVectorFst::AddState)
-    .def("add_arc"  , py::overload_cast&lt;int, const fst::StdArc&amp;&gt;(&amp;fst::StdVectorFst::AddArc))
-    .def("set_start", &amp;fst::StdVectorFst::SetStart)
-    .def("set_final", [](fst::StdVectorFst&amp; self, int state, double weight){ self.SetFinal(state, weight); })
-    .def("write"    , [](fst::StdVectorFst&amp; self, const char* filepath){ self.Write(filepath); });
-    //.def("set_final", py::overload_cast&lt;int, double&gt;(&amp;fst::StdVectorFst::SetFinal))
-    //.def("write"    , py::overload_cast&lt;const std::string&amp;&gt;(&amp;fst::StdVectorFst::Write));
-}
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>running build_ext
-setting C++ standard: -std=c++14
-building 'pybind11_32de930' extension
-creating /home/jovyan/.cache/ipython/pybind11/pybind11_32de930/home
-creating /home/jovyan/.cache/ipython/pybind11/pybind11_32de930/home/jovyan
-creating /home/jovyan/.cache/ipython/pybind11/pybind11_32de930/home/jovyan/.cache
-creating /home/jovyan/.cache/ipython/pybind11/pybind11_32de930/home/jovyan/.cache/ipython
-creating /home/jovyan/.cache/ipython/pybind11/pybind11_32de930/home/jovyan/.cache/ipython/pybind11
-/usr/bin/gcc -pthread -B /opt/conda/compiler_compat -Wl,--sysroot=/ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -D_IPYBIND_MODULE_NAME=pybind11_32de930 -I/opt/conda/include/python3.7m -c /home/jovyan/.cache/ipython/pybind11/pybind11_32de930.cpp -o /home/jovyan/.cache/ipython/pybind11/pybind11_32de930/home/jovyan/.cache/ipython/pybind11/pybind11_32de930.o -std=c++14 -fvisibility=hidden -flto -isystem /opt/conda/lib/python3.7/site-packages/ipybind-0.1.0-py3.7.egg/ipybind/include -isystem /opt/conda/include -isystem /opt/conda/include -isystem /opt/conda/include
-/usr/bin/g++ -pthread -shared -B /opt/conda/compiler_compat -L/opt/conda/lib -Wl,-rpath=/opt/conda/lib -Wl,--no-as-needed -Wl,--sysroot=/ /home/jovyan/.cache/ipython/pybind11/pybind11_32de930/home/jovyan/.cache/ipython/pybind11/pybind11_32de930.o -L/opt/conda/lib -o build/lib.linux-x86_64-3.7/pybind11_32de930.cpython-37m-x86_64-linux-gnu.so -flto -lfst
-copying build/lib.linux-x86_64-3.7/pybind11_32de930.cpython-37m-x86_64-linux-gnu.so -&gt; /home/jovyan/.cache/ipython/pybind11
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [23]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># python binding test</span>
-<span class="n">fst</span> <span class="o">=</span> <span class="n">StdVectorFst</span><span class="p">()</span>
-<span class="n">fst</span><span class="o">.</span><span class="n">add_state</span><span class="p">()</span>
-<span class="n">fst</span><span class="o">.</span><span class="n">set_start</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="n">fst</span><span class="o">.</span><span class="n">add_arc</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">StdArc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">fst</span><span class="o">.</span><span class="n">add_arc</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">StdArc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">fst</span><span class="o">.</span><span class="n">add_state</span><span class="p">()</span>
-<span class="n">fst</span><span class="o">.</span><span class="n">add_arc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">StdArc</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="n">fst</span><span class="o">.</span><span class="n">add_state</span><span class="p">()</span>
-<span class="n">fst</span><span class="o">.</span><span class="n">set_final</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
-
-<span class="n">fst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"work/binary_py.fst"</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [24]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>fstdraw work/binary_py.fst work/binary_py.dot
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [28]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat work/binary_py.dot
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>digraph FST {
-rankdir = LR;
-size = "8.5,11";
-center = 1;
-orientation = Landscape;
-ranksep = "0.4";
-nodesep = "0.25";
-0 [label = "0", shape = circle, style = bold, fontsize = 14]
-	0 -&gt; 1 [label = "1:1/0.8", fontsize = 14];
-	0 -&gt; 1 [label = "2:2/1.3", fontsize = 14];
-1 [label = "1", shape = circle, style = solid, fontsize = 14]
-	1 -&gt; 2 [label = "3:3/2.2", fontsize = 14];
-2 [label = "2/3.5", shape = doublecircle, style = solid, fontsize = 14]
-}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [29]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>sed -e <span class="s2">"s/Landscape/Portrait/g"</span> work/binary_py.dot <span class="p">|</span> dot -Tpng &gt; work/binary_py.png
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [30]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Image</span><span class="p">(</span><span class="s2">"work/binary_py.png"</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[30]:</div>
-
-
-
-
-<div class="output_png output_subarea output_execute_result">
-<img src="data:image/png;base64,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">
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 </div>
                 </div>
