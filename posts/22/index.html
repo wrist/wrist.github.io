@@ -35,7 +35,7 @@
 <meta property="og:site_name" content="hiromasa.info">
 <meta property="og:title" content="Streamlitを用いた音響信号処理ダッシュボードの開発(Tokyo BISH Bash #03発表資料)">
 <meta property="og:url" content="http://www.hiromasa.info/posts/22/">
-<meta property="og:description" content="Streamlitを用いた音響信号処理ダッシュボードの開発(Tokyo BISH Bash #03発表資料)¶
+<meta property="og:description" content='Streamlitを用いた音響信号処理ダッシュボードの開発(Tokyo BISH Bash #03発表資料)¶
 
 
 
@@ -49,22 +49,11 @@
 
 
 
+In [37]:
 
-自己紹介およびPyData Osakaの紹介¶
-別スライドで説明します
-
-
-
-
-
-
-
-
-本日の概要¶
-Streamlitの紹介
-実例を踏まえた使用方法の紹介
-Herokuへのデプロイ方法の紹介
-その">
+    
+from IPython.display import IFrame
+IFrame("https://www.hiromasa.info/slide/22.slides.'>
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2020-10-13T06:00:00+09:00">
 <meta property="article:tag" content="scipy">
@@ -182,6 +171,41 @@ Herokuへのデプロイ方法の紹介
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">IFrame</span>
+<span class="n">IFrame</span><span class="p">(</span><span class="s2">"https://www.hiromasa.info/slide/22.slides.html"</span><span class="p">,</span> <span class="s2">"100%"</span><span class="p">,</span> <span class="s2">"450px"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[37]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+        <iframe width="100%" height="450px" src="https://www.hiromasa.info/slide/22.slides.html" frameborder="0" allowfullscreen></iframe>
+        
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -219,16 +243,29 @@ Herokuへのデプロイ方法の紹介
 <h3 id="本日の資料">本日の資料<a class="anchor-link" href="#%E6%9C%AC%E6%97%A5%E3%81%AE%E8%B3%87%E6%96%99">¶</a>
 </h3>
 <ul>
-<li>資料<ul>
 <li><a href="https://www.hiromasa.info/posts/22/">https://www.hiromasa.info/posts/22/</a></li>
 </ul>
-</li>
-<li>実行環境<ul>
+<p><img src="data:image/png;base64,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" alt="image.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="実行環境">実行環境<a class="anchor-link" href="#%E5%AE%9F%E8%A1%8C%E7%92%B0%E5%A2%83">¶</a>
+</h3>
+<ul>
 <li>
 <a href="https://hub.docker.com/r/wrist/jupyterlab-custom">https://hub.docker.com/r/wrist/jupyterlab-custom</a><ul>
 <li><code>docker pull wrist/jupyterlab-custom</code></li>
 </ul>
 </li>
+<li>
+<code>22.ipynb</code>の動作確認に使用<ul>
+<li>ただしファイルアップロード時に書き込みエラーが生じる場合有</li>
 </ul>
 </li>
 </ul>
@@ -355,8 +392,8 @@ Herokuへのデプロイ方法の紹介
 <ul>
 <li>手軽にフロントエンドが構築可能<ul>
 <li>
-<code>javascript</code>不要</li>
-<li>スクリプトライクな記述</li>
+<code>javascript</code>不要、スクリプトライクな記述</li>
+<li>各種pythonライブラリにGUIを付与</li>
 </ul>
 </li>
 <li>豊富な描画ライブラリ<ul>
@@ -438,7 +475,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [208]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> app.py
@@ -472,7 +509,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [13]:</div>
+<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>streamlit run app.py
@@ -566,7 +603,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [209]:</div>
+<div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> app.py
@@ -624,7 +661,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [210]:</div>
+<div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> app.py
@@ -686,7 +723,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [198]:</div>
+<div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> app.py
@@ -761,9 +798,11 @@ Herokuへのデプロイ方法の紹介
 <h4 id="ブランチ">ブランチ<a class="anchor-link" href="#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81">¶</a>
 </h4>
 <ul>
+<li><code>master</code></li>
 <li>
-<code>master</code><ul>
-<li>本流</li>
+<code>st_v066</code><ul>
+<li>
+<code>Steramlit</code>のバージョンを0.66.0にしたもの</li>
 </ul>
 </li>
 <li>
@@ -873,7 +912,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [211]:</div>
+<div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> app.py
@@ -920,7 +959,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [212]:</div>
+<div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -980,7 +1019,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [203]:</div>
+<div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1062,7 +1101,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [204]:</div>
+<div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1108,7 +1147,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [205]:</div>
+<div class="prompt input_prompt">In [10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1155,7 +1194,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [206]:</div>
+<div class="prompt input_prompt">In [11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1246,7 +1285,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [207]:</div>
+<div class="prompt input_prompt">In [12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1307,7 +1346,7 @@ Herokuへのデプロイ方法の紹介
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [102]:</div>
+<div class="prompt input_prompt">In [13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat app.py <span class="p">|</span> pygmentize
@@ -1402,7 +1441,7 @@ st.line_chart(W)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [125]:</div>
+<div class="prompt input_prompt">In [14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> app.py
@@ -1448,7 +1487,7 @@ st.line_chart(W)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [126]:</div>
+<div class="prompt input_prompt">In [15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1496,7 +1535,7 @@ st.line_chart(W)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [127]:</div>
+<div class="prompt input_prompt">In [16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1543,7 +1582,7 @@ st.line_chart(W)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [128]:</div>
+<div class="prompt input_prompt">In [17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1591,7 +1630,7 @@ st.line_chart(W)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [129]:</div>
+<div class="prompt input_prompt">In [18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1627,7 +1666,7 @@ st.line_chart(W)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [130]:</div>
+<div class="prompt input_prompt">In [19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1675,7 +1714,7 @@ st.line_chart(W)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [109]:</div>
+<div class="prompt input_prompt">In [20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat app.py <span class="p">|</span> pygmentize
@@ -1699,12 +1738,13 @@ st.line_chart(W)
 
 windows = [<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">boxcar</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">triang</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">blackman</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">hamming</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">hann</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">bartlett</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">flattop</span><span class="ansi-yellow-fg">"</span>,
            <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">parzen</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">bohman</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">blackmanharris</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">nuttall</span><span class="ansi-yellow-fg">"</span>, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">barthann</span><span class="ansi-yellow-fg">"</span>]
+
 <span class="ansi-blue-fg">import</span> <span class="ansi-cyan-fg ansi-underline">matplotlib</span><span class="ansi-cyan-fg ansi-underline">.</span><span class="ansi-cyan-fg ansi-underline">pyplot</span> <span class="ansi-blue-fg">as</span> <span class="ansi-cyan-fg ansi-underline">plt</span>
 <span class="ansi-blue-fg">import</span> <span class="ansi-cyan-fg ansi-underline">numpy</span> <span class="ansi-blue-fg">as</span> <span class="ansi-cyan-fg ansi-underline">np</span>
 <span class="ansi-blue-fg">import</span> <span class="ansi-cyan-fg ansi-underline">scipy</span><span class="ansi-cyan-fg ansi-underline">.</span><span class="ansi-cyan-fg ansi-underline">signal</span> <span class="ansi-blue-fg">as</span> <span class="ansi-cyan-fg ansi-underline">sg</span>
 <span class="ansi-blue-fg">import</span> <span class="ansi-cyan-fg ansi-underline">scipy</span><span class="ansi-cyan-fg ansi-underline">.</span><span class="ansi-cyan-fg ansi-underline">fft</span> <span class="ansi-blue-fg">as</span> <span class="ansi-cyan-fg ansi-underline">fft</span>
 
-<span class="ansi-white-fg"># ここが異なる</span>
+<span class="ansi-white-fg"># ここから先が異なる</span>
 win_names = st.sidebar.multiselect(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">window</span><span class="ansi-yellow-fg">"</span>, windows, [windows[<span class="ansi-blue-fg">4</span>]])
 st.write(win_names)
 two_powers = [<span class="ansi-blue-fg">2</span>**i <span class="ansi-blue-fg">for</span> i <span class="ansi-magenta-fg">in</span> <span class="ansi-cyan-fg">range</span>(<span class="ansi-blue-fg">16</span>)]
@@ -1757,7 +1797,7 @@ eps = <span class="ansi-blue-fg">1.e-12</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [150]:</div>
+<div class="prompt input_prompt">In [21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> app.py
@@ -1803,7 +1843,7 @@ eps = <span class="ansi-blue-fg">1.e-12</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [151]:</div>
+<div class="prompt input_prompt">In [22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1850,7 +1890,7 @@ eps = <span class="ansi-blue-fg">1.e-12</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [152]:</div>
+<div class="prompt input_prompt">In [23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1895,7 +1935,7 @@ eps = <span class="ansi-blue-fg">1.e-12</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [153]:</div>
+<div class="prompt input_prompt">In [24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1942,7 +1982,7 @@ eps = <span class="ansi-blue-fg">1.e-12</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [154]:</div>
+<div class="prompt input_prompt">In [25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -1992,7 +2032,7 @@ eps = <span class="ansi-blue-fg">1.e-12</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [155]:</div>
+<div class="prompt input_prompt">In [26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -2029,7 +2069,7 @@ eps = <span class="ansi-blue-fg">1.e-12</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [156]:</div>
+<div class="prompt input_prompt">In [27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -2072,7 +2112,7 @@ eps = <span class="ansi-blue-fg">1.e-12</span>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [117]:</div>
+<div class="prompt input_prompt">In [28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat app.py <span class="p">|</span> pygmentize
@@ -2102,7 +2142,6 @@ windows = [<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">box
 <span class="ansi-blue-fg">import</span> <span class="ansi-cyan-fg ansi-underline">scipy</span><span class="ansi-cyan-fg ansi-underline">.</span><span class="ansi-cyan-fg ansi-underline">fft</span> <span class="ansi-blue-fg">as</span> <span class="ansi-cyan-fg ansi-underline">fft</span>
 <span class="ansi-blue-fg">import</span> <span class="ansi-cyan-fg ansi-underline">pandas</span> <span class="ansi-blue-fg">as</span> <span class="ansi-cyan-fg ansi-underline">pd</span>  <span class="ansi-white-fg"># 追加</span>
 
-<span class="ansi-white-fg"># ここから先が異なる</span>
 win_names = st.sidebar.multiselect(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">window</span><span class="ansi-yellow-fg">"</span>, windows, [windows[<span class="ansi-blue-fg">4</span>]])
 st.write(win_names)
 two_powers = [<span class="ansi-blue-fg">2</span>**i <span class="ansi-blue-fg">for</span> i <span class="ansi-magenta-fg">in</span> <span class="ansi-cyan-fg">range</span>(<span class="ansi-blue-fg">16</span>)]
@@ -2111,21 +2150,21 @@ nfft = st.sidebar.selectbox(<span class="ansi-yellow-fg">"</span><span class="an
 
 st.write(win_names, Nx, nfft)
 eps = <span class="ansi-blue-fg">1.e-12</span>
-win_ary = []; freq_ary = []
+win_ary = []; W_ary = []
 <span class="ansi-blue-fg">for</span> win_name <span class="ansi-magenta-fg">in</span> win_names: <span class="ansi-white-fg"># ループとして処理</span>
     win = sg.get_window(win_name, Nx)
     W = <span class="ansi-blue-fg">20.0</span> * np.<span class="ansi-blue-fg">log10</span>(np.<span class="ansi-blue-fg">abs</span>(<span class="ansi-blue-fg">fft</span>.<span class="ansi-blue-fg">fft</span>(win, nfft)) + eps)
     W = <span class="ansi-blue-fg">fft</span>.<span class="ansi-blue-fg">fftshift</span>(W)
-    win_ary.<span class="ansi-blue-fg">append</span>(win_ary)
-    freq_ary.<span class="ansi-blue-fg">append</span>(freq_ary)
+    win_ary.<span class="ansi-blue-fg">append</span>(win)
+    W_ary.<span class="ansi-blue-fg">append</span>(W)
 fs = <span class="ansi-blue-fg">16000.0</span>
 t = np.<span class="ansi-blue-fg">arange</span>(Nx)
 f = (fs / nfft) * np.<span class="ansi-blue-fg">arange</span>(-nfft/<span class="ansi-blue-fg">2</span>, nfft/<span class="ansi-blue-fg">2</span>)
 
-df_win  = pd.DataFrame(np.<span class="ansi-blue-fg">array</span>(win_ary).T,  index=t, columns=win_names)
-df_freq = pd.DataFrame(np.<span class="ansi-blue-fg">array</span>(freq_ary).T, index=f, columns=win_names)
+df_win = pd.DataFrame(np.<span class="ansi-blue-fg">array</span>(win_ary).T, index=t, columns=win_names)
+df_W   = pd.DataFrame(np.<span class="ansi-blue-fg">array</span>(W_ary).T,   index=f, columns=win_names)
 st.line_chart(df_win)
-st.line_chart(df_freq)
+st.line_chart(df_W)
 </pre>
 </div>
 </div>
@@ -2337,7 +2376,7 @@ st.line_chart(df_freq)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [189]:</div>
+<div class="prompt input_prompt">In [29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> app.py
@@ -2401,7 +2440,7 @@ st.line_chart(df_freq)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [190]:</div>
+<div class="prompt input_prompt">In [30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -2467,7 +2506,7 @@ st.line_chart(df_freq)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [191]:</div>
+<div class="prompt input_prompt">In [31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -2549,18 +2588,13 @@ st.line_chart(df_freq)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="オーディオファイルの一括アップロード">オーディオファイルの一括アップロード<a class="anchor-link" href="#%E3%82%AA%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AA%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E4%B8%80%E6%8B%AC%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89">¶</a>
+<h4 id="オーディオファイルのブラウザ上での再生">オーディオファイルのブラウザ上での再生<a class="anchor-link" href="#%E3%82%AA%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AA%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E4%B8%8A%E3%81%A7%E3%81%AE%E5%86%8D%E7%94%9F">¶</a>
 </h4>
 <ul>
 <li>
-<code>st.file_uploader(ラベル名, type, encoding=None, accept_multiple_files=True)</code><ul>
-<li>返り値がリストになる</li>
-<li>音声データのバッチ処理が可能</li>
-<li>
-<code>encoding=None</code>は付けるとdeprecated errorが出るが抑制可能<ul>
-<li><code>st.set_option('deprecation.showfileUploaderEncoding', False)</code></li>
-</ul>
-</li>
+<code>st.audio(data)</code><ul>
+<li>dataはファイル名、BytesIO、ndarrayなど</li>
+<li>rawデータやndarrayの場合はファイルヘッダーが必要</li>
 </ul>
 </li>
 </ul>
@@ -2569,7 +2603,60 @@ st.line_chart(df_freq)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [192]:</div>
+<div class="prompt input_prompt">In [32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
+
+<span class="k">if</span> <span class="n">wav_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">st</span><span class="o">.</span><span class="n">audio</span><span class="p">(</span><span class="n">wav_file</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Appending to app.py
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="オーディオファイルの一括アップロード">オーディオファイルの一括アップロード<a class="anchor-link" href="#%E3%82%AA%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AA%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E4%B8%80%E6%8B%AC%E3%82%A2%E3%83%83%E3%83%97%E3%83%AD%E3%83%BC%E3%83%89">¶</a>
+</h4>
+<ul>
+<li>
+<code>st.file_uploader(ラベル名, type, encoding=None, accept_multiple_files=True)</code><ul>
+<li>最新版の<code>0.68.0</code>で導入</li>
+<li>返り値がリストになるため音声データのバッチ処理が可能</li>
+<li>リロード時にうまく読み込めないバグがある?</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -2610,52 +2697,15 @@ st.line_chart(df_freq)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="オーディオファイルのブラウザ上での再生">オーディオファイルのブラウザ上での再生<a class="anchor-link" href="#%E3%82%AA%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AA%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E4%B8%8A%E3%81%A7%E3%81%AE%E5%86%8D%E7%94%9F">¶</a>
-</h4>
 <ul>
 <li>
-<code>st.audio(data)</code><ul>
-<li>dataはファイル名、BytesIO、ndarrayなど</li>
-<li>rawデータやndarrayの場合はファイルヘッダーが必要</li>
+<code>encoding=None</code>は付けるとdeprecated errorが出るが抑制可能<ul>
+<li><code>st.set_option('deprecation.showfileUploaderEncoding', False)</code></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [193]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
-
-<span class="k">if</span> <span class="n">wav_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">st</span><span class="o">.</span><span class="n">audio</span><span class="p">(</span><span class="n">wav_file</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Appending to app.py
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -2689,7 +2739,7 @@ st.line_chart(df_freq)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [194]:</div>
+<div class="prompt input_prompt">In [34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -2740,7 +2790,7 @@ st.line_chart(df_freq)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [195]:</div>
+<div class="prompt input_prompt">In [35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%writefile</span> -a app.py
@@ -2799,7 +2849,7 @@ st.line_chart(df_freq)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [196]:</div>
+<div class="prompt input_prompt">In [36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat app.py <span class="p">|</span> pygmentize
@@ -2836,15 +2886,15 @@ wav_file = st.sidebar.file_uploader(<span class="ansi-yellow-fg">"</span><span c
     sig, wav_fs = sf.read(wav_file)  <span class="ansi-white-fg"># file-likeなので渡せる</span>
     st.line_chart(sig)
 
+<span class="ansi-blue-fg">if</span> wav_file <span class="ansi-magenta-fg">is</span> <span class="ansi-magenta-fg">not</span> <span class="ansi-cyan-fg">None</span>:
+    st.audio(wav_file)
+
 wav_files = st.sidebar.file_uploader(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">input wave files</span><span class="ansi-yellow-fg">"</span>, encoding=<span class="ansi-cyan-fg">None</span>,
                                      <span class="ansi-cyan-fg">type</span>=<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">wav</span><span class="ansi-yellow-fg">"</span>, accept_multiple_files=<span class="ansi-cyan-fg">True</span>)
 <span class="ansi-blue-fg">if</span> wav_files <span class="ansi-magenta-fg">is</span> <span class="ansi-magenta-fg">not</span> <span class="ansi-cyan-fg">None</span>:
     <span class="ansi-blue-fg">for</span> wav_fname <span class="ansi-magenta-fg">in</span> wav_files:
         sig, wav_fs = sf.read(wav_fname)
         st.line_chart(sig)
-
-<span class="ansi-blue-fg">if</span> wav_file <span class="ansi-magenta-fg">is</span> <span class="ansi-magenta-fg">not</span> <span class="ansi-cyan-fg">None</span>:
-    st.audio(wav_file)
 
 <span class="ansi-blue-fg">import</span> <span class="ansi-cyan-fg ansi-underline">os</span>
 <span class="ansi-blue-fg">import</span> <span class="ansi-cyan-fg ansi-underline">base64</span>
