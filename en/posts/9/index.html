@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS (en)" hreflang="en" href="../../rss.xml">
-<link rel="alternate" type="application/rss+xml" title="RSS (ja)" hreflang="ja" href="../../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="../../../rss.xml">
 <link rel="canonical" href="http://www.hiromasa.info/en/posts/9/">
 <!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.hiromasa.info https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
@@ -63,14 +63,14 @@ ubuntu上のsambaサービスで提供している共有フォルダにアクセ
             </div>
         </div>
           <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="../../">
+            <a class="navbar-brand blog-header-logo text-dark" href="http://www.hiromasa.info/en/">
 
             <span id="blog-title">hiromasa.info</span>
         </a>
           </div>
             <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
             <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
-<li class="nav-item"><a href="../../../" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
+<li class="nav-item"><a href="http://www.hiromasa.info/" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
 
                     
                     
@@ -114,11 +114,10 @@ ubuntu上のsambaサービスで提供している共有フォルダにアクセ
         <!--Body content-->
         
         
-        
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">osx high sierraからSMBに接続できない問題の解決</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                     Hiromasa OHASHI
             </span></p>
             <p class="dateline">
@@ -159,20 +158,20 @@ ubuntu上のsambaサービスで提供している共有フォルダにアクセ
 <h4>解決方法</h4>
 <p><code>NetAuthSysAgent 1025</code>でググって出てきた<a href="https://apple.stackexchange.com/questions/257836/mac-mini-cant-connect-to-my-corporate-smb-server-was-working-some-days-ago">stackexchangeの回答</a>で解決した。
 上記の記事いわく、Android SDKを過去にインストールした際などに入るアクセラレータであるHAXMのカーネルエクステンションがインストールされていることが原因であるとのことであり、</p>
-<pre class="code literal-block"><span></span><code>$ kextstat <span class="p">|</span> grep -iv apple
-</code></pre>
+<pre class="code literal-block"><span></span>$ kextstat <span class="p">|</span> grep -iv apple
+</pre>
 
 
 <p>の出力に<code>intelhaxm</code>が含まれている場合がそれに該当する。
 現時点でAndroid SDK自体をもはや使っていないため、下記を実行してアンインストールした。</p>
-<pre class="code literal-block"><span></span><code>$ sudo /Library/Extensions/intelhaxm.kext/Contents/Resources/uninstall.sh
-</code></pre>
+<pre class="code literal-block"><span></span>$ sudo /Library/Extensions/intelhaxm.kext/Contents/Resources/uninstall.sh
+</pre>
 
 
 <p>アンインストール後、再起動すれば接続できるようになった。</p>
 <h4>具体的なコマンド実行履歴</h4>
 <p><code>192.168.XX.XX</code>はsambaが動いているホストのIPアドレスであり、<code>smbutil view</code>は指定した<code>smb</code>プロトコルによる接続先が見えているかの確認である。</p>
-<pre class="code literal-block"><span></span><code><span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:04:33<span class="o">]</span> &gt; smbutil view smb://192.168.XX.XX                      <span class="o">[</span>~<span class="o">]</span>
+<pre class="code literal-block"><span></span><span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:04:33<span class="o">]</span> &gt; smbutil view smb://192.168.XX.XX                      <span class="o">[</span>~<span class="o">]</span>
 smbutil: server connection failed: No such file or directory
 <span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:05:48<span class="o">]</span> &gt; kextstat                                              <span class="o">[</span>~<span class="o">]</span>
 <span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:06:06<span class="o">]</span> &gt; kextstat <span class="p">|</span> grep -iv apple                             <span class="o">[</span>~<span class="o">]</span>
@@ -196,7 +195,7 @@ Do you wish to uninstall Intel HAXM <span class="o">(</span>y/n<span class="o">)
 Removing Intel HAXM files
 
 Intel HAXM has been successfully uninstalled
-</code></pre>
+</pre>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
@@ -253,7 +252,10 @@ Intel HAXM has been successfully uninstalled
 </div>
 
 
-        <script src="../../../assets/js/all-nocdn.js"></script><script>
+        <script src="../../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates --><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {

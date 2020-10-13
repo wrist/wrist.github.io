@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about kaldi)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/kaldi.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 02 Aug 2020 04:44:50 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>KaldiでVoxForgeの音響モデルを学習する(1)</title><link>http://www.hiromasa.info/en/posts/8/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;KaldiでVoxForgeの音響モデルを学習する(1)&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about kaldi)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/kaldi.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Tue, 13 Oct 2020 00:40:25 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>KaldiでVoxForgeの音響モデルを学習する(1)</title><link>http://www.hiromasa.info/en/posts/8/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;KaldiでVoxForgeの音響モデルを学習する(1)&lt;/h3&gt;
 &lt;p&gt;近年の音声認識のモデル学習ではデファクトスタンダードになっている&lt;a href="https://github.com/kaldi-asr/kaldi"&gt;Kaldi&lt;/a&gt;の使い方を少しずつ学んでいくためにVoxForgeに対する学習レシピをローカルのマシンで実行したのでメモを下記に記す。&lt;/p&gt;
 &lt;h3&gt;実行環境および学習完了までの所要時間&lt;/h3&gt;
 &lt;ul&gt;
@@ -37,13 +37,13 @@
 &lt;h5&gt;&lt;code&gt;path.sh&lt;/code&gt;の書き換え&lt;/h5&gt;
 &lt;p&gt;データダウンロードのためにまずダウンロード先フォルダを指定する必要がある。
 &lt;code&gt;path.sh&lt;/code&gt;においてコメントアウトされている下記を有効化すると同ディレクトリ下にvoxforgeディレクトリを作成しその下にダウンロードしたデータを保存する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;DATA_ROOT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$KALDI_ROOT&lt;/span&gt;&lt;span class="s2"&gt;/egs/voxforge/s5/voxforge"&lt;/span&gt;    &lt;span class="c1"&gt;# e.g. something like /media/secondary/voxforge&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;DATA_ROOT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$KALDI_ROOT&lt;/span&gt;&lt;span class="s2"&gt;/egs/voxforge/s5/voxforge"&lt;/span&gt;    &lt;span class="c1"&gt;# e.g. something like /media/secondary/voxforge&lt;/span&gt;
+&lt;/pre&gt;
 
 
 &lt;h5&gt;&lt;code&gt;getdata.sh&lt;/code&gt;の実行&lt;/h5&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ ./getdata.sh
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ ./getdata.sh
+&lt;/pre&gt;
 
 
 &lt;p&gt;を実行してデータのダウンロードを実行する。
@@ -61,28 +61,28 @@
 &lt;h4&gt;Kaldiのビルド&lt;/h4&gt;
 &lt;p&gt;学習のためにはKaldiのビルド自体を予め行っておく必要がある。
 ビルドは下記のように実施した。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;KALDI_ROOT&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/src"&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;KALDI_ROOT&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/src"&lt;/span&gt;
 $ ./configure
 $ make clean -j&lt;span class="p"&gt;;&lt;/span&gt; make depend -j&lt;span class="p"&gt;;&lt;/span&gt; make -j
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;
 
 
 &lt;p&gt;外出したためいまいち正確ではないが完了までに約3時間要した。&lt;/p&gt;
 &lt;h4&gt;学習スクリプトの実行&lt;/h4&gt;
 &lt;h5&gt;&lt;code&gt;cmd.sh&lt;/code&gt;の書き換え&lt;/h5&gt;
 &lt;p&gt;KaldiではGridEngineを搭載したサーバクラスタ(qsubなどが使える環境)であれば並列計算が可能であるが、そうでない場合はシングルノードで学習を行う必要がある。これを変更するためには&lt;code&gt;cmd.sh&lt;/code&gt;を下記のように&lt;code&gt;queue.pl&lt;/code&gt;ではなく&lt;code&gt;run.pl&lt;/code&gt;を実行するように書き換える。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# export train_cmd="queue.pl --mem 2G"&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# export train_cmd="queue.pl --mem 2G"&lt;/span&gt;
 &lt;span class="c1"&gt;# export decode_cmd="queue.pl --mem 4G"&lt;/span&gt;
 &lt;span class="c1"&gt;# export mkgraph_cmd="queue.pl --mem 8G"&lt;/span&gt;
 &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;train_cmd&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"run.pl --mem 2G"&lt;/span&gt;
 &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;decode_cmd&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"run.pl --mem 4G"&lt;/span&gt;
 &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;mkgraph_cmd&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"run.pl --mem 8G"&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;
 
 
 &lt;h5&gt;&lt;code&gt;local/make_trans.py&lt;/code&gt;の書き換え&lt;/h5&gt;
 &lt;p&gt;python2.x系のスクリプトであるためpython3.x系で動くように下記のように修正する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;diff&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;diff&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
 &lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;b4f5c413&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="n"&gt;a5b3a15&lt;/span&gt; &lt;span class="mi"&gt;100755&lt;/span&gt;
 &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
 &lt;span class="o"&gt;+++&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
@@ -112,12 +112,12 @@ $ make clean -j&lt;span class="p"&gt;;&lt;/span&gt; make depend -j&lt;span class
          &lt;span class="k"&gt;continue&lt;/span&gt;
 &lt;span class="o"&gt;-&lt;/span&gt;    &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;-&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt; &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id_prefix&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;utt2trans&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 &lt;span class="o"&gt;+&lt;/span&gt;    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;-&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt; &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id_prefix&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;utt2trans&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;
 
 
 &lt;h5&gt;&lt;code&gt;local/voxforge_prepare_dict.sh&lt;/code&gt;の書き換え&lt;/h5&gt;
 &lt;p&gt;sequitur-g2pの名前がsequiturになっているため、これを修正する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gh"&gt;diff --git a/egs/voxforge/s5/local/voxforge_prepare_dict.sh b/egs/voxforge/s5/local/voxforge_prepare_dict.sh&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gh"&gt;diff --git a/egs/voxforge/s5/local/voxforge_prepare_dict.sh b/egs/voxforge/s5/local/voxforge_prepare_dict.sh&lt;/span&gt;
 &lt;span class="gh"&gt;index 4242af29d..18d4498b3 100755&lt;/span&gt;
 &lt;span class="gd"&gt;--- a/egs/voxforge/s5/local/voxforge_prepare_dict.sh&lt;/span&gt;
 &lt;span class="gi"&gt;+++ b/egs/voxforge/s5/local/voxforge_prepare_dict.sh&lt;/span&gt;
@@ -130,14 +130,14 @@ $ make clean -j&lt;span class="p"&gt;;&lt;/span&gt; make depend -j&lt;span class
 &lt;span class="gi"&gt;+sequitur=$KALDI_ROOT/tools/sequitur-g2p&lt;/span&gt;
  export PATH=$PATH:$sequitur/bin
  export PYTHONPATH=$PYTHONPATH:`utils/make_absolute.sh $sequitur/lib/python*/site-packages`
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;
 
 
 &lt;h5&gt;学習の実行&lt;/h5&gt;
 &lt;p&gt;上記の変更を加えておけば&lt;code&gt;run.sh&lt;/code&gt;で学習が実行されるはずである。&lt;/p&gt;
 &lt;h3&gt;実行結果&lt;/h3&gt;
 &lt;p&gt;上記試行錯誤を行ったため、ログとしては途中(&lt;code&gt;utils/prepare_lang.sh&lt;/code&gt;実行時)からになるが具体的な実行ログを下記に記す。2600行ぐらいあるので注意。当初は30%近くであったWERが学習が進むにつれて10%以下になっていくことが分かる。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# * Begin 8/3(Fri)&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# * Begin 8/3(Fri)&lt;/span&gt;
 &lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;20&lt;/span&gt;:42:47&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; ./run.sh                                                     &lt;span class="o"&gt;[&lt;/span&gt;~/work/asr/kaldi/egs/voxforge/s5 &lt;span class="o"&gt;(&lt;/span&gt;git&lt;span class="o"&gt;)&lt;/span&gt;-&lt;span class="o"&gt;[&lt;/span&gt;master&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;]&lt;/span&gt;
 utils/prepare_lang.sh --position-dependent-phones &lt;span class="nb"&gt;true&lt;/span&gt; data/local/dict !SIL data/local/lang data/lang
 Checking data/local/dict/silence_phones.txt ...
@@ -2799,7 +2799,7 @@ exp/combine_sgmm2_4a_mmi_3b_fmmic5/decode/wer_9
 %SER &lt;span class="m"&gt;38&lt;/span&gt;.00 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;190&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
 &lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;21&lt;/span&gt;:56:35&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt;                                                             &lt;span class="o"&gt;[&lt;/span&gt;~/work/asr/kaldi/egs/voxforge/s5 &lt;span class="o"&gt;(&lt;/span&gt;git&lt;span class="o"&gt;)&lt;/span&gt;-&lt;span class="o"&gt;[&lt;/span&gt;master&lt;span class="o"&gt;]&lt;/span&gt;-&lt;span class="o"&gt;]&lt;/span&gt;
 &lt;span class="c1"&gt;# * Finished at 8/8(Wed)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;
 
 
 &lt;h3&gt;今後&lt;/h3&gt;

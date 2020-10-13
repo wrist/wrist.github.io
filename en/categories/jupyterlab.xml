@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlab)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlab.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sun, 02 Aug 2020 04:44:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</title><link>http://www.hiromasa.info/en/posts/21/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h2&gt;Xeus関連の情報(PyData Osaka 2020/8/2用の記事)&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlab)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlab.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Tue, 13 Oct 2020 00:40:16 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</title><link>http://www.hiromasa.info/en/posts/21/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h2&gt;Xeus関連の情報(PyData Osaka 2020/8/2用の記事)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;最近のJupyter Blogから一部記事を抜粋して紹介します。&lt;/li&gt;
 &lt;li&gt;Xeus関連の情報がメインです&lt;/li&gt;
@@ -48,10 +48,10 @@
 &lt;/ul&gt;
 &lt;h4&gt;&lt;code&gt;Xeus&lt;/code&gt;がJupyter管轄下へと移行した理由&lt;/h4&gt;
 &lt;p&gt;以下に引用&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;While Xeus started as a side project for QuantStack engineers,&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;While Xeus started as a side project for QuantStack engineers,&lt;/span&gt;
 &lt;span class="err"&gt;the project now has several stakeholders who depend on it.&lt;/span&gt;
 &lt;span class="err"&gt;We think that moving the project to an open governance organization may be a better way to reflect this situation.&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;
 
 
 &lt;h3&gt;&lt;a href="https://blog.jupyter.org/a-visual-debugger-for-jupyter-914e61716559"&gt;A visual debugger for Jupyter (2020/3/26)&lt;/a&gt;&lt;/h3&gt;
@@ -75,8 +75,8 @@
 &lt;h4&gt;インストール方法&lt;/h4&gt;
 &lt;p&gt;フロントエンドとなるプラグインとバックエンドとなるカーネルが必要&lt;/p&gt;
 &lt;h5&gt;フロントエンド&lt;/h5&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ jupyter labextension install @jupyterlab/debugger
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ jupyter labextension install @jupyterlab/debugger
+&lt;/pre&gt;
 
 
 &lt;p&gt;このデバッガフロントエンドは将来のリリースにおいてはデフォルトで同梱される予定。&lt;/p&gt;
@@ -88,8 +88,8 @@
 &lt;/li&gt;
 &lt;li&gt;ipykernelにデバッガプロトコルを実装するのはロードマップには存在&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ conda install xeus-python -c conda-forge
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ conda install xeus-python -c conda-forge
+&lt;/pre&gt;
 
 
 &lt;ul&gt;
@@ -350,7 +350,7 @@
 正直wavファイルの場合は上記チュートリアルと全く同じ操作で作成できてしまいました。&lt;/p&gt;
 &lt;h3&gt;プロジェクトの初期化&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;cookiecutter&lt;/code&gt;を使って雛形を生成します。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;❯ cookiecutter https://github.com/jupyterlab/mimerender-cookiecutter-ts.git
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;❯ cookiecutter https://github.com/jupyterlab/mimerender-cookiecutter-ts.git
 author_name &lt;span class="o"&gt;[]&lt;/span&gt;: wrist
 author_email &lt;span class="o"&gt;[]&lt;/span&gt;: stoicheia1986@gmail.com
 extension_name &lt;span class="o"&gt;[&lt;/span&gt;myextension&lt;span class="o"&gt;]&lt;/span&gt;: jupyterlab-wav
@@ -362,16 +362,16 @@ Select data_format:
 &lt;span class="m"&gt;1&lt;/span&gt; - string
 &lt;span class="m"&gt;2&lt;/span&gt; - json
 Choose from &lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="m"&gt;1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;
 
 
 &lt;h3&gt;Extensionのビルドとインストール&lt;/h3&gt;
 &lt;p&gt;Extensionの作成には&lt;code&gt;yarn&lt;/code&gt;のバージョンが固定された&lt;code&gt;jlpm&lt;/code&gt;というjupyterlab付属のツールを用いて行います。
 依存パッケージをインストールし、Extensionをビルドし、jupyterlabのextensionとしてインストールするためには下記を実行します。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;jlpm install
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;jlpm install
 jlpm run build
 jupyter labextension install . --no-build
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;
 
 
 &lt;p&gt;ここで上記をローカル環境で試したところ、jupyterlabのバージョンが1.2.1の場合は現在のJupyterlabとはバージョンの互換性がないというエラーがでてしまいました(既に2.0.0以上を想定している模様です)。&lt;/p&gt;
@@ -427,7 +427,7 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;大した量ではないためコード全体を下記に記します。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;IRenderMime&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="nx"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'@jupyterlab/rendermime-interfaces'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;IRenderMime&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="nx"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'@jupyterlab/rendermime-interfaces'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 
 
@@ -511,7 +511,7 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
 &lt;span class="p"&gt;};&lt;/span&gt;
 
 &lt;span class="kr"&gt;export&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="nx"&gt;extension&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;
 
 
 &lt;p&gt;上記コードを再度ビルドしてjupyterlabを再読み込みすれば完了です。&lt;/p&gt;
@@ -526,22 +526,22 @@ extensionは単一のJavascriptパッケージであり、npmjs.orgから配布�
 このキーワードはcookiecutterで自動生成された場合既に含まれているため、自ら追加する必要はありません。&lt;/p&gt;
 &lt;p&gt;よってnpmjs.orgへと登録することを考えます。
 まずコマンドラインからnpmjsにログインしておきます。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ npm adduser  &lt;span class="c1"&gt;# ユーザをnpmjs上に作成していない場合&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ npm adduser  &lt;span class="c1"&gt;# ユーザをnpmjs上に作成していない場合&lt;/span&gt;
 $ npm login
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;
 
 
 &lt;p&gt;次に&lt;code&gt;package.json&lt;/code&gt;を編集し、&lt;code&gt;name&lt;/code&gt;の値を&lt;code&gt;jupyterlab-wav&lt;/code&gt;から&lt;code&gt;@wrist/jupyterlab-wav&lt;/code&gt;というように&lt;code&gt;@username/extension-name&lt;/code&gt;へと変えます。
 更に必要に応じて&lt;code&gt;homepage&lt;/code&gt;、&lt;code&gt;license&lt;/code&gt;、&lt;code&gt;repository&lt;/code&gt;などのフィールドを追加します。&lt;/p&gt;
 &lt;p&gt;最後に、&lt;code&gt;README.md&lt;/code&gt;を編集して&lt;code&gt;jupyter labextension install&lt;/code&gt;の部分を&lt;code&gt;@wrist/jupyterlab-wav&lt;/code&gt;のように変更します。&lt;/p&gt;
 &lt;p&gt;上記を終えたら下記でnpmjsへとアップロードして終了です。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ npm publish --access&lt;span class="o"&gt;=&lt;/span&gt;public
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ npm publish --access&lt;span class="o"&gt;=&lt;/span&gt;public
+&lt;/pre&gt;
 
 
 &lt;p&gt;無事に&lt;a href="https://www.npmjs.com/package/@wrist/jupyterlab-wav"&gt;https://www.npmjs.com/package/@wrist/jupyterlab-wav&lt;/a&gt;へとアップロードされていれば、以後&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ jupyter labextension install @wrist/jupyterlab-wav
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ jupyter labextension install @wrist/jupyterlab-wav
+&lt;/pre&gt;
 
 
 &lt;p&gt;と打つことでインストールできるようになります。
@@ -616,10 +616,10 @@ $ pip install openfst-python
 
 
 
-&lt;div id="7065ce94-f031-4698-bce6-6f48cd020cbb"&gt;&lt;/div&gt;
+&lt;div id="a819d931-5cc9-4ef7-bc69-414953834458"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#7065ce94-f031-4698-bce6-6f48cd020cbb');
+var element = $('#a819d931-5cc9-4ef7-bc69-414953834458');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
