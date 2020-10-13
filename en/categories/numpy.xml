@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about numpy)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/numpy.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Tue, 13 Oct 2020 11:55:57 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>2018/12/21にPyData Osakaの梅キャンPython勉強会コラボ回でpybind11について発表しました</title><link>http://www.hiromasa.info/en/posts/14/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about numpy)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/numpy.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Tue, 13 Oct 2020 16:10:46 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>2018/12/21にPyData Osakaの梅キャンPython勉強会コラボ回でpybind11について発表しました</title><link>http://www.hiromasa.info/en/posts/14/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h3 id="2018/12/21(金)にPyData-Osakaの梅キャンPython勉強会コラボ回でpybind11について発表しました"&gt;2018/12/21(金)にPyData Osakaの梅キャンPython勉強会コラボ回でpybind11について発表しました&lt;a class="anchor-link" href="http://www.hiromasa.info/en/posts/14/#2018/12/21(%E9%87%91)%E3%81%ABPyData-Osaka%E3%81%AE%E6%A2%85%E3%82%AD%E3%83%A3%E3%83%B3Python%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%82%B3%E3%83%A9%E3%83%9C%E5%9B%9E%E3%81%A7pybind11%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E7%99%BA%E8%A1%A8%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;ブログ記事にするのが遅くなりましたが2018/12/21に&lt;a href="https://studygroup-umecanoit.connpass.com/event/110422/"&gt;【大阪工業大学】特別回 梅キャンPython勉強会【梅田キャンパス】 &lt;/a&gt;でpybind11に関する発表を行いました。
@@ -221,10 +221,10 @@
 
 
 
-&lt;div id="1df8d97a-996c-4919-8c81-04433cbbc7f6"&gt;&lt;/div&gt;
+&lt;div id="f9479d2f-aa9f-45e4-8fbf-4cdefc2d4020"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#1df8d97a-996c-4919-8c81-04433cbbc7f6');
+var element = $('#f9479d2f-aa9f-45e4-8fbf-4cdefc2d4020');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
