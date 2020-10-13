@@ -30,6 +30,7 @@ install:
 - pip install 'ghp-import2'
 - pip install 'webassets'
 - pip install -U --upgrade-strategy=eager 'Nikola[extras]==8.0.1'
+- pip install -U --upgrade-strategy=eager 'nbconvert==5.6.1'
 script:
 - nikola build && nikola github_deploy -m 'Nikola auto deploy [ci skip]'
 notifications:
