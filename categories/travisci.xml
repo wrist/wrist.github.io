@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (travisciについての文書)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/travisci.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Tue, 13 Oct 2020 16:10:48 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Travis CIによるNikolaブログ構築の自動化</title><link>http://www.hiromasa.info/posts/6/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Travis CIによるNikolaブログ構築の自動化&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (travisciについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/travisci.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sat, 17 Oct 2020 09:13:53 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Travis CIによるNikolaブログ構築の自動化</title><link>http://www.hiromasa.info/posts/6/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Travis CIによるNikolaブログ構築の自動化&lt;/h3&gt;
 &lt;p&gt;Nikolaでブログを構築するための方法は過去の記事(&lt;a href="http://www.hiromasa.info/posts/1/"&gt;1&lt;/a&gt;, &lt;a href="http://www.hiromasa.info/posts/2/"&gt;2&lt;/a&gt;, &lt;a href="http://www.hiromasa.info/posts/3/"&gt;3&lt;/a&gt;)に書いていますが、手元でのビルドのためにpythonやnikolaがインストールされたPCが必要になるため、ブログ記事を書くための環境が限定されてしまうという問題がありました。
 そこで、この記事では&lt;a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html"&gt;Nikola公式の記事&lt;/a&gt;を参考に、Travis CIを用いることでsrcブランチにブログ記事をコミットするだけでTravis CI側で自動的にブログを構築し、masterブランチにプッシュしてくれる仕組みを構築する過程を紹介します。
 なお、以下の作業はすべてsrcブランチ上で行います。&lt;/p&gt;
 &lt;h4&gt;&lt;code&gt;conf.py&lt;/code&gt;の編集&lt;/h4&gt;
 &lt;p&gt;まず、&lt;code&gt;nikola github_deploy&lt;/code&gt;コマンド実行時に、デプロイと同時にsrcブランチもコミットするかどうかを制御するためのオプションをFalseに設定します。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;GITHUB_COMMIT_SOURCE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;False&lt;/span&gt;
-&lt;/pre&gt;
-
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;GITHUB_COMMIT_SOURCE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;False&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;これはTravis CIではソースブランチへのコミットをトリガーに&lt;code&gt;nikola build &amp;amp;&amp;amp; nikola github_deploy&lt;/code&gt;を実行するため、&lt;code&gt;nikola github_deploy&lt;/code&gt;によってsrcブランチがコミットされると再度それがトリガーとなって無限ループに陥ってしまうことを防ぐためです。&lt;/p&gt;
 &lt;h4&gt;&lt;code&gt;.travis.yml&lt;/code&gt;の作成&lt;/h4&gt;
 &lt;p&gt;nikolaブログのルートディレクトリ(&lt;code&gt;conf.py&lt;/code&gt;が置いてあるディレクトリ)に以下のような&lt;code&gt;.travis.yml&lt;/code&gt;ファイルを作成します。
 これは&lt;a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html"&gt;Nikola公式の記事&lt;/a&gt;に記載のtravis.ymlを改変したものになります。&lt;/p&gt;
 &lt;p&gt;※2019/4/8追記, &lt;a href="https://github.com/getnikola/nikola/issues/3237"&gt;travis CIでのビルドに失敗する対策のissue&lt;/a&gt;の内容を反映&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;language&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;python&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;language&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;python&lt;/span&gt;
 &lt;span class="nt"&gt;cache&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;apt&lt;/span&gt;
 &lt;span class="nt"&gt;sudo&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;false&lt;/span&gt;
 &lt;span class="nt"&gt;addons&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
@@ -50,28 +49,24 @@
   &lt;span class="nt"&gt;email&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
     &lt;span class="nt"&gt;on_success&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;change&lt;/span&gt;
     &lt;span class="nt"&gt;on_failure&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;always&lt;/span&gt;
-&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;ここで、&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;- git config --global user.name 'USERNAME'&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;- git config --global user.name 'USERNAME'&lt;/span&gt;
 &lt;span class="err"&gt;- git config --global user.email 'travis@invalid'&lt;/span&gt;
-&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;の行は適切なユーザー名、メールアドレスに、&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;- git remote add origin git@github.com:USERNAME/REPO.git&lt;/span&gt;
-&lt;/pre&gt;
-
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;- git remote add origin git@github.com:USERNAME/REPO.git&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;の行は適切なユーザー名およびリポジトリ名に変更する必要があります。&lt;/p&gt;
 &lt;h4&gt;SSH鍵の生成&lt;/h4&gt;
 &lt;p&gt;まず、&lt;code&gt;.gitignore&lt;/code&gt;ファイルに&lt;code&gt;id_rsa&lt;/code&gt;と&lt;code&gt;id_rsa.pub&lt;/code&gt;を無視する設定を追記した上でSSH鍵を生成します。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; id_rsa &amp;gt;&amp;gt; .gitignore
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; id_rsa &amp;gt;&amp;gt; .gitignore
 $ &lt;span class="nb"&gt;echo&lt;/span&gt; id_rsa.pub &amp;gt;&amp;gt; .gitignore
 $ ssh-keygen -C TravisCI -f id_rsa -N &lt;span class="s1"&gt;''&lt;/span&gt;
-&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;上記を実行すると秘密鍵&lt;code&gt;id_rsa&lt;/code&gt;および公開鍵&lt;code&gt;id_rsa.pub&lt;/code&gt;が作成されます。
 念のため、&lt;code&gt;.gitignore&lt;/code&gt;の無視設定が合っているかを確認するために&lt;code&gt;git status&lt;/code&gt;を実行してもaddされる対象となっていないことを確認しておきましょう。
@@ -86,38 +81,34 @@ $ ssh-keygen -C TravisCI -f id_rsa -N &lt;span class="s1"&gt;''&lt;/span&gt;
 &lt;p&gt;生成した秘密鍵&lt;code&gt;id_rsa&lt;/code&gt;は&lt;code&gt;travis encrypt-file&lt;/code&gt;によって&lt;code&gt;id_rsa.enc&lt;/code&gt;に共通鍵による暗号化を施した上でリポジトリに追加します。
 この暗号化された&lt;code&gt;id_rsa.enc&lt;/code&gt;はTravis CIでの自動ビルド時に共通鍵によって復号化され、Travis CIのgithubへのアクセスに使用されます。&lt;/p&gt;
 &lt;p&gt;この作業を実行するためにはtravisコマンドが必要となりますが、これはrubyのgemとして配布されているため、インストールされていない場合は下記にようにgemでインストールする必要があります。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ gem install --user-install travis
-&lt;/pre&gt;
-
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ gem install --user-install travis
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;なおtravisコマンドがインストールされる場所にPATHが通っていない場合はPATHに追加するか、下記一連のコマンドをフルパスで実行する必要があります。&lt;/p&gt;
 &lt;p&gt;travisコマンドが実行可能になったら、更に下記を実行します。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ travis login
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ travis login
 $ travis &lt;span class="nb"&gt;enable&lt;/span&gt;
 $ travis encrypt-file id_rsa --add
-&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;code&gt;travis login&lt;/code&gt;を実行するとgithubアカウントのユーザ名、パスワードを求められるため入力してください。
 この上で&lt;code&gt;travis enable&lt;/code&gt;を実行すると自動ビルドを有効化するリポジトリが正しいか確認されるため、正しければyesと入力しましょう。
 更に&lt;code&gt;travis encrypt-file id_rsa --add&lt;/code&gt;を実行すると、秘密鍵&lt;code&gt;id_rsa&lt;/code&gt;が暗号化されて&lt;code&gt;id_rsa.enc&lt;/code&gt;が生成されます。
 この&lt;code&gt;id_rsa.enc&lt;/code&gt;は&lt;code&gt;.gitignore&lt;/code&gt;に追加されていないため、&lt;code&gt;git add&lt;/code&gt;によってgitの管理下に置かれることになります。
 なお引数の&lt;code&gt;--add&lt;/code&gt;を付けておくと、&lt;code&gt;.travis.yml&lt;/code&gt;ファイルに&lt;code&gt;id_rsa.enc&lt;/code&gt;の復号化を行うための下記のようなopensslのコマンドを追加してくれます。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;before_install&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;before_install&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
 &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;openssl aes-256-cbc -K $encrypted_XXXXXX_key -iv $encrypted_XXXXXX_iv&lt;/span&gt;
   &lt;span class="l l-Scalar l-Scalar-Plain"&gt;-in id_rsa.enc -out id_rsa -d&lt;/span&gt;
-&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;code&gt;-K&lt;/code&gt;は共通鍵、&lt;code&gt;-iv&lt;/code&gt;は初期ベクトルの指定であり、指定されている値はTravis CI側で環境変数として設定されています。
 (ブラウザからTravis CIの設定を見ると確認することができます)&lt;/p&gt;
 &lt;h4&gt;srcブランチへの各種ファイルのadd, commitおよびgithubへのpush&lt;/h4&gt;
 &lt;p&gt;以上の作業により&lt;code&gt;conf.py&lt;/code&gt;、&lt;code&gt;.gitignore&lt;/code&gt;、&lt;code&gt;.travis.yml&lt;/code&gt;、&lt;code&gt;id_rsa.enc&lt;/code&gt;の4つのファイルが編集・生成されているため、これをsrcブランチにaddした上でcommitし、更にremoteとなっているgithubにpushします。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ git add .
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ git add .
 $ git commit -am &lt;span class="s2"&gt;"Automate builds with Travis CI"&lt;/span&gt;
 $ git push origin src
-&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;これによりTravis CIの自動ビルドが実行されるはずなので、あとはブラウザからTravis CIのページを確認し、ビルドが通っているかを確認するのが良いでしょう。&lt;/p&gt;
 &lt;h4&gt;上記設定以降の記事の追加方法&lt;/h4&gt;

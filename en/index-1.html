@@ -11,8 +11,8 @@
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="rss.xml">
-<link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" hreflang="en" href="rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" hreflang="ja" href="../rss.xml">
 <link rel="canonical" href="http://www.hiromasa.info/en/index-1.html">
 <link rel="prev" href="index-2.html" type="text/html">
 <!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.hiromasa.info https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
@@ -48,14 +48,14 @@
             </div>
         </div>
           <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="http://www.hiromasa.info/en/">
+            <a class="navbar-brand blog-header-logo text-dark" href=".">
 
             <span id="blog-title">hiromasa.info</span>
         </a>
           </div>
             <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
             <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
-<li class="nav-item"><a href="http://www.hiromasa.info/" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
+<li class="nav-item"><a href="../" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
 
                     
                     
@@ -93,6 +93,7 @@
         <!--Body content-->
         
         
+        
     
         
 
@@ -124,9 +125,8 @@
 <p><code>conf.py</code>の<code>POSTS</code>と<code>PAGES</code>に<code>ipynb</code>用のエントリを追加しておきます。</p>
 <h4>ipynbファイルでのブログ記事新規作成</h4>
 <p>mdファイルでの作成と同じように<code>nikola new_post -f 形式</code>で形式にipynbを指定すれば良いです。</p>
-<pre class="code literal-block"><span></span>$ nikola new_post -f ipynb
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ nikola new_post -f ipynb
+</code></pre>
 
 <p>記事タイトルを聞かれるので入力すると<code>posts</code>ディレクトリ下にipynbファイルが生成されます。</p>
 <h4>既存ipynbファイルの使用</h4>
@@ -136,7 +136,7 @@
 <li>Jupyter Notebookで<code>Menu -&gt; Edit -&gt; Edit Notebook Metadata</code>を選択</li>
 <li>下記のようなエントリを追加(最初の{...}は元々metadataに書かれていたエントリを省略したものです)</li>
 </ul>
-<pre class="code literal-block"><span></span><span class="p">{</span> <span class="err">{...</span><span class="p">}</span><span class="err">,</span>
+<pre class="code literal-block"><span></span><code><span class="p">{</span> <span class="err">{...</span><span class="p">}</span><span class="err">,</span>
   <span class="s2">"nikola"</span><span class="err">:</span> <span class="p">{</span>
     <span class="nt">"tags"</span><span class="p">:</span> <span class="s2">"python,pydata,numpy,scipy,librosa,scikit-learn"</span><span class="p">,</span>
     <span class="nt">"title"</span><span class="p">:</span> <span class="s2">"2018/2/28にPydata Osakaで'SciPyの概要と各モジュールの紹介'というタイトルで発表しました"</span><span class="p">,</span>
@@ -148,16 +148,14 @@
     <span class="nt">"description"</span><span class="p">:</span> <span class="s2">""</span>
   <span class="p">}</span>
 <span class="err">}</span>
-</pre>
-
+</code></pre>
 
 <h4>ブログポストの構築</h4>
 <p>markdownのときと同じように<code>nikola build</code>でブログを構築します。
 <code>nikola serve</code>でローカルでの確認を取ります。</p>
-<pre class="code literal-block"><span></span>$ nikola build
+<pre class="code literal-block"><span></span><code>$ nikola build
 $ nikola serve -b
-</pre>
-
+</code></pre>
 
 <h4>MathJaxの描画</h4>
 <p>上記までで記事の追加は可能なのですが、このままだとMathJaxによる数式が描画されません。
@@ -208,11 +206,10 @@ $ nikola serve -b
 nikolaはstaticファイルを吐き出すgeneratorなので後者のMETAタグを用いた設定を行うこととなる。
 METAタグによる設定はHEADタグの最初に書くべきであるが、nikolaではHEADタグの頭に書くようなオプションはないため、仕方なく<code>EXTRA_HEAD_DATA</code>オプションにこのための設定を記述する。
 実際に設定しているCSPの設定は下記の通りである。</p>
-<pre class="code literal-block"><span></span><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
+<pre class="code literal-block"><span></span><code><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com;"&gt;</span>
 <span class="s2">"""</span>
-</pre>
-
+</code></pre>
 
 <p>基本的には"default-src"に対して'self'、'unsafe-inline'、および各ドメインに対する設定をhttpとhttpsに分けて記述している形になる。
 'self'と'unsafe-inline'については<a href="https://developers.google.com/web/fundamentals/security/csp/?hl=ja">GoogleのCSPに関するページ</a>に記載があるが、
@@ -224,7 +221,7 @@ METAタグによる設定はHEADタグの最初に書くべきであるが、nik
 リンク先ページにも記述があるように、evalを要求してくるような部分は上記CSP設定でもブロックされるが、これはdisqusによる広告の挿入のためであるとのことであるため、特に許可していない。</p>
 <h3>Google Analyticsの設定</h3>
 <p>Google Analyticsの設定はCSPと同様にHEADタグ内に書く必要があるため、<code>EXTRA_HEAD_DATA</code>のオプションに追加で設定する。</p>
-<pre class="code literal-block"><span></span><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
+<pre class="code literal-block"><span></span><code><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">&lt;!-- Global site tag (gtag.js) - Google Analytics --&gt;</span>
 <span class="s2">&lt;script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"&gt;&lt;/script&gt;</span>
 <span class="s2">&lt;script&gt;</span>
@@ -235,8 +232,7 @@ METAタグによる設定はHEADタグの最初に書くべきであるが、nik
 <span class="s2">&lt;/script&gt;</span>
 <span class="s2">&lt;!-- End Google Analytics --&gt;</span>
 <span class="s2">"""</span>
-</pre>
-
+</code></pre>
 
 <p>ここでは従来使われていたトラッキング用のコードではなく、Google Tag Managerを使用するコードの記載としている。"UA-XXXX"のXXXXの部分は各自独自の設定に書き換える必要がある。</p>
 <h3>SNSボタンの設置</h3>
@@ -251,9 +247,8 @@ METAタグによる設定はHEADタグの最初に書くべきであるが、nik
 <p>などの理由から、結果として各サービスのSNSのボタンを個別に追加した方がトラブルを避けられたため、ここでは個別にどのように追加したかについて記載する。</p>
 <h4>SNSボタンの設定方法</h4>
 <p>前述のように<code>SOCIAL_BUTTONS_CODE</code>のオプションは使わない。代わりに<code>CONTENT_FOOTER</code>のオプションを使用する。<code>CONTENT_FOOTER</code>は当初下記のような記述になっている。</p>
-<pre class="code literal-block"><span></span><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"Contents &amp;copy; </span><span class="si">{date}</span><span class="s2">         &lt;a href="</span><span class="n">mailto</span><span class="p">:{</span><span class="n">email</span><span class="p">}</span><span class="s2">"&gt;</span><span class="si">{author}</span><span class="s2">&lt;/a&gt; - Powered by         &lt;a href="</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">getnikola</span><span class="o">.</span><span class="n">com</span><span class="s2">" rel="</span><span class="n">nofollow</span><span class="s2">"&gt;Nikola&lt;/a&gt;         </span><span class="si">{license}</span><span class="s2">"</span>
-</pre>
-
+<pre class="code literal-block"><span></span><code><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"Contents &amp;copy; </span><span class="si">{date}</span><span class="s2">         &lt;a href="</span><span class="n">mailto</span><span class="p">:{</span><span class="n">email</span><span class="p">}</span><span class="s2">"&gt;</span><span class="si">{author}</span><span class="s2">&lt;/a&gt; - Powered by         &lt;a href="</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">getnikola</span><span class="o">.</span><span class="n">com</span><span class="s2">" rel="</span><span class="n">nofollow</span><span class="s2">"&gt;Nikola&lt;/a&gt;         </span><span class="si">{license}</span><span class="s2">"</span>
+</code></pre>
 
 <p>上記は設定年、著者名、Nikolaによる生成であることをfooterとして設定するための記述となっている。
 <code>{date}</code>や<code>{email}</code>、<code>{author}</code>など、埋め込み文字列のようになっている部分に気付くかもしれないが、
@@ -262,7 +257,7 @@ format関数の引数としては、別途設定されているオプション<c
 そのため、<code>CONTENT_FOOTER</code>中で<code>{</code>や<code>}</code>を用いる場合は、pythonのformat関数の仕様に合わせて<code>{{</code>や<code>}}</code>のように記述する必要があることに注意されたい。</p>
 <p>SNSボタン設定に関する記述は、<code>CONTENT_FOOTER</code>の後続する部分にタグを埋め込むことで行う。
 最終的には下記のような記述となっている。facebookのscript部分の中括弧を'{{'と'}}'に変えている。</p>
-<pre class="code literal-block"><span></span><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"""Contents &amp;copy; </span><span class="si">{date}</span><span class="s2">         &lt;a href="mailto:</span><span class="si">{email}</span><span class="s2">"&gt;</span><span class="si">{author}</span><span class="s2">&lt;/a&gt; - Powered by         &lt;a href="https://getnikola.com" rel="nofollow"&gt;Nikola&lt;/a&gt;         </span><span class="si">{license}</span><span class="s2"></span>
+<pre class="code literal-block"><span></span><code><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"""Contents &amp;copy; </span><span class="si">{date}</span><span class="s2">         &lt;a href="mailto:</span><span class="si">{email}</span><span class="s2">"&gt;</span><span class="si">{author}</span><span class="s2">&lt;/a&gt; - Powered by         &lt;a href="https://getnikola.com" rel="nofollow"&gt;Nikola&lt;/a&gt;         </span><span class="si">{license}</span><span class="s2"></span>
 <span class="s2">&lt;!-- twitter --&gt;</span>
 <span class="s2">&lt;a href="https://twitter.com/share?ref_src=twsrc</span><span class="si">%5E</span><span class="s2">tfw" class="twitter-share-button" data-show-count="false"&gt;Tweet&lt;/a&gt;</span>
 <span class="s2">&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;</span>
@@ -284,8 +279,7 @@ format関数の引数としては、別途設定されているオプション<c
 <span class="s2">&lt;/a&gt;</span>
 <span class="s2">&lt;script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"&gt;&lt;/script&gt;</span>
 <span class="s2">"""</span>
-</pre>
-
+</code></pre>
 
 <p>各SNSボタン用コードの取得に関しては以下に記述する。実際の見た目については一番下までスクロールすれば見えると思われる。</p>
 <h4>twitter</h4>
@@ -295,17 +289,15 @@ format関数の引数としては、別途設定されているオプション<c
 「いいね！」するURLは空白、レイアウトは"button"、アクションタイプは"like"、ボタンサイズは"small"、友達の顔は表示する、シェアボタンを追加、のチェックは共にOnにした状態でコードを取得し、そのコードを<code>CONTENT_FOOTER</code>オプションに追加した。</p>
 <h5>Open Graph対応</h5>
 <p>facebookのいいね・シェアボタンやGoogle Plusの+1ボタンなどが対応しているOpen Graphへの対応は<code>conf.py</code>のオプションを有効化することによって実現できる。下記オプションをTrueに設定すると、</p>
-<pre class="code literal-block"><span></span><span class="n">USE_OPEN_GRAPH</span> <span class="o">=</span> <span class="kc">True</span>
-</pre>
-
+<pre class="code literal-block"><span></span><code><span class="n">USE_OPEN_GRAPH</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre>
 
 <p>出力されるHTMLのheadタグ内に下記記述が追加される。</p>
-<pre class="code literal-block"><span></span><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">"og:site_name"</span> <span class="na">content</span><span class="o">=</span><span class="s">"hiromasa.info"</span><span class="p">&gt;</span>
+<pre class="code literal-block"><span></span><code><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">"og:site_name"</span> <span class="na">content</span><span class="o">=</span><span class="s">"hiromasa.info"</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">"og:title"</span> <span class="na">content</span><span class="o">=</span><span class="s">"nikolaでCSP、Google Analytics、SNSボタンの設定を行う"</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">"og:url"</span> <span class="na">content</span><span class="o">=</span><span class="s">"http://www.hiromasa.info/posts/2/"</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">"og:description"</span> <span class="na">content</span><span class="o">=</span><span class="s">"..."</span><span class="p">&gt;</span>
-</pre>
-
+</code></pre>
 
 <p>description内のcontentの記述は省略したが、本文(主にh2など)から抽出した内容が記載される。
 なお、<code>USE_OPEN_GRAPH</code>のオプションは<a href="https://github.com/getnikola/nikola/issues/2840">このIssue</a>で"Unnecessary customization"扱いとなっており、将来的にデフォルトでTrueになっている(オプションから消失している)可能性がある。</p>
@@ -316,7 +308,7 @@ format関数の引数としては、別途設定されているオプション<c
 この理由はボタンウィジェットに対するCSSの<code>vertical-align</code>がbottomになっているせいである(<a href="https://developers.google.com/web/fundamentals/security/csp/?hl=ja">参考</a>)。
 これを調整するためには<code>vertical-align</code>をbaselineにしてやれば良い。
 これらのCSS設定は<code>HEAD</code>タグ内で設定する必要があるため、<code>EXTRA_HEAD_DATA</code>オプションにstyleタグおよび設定を追加する。</p>
-<pre class="code literal-block"><span></span>EXTRA_HEAD_DATA = """
+<pre class="code literal-block"><span></span><code>EXTRA_HEAD_DATA = """
 <span class="c">&lt;!-- for facebook button --&gt;</span>
 <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
 <span class="p">.</span><span class="nc">fb-like</span> <span class="p">{</span>
@@ -330,8 +322,7 @@ format関数の引数としては、別途設定されているオプション<c
 <span class="p">}</span>
 <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 """
-</pre>
-
+</code></pre>
 
 <h4>はてなブックマークボタン</h4>
 <p><a href="http://b.hatena.ne.jp/guide/bbutton">設置方法</a>に従って出力されたコードをそのまま使用している。
@@ -339,7 +330,7 @@ format関数の引数としては、別途設定されているオプション<c
 <h3>最終的な<code>EXTRA_HEAD_DATA</code>
 </h3>
 <p>上記の複数箇所で触れた<code>EXTRA_HEAD_DATA</code>は最終的に以下のような形で記述している。</p>
-<pre class="code literal-block"><span></span><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
+<pre class="code literal-block"><span></span><code><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com;"&gt;</span>
 
 <span class="s2">&lt;!-- Global site tag (gtag.js) - Google Analytics --&gt;</span>
@@ -365,8 +356,7 @@ format関数の引数としては、別途設定されているオプション<c
 <span class="s2">}</span>
 <span class="s2">&lt;/style&gt;</span>
 <span class="s2">"""</span>
-</pre>
-
+</code></pre>
 
 <h3>参考</h3>
 <ul>
@@ -397,23 +387,20 @@ format関数の引数としては、別途設定されているオプション<c
 <h3>Nikolaでブログを生成</h3>
 <h4>インストール</h4>
 <p>pipでインストールできる。</p>
-<pre class="code literal-block"><span></span>$ pip install nikola
+<pre class="code literal-block"><span></span><code>$ pip install nikola
 $ pip install webassets
-</pre>
-
+</code></pre>
 
 <p>後述するbuildの際などに下記のようなメッセージが出るので合わせてwebassetsもインストールしておくと良い。</p>
-<pre class="code literal-block"><span></span><span class="err">[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.</span>
+<pre class="code literal-block"><span></span><code><span class="err">[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.</span>
 <span class="err">[2018-01-08T01:42:01Z] WARNING: bundles: Setting USE_BUNDLES to False.</span>
-</pre>
-
+</code></pre>
 
 <h4>ブログの雛形生成</h4>
 <p>nikolaはgitのように<code>nikola サブコマンド</code>の形式で様々なコマンドを実行できる。
 雛形の生成のためには<code>nikola init</code>を実行する。</p>
-<pre class="code literal-block"><span></span>nikola init blog_name
-</pre>
-
+<pre class="code literal-block"><span></span><code>nikola init blog_name
+</code></pre>
 
 <p>これを実行するとCUIベースで対話的に様々な設定が可能。
 commentシステムとして何を使うかを聞かれるが、後でconf.pyを書き換えれば設定が可能な模様であるため一旦は空白で良い。</p>
@@ -421,14 +408,13 @@ commentシステムとして何を使うかを聞かれるが、後でconf.pyを
 この引数を付けるとデモ用コンテンツが生成されてしまうので普通に真っさらな状態で始めたいならば付けない方が良い。</p>
 <h4>新記事生成</h4>
 <p>新記事生成は下記の通り。</p>
-<pre class="code literal-block"><span></span>$ nikola new_post -f markdown  <span class="c1"># formatを-fで指定(デフォルトはReStructuredText形式)</span>
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ nikola new_post -f markdown  <span class="c1"># formatを-fで指定(デフォルトはReStructuredText形式)</span>
+</code></pre>
 
 <p>実行すると記事タイトルを聞かれるので打ち込むと<code>-f</code>で指定した形式のファイルがposts以下に生成される。
 また、引数に<code>-e</code>を付けるとそのままエディタでの編集画面となる。</p>
 <p>生成されたファイルの冒頭には下記のような形のヘッダーが付いている。</p>
-<pre class="code literal-block"><span></span><span class="err">&lt;!--</span>
+<pre class="code literal-block"><span></span><code><span class="err">&lt;!--</span>
 <span class="err">.. title: Nikolaでブログ構築してGithub Pagesに設置</span>
 <span class="err">.. slug: 1</span>
 <span class="err">.. date: 2018-01-07 23:35:28 UTC+09:00</span>
@@ -438,19 +424,17 @@ commentシステムとして何を使うかを聞かれるが、後でconf.pyを
 <span class="err">.. description: </span>
 <span class="err">.. type: text</span>
 <span class="err">--&gt;</span>
-</pre>
-
+</code></pre>
 
 <p>titleは記事タイトルである。
 slugはurlの一部となる文字列である。記事タイトルをアルファベットに直したものが記載されているが、適当に修正すると良い。1にしておくと<code>http://www.hiromasa.info/1/</code>のようなURLとなる。</p>
 <h4>固定ページ生成</h4>
 <p>固定ページはpostではなくpageとして生成する。</p>
-<pre class="code literal-block"><span></span>$ nikola new_page -f markdown pages/about
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ nikola new_page -f markdown pages/about
+</code></pre>
 
 <p>生成した固定ページを上部ナビゲーションに配置する方法は下記のように<code>conf.py</code>の<code>NAVIGATION_LINKS</code>に書けば良い。</p>
-<pre class="code literal-block"><span></span><span class="n">NAVIGATION_LINKS</span> <span class="o">=</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="n">NAVIGATION_LINKS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">DEFAULT_LANG</span><span class="p">:</span> <span class="p">(</span>
         <span class="p">(</span><span class="s2">"/archive.html"</span><span class="p">,</span> <span class="s2">"文書一覧"</span><span class="p">),</span>
         <span class="p">(</span><span class="s2">"/categories/"</span><span class="p">,</span> <span class="s2">"タグ"</span><span class="p">),</span>
@@ -458,37 +442,32 @@ slugはurlの一部となる文字列である。記事タイトルをアルフ�
         <span class="p">(</span><span class="s2">"/rss.xml"</span><span class="p">,</span> <span class="s2">"RSSフィード"</span><span class="p">),</span>
     <span class="p">),</span>
 <span class="p">}</span>
-</pre>
-
+</code></pre>
 
 <h4>ブログ構築</h4>
 <p>postやpageを上記のように生成しただけでは単なるテキストが生成されているだけなので、これらを元にブログを構築する。</p>
-<pre class="code literal-block"><span></span>$ nikola build
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ nikola build
+</code></pre>
 
 <p>これでブログが構築される。
 ローカルで確認するためには下記を実行する。</p>
-<pre class="code literal-block"><span></span>$ nikola serve -b  <span class="c1"># --browserでも良い</span>
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ nikola serve -b  <span class="c1"># --browserでも良い</span>
+</code></pre>
 
 <h4>ブログテーマ設定</h4>
 <p>デフォルトはbootstrap3になるようであるが、他のものに変えたい場合は<a href="https://themes.getnikola.com/">themes</a>のページから好きなものを選ぶ。
 ここでは<a href="https://themes.getnikola.com/v7/libretto/">libretto</a>のテーマを選んだ。
 wordpressの同名テーマをベースにしたものらしい。</p>
 <p>テーマのインストールは下記の通り。</p>
-<pre class="code literal-block"><span></span>$ nikola theme -i libretto
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ nikola theme -i libretto
+</code></pre>
 
 <p>実行するとthemesディレクトリ以下にlibrettoのテーマがダウンロードされる。</p>
 <p>このテーマを使用するためには更にconf.pyを編集する必要がある。</p>
-<pre class="code literal-block"><span></span><span class="c1"># Name of the theme to use.</span>
+<pre class="code literal-block"><span></span><code><span class="c1"># Name of the theme to use.</span>
 <span class="c1"># THEME = "bootstrap3"</span>
 <span class="n">THEME</span> <span class="o">=</span> <span class="s2">"libretto"</span>
-</pre>
-
+</code></pre>
 
 <p>この上で<code>nikola build</code>を実行すれば更新後のテーマに変わっている。
 記事の一文字目だけ大きく表示されるのが若干気に入らないがとりあえずこれで行く。</p>
@@ -497,14 +476,13 @@ wordpressの同名テーマをベースにしたものらしい。</p>
 <p><a href="https://getnikola.com/handbook.html#deployment">HandbookのDeployment</a>の項を見るとGithubでホスティングする方法が記載されている。ここではGitHubのuser page(wrist.github.io)に配置することを考える。</p>
 <h4>1. gitリポジトリの設定を行う</h4>
 <p>過去にwrist.github.ioリポジトリを作成しているため、ブログのルートで<code>git init</code>してからremoteを設定する。</p>
-<pre class="code literal-block"><span></span>$ git init
+<pre class="code literal-block"><span></span><code>$ git init
 $ git remote add origin git@github.com:wrist/wrist.github.io
-</pre>
-
+</code></pre>
 
 <h4>2. (必要であれば)conf.pyを編集する</h4>
 <p>必要であれば下記を編集する。今回は不要であるため特に変更していない。</p>
-<pre class="code literal-block"><span></span><span class="c1"># siteのソースがdeployされるブランチ名、srcが推奨とのこと</span>
+<pre class="code literal-block"><span></span><code><span class="c1"># siteのソースがdeployされるブランチ名、srcが推奨とのこと</span>
 <span class="n">GITHUB_SOURCE_BRANCH</span> <span class="o">=</span> <span class="s1">'src'</span>
 <span class="c1"># HTMLファイルがdeployされるブランチ、user pageの場合はmaster</span>
 <span class="n">GITHUB_DEPLOY_BRANCH</span> <span class="o">=</span> <span class="s1">'master'</span>
@@ -512,33 +490,29 @@ $ git remote add origin git@github.com:wrist/wrist.github.io
 <span class="n">GITHUB_REMOTE_NAME</span> <span class="o">=</span> <span class="s1">'origin'</span>
 <span class="c1"># ソースブランチを自動的にコミットしプッシュするかの設定</span>
 <span class="n">GITHUB_COMMIT_SOURCE</span> <span class="o">=</span> <span class="kc">True</span>
-</pre>
-
+</code></pre>
 
 <h4>3. .gitignoreを追加</h4>
 <p>下記内容を.gitignoreに追加する。</p>
-<pre class="code literal-block"><span></span><span class="nf">cache</span>
+<pre class="code literal-block"><span></span><code><span class="nf">cache</span>
 <span class="na">.doit.db</span>
 <span class="nf">__pycache__</span>
 <span class="nf">output</span>
-</pre>
-
+</code></pre>
 
 <h4>4. deploy用のコマンドを実行</h4>
 <p>下記コマンドを実行することでdeployが可能。</p>
-<pre class="code literal-block"><span></span>$ nikola github_deploy
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ nikola github_deploy
+</code></pre>
 
 <p>下記のように表示された場合は<code>pip install ghp-import2</code>でghp-import2をインストールする。</p>
-<pre class="code literal-block"><span></span><span class="err">[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.</span>
+<pre class="code literal-block"><span></span><code><span class="err">[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.</span>
 <span class="err">[2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.</span>
-</pre>
-
+</code></pre>
 
 <p>通常はこれで改めて<code>nikola github_deploy</code>を実行すれば終わりのはずである。
 しかし、今回は過去に作成済の既にmasterが存在しているリポジトリにpushしようとしているため、当然先にfetchしろと警告が出て失敗する。</p>
-<pre class="code literal-block"><span></span><span class="o">[</span><span class="m">2018</span>-01-08T04:17:10Z<span class="o">]</span> INFO: github_deploy: <span class="o">==</span>&gt; <span class="o">[</span><span class="s1">'ghp-import'</span>, <span class="s1">'-n'</span>, <span class="s1">'-m'</span>, <span class="s1">'Nikola auto commit.\n\nSource commit: a37690e35a31dc4a108f53c62b8ee17e783aa28f\nNikola version: 7.8.11'</span>, <span class="s1">'-p'</span>, <span class="s1">'-r'</span>, <span class="s1">'origin'</span>, <span class="s1">'-b'</span>, <span class="s1">'master'</span>, <span class="s1">'output'</span><span class="o">]</span>
+<pre class="code literal-block"><span></span><code><span class="o">[</span><span class="m">2018</span>-01-08T04:17:10Z<span class="o">]</span> INFO: github_deploy: <span class="o">==</span>&gt; <span class="o">[</span><span class="s1">'ghp-import'</span>, <span class="s1">'-n'</span>, <span class="s1">'-m'</span>, <span class="s1">'Nikola auto commit.\n\nSource commit: a37690e35a31dc4a108f53c62b8ee17e783aa28f\nNikola version: 7.8.11'</span>, <span class="s1">'-p'</span>, <span class="s1">'-r'</span>, <span class="s1">'origin'</span>, <span class="s1">'-b'</span>, <span class="s1">'master'</span>, <span class="s1">'output'</span><span class="o">]</span>
 To github.com:wrist/wrist.github.io
  ! <span class="o">[</span>rejected<span class="o">]</span>        master -&gt; master <span class="o">(</span>fetch first<span class="o">)</span>
 error: failed to push some refs to <span class="s1">'git@github.com:wrist/wrist.github.io'</span>
@@ -547,14 +521,12 @@ hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
 hint: <span class="o">(</span>e.g., <span class="s1">'git pull ...'</span><span class="o">)</span> before pushing again.
 hint: See the <span class="s1">'Note about fast-forwards'</span> in <span class="s1">'git push --help'</span> <span class="k">for</span> details.
-</pre>
-
+</code></pre>
 
 <p>仕方ないので<a href="https://rcmdnk.com/blog/2013/11/01/computer-git/">この記事</a>に倣い、先にmasterを強制pushする。</p>
-<pre class="code literal-block"><span></span>$ git push -f origin master
+<pre class="code literal-block"><span></span><code>$ git push -f origin master
 $ nikola github_deploy
-</pre>
-
+</code></pre>
 
 <p>これにて無事に<code>http://wrist.github.io</code>で閲覧できるようになった。</p>
 <h4>5. 独自ドメインでの使用</h4>
@@ -562,10 +534,9 @@ $ nikola github_deploy
 <h3>コメントシステムの設置</h3>
 <p>init時には空白にしておいたコメントシステムを有効化する。
 ここではdisqusを用いることにする。<code>conf.py</code>に下記を追記する。</p>
-<pre class="code literal-block"><span></span><span class="n">COMMENT_SYSTEM</span> <span class="o">=</span> <span class="s2">"disqus"</span>
+<pre class="code literal-block"><span></span><code><span class="n">COMMENT_SYSTEM</span> <span class="o">=</span> <span class="s2">"disqus"</span>
 <span class="n">COMMENT_SYSTEM_ID</span> <span class="o">=</span> <span class="s2">"hiromasa-info"</span>
-</pre>
-
+</code></pre>
 
 <p><code>COMMENT_SYSTEM_ID</code>はdisqusの場合はshortnameを設定する。
 shortnameはdisqusのsiteのsettingsから確認できる。</p>
@@ -608,10 +579,7 @@ ReStructuredTextで書くとExtensionとして<a href="https://getnikola.com/han
 </div>
 
 
-        <script src="../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
-    moment.locale("en");
-    fancydates(0, "YYYY-MM-DD HH:mm");
-    </script><!-- end fancy dates --><script>
+        <script src="../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {

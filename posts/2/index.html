@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../en/rss.xml">
-<link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" hreflang="ja" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" hreflang="en" href="../../en/rss.xml">
 <link rel="canonical" href="http://www.hiromasa.info/posts/2/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.hiromasa.info https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
@@ -61,14 +61,14 @@ CSPについての細かい説明はここでは書かないが、要はXSSを�
             </div>
         </div>
           <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="http://www.hiromasa.info/">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
 
             <span id="blog-title">hiromasa.info</span>
         </a>
           </div>
             <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
             <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
-<li class="nav-item"><a href="http://www.hiromasa.info/en/" rel="alternate" hreflang="en" class="nav-link">English</a></li>
+<li class="nav-item"><a href="../../en/" rel="alternate" hreflang="en" class="nav-link">English</a></li>
 
                     
                     
@@ -112,10 +112,11 @@ CSPについての細かい説明はここでは書かないが、要はXSSを�
         <!--Body content-->
         
         
+        
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">nikolaでCSP、Google Analytics、SNSボタンの設定を行う</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
                     Hiromasa OHASHI
             </span></p>
             <p class="dateline">
@@ -124,7 +125,7 @@ CSPについての細かい説明はここでは書かないが、要はXSSを�
             </p>
                 <p class="commentline">
         
-    <a href="#disqus_thread" data-disqus-identifier="cache/posts/2.html">Comments</a>
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/2.html">コメント</a>
 
 
             
@@ -146,11 +147,10 @@ CSPについての細かい説明はここでは書かないが、要はXSSを�
 nikolaはstaticファイルを吐き出すgeneratorなので後者のMETAタグを用いた設定を行うこととなる。
 METAタグによる設定はHEADタグの最初に書くべきであるが、nikolaではHEADタグの頭に書くようなオプションはないため、仕方なく<code>EXTRA_HEAD_DATA</code>オプションにこのための設定を記述する。
 実際に設定しているCSPの設定は下記の通りである。</p>
-<pre class="code literal-block"><span></span><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
+<pre class="code literal-block"><span></span><code><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com;"&gt;</span>
 <span class="s2">"""</span>
-</pre>
-
+</code></pre>
 
 <p>基本的には"default-src"に対して'self'、'unsafe-inline'、および各ドメインに対する設定をhttpとhttpsに分けて記述している形になる。
 'self'と'unsafe-inline'については<a href="https://developers.google.com/web/fundamentals/security/csp/?hl=ja">GoogleのCSPに関するページ</a>に記載があるが、
@@ -162,7 +162,7 @@ METAタグによる設定はHEADタグの最初に書くべきであるが、nik
 リンク先ページにも記述があるように、evalを要求してくるような部分は上記CSP設定でもブロックされるが、これはdisqusによる広告の挿入のためであるとのことであるため、特に許可していない。</p>
 <h3>Google Analyticsの設定</h3>
 <p>Google Analyticsの設定はCSPと同様にHEADタグ内に書く必要があるため、<code>EXTRA_HEAD_DATA</code>のオプションに追加で設定する。</p>
-<pre class="code literal-block"><span></span><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
+<pre class="code literal-block"><span></span><code><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">&lt;!-- Global site tag (gtag.js) - Google Analytics --&gt;</span>
 <span class="s2">&lt;script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"&gt;&lt;/script&gt;</span>
 <span class="s2">&lt;script&gt;</span>
@@ -173,8 +173,7 @@ METAタグによる設定はHEADタグの最初に書くべきであるが、nik
 <span class="s2">&lt;/script&gt;</span>
 <span class="s2">&lt;!-- End Google Analytics --&gt;</span>
 <span class="s2">"""</span>
-</pre>
-
+</code></pre>
 
 <p>ここでは従来使われていたトラッキング用のコードではなく、Google Tag Managerを使用するコードの記載としている。"UA-XXXX"のXXXXの部分は各自独自の設定に書き換える必要がある。</p>
 <h3>SNSボタンの設置</h3>
@@ -189,9 +188,8 @@ METAタグによる設定はHEADタグの最初に書くべきであるが、nik
 <p>などの理由から、結果として各サービスのSNSのボタンを個別に追加した方がトラブルを避けられたため、ここでは個別にどのように追加したかについて記載する。</p>
 <h4>SNSボタンの設定方法</h4>
 <p>前述のように<code>SOCIAL_BUTTONS_CODE</code>のオプションは使わない。代わりに<code>CONTENT_FOOTER</code>のオプションを使用する。<code>CONTENT_FOOTER</code>は当初下記のような記述になっている。</p>
-<pre class="code literal-block"><span></span><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"Contents &amp;copy; </span><span class="si">{date}</span><span class="s2">         &lt;a href="</span><span class="n">mailto</span><span class="p">:{</span><span class="n">email</span><span class="p">}</span><span class="s2">"&gt;</span><span class="si">{author}</span><span class="s2">&lt;/a&gt; - Powered by         &lt;a href="</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">getnikola</span><span class="o">.</span><span class="n">com</span><span class="s2">" rel="</span><span class="n">nofollow</span><span class="s2">"&gt;Nikola&lt;/a&gt;         </span><span class="si">{license}</span><span class="s2">"</span>
-</pre>
-
+<pre class="code literal-block"><span></span><code><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"Contents &amp;copy; </span><span class="si">{date}</span><span class="s2">         &lt;a href="</span><span class="n">mailto</span><span class="p">:{</span><span class="n">email</span><span class="p">}</span><span class="s2">"&gt;</span><span class="si">{author}</span><span class="s2">&lt;/a&gt; - Powered by         &lt;a href="</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">getnikola</span><span class="o">.</span><span class="n">com</span><span class="s2">" rel="</span><span class="n">nofollow</span><span class="s2">"&gt;Nikola&lt;/a&gt;         </span><span class="si">{license}</span><span class="s2">"</span>
+</code></pre>
 
 <p>上記は設定年、著者名、Nikolaによる生成であることをfooterとして設定するための記述となっている。
 <code>{date}</code>や<code>{email}</code>、<code>{author}</code>など、埋め込み文字列のようになっている部分に気付くかもしれないが、
@@ -200,7 +198,7 @@ format関数の引数としては、別途設定されているオプション<c
 そのため、<code>CONTENT_FOOTER</code>中で<code>{</code>や<code>}</code>を用いる場合は、pythonのformat関数の仕様に合わせて<code>{{</code>や<code>}}</code>のように記述する必要があることに注意されたい。</p>
 <p>SNSボタン設定に関する記述は、<code>CONTENT_FOOTER</code>の後続する部分にタグを埋め込むことで行う。
 最終的には下記のような記述となっている。facebookのscript部分の中括弧を'{{'と'}}'に変えている。</p>
-<pre class="code literal-block"><span></span><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"""Contents &amp;copy; </span><span class="si">{date}</span><span class="s2">         &lt;a href="mailto:</span><span class="si">{email}</span><span class="s2">"&gt;</span><span class="si">{author}</span><span class="s2">&lt;/a&gt; - Powered by         &lt;a href="https://getnikola.com" rel="nofollow"&gt;Nikola&lt;/a&gt;         </span><span class="si">{license}</span><span class="s2"></span>
+<pre class="code literal-block"><span></span><code><span class="n">CONTENT_FOOTER</span> <span class="o">=</span> <span class="s2">"""Contents &amp;copy; </span><span class="si">{date}</span><span class="s2">         &lt;a href="mailto:</span><span class="si">{email}</span><span class="s2">"&gt;</span><span class="si">{author}</span><span class="s2">&lt;/a&gt; - Powered by         &lt;a href="https://getnikola.com" rel="nofollow"&gt;Nikola&lt;/a&gt;         </span><span class="si">{license}</span><span class="s2"></span>
 <span class="s2">&lt;!-- twitter --&gt;</span>
 <span class="s2">&lt;a href="https://twitter.com/share?ref_src=twsrc</span><span class="si">%5E</span><span class="s2">tfw" class="twitter-share-button" data-show-count="false"&gt;Tweet&lt;/a&gt;</span>
 <span class="s2">&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;</span>
@@ -222,8 +220,7 @@ format関数の引数としては、別途設定されているオプション<c
 <span class="s2">&lt;/a&gt;</span>
 <span class="s2">&lt;script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"&gt;&lt;/script&gt;</span>
 <span class="s2">"""</span>
-</pre>
-
+</code></pre>
 
 <p>各SNSボタン用コードの取得に関しては以下に記述する。実際の見た目については一番下までスクロールすれば見えると思われる。</p>
 <h4>twitter</h4>
@@ -233,17 +230,15 @@ format関数の引数としては、別途設定されているオプション<c
 「いいね！」するURLは空白、レイアウトは"button"、アクションタイプは"like"、ボタンサイズは"small"、友達の顔は表示する、シェアボタンを追加、のチェックは共にOnにした状態でコードを取得し、そのコードを<code>CONTENT_FOOTER</code>オプションに追加した。</p>
 <h5>Open Graph対応</h5>
 <p>facebookのいいね・シェアボタンやGoogle Plusの+1ボタンなどが対応しているOpen Graphへの対応は<code>conf.py</code>のオプションを有効化することによって実現できる。下記オプションをTrueに設定すると、</p>
-<pre class="code literal-block"><span></span><span class="n">USE_OPEN_GRAPH</span> <span class="o">=</span> <span class="kc">True</span>
-</pre>
-
+<pre class="code literal-block"><span></span><code><span class="n">USE_OPEN_GRAPH</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre>
 
 <p>出力されるHTMLのheadタグ内に下記記述が追加される。</p>
-<pre class="code literal-block"><span></span><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">"og:site_name"</span> <span class="na">content</span><span class="o">=</span><span class="s">"hiromasa.info"</span><span class="p">&gt;</span>
+<pre class="code literal-block"><span></span><code><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">"og:site_name"</span> <span class="na">content</span><span class="o">=</span><span class="s">"hiromasa.info"</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">"og:title"</span> <span class="na">content</span><span class="o">=</span><span class="s">"nikolaでCSP、Google Analytics、SNSボタンの設定を行う"</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">"og:url"</span> <span class="na">content</span><span class="o">=</span><span class="s">"http://www.hiromasa.info/posts/2/"</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">"og:description"</span> <span class="na">content</span><span class="o">=</span><span class="s">"..."</span><span class="p">&gt;</span>
-</pre>
-
+</code></pre>
 
 <p>description内のcontentの記述は省略したが、本文(主にh2など)から抽出した内容が記載される。
 なお、<code>USE_OPEN_GRAPH</code>のオプションは<a href="https://github.com/getnikola/nikola/issues/2840">このIssue</a>で"Unnecessary customization"扱いとなっており、将来的にデフォルトでTrueになっている(オプションから消失している)可能性がある。</p>
@@ -254,7 +249,7 @@ format関数の引数としては、別途設定されているオプション<c
 この理由はボタンウィジェットに対するCSSの<code>vertical-align</code>がbottomになっているせいである(<a href="https://developers.google.com/web/fundamentals/security/csp/?hl=ja">参考</a>)。
 これを調整するためには<code>vertical-align</code>をbaselineにしてやれば良い。
 これらのCSS設定は<code>HEAD</code>タグ内で設定する必要があるため、<code>EXTRA_HEAD_DATA</code>オプションにstyleタグおよび設定を追加する。</p>
-<pre class="code literal-block"><span></span>EXTRA_HEAD_DATA = """
+<pre class="code literal-block"><span></span><code>EXTRA_HEAD_DATA = """
 <span class="c">&lt;!-- for facebook button --&gt;</span>
 <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
 <span class="p">.</span><span class="nc">fb-like</span> <span class="p">{</span>
@@ -268,8 +263,7 @@ format関数の引数としては、別途設定されているオプション<c
 <span class="p">}</span>
 <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 """
-</pre>
-
+</code></pre>
 
 <h4>はてなブックマークボタン</h4>
 <p><a href="http://b.hatena.ne.jp/guide/bbutton">設置方法</a>に従って出力されたコードをそのまま使用している。
@@ -277,7 +271,7 @@ format関数の引数としては、別途設定されているオプション<c
 <h3>最終的な<code>EXTRA_HEAD_DATA</code>
 </h3>
 <p>上記の複数箇所で触れた<code>EXTRA_HEAD_DATA</code>は最終的に以下のような形で記述している。</p>
-<pre class="code literal-block"><span></span><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
+<pre class="code literal-block"><span></span><code><span class="n">EXTRA_HEAD_DATA</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' http://*.google-analytics.com https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com;"&gt;</span>
 
 <span class="s2">&lt;!-- Global site tag (gtag.js) - Google Analytics --&gt;</span>
@@ -303,8 +297,7 @@ format関数の引数としては、別途設定されているオプション<c
 <span class="s2">}</span>
 <span class="s2">&lt;/style&gt;</span>
 <span class="s2">"""</span>
-</pre>
-
+</code></pre>
 
 <h3>参考</h3>
 <ul>
@@ -318,10 +311,10 @@ format関数の引数としては、別途設定されているオプション<c
         </ul>
 <ul class="pager hidden-print">
 <li class="previous">
-                <a href="../1/" rel="prev" title="Nikolaでブログ構築してGithub Pagesに設置">一つ前の文書</a>
+                <a href="../1/" rel="prev" title="Nikolaでブログ構築してGithub Pagesに設置">一つ前の記事</a>
             </li>
             <li class="next">
-                <a href="../3/" rel="next" title="nikolaでipynbファイルの公開設定を行う">次の文書</a>
+                <a href="../3/" rel="next" title="nikolaでipynbファイルの公開設定を行う">次の記事</a>
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>コメント</h2>
         
@@ -366,10 +359,7 @@ format関数の引数としては、別途設定されているオプション<c
 </div>
 
 
-        <script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
-    moment.locale("ja");
-    fancydates(0, "YYYY-MM-DD HH:mm");
-    </script><!-- end fancy dates --><script>
+        <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {

@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="description" content="blog by Hiromasa OHASHI">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>hiromasa.info (過去の文書 4ページ目) | hiromasa.info</title>
+<title>hiromasa.info (過去の記事 4ページ目) | hiromasa.info</title>
 <link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <link href="assets/css/ipython.min.css" rel="stylesheet" type="text/css">
 <link href="assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="en/rss.xml">
-<link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" hreflang="ja" href="rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" hreflang="en" href="en/rss.xml">
 <link rel="canonical" href="http://www.hiromasa.info/index-4.html">
 <link rel="prev" href="index-5.html" type="text/html">
 <link rel="next" href="index-3.html" type="text/html">
@@ -33,7 +33,7 @@
     vertical-align: baseline !important; 
 }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">本文を読み飛ばす</a>
@@ -50,14 +50,14 @@
             </div>
         </div>
           <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="http://www.hiromasa.info/">
+            <a class="navbar-brand blog-header-logo text-dark" href=".">
 
             <span id="blog-title">hiromasa.info</span>
         </a>
           </div>
             <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
             <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
-<li class="nav-item"><a href="http://www.hiromasa.info/en/" rel="alternate" hreflang="en" class="nav-link">English</a></li>
+<li class="nav-item"><a href="en/" rel="alternate" hreflang="en" class="nav-link">English</a></li>
 
                     
                     
@@ -95,6 +95,7 @@
         <!--Body content-->
         
         
+        
     
         
 
@@ -112,7 +113,7 @@
             </p>
                         <p class="commentline">
         
-    <a href="posts/12/#disqus_thread" data-disqus-identifier="cache/posts/12.html">Comments</a>
+    <a href="posts/12/#disqus_thread" data-disqus-identifier="cache/posts/12.html">コメント</a>
 
 
                 </p>
@@ -123,18 +124,16 @@
 <p><a href="https://getnikola.com/handbook.html">nikola handbook</a>のMultilingual postsの項を見ながら多国語対応の設定を行う。</p>
 <h4>基本的な設定</h4>
 <p>記事や固定ページの多国語対応を行う場合、<code>conf.py</code>の<code>TRANSLATIONS_PATTERN</code>で指定されたパターンに沿ったファイル名で言語ごとに記事を作成することになる。デフォルトだと</p>
-<pre class="code literal-block"><span></span><span class="n">TRANSLATIONS_PATTERN</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{path}</span><span class="s2">.</span><span class="si">{lang}</span><span class="s2">.</span><span class="si">{ext}</span><span class="s2">"</span>
-</pre>
-
+<pre class="code literal-block"><span></span><code><span class="n">TRANSLATIONS_PATTERN</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{path}</span><span class="s2">.</span><span class="si">{lang}</span><span class="s2">.</span><span class="si">{ext}</span><span class="s2">"</span>
+</code></pre>
 
 <p>という指定になっているため、この記事(<code>12.md</code>)であれば英語ポストを作成する場合は<code>12.en.md</code>というファイル名を付けることとなる。</p>
 <p>上記パターンをどの国の言語に対応させるかどうかは<code>TRANSLATIONS</code>の設定を変更する。この設定では各言語をkeyとしてprefixとなるパスをvalueに持つdictを設定する。デフォルトでは<code>DEFAULT_LANG : ""</code>のみが指定されているため、新たに追加したい言語とprefixを次にような形で指定する。</p>
-<pre class="code literal-block"><span></span><span class="n">TRANSLATIONS</span> <span class="o">=</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="n">TRANSLATIONS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">DEFAULT_LANG</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
     <span class="s2">"en"</span><span class="p">:</span> <span class="s2">"./en"</span>
 <span class="p">}</span>
-</pre>
-
+</code></pre>
 
 <p>この設定を行った上で<code>nikola build</code>を実行すると、過去の諸々のポストに対しても多言語対応のための再生成が走るためかブログ構築までに5分ほどを要する。構築後、<code>nikola serve -b</code>でローカルのブラウザ上でブログを閲覧すると右上に<code>English</code>という表示が増える(3カ国語以上設定した場合は試していないがおそらく選択できるようになると思われる)。
 独自ドメインを設定している場合はこの<code>English</code>をクリックすると存在しないページにアクセスすることになるため、ローカルサーバ上でアクセスするためにはアドレスバーに<code>127.0.0.1:8000/en</code>と手動で打ち込む必要がある。このページにアクセスすると、英語版のページが表示される。
@@ -142,7 +141,7 @@
 <p>以下ではこれらの多国語化について記す。多言語対応可能な設定項目については<code>conf.py</code>において<code>(translatable)</code>というコメントが添えられているため、基本的にはこれらの設定項目を調整していくことになる。</p>
 <h4>ナビゲーションバーの多言語化</h4>
 <p>ナビゲーションバーについては<code>NAVIGARTION_LINKS</code>の設定を次のように変更する。</p>
-<pre class="code literal-block"><span></span><span class="n">NAVIGATION_LINKS</span> <span class="o">=</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="n">NAVIGATION_LINKS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">DEFAULT_LANG</span><span class="p">:</span> <span class="p">(</span>
         <span class="p">(</span><span class="s2">"/archive.html"</span><span class="p">,</span> <span class="s2">"文書一覧"</span><span class="p">),</span>
         <span class="p">(</span><span class="s2">"/categories/"</span><span class="p">,</span> <span class="s2">"タグ"</span><span class="p">),</span>
@@ -156,20 +155,18 @@
         <span class="p">(</span><span class="s2">"/en/rss.xml"</span><span class="p">,</span> <span class="s2">"RSS feed"</span><span class="p">),</span>
     <span class="p">)</span>
 <span class="p">}</span>
-</pre>
-
+</code></pre>
 
 <p>ここでは各言語をkeyとし、対応するパスとリンク名のタプルのタプルをvalueとするdictを設定している。
 "en"に対して"/en"で始まるパスを指定していることに注意。</p>
 <h4>タグ、カテゴリの多言語化(調査中)</h4>
 <p>nikola v8ではポストごとに複数の分類を与えるタグ(tags)と、単一の分類を与えるカテゴリ(categories)が提供されている。現時点で当ブログはタグしか用いていない。なお前のポストにも記したが、nikolaのversion 7まではセクション(sections)という分類方法も存在していたが、これはversion 8以降は削除されている(nikola handbookにはこの機能は<code>CATEGORY_DESTPATH</code>の設定を用いて実現可能との記載がある)。
 タグやカテゴリの多言語化の仕方であるが、<code>conf.py</code>を見ると<code>TAG_TRANSLATION</code>や<code>CATEGORY_TRANSLATION</code>に</p>
-<pre class="code literal-block"><span></span>   <span class="p">[</span>
+<pre class="code literal-block"><span></span><code>   <span class="p">[</span>
      <span class="p">{</span><span class="s1">'en'</span><span class="p">:</span> <span class="s1">'private'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">:</span> <span class="s1">'Privat'</span><span class="p">},</span>
      <span class="p">{</span><span class="s1">'en'</span><span class="p">:</span> <span class="s1">'work'</span><span class="p">,</span> <span class="s1">'fr'</span><span class="p">:</span> <span class="s1">'travail'</span><span class="p">,</span> <span class="s1">'de'</span><span class="p">:</span> <span class="s1">'Arbeit'</span><span class="p">},</span>
    <span class="p">]</span>
-</pre>
-
+</code></pre>
 
 <p>のような辞書のリストを指定すれば良いとの記載がある。しかしこれを日本語と英語の間の翻訳で試みたところ、英語ページにおいても日本語タグが指定した英語タグに翻訳されず日本語タグのままとなる現象を確認している。この現象の解決のためには調査を行う必要があるため、現時点ではタグ、カテゴリの多言語化は実現できていない。</p>
 <h4>多言語ポストの混在</h4>
@@ -194,7 +191,7 @@
             </p>
                         <p class="commentline">
         
-    <a href="posts/11/#disqus_thread" data-disqus-identifier="cache/posts/11.html">Comments</a>
+    <a href="posts/11/#disqus_thread" data-disqus-identifier="cache/posts/11.html">コメント</a>
 
 
                 </p>
@@ -209,14 +206,13 @@
 <h4>
 <code>conf.py</code>の修正</h4>
 <p><code>nikola --version</code>をブログが存在するディレクトリで実行したところ下記の警告が出た。</p>
-<pre class="code literal-block"><span></span><span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">45</span><span class="n">Z</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">The</span> <span class="n">UNSLUGIFY_TITLES</span> <span class="n">setting</span> <span class="n">was</span> <span class="n">renamed</span> <span class="n">to</span> <span class="n">FILE_METADATA_UNSLUGIFY_TITLES</span><span class="o">.</span>
+<pre class="code literal-block"><span></span><code><span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">45</span><span class="n">Z</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">The</span> <span class="n">UNSLUGIFY_TITLES</span> <span class="n">setting</span> <span class="n">was</span> <span class="n">renamed</span> <span class="n">to</span> <span class="n">FILE_METADATA_UNSLUGIFY_TITLES</span><span class="o">.</span>
 <span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">45</span><span class="n">Z</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">The</span> <span class="n">sections</span> <span class="n">feature</span> <span class="n">has</span> <span class="n">been</span> <span class="n">removed</span> <span class="ow">and</span> <span class="n">its</span> <span class="n">functionality</span> <span class="n">has</span> <span class="n">been</span> <span class="n">merged</span> <span class="n">into</span> <span class="n">categories</span><span class="o">.</span>
 <span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">45</span><span class="n">Z</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">For</span> <span class="n">more</span> <span class="n">information</span> <span class="n">on</span> <span class="n">how</span> <span class="n">to</span> <span class="n">migrate</span><span class="p">,</span> <span class="n">please</span> <span class="n">read</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">getnikola</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="n">upgrading</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">nikola</span><span class="o">-</span><span class="n">v8</span><span class="o">.</span><span class="n">html</span><span class="c1">#sections-were-replaced-by-categories</span>
 <span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">45</span><span class="n">Z</span><span class="p">]</span> <span class="n">INFO</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">Setting</span> <span class="n">CATEGORY_DESTPATH_AS_DEFAULT</span> <span class="o">=</span> <span class="n">True</span>
 <span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">46</span><span class="n">Z</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">Cannot</span> <span class="nb">load</span> <span class="n">theme</span> <span class="s2">"bootstrap3"</span><span class="p">,</span> <span class="n">using</span> <span class="s1">'bootblog4'</span> <span class="n">instead</span><span class="o">.</span>
 <span class="o">...</span> <span class="err">以後</span><span class="n">bootstrap3が存在しない旨を示すpythonのTracebackが表示される</span> <span class="o">...</span>
-</pre>
-
+</code></pre>
 
 <p>これらのwarningを修正するために、下記に記した内容を実行した。</p>
 <h5>名称が変更された設定の変更</h5>
@@ -375,7 +371,7 @@
             </p>
                         <p class="commentline">
         
-    <a href="posts/10/#disqus_thread" data-disqus-identifier="cache/posts/10.html">Comments</a>
+    <a href="posts/10/#disqus_thread" data-disqus-identifier="cache/posts/10.html">コメント</a>
 
 
                 </p>
@@ -653,10 +649,10 @@ $$ a_{n+1} = \Psi^{-1}\left(\overline{\log{x}} - \log{\overline{x}} + \log{a_n}\
 </div>
     
         <ul class="pager postindexpager clearfix">
-<li class="previous"><a href="index-5.html" rel="prev">新しい文書</a></li>
-            <li class="next"><a href="index-3.html" rel="next">過去の文書</a></li>
+<li class="previous"><a href="index-5.html" rel="prev">新しい記事</a></li>
+            <li class="next"><a href="index-3.html" rel="next">過去の記事</a></li>
         </ul>
-<script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script><script>
+<script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script><script>
                 renderMathInElement(document.body,
                     {
                         
@@ -691,10 +687,7 @@ delimiters: [
 </div>
 
 
-        <script src="assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
-    moment.locale("ja");
-    fancydates(0, "YYYY-MM-DD HH:mm");
-    </script><!-- end fancy dates --><script>
+        <script src="assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about xeus-python)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/xeus-python.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Tue, 13 Oct 2020 16:10:51 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</title><link>http://www.hiromasa.info/en/posts/21/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h2&gt;Xeus関連の情報(PyData Osaka 2020/8/2用の記事)&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about xeus-python)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/xeus-python.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sat, 17 Oct 2020 09:13:56 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</title><link>http://www.hiromasa.info/en/posts/21/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h2&gt;Xeus関連の情報(PyData Osaka 2020/8/2用の記事)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;最近のJupyter Blogから一部記事を抜粋して紹介します。&lt;/li&gt;
 &lt;li&gt;Xeus関連の情報がメインです&lt;/li&gt;
@@ -48,11 +48,10 @@
 &lt;/ul&gt;
 &lt;h4&gt;&lt;code&gt;Xeus&lt;/code&gt;がJupyter管轄下へと移行した理由&lt;/h4&gt;
 &lt;p&gt;以下に引用&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;While Xeus started as a side project for QuantStack engineers,&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;While Xeus started as a side project for QuantStack engineers,&lt;/span&gt;
 &lt;span class="err"&gt;the project now has several stakeholders who depend on it.&lt;/span&gt;
 &lt;span class="err"&gt;We think that moving the project to an open governance organization may be a better way to reflect this situation.&lt;/span&gt;
-&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3&gt;&lt;a href="https://blog.jupyter.org/a-visual-debugger-for-jupyter-914e61716559"&gt;A visual debugger for Jupyter (2020/3/26)&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
@@ -75,9 +74,8 @@
 &lt;h4&gt;インストール方法&lt;/h4&gt;
 &lt;p&gt;フロントエンドとなるプラグインとバックエンドとなるカーネルが必要&lt;/p&gt;
 &lt;h5&gt;フロントエンド&lt;/h5&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ jupyter labextension install @jupyterlab/debugger
-&lt;/pre&gt;
-
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ jupyter labextension install @jupyterlab/debugger
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;このデバッガフロントエンドは将来のリリースにおいてはデフォルトで同梱される予定。&lt;/p&gt;
 &lt;h5&gt;バックエンド&lt;/h5&gt;
@@ -88,9 +86,8 @@
 &lt;/li&gt;
 &lt;li&gt;ipykernelにデバッガプロトコルを実装するのはロードマップには存在&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;$ conda install xeus-python -c conda-forge
-&lt;/pre&gt;
-
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ conda install xeus-python -c conda-forge
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;ul&gt;
 &lt;li&gt;

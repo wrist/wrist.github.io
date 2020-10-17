@@ -11,8 +11,8 @@
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="rss.xml">
-<link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" hreflang="en" href="rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" hreflang="ja" href="../rss.xml">
 <link rel="canonical" href="http://www.hiromasa.info/en/">
 <link rel="next" href="index-7.html" type="text/html">
 <!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.hiromasa.info https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
@@ -32,7 +32,7 @@
     vertical-align: baseline !important; 
 }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -49,14 +49,14 @@
             </div>
         </div>
           <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="http://www.hiromasa.info/en/">
+            <a class="navbar-brand blog-header-logo text-dark" href=".">
 
             <span id="blog-title">hiromasa.info</span>
         </a>
           </div>
             <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
             <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
-<li class="nav-item"><a href="http://www.hiromasa.info/" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
+<li class="nav-item"><a href="../" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
 
                     
                     
@@ -92,6 +92,7 @@
 <div class="container" id="content" role="main">
     <div class="body-content">
         <!--Body content-->
+        
         
         
     
@@ -3641,11 +3642,10 @@ $ heroku open
 <h4>
 <code>Xeus</code>がJupyter管轄下へと移行した理由</h4>
 <p>以下に引用</p>
-<pre class="code literal-block"><span></span><span class="err">While Xeus started as a side project for QuantStack engineers,</span>
+<pre class="code literal-block"><span></span><code><span class="err">While Xeus started as a side project for QuantStack engineers,</span>
 <span class="err">the project now has several stakeholders who depend on it.</span>
 <span class="err">We think that moving the project to an open governance organization may be a better way to reflect this situation.</span>
-</pre>
-
+</code></pre>
 
 <h3><a href="https://blog.jupyter.org/a-visual-debugger-for-jupyter-914e61716559">A visual debugger for Jupyter (2020/3/26)</a></h3>
 <ul>
@@ -3668,9 +3668,8 @@ $ heroku open
 <h4>インストール方法</h4>
 <p>フロントエンドとなるプラグインとバックエンドとなるカーネルが必要</p>
 <h5>フロントエンド</h5>
-<pre class="code literal-block"><span></span>$ jupyter labextension install @jupyterlab/debugger
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ jupyter labextension install @jupyterlab/debugger
+</code></pre>
 
 <p>このデバッガフロントエンドは将来のリリースにおいてはデフォルトで同梱される予定。</p>
 <h5>バックエンド</h5>
@@ -3682,9 +3681,8 @@ $ heroku open
 </li>
 <li>ipykernelにデバッガプロトコルを実装するのはロードマップには存在</li>
 </ul>
-<pre class="code literal-block"><span></span>$ conda install xeus-python -c conda-forge
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ conda install xeus-python -c conda-forge
+</code></pre>
 
 <ul>
 <li>
@@ -3970,7 +3968,7 @@ $ heroku open
 正直wavファイルの場合は上記チュートリアルと全く同じ操作で作成できてしまいました。</p>
 <h3>プロジェクトの初期化</h3>
 <p><code>cookiecutter</code>を使って雛形を生成します。</p>
-<pre class="code literal-block"><span></span>❯ cookiecutter https://github.com/jupyterlab/mimerender-cookiecutter-ts.git
+<pre class="code literal-block"><span></span><code>❯ cookiecutter https://github.com/jupyterlab/mimerender-cookiecutter-ts.git
 author_name <span class="o">[]</span>: wrist
 author_email <span class="o">[]</span>: stoicheia1986@gmail.com
 extension_name <span class="o">[</span>myextension<span class="o">]</span>: jupyterlab-wav
@@ -3982,17 +3980,15 @@ Select data_format:
 <span class="m">1</span> - string
 <span class="m">2</span> - json
 Choose from <span class="m">1</span>, <span class="m">2</span> <span class="o">(</span><span class="m">1</span>, <span class="m">2</span><span class="o">)</span> <span class="o">[</span><span class="m">1</span><span class="o">]</span>: <span class="m">1</span>
-</pre>
-
+</code></pre>
 
 <h3>Extensionのビルドとインストール</h3>
 <p>Extensionの作成には<code>yarn</code>のバージョンが固定された<code>jlpm</code>というjupyterlab付属のツールを用いて行います。
 依存パッケージをインストールし、Extensionをビルドし、jupyterlabのextensionとしてインストールするためには下記を実行します。</p>
-<pre class="code literal-block"><span></span>jlpm install
+<pre class="code literal-block"><span></span><code>jlpm install
 jlpm run build
 jupyter labextension install . --no-build
-</pre>
-
+</code></pre>
 
 <p>ここで上記をローカル環境で試したところ、jupyterlabのバージョンが1.2.1の場合は現在のJupyterlabとはバージョンの互換性がないというエラーがでてしまいました(既に2.0.0以上を想定している模様です)。</p>
 <p>このためjupyterlabを動作させるために使用しているdocker imageである<a href="https://hub.docker.com/repository/docker/wrist/jupyterlab-custom">wrist/jupyterlab-custom</a>を更新したのですが、
@@ -4057,7 +4053,7 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
 </li>
 </ul>
 <p>大した量ではないためコード全体を下記に記します。</p>
-<pre class="code literal-block"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">IRenderMime</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@jupyterlab/rendermime-interfaces'</span><span class="p">;</span>
+<pre class="code literal-block"><span></span><code><span class="kr">import</span> <span class="p">{</span> <span class="nx">IRenderMime</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@jupyterlab/rendermime-interfaces'</span><span class="p">;</span>
 
 
 
@@ -4141,8 +4137,7 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
 <span class="p">};</span>
 
 <span class="kr">export</span> <span class="k">default</span> <span class="nx">extension</span><span class="p">;</span>
-</pre>
-
+</code></pre>
 
 <p>上記コードを再度ビルドしてjupyterlabを再読み込みすれば完了です。</p>
 <h3>実際の表示の例</h3>
@@ -4156,23 +4151,20 @@ extensionは単一のJavascriptパッケージであり、npmjs.orgから配布�
 このキーワードはcookiecutterで自動生成された場合既に含まれているため、自ら追加する必要はありません。</p>
 <p>よってnpmjs.orgへと登録することを考えます。
 まずコマンドラインからnpmjsにログインしておきます。</p>
-<pre class="code literal-block"><span></span>$ npm adduser  <span class="c1"># ユーザをnpmjs上に作成していない場合</span>
+<pre class="code literal-block"><span></span><code>$ npm adduser  <span class="c1"># ユーザをnpmjs上に作成していない場合</span>
 $ npm login
-</pre>
-
+</code></pre>
 
 <p>次に<code>package.json</code>を編集し、<code>name</code>の値を<code>jupyterlab-wav</code>から<code>@wrist/jupyterlab-wav</code>というように<code>@username/extension-name</code>へと変えます。
 更に必要に応じて<code>homepage</code>、<code>license</code>、<code>repository</code>などのフィールドを追加します。</p>
 <p>最後に、<code>README.md</code>を編集して<code>jupyter labextension install</code>の部分を<code>@wrist/jupyterlab-wav</code>のように変更します。</p>
 <p>上記を終えたら下記でnpmjsへとアップロードして終了です。</p>
-<pre class="code literal-block"><span></span>$ npm publish --access<span class="o">=</span>public
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ npm publish --access<span class="o">=</span>public
+</code></pre>
 
 <p>無事に<a href="https://www.npmjs.com/package/@wrist/jupyterlab-wav">https://www.npmjs.com/package/@wrist/jupyterlab-wav</a>へとアップロードされていれば、以後</p>
-<pre class="code literal-block"><span></span>$ jupyter labextension install @wrist/jupyterlab-wav
-</pre>
-
+<pre class="code literal-block"><span></span><code>$ jupyter labextension install @wrist/jupyterlab-wav
+</code></pre>
 
 <p>と打つことでインストールできるようになります。
 実際に新規にコンテナを生成し直して上記を試したところ使えるようになりました。</p>
@@ -4192,7 +4184,7 @@ $ npm login
         <ul class="pager postindexpager clearfix">
 <li class="next"><a href="index-7.html" rel="next">Older posts</a></li>
         </ul>
-<script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script><script>
+<script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script><script>
                 renderMathInElement(document.body,
                     {
                         
@@ -4227,10 +4219,7 @@ delimiters: [
 </div>
 
 
-        <script src="../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
-    moment.locale("en");
-    fancydates(0, "YYYY-MM-DD HH:mm");
-    </script><!-- end fancy dates --><script>
+        <script src="../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {

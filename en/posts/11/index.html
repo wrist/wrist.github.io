@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../../rss.xml">
-<link rel="alternate" type="application/rss+xml" title="RSS (ja)" href="../../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" hreflang="en" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" hreflang="ja" href="../../../rss.xml">
 <link rel="canonical" href="http://www.hiromasa.info/en/posts/11/">
 <!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.hiromasa.info https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
@@ -60,14 +60,14 @@ nikola v8.0.0
             </div>
         </div>
           <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="http://www.hiromasa.info/en/">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
 
             <span id="blog-title">hiromasa.info</span>
         </a>
           </div>
             <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
             <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
-<li class="nav-item"><a href="http://www.hiromasa.info/" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
+<li class="nav-item"><a href="../../../" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
 
                     
                     
@@ -111,10 +111,11 @@ nikola v8.0.0
         <!--Body content-->
         
         
+        
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">nikolaのバージョンをv8.0.0にアップグレード</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
                     Hiromasa OHASHI
             </span></p>
             <p class="dateline">
@@ -143,14 +144,13 @@ nikola v8.0.0
 <h4>
 <code>conf.py</code>の修正</h4>
 <p><code>nikola --version</code>をブログが存在するディレクトリで実行したところ下記の警告が出た。</p>
-<pre class="code literal-block"><span></span><span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">45</span><span class="n">Z</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">The</span> <span class="n">UNSLUGIFY_TITLES</span> <span class="n">setting</span> <span class="n">was</span> <span class="n">renamed</span> <span class="n">to</span> <span class="n">FILE_METADATA_UNSLUGIFY_TITLES</span><span class="o">.</span>
+<pre class="code literal-block"><span></span><code><span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">45</span><span class="n">Z</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">The</span> <span class="n">UNSLUGIFY_TITLES</span> <span class="n">setting</span> <span class="n">was</span> <span class="n">renamed</span> <span class="n">to</span> <span class="n">FILE_METADATA_UNSLUGIFY_TITLES</span><span class="o">.</span>
 <span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">45</span><span class="n">Z</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">The</span> <span class="n">sections</span> <span class="n">feature</span> <span class="n">has</span> <span class="n">been</span> <span class="n">removed</span> <span class="ow">and</span> <span class="n">its</span> <span class="n">functionality</span> <span class="n">has</span> <span class="n">been</span> <span class="n">merged</span> <span class="n">into</span> <span class="n">categories</span><span class="o">.</span>
 <span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">45</span><span class="n">Z</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">For</span> <span class="n">more</span> <span class="n">information</span> <span class="n">on</span> <span class="n">how</span> <span class="n">to</span> <span class="n">migrate</span><span class="p">,</span> <span class="n">please</span> <span class="n">read</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">getnikola</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="n">upgrading</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">nikola</span><span class="o">-</span><span class="n">v8</span><span class="o">.</span><span class="n">html</span><span class="c1">#sections-were-replaced-by-categories</span>
 <span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">45</span><span class="n">Z</span><span class="p">]</span> <span class="n">INFO</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">Setting</span> <span class="n">CATEGORY_DESTPATH_AS_DEFAULT</span> <span class="o">=</span> <span class="n">True</span>
 <span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">16</span><span class="n">T03</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">46</span><span class="n">Z</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">Nikola</span><span class="p">:</span> <span class="n">Cannot</span> <span class="nb">load</span> <span class="n">theme</span> <span class="s2">"bootstrap3"</span><span class="p">,</span> <span class="n">using</span> <span class="s1">'bootblog4'</span> <span class="n">instead</span><span class="o">.</span>
 <span class="o">...</span> <span class="err">以後</span><span class="n">bootstrap3が存在しない旨を示すpythonのTracebackが表示される</span> <span class="o">...</span>
-</pre>
-
+</code></pre>
 
 <p>これらのwarningを修正するために、下記に記した内容を実行した。</p>
 <h5>名称が変更された設定の変更</h5>
@@ -351,10 +351,7 @@ nikola v8.0.0
 </div>
 
 
-        <script src="../../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
-    moment.locale("en");
-    fancydates(0, "YYYY-MM-DD HH:mm");
-    </script><!-- end fancy dates --><script>
+        <script src="../../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {
