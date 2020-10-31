@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about MacOS)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/macos.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sat, 31 Oct 2020 14:37:40 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築</title><link>http://www.hiromasa.info/en/posts/23/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;p&gt;普段使用しているMacBook Proのバタフライキーボードにおいて特定のキーが繰り返し入力されたりバッテリーが膨張しつつあったりするようになってしまったため、TimeMachineを用いてバックアップを取ろうと思ったが、調べたところ最近のSambaでは特定の条件が揃えばネットワーク越しにバックアップを取ることが可能であることが分かったため、その際に設定した環境構築のメモを下記に記す。&lt;/p&gt;
+&lt;h3&gt;手順&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;ppaを追加し新しめのバージョンのsambaを入れる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/etc/samba/smbd.conf&lt;/code&gt;を編集する&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;avahi-daemon&lt;/code&gt;の設定をする&lt;/li&gt;
+&lt;li&gt;sambaのdaemonをrestartする&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;1.ppaを追加し新しめのバージョンのsambaを入れる&lt;/h3&gt;
+&lt;p&gt;2020/10/31現在、aptでインストールされるsambaはバージョン4.7.6であるが、
+バージョン4.8以降でなければTimeMachineバックアップ用の設定ができないのでリポジトリを追加した上で新しいバージョンのsambaをインストールする。
+&lt;a href="https://askubuntu.com/questions/1166875/unable-to-built-samba-4-10-6-from-source"&gt;このQA&lt;/a&gt;のAnswerを参考に下記のようにppaを追加する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo add-apt-repository ppa:linux-schools/samba-latest
+$ sudo apt-get dist-upgrade
+$ sudo apt-get install samba
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;バージョンは下記のように確認可能である。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ smbd -V
+&amp;gt; Version &lt;span class="m"&gt;4&lt;/span&gt;.10.18
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;2. &lt;code&gt;/etc/samba/smbd.conf&lt;/code&gt;を編集する&lt;/h3&gt;
+&lt;p&gt;様々なサイトを参考に下記のような項目を追加した(が不要な設定もあるかもしれない)。
+pathは適宜共有したいディレクトリに書き換えること。また&lt;code&gt;fruit:time machine max size&lt;/code&gt;の項目は適切なサイズを設定しておかないとTimeMachineはディスクをフルに使おうとしてしまうので注意が必要である。
+正確な設定項目については&lt;a href="https://www.samba.org/samba/docs/current/man-html/vfs_fruit.8.html"&gt;マニュアル&lt;/a&gt;を見たほうが良い。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;[global]&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Special configuration for Apple's Time Machine&lt;/span&gt;
+&lt;span class="na"&gt;vfs objects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;catia fruit streams_xattr &lt;/span&gt;
+&lt;span class="na"&gt;fruit:model&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;MacPro&lt;/span&gt;
+&lt;span class="na"&gt;fruit:advertise_fullsync&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;true&lt;/span&gt;
+&lt;span class="na"&gt;fruit:aapl&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;yes&lt;/span&gt;
+
+&lt;span class="k"&gt;[TimeMachine]&lt;/span&gt;
+  &lt;span class="na"&gt;comment&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;Backup for Mac Computers&lt;/span&gt;
+&lt;span class="s"&gt;  path = /path/to/share&lt;/span&gt;
+&lt;span class="s"&gt;  writable = yes&lt;/span&gt;
+&lt;span class="s"&gt;  browsable = yes&lt;/span&gt;
+&lt;span class="s"&gt;  guest ok = yes&lt;/span&gt;
+&lt;span class="s"&gt;  fruit:time machine = yes&lt;/span&gt;
+&lt;span class="s"&gt;  fruit:time machine max size = 600G&lt;/span&gt;
+&lt;span class="s"&gt;  durable handles = yes&lt;/span&gt;
+&lt;span class="s"&gt;  kernel oplocks = no&lt;/span&gt;
+&lt;span class="s"&gt;  kernel share modes = no&lt;/span&gt;
+&lt;span class="s"&gt;  posix locking = no&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;3. &lt;code&gt;avahi-daemon&lt;/code&gt;の設定をする&lt;/h3&gt;
+&lt;p&gt;上記設定を施したのちにsambaのデーモンを再起動した時点で使えるかと思ったがどうやら別途&lt;code&gt;avahi-daemon&lt;/code&gt;(mDNS)の設定をしなければならなかったことが分かった。
+&lt;a href="https://www.samba.org/samba/docs/current/man-html/vfs_fruit.8.html"&gt;この記事&lt;/a&gt;を参考に下記のような設定を記述したファイルを&lt;code&gt;/etc/avahi/services/timemachine.service&lt;/code&gt;として作成した。
+なおここでは&lt;code&gt;avahi-daemon&lt;/code&gt;自体はaptで別途インストール済みであることを想定している。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="cp"&gt;&amp;lt;?xml version="1.0" standalone='no'?&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;&amp;lt;!DOCTYPE service-group SYSTEM "avahi-service.dtd"&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;service-group&amp;gt;&lt;/span&gt;
+ &lt;span class="nt"&gt;&amp;lt;name&lt;/span&gt; &lt;span class="na"&gt;replace-wildcards=&lt;/span&gt;&lt;span class="s"&gt;"yes"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;%h&lt;span class="nt"&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+ &lt;span class="nt"&gt;&amp;lt;service&amp;gt;&lt;/span&gt;
+   &lt;span class="nt"&gt;&amp;lt;type&amp;gt;&lt;/span&gt;_smb._tcp&lt;span class="nt"&gt;&amp;lt;/type&amp;gt;&lt;/span&gt;
+   &lt;span class="nt"&gt;&amp;lt;port&amp;gt;&lt;/span&gt;445&lt;span class="nt"&gt;&amp;lt;/port&amp;gt;&lt;/span&gt;
+ &lt;span class="nt"&gt;&amp;lt;/service&amp;gt;&lt;/span&gt;
+ &lt;span class="nt"&gt;&amp;lt;service&amp;gt;&lt;/span&gt;
+   &lt;span class="nt"&gt;&amp;lt;type&amp;gt;&lt;/span&gt;_adisk._tcp&lt;span class="nt"&gt;&amp;lt;/type&amp;gt;&lt;/span&gt;
+   &lt;span class="nt"&gt;&amp;lt;txt-record&amp;gt;&lt;/span&gt;dk0=adVN=TimeMachine,adVF=0x82&lt;span class="nt"&gt;&amp;lt;/txt-record&amp;gt;&lt;/span&gt;
+ &lt;span class="nt"&gt;&amp;lt;/service&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/service-group&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ここで&lt;code&gt;&amp;lt;txt-record&amp;gt;dk0=adVN=TimeMachine,adVF=0x82&amp;lt;/txt-record&amp;gt;&lt;/code&gt;の&lt;code&gt;TimeMachine&lt;/code&gt;となっている部分は&lt;code&gt;/etc/samba/smb.conf&lt;/code&gt;の共有名と共通にしておく必要がある。&lt;/p&gt;
+&lt;h3&gt;4. sambaのdaemonをrestartしMacOSからTimeMachineを実行&lt;/h3&gt;
+&lt;p&gt;3までを実施した後で、&lt;code&gt;sudo systemctl restart avahi-daemon&lt;/code&gt;および&lt;code&gt;sudo systemctl restart smbd&lt;/code&gt;を実行しavahi-daemonとsmbdをrestartさせると
+MacOS(手元のマシンはCatalina 10.15.7)のシステム環境設定にあるTimeMachineの&lt;code&gt;ディスクを選択&lt;/code&gt;の項目から設定したディスクが探せるようになっているはずである。
+保存先として設定するとIDとパスワードを入力するダイアログが出るため書き込み権限のあるユーザーIDを打ち込むとバックアップが進行するようになった。&lt;/p&gt;
+&lt;h3&gt;参考にさせていただいたサイト&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;https://askubuntu.com/questions/1166875/unable-to-built-samba-4-10-6-from-source&lt;ul&gt;
+&lt;li&gt;ppaからのsambaをインストールする際の参考にしました&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;https://ideal-reality.com/computer/server/time-machine-samba/&lt;ul&gt;
+&lt;li&gt;設定の参考にしました&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;https://qiita.com/upsilon/items/c368726845f89cb0ffe9&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;avahi&lt;/code&gt;の設定を参考にしました&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><guid>http://www.hiromasa.info/en/posts/23/</guid><pubDate>Sat, 31 Oct 2020 14:00:00 GMT</pubDate></item></channel></rss>
