@@ -20,36 +20,11 @@
 C, C++, Python, matlab, octave, rubyあたりの言語を日常的に書き、たまにjavascript, PHP, Haskellも触ります。最近rustに興味を持っているので勉強中です。
 エディタはvimを主に使用し、最近はvscodeも用途に応じて使い分けています。業務ではVisual StudioやDSPメーカーの提供するようなIDEをもっぱら触っています。
 
-最近は頻度が減ってしまいましたが関西地区でのIT系勉強会にも顔を出したり主催もしています。数年前まではPRMLの読書会を大阪で行なっていました。また近年はpydata osakaのオーガナイザーとして活動もしています。
+最近は頻度が減ってしまいましたが関西地区でのIT系勉強会にも顔を出したり主催もしています。数年前まではPRMLの読書会を大阪で行なっていました。また近年はPyData Osakaのオーガナイザーとして活動もしています。
 
 ## 対外発表 ##
 
-* SciPyの概要と各モジュールの紹介(2018/2/28; PyData Osaka)
-    * [ブログ記事](https://www.hiromasa.info/post/4/)
-    * [イベントページ](https://pydataosaka.connpass.com/event/77713/)
-    * [スライド](https://www.hiromasa.info/slide/4.slides.html)
-    <iframe src="https://www.hiromasa.info/slide/4.slides.html" width="100%" height="450px" />
-* librosaで始める音楽情報検索(2018/5/19; PyCon mini Osaka)
-    * [ブログ記事](https://www.hiromasa.info/post/5/)
-    * [イベントページ](https://osaka.pycon.jp/)
-    * [スライド](https://www.hiromasa.info/slide/5.slides.html)
-    <iframe src="https://www.hiromasa.info/slide/5.slides.html" width="100%" height="450px" />
-* pybind11の紹介(2018/12/21; 大阪工業大学 梅キャンPython勉強会 PyData Osakaコラボ回)
-    * [ブログ記事](https://www.hiromasa.info/post/14/)
-    * [イベントページ](https://studygroup-umecanoit.connpass.com/event/110422/)
-    * [スライド](https://www.hiromasa.info/slide/14.slides.html)
-    <iframe src="https://www.hiromasa.info/slide/14.slides.html" width="100%" height="450px" />
-* matplotlibのアニメーション機能の紹介(2019/3/24; はんなりPython+PyData Osakaコラボ回)
-    * [ブログ記事](https://www.hiromasa.info/post/15/)
-    * [イベントページ](https://pydataosaka.connpass.com/event/124089/)
-    * [スライド](https://www.hiromasa.info/slide/15.slides.html)
-    <iframe src="https://www.hiromasa.info/slide/15.slides.html" width="100%" height="450px" />
-* Jupyter LabおよびExtensionの紹介(2020/1/25; PyData Osaka Meetup #12)
-    * [ブログ記事](https://www.hiromasa.info/post/17/)
-    * [イベントページ](https://pydataosaka.connpass.com/event/156820/)
-    * [スライド](https://www.hiromasa.info/slide/17.slides.html)
-    <iframe src="https://www.hiromasa.info/slide/17.slides.html" width="100%" height="450px" />
-
+[slide一覧](https://www.hiromasa.info/pages/slides/index.html)のページを御覧ください。
 
 ## 使用しているウェブサービス一覧 ##
 
@@ -79,7 +54,7 @@ C, C++, Python, matlab, octave, rubyあたりの言語を日常的に書き、�
 
 ## オーガナイザ ##
 
-* [pydata osaka](https://pydataosaka.connpass.com)
+* [PyData Osaka](https://pydataosaka.connpass.com)
 * [PRML読書会](https://osaka-prml-reading.connpass.com)
 * [Python KANSAI](https://kansai-python.connpass.com/)
 
