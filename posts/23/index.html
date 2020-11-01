@@ -35,10 +35,7 @@
 <meta property="og:site_name" content="hiromasa.info">
 <meta property="og:title" content="Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築">
 <meta property="og:url" content="http://www.hiromasa.info/posts/23/">
-<meta property="og:description" content="普段使用しているMacBook Proのバタフライキーボードにおいて特定のキーが繰り返し入力されたりバッテリーが膨張しつつあったりするようになってしまったため、TimeMachineを用いてバックアップを取ろうと思ったが、調べたところ最近のSambaでは特定の条件が揃えばネットワーク越しにバックアップを取ることが可能であることが分かったため、その際に設定した環境構築のメモを下記に記す。
-手順
-
-p">
+<meta property="og:description" content="普段使用しているMacBook Proのバタフライキーボードにおいて特定のキーが繰り返し入力されたりバッテリーが膨張しつつある問題が発生したため修理に出す前にTimeMachineを用いてバックアップを取ろうと思ったが、調べたところ最近のSambaでは特定の条件が揃えばネットワーク越しにTimeMachineを用いてバックアップを取ることが可能であることが分かったため、その際に設定した環境構築のメ">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2020-10-31T23:00:00+09:00">
 <meta property="article:tag" content="avahi-daemon">
@@ -139,7 +136,7 @@ p">
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
-<p>普段使用しているMacBook Proのバタフライキーボードにおいて特定のキーが繰り返し入力されたりバッテリーが膨張しつつあったりするようになってしまったため、TimeMachineを用いてバックアップを取ろうと思ったが、調べたところ最近のSambaでは特定の条件が揃えばネットワーク越しにバックアップを取ることが可能であることが分かったため、その際に設定した環境構築のメモを下記に記す。</p>
+<p>普段使用しているMacBook Proのバタフライキーボードにおいて特定のキーが繰り返し入力されたりバッテリーが膨張しつつある問題が発生したため修理に出す前にTimeMachineを用いてバックアップを取ろうと思ったが、調べたところ最近のSambaでは特定の条件が揃えばネットワーク越しにTimeMachineを用いてバックアップを取ることが可能であることが分かったため、その際に設定した環境構築のメモを下記に記す。</p>
 <h3>手順</h3>
 <ol>
 <li>ppaを追加し新しめのバージョンのsambaを入れる</li>
