@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about vpn)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/vpn.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sat, 21 Nov 2020 16:43:11 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Debian 10 busterを初代Mac mini (A1176; 2006)にインストール</title><link>http://www.hiromasa.info/en/posts/24/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;経緯&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://www.hiromasa.info/posts/23/"&gt;前回の記事&lt;/a&gt;を書いた後にUbuntu 18.04がインストールされていたMacBook Pro 2009のトラックパッドがバッテリー膨張による圧力によって割れるという惨事が発生してしまった。
+このMacBook Proは以前に一度ファンとバッテリーを自力で換装したことがあるものであり、もう限界と判断して押入れに眠っていたMac mini 2006(大学の先輩から2万円で譲ってもらったもの)を復活させることを決意したのであった。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="白昼夢の惨劇" src="http://www.hiromasa.info/images/24/broken_mbp.jpg"&gt;&lt;/p&gt;
+&lt;h4&gt;ディストリビューションの選択&lt;/h4&gt;
+&lt;p&gt;当初はarch linuxを入れようかと思い、&lt;code&gt;x86_64&lt;/code&gt;のISOイメージをUSBに焼いてインストールしようとしたが、このタイミングでこのマシンのCPUが&lt;code&gt;x86_64&lt;/code&gt;ではなく&lt;code&gt;i686&lt;/code&gt;、つまり32bit CPUであるということが発覚した。
+2020年にもなり32bit CPUのマシンを稼働させることに躊躇いもあったが、調べたところUbuntuが32bit対応の廃止を表明している一方でDebianは32bit対応のイメージを今でも配布しているということもありインストールすることを決めた。&lt;/p&gt;
+&lt;h4&gt;マシンのスペック&lt;/h4&gt;
+&lt;p&gt;&lt;a href="https://www.apple.com/jp/support/datasheet/desktop/macmini_607_608.html"&gt;ここ&lt;/a&gt;に載っている1.66GHzのCPUを積んでいるものである。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CPU&lt;ul&gt;
+&lt;li&gt;1.66GHz Core Duo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;メモリ&lt;ul&gt;
+&lt;li&gt;2GB(DDR2; 667MHz)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ディスク容量&lt;ul&gt;
+&lt;li&gt;60GB&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ちなみに&lt;a href="http://www.nextro.com/directworld/cms/%E3%81%84%E3%81%BE%E3%81%95%E3%82%89%E5%88%9D%E4%BB%A3-intel-mac-mini-a1176-%EF%BC%882006%EF%BC%89%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2-1-1-%E3%81%8B%E3%82%89-2-1-%E3%81%AB/"&gt;この記事&lt;/a&gt;によればファームウェアをアップデートした場合CPUの換装や4GBまでのメモリの増設が可能になるらしい。&lt;/p&gt;
+&lt;h4&gt;想定使用用途&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;ファイルサーバ&lt;ul&gt;
+&lt;li&gt;外付けHDDにもともと保存していたデータに対してsambaでアクセスしたいため&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;VPNサーバ&lt;ul&gt;
+&lt;li&gt;移行元マシンで稼働していたSoftEtherの設定を引き継ぐ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3&gt;実際の作業&lt;/h3&gt;
+&lt;p&gt;全般的に自分用のメモ書きである。&lt;/p&gt;
+&lt;h4&gt;DebianのISOをUSBに焼く&lt;/h4&gt;
+&lt;p&gt;ここでは&lt;code&gt;debian-10.6.0-i386-netinst.iso&lt;/code&gt;を公式から落としてきてUSBメモリに書き込んだ。
+この作業は今回使用するMac miniではない別のマシンで行っている。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ df -hか何かでUSBメモリのデバイスのパスを確認する&lt;span class="o"&gt;(&lt;/span&gt;ここでは&lt;span class="sb"&gt;`&lt;/span&gt;/dev/disk4&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+$ diskutil umountDisk /dev/disk4
+$ sudo dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;debian-10.6.0-i386-netinst.iso &lt;span class="nv"&gt;of&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/dev/rdisk4  &lt;span class="c1"&gt;# /dev/rdisk4, とrを付けると早く書き込まれるらしい&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h4&gt;Mac mini上での作業&lt;/h4&gt;
+&lt;h5&gt;rEFIndのインストール&lt;/h5&gt;
+&lt;p&gt;mac miniのosx側で予めrEFIndをインストールしておく。
+rEFIndに同梱のインストールスクリプトを実行した上で再起動すると起動時にrEFIndが立ち上がるはずである。
+ちなみにmac miniに入っていたosxのバージョンはLepardであった。&lt;/p&gt;
+&lt;h5&gt;mac mini側のディスクユーティリティでosxのパーティションサイズを縮小しておく&lt;/h5&gt;
+&lt;p&gt;HFS+フォーマットのosxがインストールされた領域のサイズを20GB程度に縮小した。
+残りの領域についてはこの時点でフォーマットなどは実施しない(GUIインストーラの実行時にやってくれるため)。&lt;/p&gt;
+&lt;h5&gt;GUIインストーラによるDebianのインストール&lt;/h5&gt;
+&lt;p&gt;rEFIndが使えるようになるとUSBメモリに焼いたbootableイメージからインストーラを起動することが可能となる。
+GUIインストーラで提示された項目を選んでいくだけで基本的には問題なくインストールは完了した。
+パーティションは予めosx側で分割した残りの空き領域に対しインストーラが自動的にroot, var, tmp, swap, homeを分割してくれたのでその通りにした。LVMは使っていない。ファイルシステムはext4になっている。
+デスクトップ環境はメモリが2GBしかなく必要かどうか悩んだがxfce4とした。
+SSHサーバもインストーラの選択肢で選べたためインストールしておく。
+よって基本的にこれ以降の作業はSSH越しの作業である。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;ルーターの固定IP割当設定&lt;/h4&gt;
+&lt;p&gt;以降でローカルLAN内でIPアドレスを固定化するためにルーターの割当設定を行っておく。
+Debian上で&lt;code&gt;ip addr&lt;/code&gt;でMACアドレスを表示させ、有線LANのNICとWiFiアダプタに対して固定IP割当を設定。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;Debian起動直後における設定&lt;/h4&gt;
+&lt;h5&gt;sudoグループへの所属&lt;/h5&gt;
+&lt;p&gt;インストール時に登録したユーザーがデフォルトではsudoを使えないため、一度suでrootユーザになった上でsudoグループに所属させる。
+&lt;code&gt;$&lt;/code&gt;は一般ユーザ、&lt;code&gt;#&lt;/code&gt;はrootユーザでの実行を意味する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ su
+&lt;span class="c1"&gt;# gpasswd -a ${username} sudo&lt;/span&gt;
+&lt;span class="c1"&gt;# exit&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5&gt;SSHの設定&lt;/h5&gt;
+&lt;p&gt;鍵認証による接続を行うために公開鍵の登録をした後に&lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt;を編集する。
+公開鍵はクライアント側から&lt;code&gt;ssh-copy-id -i id_rsa.pub ${ipaddr}&lt;/code&gt;で転送しても良いが、GitHubに登録してある公開鍵を使う場合は&lt;code&gt;wget https://github.com/${username}.keys -qO - &amp;gt;&amp;gt; ~/.ssh/authorized_keys&lt;/code&gt;で&lt;code&gt;authorized_keys&lt;/code&gt;に追記しても良い。&lt;/p&gt;
+&lt;p&gt;次に&lt;code&gt;sudo vi /etc/ssh/sshd_config&lt;/code&gt;に下記項目を設定する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;Port ポート番号  # 変更したい場合&lt;/span&gt;
+&lt;span class="err"&gt;PubkeyAuthentication yes&lt;/span&gt;
+&lt;span class="err"&gt;PermitRootLogin no&lt;/span&gt;
+&lt;span class="err"&gt;PermitEmptyPasswords no&lt;/span&gt;
+&lt;span class="err"&gt;PasswordAuthentication no&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設定後、&lt;code&gt;sudo systemctl restart sshd&lt;/code&gt;でsshdを再起動する。&lt;/p&gt;
+&lt;p&gt;このタイミングで他のターミナルからsshしてパスワードログインができなくなっていることを確認する。
+(元々接続していたターミナルでexitしてしまうと再度接続できなくなってしまったときに困る)。&lt;/p&gt;
+&lt;p&gt;その後に、クライアント側で&lt;code&gt;~/.ssh/config&lt;/code&gt;を下記のように編集しておくと&lt;code&gt;ssh hostname&lt;/code&gt;で接続できるようになるため便利である。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Host hostname
+    HostName &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;ipaddr&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+    Port ポート番号
+    preferredauthentications publickey
+    IdentityFile "/path/to/id_rsa"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5&gt;ホームディレクトリ配下の日本語ディレクトリの英語化&lt;/h5&gt;
+&lt;p&gt;セットアップ時に日本語を選択するとホームディレクトリ配下の各種ディレクトリが日本語になってしまっている場合がある。
+その場合は&lt;code&gt;LC_ALL=C xdg-user-dirs-gtk-update --force&lt;/code&gt;を実行して英語ディレクトリを作成する。
+日本語ディレクトリはそのまま残ってしまうため不要であれば消す。&lt;/p&gt;
+&lt;h5&gt;aptで色々入れる&lt;/h5&gt;
+&lt;p&gt;とりあえず最低限のパッケージと&lt;a href="https://www.hiromasa.info/posts/23/"&gt;前回の記事&lt;/a&gt;で書いたように最新版のsambaを使うためのppaを追加する。
+最初にインストールする&lt;code&gt;software-properties-common&lt;/code&gt;はdebianで&lt;code&gt;add-apt-repository&lt;/code&gt;を使うために必要である。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt install -y software-properties-common
+$ sudo add-apt-repository ppa:linux-schools/samba-latest
+$ sudo apt dist-upgrade
+$ sudo apt install -y git vim zsh tmux curl htop
+$ sudo apt install -y samba
+$ sudo apt install -y build-essential autotools-dev libtool automake autoconf autogen
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h4&gt;シェル環境周りの設定&lt;/h4&gt;
+&lt;h5&gt;tmuxの設定&lt;/h5&gt;
+&lt;p&gt;&lt;code&gt;.tmux.conf&lt;/code&gt;を作成し&lt;code&gt;C-t&lt;/code&gt;をprefixキーとするために下記のような&lt;code&gt;.tmux.conf&lt;/code&gt;を&lt;code&gt;~&lt;/code&gt;以下に配置した。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;unbind C-b&lt;/span&gt;
+&lt;span class="err"&gt;set-option -g prefix C-t&lt;/span&gt;
+&lt;span class="err"&gt;set-window-option -g mode-keys vi&lt;/span&gt;
+&lt;span class="err"&gt;bind C-t send-prefix&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5&gt;シェルをzshに変える&lt;/h5&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ chsh  &lt;span class="c1"&gt;# /bin/zshを指定&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再ログインすると色々zshの設定に関する対話スクリプトが走るが、blankファイルだけ生成して脱出した。
+その上で下記のような設定を&lt;code&gt;.zshrc&lt;/code&gt;に記述した。
+内容自体は他マシンにおける設定の使い回しであるため各自好きに変更すると良いと思う。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;setopt&lt;/span&gt; &lt;span class="n"&gt;autopushd&lt;/span&gt;
+&lt;span class="n"&gt;setopt&lt;/span&gt; &lt;span class="n"&gt;auto_cd&lt;/span&gt;
+
+&lt;span class="n"&gt;WORDCHARS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'*?_-.[]~=&amp;amp;;!#$%^(){}&amp;lt;&amp;gt;'&lt;/span&gt;
+
+&lt;span class="n"&gt;compctl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;M&lt;/span&gt; &lt;span class="s1"&gt;'m:{a-z}={A-Z}'&lt;/span&gt;
+
+&lt;span class="n"&gt;setopt&lt;/span&gt; &lt;span class="n"&gt;IGNOREEOF&lt;/span&gt;
+
+&lt;span class="n"&gt;umask&lt;/span&gt; &lt;span class="mi"&gt;002&lt;/span&gt;
+
+&lt;span class="n"&gt;HISTFILE&lt;/span&gt;&lt;span class="o"&gt;=$&lt;/span&gt;&lt;span class="n"&gt;HOME&lt;/span&gt;&lt;span class="o"&gt;/.&lt;/span&gt;&lt;span class="n"&gt;zsh&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;history&lt;/span&gt;
+&lt;span class="n"&gt;HISTSIZE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10000&lt;/span&gt;
+&lt;span class="n"&gt;SAVEHIST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10000&lt;/span&gt;
+
+&lt;span class="n"&gt;setopt&lt;/span&gt; &lt;span class="n"&gt;hist_ignore_dups&lt;/span&gt; &lt;span class="c1"&gt;# ignore duplication command history&lt;/span&gt;
+&lt;span class="n"&gt;setopt&lt;/span&gt; &lt;span class="n"&gt;extended_history&lt;/span&gt;
+&lt;span class="n"&gt;setopt&lt;/span&gt; &lt;span class="n"&gt;share_history&lt;/span&gt;
+&lt;span class="n"&gt;function&lt;/span&gt; &lt;span class="n"&gt;history&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;history&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;E&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;# bind&lt;/span&gt;
+&lt;span class="n"&gt;bindkey&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;
+&lt;span class="n"&gt;bindkey&lt;/span&gt; &lt;span class="s1"&gt;'^P'&lt;/span&gt; &lt;span class="n"&gt;history&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;beginning&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;search&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;backward&lt;/span&gt;
+&lt;span class="n"&gt;bindkey&lt;/span&gt; &lt;span class="s1"&gt;'^N'&lt;/span&gt; &lt;span class="n"&gt;history&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;beginning&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;search&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;forward&lt;/span&gt;
+
+&lt;span class="n"&gt;setopt&lt;/span&gt; &lt;span class="n"&gt;no_check_jobs&lt;/span&gt;
+&lt;span class="n"&gt;setopt&lt;/span&gt; &lt;span class="n"&gt;no_hup&lt;/span&gt;
+
+&lt;span class="n"&gt;setopt&lt;/span&gt; &lt;span class="n"&gt;print_eight_bit&lt;/span&gt;
+
+&lt;span class="k"&gt;export&lt;/span&gt; &lt;span class="n"&gt;LSCOLORS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;gxfxcxdxbxegedadagacad&lt;/span&gt;
+&lt;span class="n"&gt;zstyle&lt;/span&gt; &lt;span class="s1"&gt;':completion:*:default'&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;colors&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LSCOLORS&lt;/span&gt;
+
+&lt;span class="n"&gt;alias&lt;/span&gt; &lt;span class="n"&gt;ls&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"ls -vG"&lt;/span&gt;
+&lt;span class="n"&gt;alias&lt;/span&gt; &lt;span class="n"&gt;la&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'ls -aF'&lt;/span&gt;
+&lt;span class="n"&gt;alias&lt;/span&gt; &lt;span class="n"&gt;ll&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'ls -h -laF'&lt;/span&gt;
+
+&lt;span class="n"&gt;alias&lt;/span&gt; &lt;span class="n"&gt;mv&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'mv -v'&lt;/span&gt;
+&lt;span class="n"&gt;alias&lt;/span&gt; &lt;span class="n"&gt;cp&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'cp -v'&lt;/span&gt;
+&lt;span class="n"&gt;alias&lt;/span&gt; &lt;span class="n"&gt;rm&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'rm -vi'&lt;/span&gt;
+&lt;span class="n"&gt;alias&lt;/span&gt; &lt;span class="n"&gt;grep&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'grep --color'&lt;/span&gt;
+
+&lt;span class="n"&gt;alias&lt;/span&gt; &lt;span class="n"&gt;du&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'du -h'&lt;/span&gt;
+&lt;span class="n"&gt;alias&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'df -h'&lt;/span&gt;
+
+&lt;span class="n"&gt;autoload&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;U&lt;/span&gt; &lt;span class="n"&gt;compinit&lt;/span&gt;
+&lt;span class="n"&gt;compinit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;
+
+&lt;span class="n"&gt;autoload&lt;/span&gt; &lt;span class="n"&gt;colors&lt;/span&gt;
+&lt;span class="n"&gt;colors&lt;/span&gt;
+
+&lt;span class="c1"&gt;# VCS settings&lt;/span&gt;
+&lt;span class="c1"&gt;# http://liosk.blog103.fc2.com/blog-entry-209.html&lt;/span&gt;
+&lt;span class="n"&gt;autoload&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Uz&lt;/span&gt; &lt;span class="n"&gt;vcs_info&lt;/span&gt;
+&lt;span class="n"&gt;precmd&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;psvar&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;LANG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;en_US&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="n"&gt;vcs_info&lt;/span&gt;
+    &lt;span class="n"&gt;psvar&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;=$&lt;/span&gt;&lt;span class="n"&gt;vcs_info_msg_0_&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;PROMPT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"%{${fg[green]}%}[%n@%m %*] %{${fg[magenta]}%}%(!.#.&amp;gt;) %{${reset_color}%}"&lt;/span&gt;
+&lt;span class="n"&gt;PROMPT2&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"%{${fg[cyan]}%}%_&amp;gt; %{${reset_color}%}"&lt;/span&gt;
+&lt;span class="n"&gt;SPROMPT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"%{${fg[red]}%}correct: %R -&amp;gt; &lt;/span&gt;&lt;span class="si"&gt;%r&lt;/span&gt;&lt;span class="s2"&gt; %{${reset_color}%}"&lt;/span&gt;
+&lt;span class="n"&gt;RPROMPT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"%{${fg[green]}%}[%{${fg[red]}%}%~%{${fg[white]}%}%1v%{${fg[green]}%}]%{${reset_color}%}"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ちなみに最近はプロンプトに&lt;code&gt;starship&lt;/code&gt;を使っているが、このマシンでインストールしようとしても失敗したので独自に設定している。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;ファイルサーバ(samba)関連の設定&lt;/h4&gt;
+&lt;h5&gt;fstabの設定&lt;/h5&gt;
+&lt;p&gt;外付けHDDのUUIDを調べてシステム起動時に自動的にマウントされるように設定する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo blkid -o list  &lt;span class="c1"&gt;# UUIDを調べる&lt;/span&gt;
+$ sudo mkdir /mnt/hdd /mnt/hdd2  &lt;span class="c1"&gt;# マウントポイントを作成&lt;/span&gt;
+$ sudo vim /etc/fstab
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;fstabには下記のような感じで書く。&lt;code&gt;${uuidN}&lt;/code&gt;の部分は上記で調べたものに置き換えること。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;UUID="&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;uuid1&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;" /mnt/hdd hfsplus nofail,defaults,force 0 0
+UUID="&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;uuid2&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;" /mnt/hdd2 ext4 nofail,defaults 0 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;記述後、再起動して無事にマウントされているかを確認する。
+nofailの記述は仮にマウントできなかった場合であってもエラーとして扱わないための指定である。
+(実際、hfsplusフォーマットのディスクのマウントは&lt;code&gt;sudo apt install hfsprogs&lt;/code&gt;が必要であったためこの記述を付けていない場合にemergency modeに突入してしまった。)&lt;/p&gt;
+&lt;p&gt;UUIDは外付けHDDに固有であるためか以前と変わっていなかったため、引き継ぎ元のマシンのfstabの追記内容をそのまま使い回すことができた。&lt;/p&gt;
+&lt;h5&gt;&lt;code&gt;/etc/smb.conf&lt;/code&gt;の設定およびavahi-daemonの設定をする&lt;/h5&gt;
+&lt;p&gt;詳細は割愛するが&lt;a href="https://www.hiromasa.info/posts/23/"&gt;前回の記事&lt;/a&gt;を参考のこと。
+ここも&lt;code&gt;smb.conf&lt;/code&gt;内のinterface名を変えたぐらいで基本的に元の設定ファイルをそのまま使い回すことができた。&lt;/p&gt;
+&lt;h5&gt;sambaアクセス用のユーザーを追加する&lt;/h5&gt;
+&lt;p&gt;&lt;code&gt;guest ok&lt;/code&gt;にしていてもTimeMachineバックアップの時には書き込み権限を持ったユーザーが登録されている必要があったので下記で設定しておく。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo smbpasswd -a ${username}&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;VPNサーバーの設定&lt;/h4&gt;
+&lt;h5&gt;SoftEtherの32bit対応版をダウンロードしてビルドする&lt;/h5&gt;
+&lt;p&gt;&lt;a href="http://www.softether-download.com/ja.aspx?product=softether"&gt;ここ&lt;/a&gt;から条件に合うものを落としてきてmakeする。makeの際にライセンスの同意などを求められる。
+ビルドした後は&lt;code&gt;/usr/local&lt;/code&gt;に移動しておく。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ wget https://jp.softether-download.com/files/softether/v4.34-9745-rtm-2020.04.05-tree/Linux/SoftEther_VPN_Server/32bit_-_Intel_x86/softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
+$ tar zxvf softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; vpnserver
+$ make
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; ..
+$ mv vpnserver /usr/local/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5&gt;systemdの設定&lt;/h5&gt;
+&lt;p&gt;&lt;code&gt;/etc/systemd/system/vpnserver.service&lt;/code&gt;として下記ファイルを作成する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
+&lt;span class="na"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;SoftEther VPN Server&lt;/span&gt;
+&lt;span class="na"&gt;After&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;network.target network-online.target&lt;/span&gt;
+
+&lt;span class="k"&gt;[Service]&lt;/span&gt;
+&lt;span class="na"&gt;ExecStart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/usr/local/vpnserver/vpnserver start&lt;/span&gt;
+&lt;span class="na"&gt;ExecStop&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/usr/local/vpnserver/vpnserver stop&lt;/span&gt;
+&lt;span class="na"&gt;Type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;forking&lt;/span&gt;
+&lt;span class="na"&gt;RestartSec&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;3s&lt;/span&gt;
+
+&lt;span class="k"&gt;[Install]&lt;/span&gt;
+&lt;span class="na"&gt;WantedBy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;multi-user.target&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5&gt;bridgeとtapデバイスの作成&lt;/h5&gt;
+&lt;p&gt;下記のようなスクリプトを作成しsudoで実行する。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class="c1"&gt;# vim:fileencoding=utf-8&lt;/span&gt;
+
+&lt;span class="nv"&gt;ip_addr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"192.168.xxx.xxx/xx"&lt;/span&gt;
+&lt;span class="nv"&gt;gateway_addr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"192.168.xxx.xxx"&lt;/span&gt;
+&lt;span class="nv"&gt;interface&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"enp1s0"&lt;/span&gt;
+
+&lt;span class="nv"&gt;bridge_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"br0"&lt;/span&gt;
+&lt;span class="nv"&gt;tap_device_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"tap_softether"&lt;/span&gt;
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"create bridge interface"&lt;/span&gt;
+/usr/bin/nmcli connection add &lt;span class="nb"&gt;type&lt;/span&gt; bridge ifname &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;bridge_name&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"disable STP"&lt;/span&gt;
+/usr/bin/nmcli connection modify bridge-&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;bridge_name&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt; bridge.stp no
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"modify bridge"&lt;/span&gt;
+/usr/bin/nmcli connection modify bridge-&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;bridge_name&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt; ipv4.method manual ipv4.addresses &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;ip_addr&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt; ipv4.gateway &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;gateway_addr&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"connect &lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;interface&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt; to bridge"&lt;/span&gt;
+/usr/bin/nmcli connection add &lt;span class="nb"&gt;type&lt;/span&gt; bridge-slave ifname &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;interface&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt; master bridge-&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;bridge_name&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"connect tap to bridge"&lt;/span&gt;
+/usr/bin/nmcli connection add &lt;span class="nb"&gt;type&lt;/span&gt; bridge-slave ifname &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;tap_device_name&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt; master bridge-&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;bridge_name&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"up tap device"&lt;/span&gt;
+/usr/bin/nmcli connection up bridge-&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;bridge_name&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記を実行すると下記のような出力が出る。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;create bridge interface&lt;/span&gt;
+&lt;span class="err"&gt;接続 'bridge-br0' (0aa0ae96-6428-4f7e-bc1c-fa6f22f98cea) が正常に追加されました。&lt;/span&gt;
+&lt;span class="err"&gt;disable STP&lt;/span&gt;
+&lt;span class="err"&gt;modify bridge&lt;/span&gt;
+&lt;span class="err"&gt;connect enp1s0 to bridge&lt;/span&gt;
+&lt;span class="err"&gt;接続 'bridge-slave-enp1s0' (ec87d050-f6ae-4ca8-adbf-7b1f0e4eb1b6) が正常に追加されました。&lt;/span&gt;
+&lt;span class="err"&gt;connect tap to bridge&lt;/span&gt;
+&lt;span class="err"&gt;接続 'bridge-slave-tap_softether' (f262c26c-2799-4c9b-b149-9d1b3c44f8ce) が正常に追加されました。&lt;/span&gt;
+&lt;span class="err"&gt;up tap device&lt;/span&gt;
+&lt;span class="err"&gt;接続が正常にアクティベートされました (master waiting for slaves) (D-Bus アクティブパス: /org/freedesktop/NetworkManager/ActiveConnection/3)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;この後に再起動を行い、&lt;code&gt;ip addr&lt;/code&gt;でIPアドレスが割り振られていたり、&lt;code&gt;ip link show&lt;/code&gt;でbr0のSTATEがUpになっていれば問題ないと思われる。&lt;/p&gt;
+&lt;p&gt;なお&lt;code&gt;sudo apt install bridge-utils&lt;/code&gt;を実行すると &lt;code&gt;/sbin/brctl&lt;/code&gt;が使えるようになるが、今回は直接は不要であった。
+また上記スクリプトではnmcliを使っているがipコマンドでもどうやら作成できるらしい。&lt;/p&gt;
+&lt;h5&gt;VPNサーバーの設定の読み込み&lt;/h5&gt;
+&lt;p&gt;移行元で予め&lt;code&gt;vpncmd&lt;/code&gt;のConfigGetを実行し保存しておく。
+これは&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ /usr/local/vpnserver/vpncmd
+  &amp;gt; * &lt;span class="m"&gt;1&lt;/span&gt;. VPN Server または VPN Bridgeの管理 を実行
+  &amp;gt; * 何も指定せずにEnterを押すことでローカルのサーバーに接続
+  &amp;gt; * 更に何も指定せずにEnterを押すことでサーバー管理モードに入る
+  &amp;gt; * 管理パスワードを入力
+  VPN Server&amp;gt; ConfigGet 保存先パス
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;と実行することで保存が可能である。この設定ファイルを引き継ぎ先のマシンで読み込ませることを考える。&lt;/p&gt;
+&lt;p&gt;まず、&lt;code&gt;sudo systemctl enable vpnserver&lt;/code&gt;を実行し前述のsystemd用の設定によるサービスを有効化する。
+続いて&lt;code&gt;sudo systemctl start vpnserver&lt;/code&gt;でVPNサーバーを起動する。&lt;/p&gt;
+&lt;p&gt;この上で&lt;code&gt;/usr/local/vpnserver/vpncmd&lt;/code&gt;を実行し、移行元での保存時と同様に1を指定の上で無指定でEnterを2回実行することでサーバー管理モードに入る。
+ここで&lt;code&gt;ConfigSet&lt;/code&gt;を実行すると設定ファイルのパスを尋ねられるので、入力することで設定の読み込みが可能である。
+&lt;a href="https://ja.softether.org/4-docs/1-manual/3/3.3#.E5.88.A5.E3.81.AE.E3.82.B3.E3.83.B3.E3.83.94.E3.83.A5.E3.83.BC.E3.82.BF.E3.81.B8.E3.81.AE.E3.82.B3.E3.83.B3.E3.83.95.E3.82.A3.E3.82.B0.E3.83.AC.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB.E3.81.AE.E7.A7.BB.E5.8B.95"&gt;ここ&lt;/a&gt;によればこの時点で元マシンの環境は復元できるとのことである。&lt;/p&gt;
+&lt;h5&gt;ルーターで通信に必要なポートを開放する&lt;/h5&gt;
+&lt;p&gt;50, 51, 500, 4500番ポートの通信をホストマシンのIPアドレスに対して許可するようにルーターの設定を施した。&lt;/p&gt;
+&lt;h5&gt;接続できない原因を探す&lt;/h5&gt;
+&lt;p&gt;元マシンでの設定が正しければ上記までの設定で接続できるようになるはずだが案の定接続できない。
+そこで&lt;code&gt;/usr/local/vpnserver&lt;/code&gt;以下に存在する&lt;code&gt;secure_log&lt;/code&gt;や&lt;code&gt;server_log&lt;/code&gt;といったログ見て原因を推察する。
+ここでは&lt;code&gt;server_log&lt;/code&gt;以下に存在するlogにおける&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;2020-11-21 xx:xx:xx.xxx L2TP PPP セッション [xxx.xxx.xxx.xxx:xxxx]:&lt;/span&gt;
+&lt;span class="err"&gt;  DHCP サーバーからの IP アドレスの取得に失敗しました。&lt;/span&gt;
+&lt;span class="err"&gt;  PPP の通信を受諾するためには DHCP サーバーが必要です。&lt;/span&gt;
+&lt;span class="err"&gt;  仮想 HUB の Ethernet セグメント上で DHCP サーバーが正しく動作しているかどうか確認してください。&lt;/span&gt;
+&lt;span class="err"&gt;  DHCP サーバーを用意することができない場合は、仮想 HUB の SecureNAT 機能を用いることもできます。&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;という記述から&lt;code&gt;SecureNat&lt;/code&gt;が有効化されていないことが分かったため、&lt;code&gt;vpncmd&lt;/code&gt;を実行し仮想ハブの管理から&lt;code&gt;SecureNatEnable&lt;/code&gt;を実行したところ、無事に接続されるようになった。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;まとめ&lt;/h3&gt;
+&lt;p&gt;古いMac miniにDebianを入れてファイルサーバ・VPNサーバとして復活させる手順のメモを記した。
+稼働させたばかりであり、そもそも古いマシンであるため、いつまで持つか不明であるがこのまましばらく運用してみようと思う。&lt;/p&gt;&lt;/div&gt;</description><guid>http://www.hiromasa.info/en/posts/24/</guid><pubDate>Sat, 21 Nov 2020 15:00:00 GMT</pubDate></item></channel></rss>

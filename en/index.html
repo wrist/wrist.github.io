@@ -101,7 +101,357 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/23/" class="u-url">Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/24/" class="u-url">Debian 10 busterを初代Mac mini (A1176; 2006)にインストール</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hiromasa OHASHI
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/24/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-11-22T00:00:00+09:00" itemprop="datePublished" title="2020-11-22 00:00">2020-11-22 00:00</time></a>
+            </p>
+                        <p class="commentline">
+        
+    <a href="posts/24/#disqus_thread" data-disqus-identifier="cache/posts/24.html">Comments</a>
+
+
+                </p>
+</div>
+            </header><div class="e-content entry-content">
+                    <div>
+<h3>経緯</h3>
+<p><a href="https://www.hiromasa.info/posts/23/">前回の記事</a>を書いた後にUbuntu 18.04がインストールされていたMacBook Pro 2009のトラックパッドがバッテリー膨張による圧力によって割れるという惨事が発生してしまった。
+このMacBook Proは以前に一度ファンとバッテリーを自力で換装したことがあるものであり、もう限界と判断して押入れに眠っていたMac mini 2006(大学の先輩から2万円で譲ってもらったもの)を復活させることを決意したのであった。</p>
+<p><img alt="白昼夢の惨劇" src="../images/24/broken_mbp.jpg"></p>
+<h4>ディストリビューションの選択</h4>
+<p>当初はarch linuxを入れようかと思い、<code>x86_64</code>のISOイメージをUSBに焼いてインストールしようとしたが、このタイミングでこのマシンのCPUが<code>x86_64</code>ではなく<code>i686</code>、つまり32bit CPUであるということが発覚した。
+2020年にもなり32bit CPUのマシンを稼働させることに躊躇いもあったが、調べたところUbuntuが32bit対応の廃止を表明している一方でDebianは32bit対応のイメージを今でも配布しているということもありインストールすることを決めた。</p>
+<h4>マシンのスペック</h4>
+<p><a href="https://www.apple.com/jp/support/datasheet/desktop/macmini_607_608.html">ここ</a>に載っている1.66GHzのCPUを積んでいるものである。</p>
+<ul>
+<li>CPU<ul>
+<li>1.66GHz Core Duo</li>
+</ul>
+</li>
+<li>メモリ<ul>
+<li>2GB(DDR2; 667MHz)</li>
+</ul>
+</li>
+<li>ディスク容量<ul>
+<li>60GB</li>
+</ul>
+</li>
+</ul>
+<p>ちなみに<a href="http://www.nextro.com/directworld/cms/%E3%81%84%E3%81%BE%E3%81%95%E3%82%89%E5%88%9D%E4%BB%A3-intel-mac-mini-a1176-%EF%BC%882006%EF%BC%89%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2-1-1-%E3%81%8B%E3%82%89-2-1-%E3%81%AB/">この記事</a>によればファームウェアをアップデートした場合CPUの換装や4GBまでのメモリの増設が可能になるらしい。</p>
+<h4>想定使用用途</h4>
+<ul>
+<li>ファイルサーバ<ul>
+<li>外付けHDDにもともと保存していたデータに対してsambaでアクセスしたいため</li>
+</ul>
+</li>
+<li>VPNサーバ<ul>
+<li>移行元マシンで稼働していたSoftEtherの設定を引き継ぐ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>実際の作業</h3>
+<p>全般的に自分用のメモ書きである。</p>
+<h4>DebianのISOをUSBに焼く</h4>
+<p>ここでは<code>debian-10.6.0-i386-netinst.iso</code>を公式から落としてきてUSBメモリに書き込んだ。
+この作業は今回使用するMac miniではない別のマシンで行っている。</p>
+<pre class="code literal-block"><span></span><code>$ df -hか何かでUSBメモリのデバイスのパスを確認する<span class="o">(</span>ここでは<span class="sb">`</span>/dev/disk4<span class="sb">`</span><span class="o">)</span>
+$ diskutil umountDisk /dev/disk4
+$ sudo dd <span class="k">if</span><span class="o">=</span>debian-10.6.0-i386-netinst.iso <span class="nv">of</span><span class="o">=</span>/dev/rdisk4  <span class="c1"># /dev/rdisk4, とrを付けると早く書き込まれるらしい</span>
+</code></pre>
+
+<hr>
+<h4>Mac mini上での作業</h4>
+<h5>rEFIndのインストール</h5>
+<p>mac miniのosx側で予めrEFIndをインストールしておく。
+rEFIndに同梱のインストールスクリプトを実行した上で再起動すると起動時にrEFIndが立ち上がるはずである。
+ちなみにmac miniに入っていたosxのバージョンはLepardであった。</p>
+<h5>mac mini側のディスクユーティリティでosxのパーティションサイズを縮小しておく</h5>
+<p>HFS+フォーマットのosxがインストールされた領域のサイズを20GB程度に縮小した。
+残りの領域についてはこの時点でフォーマットなどは実施しない(GUIインストーラの実行時にやってくれるため)。</p>
+<h5>GUIインストーラによるDebianのインストール</h5>
+<p>rEFIndが使えるようになるとUSBメモリに焼いたbootableイメージからインストーラを起動することが可能となる。
+GUIインストーラで提示された項目を選んでいくだけで基本的には問題なくインストールは完了した。
+パーティションは予めosx側で分割した残りの空き領域に対しインストーラが自動的にroot, var, tmp, swap, homeを分割してくれたのでその通りにした。LVMは使っていない。ファイルシステムはext4になっている。
+デスクトップ環境はメモリが2GBしかなく必要かどうか悩んだがxfce4とした。
+SSHサーバもインストーラの選択肢で選べたためインストールしておく。
+よって基本的にこれ以降の作業はSSH越しの作業である。</p>
+<hr>
+<h4>ルーターの固定IP割当設定</h4>
+<p>以降でローカルLAN内でIPアドレスを固定化するためにルーターの割当設定を行っておく。
+Debian上で<code>ip addr</code>でMACアドレスを表示させ、有線LANのNICとWiFiアダプタに対して固定IP割当を設定。</p>
+<hr>
+<h4>Debian起動直後における設定</h4>
+<h5>sudoグループへの所属</h5>
+<p>インストール時に登録したユーザーがデフォルトではsudoを使えないため、一度suでrootユーザになった上でsudoグループに所属させる。
+<code>$</code>は一般ユーザ、<code>#</code>はrootユーザでの実行を意味する。</p>
+<pre class="code literal-block"><span></span><code>$ su
+<span class="c1"># gpasswd -a ${username} sudo</span>
+<span class="c1"># exit</span>
+</code></pre>
+
+<h5>SSHの設定</h5>
+<p>鍵認証による接続を行うために公開鍵の登録をした後に<code>/etc/ssh/sshd_config</code>を編集する。
+公開鍵はクライアント側から<code>ssh-copy-id -i id_rsa.pub ${ipaddr}</code>で転送しても良いが、GitHubに登録してある公開鍵を使う場合は<code>wget https://github.com/${username}.keys -qO - &gt;&gt; ~/.ssh/authorized_keys</code>で<code>authorized_keys</code>に追記しても良い。</p>
+<p>次に<code>sudo vi /etc/ssh/sshd_config</code>に下記項目を設定する。</p>
+<pre class="code literal-block"><span></span><code><span class="err">Port ポート番号  # 変更したい場合</span>
+<span class="err">PubkeyAuthentication yes</span>
+<span class="err">PermitRootLogin no</span>
+<span class="err">PermitEmptyPasswords no</span>
+<span class="err">PasswordAuthentication no</span>
+</code></pre>
+
+<p>設定後、<code>sudo systemctl restart sshd</code>でsshdを再起動する。</p>
+<p>このタイミングで他のターミナルからsshしてパスワードログインができなくなっていることを確認する。
+(元々接続していたターミナルでexitしてしまうと再度接続できなくなってしまったときに困る)。</p>
+<p>その後に、クライアント側で<code>~/.ssh/config</code>を下記のように編集しておくと<code>ssh hostname</code>で接続できるようになるため便利である。</p>
+<pre class="code literal-block"><span></span><code>Host hostname
+    HostName <span class="cp">${</span><span class="n">ipaddr</span><span class="cp">}</span>
+    Port ポート番号
+    preferredauthentications publickey
+    IdentityFile "/path/to/id_rsa"
+</code></pre>
+
+<h5>ホームディレクトリ配下の日本語ディレクトリの英語化</h5>
+<p>セットアップ時に日本語を選択するとホームディレクトリ配下の各種ディレクトリが日本語になってしまっている場合がある。
+その場合は<code>LC_ALL=C xdg-user-dirs-gtk-update --force</code>を実行して英語ディレクトリを作成する。
+日本語ディレクトリはそのまま残ってしまうため不要であれば消す。</p>
+<h5>aptで色々入れる</h5>
+<p>とりあえず最低限のパッケージと<a href="https://www.hiromasa.info/posts/23/">前回の記事</a>で書いたように最新版のsambaを使うためのppaを追加する。
+最初にインストールする<code>software-properties-common</code>はdebianで<code>add-apt-repository</code>を使うために必要である。</p>
+<pre class="code literal-block"><span></span><code>$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt install -y software-properties-common
+$ sudo add-apt-repository ppa:linux-schools/samba-latest
+$ sudo apt dist-upgrade
+$ sudo apt install -y git vim zsh tmux curl htop
+$ sudo apt install -y samba
+$ sudo apt install -y build-essential autotools-dev libtool automake autoconf autogen
+</code></pre>
+
+<hr>
+<h4>シェル環境周りの設定</h4>
+<h5>tmuxの設定</h5>
+<p><code>.tmux.conf</code>を作成し<code>C-t</code>をprefixキーとするために下記のような<code>.tmux.conf</code>を<code>~</code>以下に配置した。</p>
+<pre class="code literal-block"><span></span><code><span class="err">unbind C-b</span>
+<span class="err">set-option -g prefix C-t</span>
+<span class="err">set-window-option -g mode-keys vi</span>
+<span class="err">bind C-t send-prefix</span>
+</code></pre>
+
+<h5>シェルをzshに変える</h5>
+<pre class="code literal-block"><span></span><code>$ chsh  <span class="c1"># /bin/zshを指定</span>
+</code></pre>
+
+<p>再ログインすると色々zshの設定に関する対話スクリプトが走るが、blankファイルだけ生成して脱出した。
+その上で下記のような設定を<code>.zshrc</code>に記述した。
+内容自体は他マシンにおける設定の使い回しであるため各自好きに変更すると良いと思う。</p>
+<pre class="code literal-block"><span></span><code><span class="n">setopt</span> <span class="n">autopushd</span>
+<span class="n">setopt</span> <span class="n">auto_cd</span>
+
+<span class="n">WORDCHARS</span><span class="o">=</span><span class="s1">'*?_-.[]~=&amp;;!#$%^(){}&lt;&gt;'</span>
+
+<span class="n">compctl</span> <span class="o">-</span><span class="n">M</span> <span class="s1">'m:{a-z}={A-Z}'</span>
+
+<span class="n">setopt</span> <span class="n">IGNOREEOF</span>
+
+<span class="n">umask</span> <span class="mi">002</span>
+
+<span class="n">HISTFILE</span><span class="o">=$</span><span class="n">HOME</span><span class="o">/.</span><span class="n">zsh</span><span class="o">-</span><span class="n">history</span>
+<span class="n">HISTSIZE</span><span class="o">=</span><span class="mi">10000</span>
+<span class="n">SAVEHIST</span><span class="o">=</span><span class="mi">10000</span>
+
+<span class="n">setopt</span> <span class="n">hist_ignore_dups</span> <span class="c1"># ignore duplication command history</span>
+<span class="n">setopt</span> <span class="n">extended_history</span>
+<span class="n">setopt</span> <span class="n">share_history</span>
+<span class="n">function</span> <span class="n">history</span><span class="o">-</span><span class="n">all</span> <span class="p">{</span> <span class="n">history</span> <span class="o">-</span><span class="n">E</span> <span class="mi">1</span> <span class="p">}</span>
+
+<span class="c1"># bind</span>
+<span class="n">bindkey</span> <span class="o">-</span><span class="n">e</span>
+<span class="n">bindkey</span> <span class="s1">'^P'</span> <span class="n">history</span><span class="o">-</span><span class="n">beginning</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">backward</span>
+<span class="n">bindkey</span> <span class="s1">'^N'</span> <span class="n">history</span><span class="o">-</span><span class="n">beginning</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">forward</span>
+
+<span class="n">setopt</span> <span class="n">no_check_jobs</span>
+<span class="n">setopt</span> <span class="n">no_hup</span>
+
+<span class="n">setopt</span> <span class="n">print_eight_bit</span>
+
+<span class="k">export</span> <span class="n">LSCOLORS</span><span class="o">=</span><span class="n">gxfxcxdxbxegedadagacad</span>
+<span class="n">zstyle</span> <span class="s1">':completion:*:default'</span> <span class="n">list</span><span class="o">-</span><span class="n">colors</span> <span class="o">$</span><span class="n">LSCOLORS</span>
+
+<span class="n">alias</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"ls -vG"</span>
+<span class="n">alias</span> <span class="n">la</span><span class="o">=</span><span class="s1">'ls -aF'</span>
+<span class="n">alias</span> <span class="n">ll</span><span class="o">=</span><span class="s1">'ls -h -laF'</span>
+
+<span class="n">alias</span> <span class="n">mv</span><span class="o">=</span><span class="s1">'mv -v'</span>
+<span class="n">alias</span> <span class="n">cp</span><span class="o">=</span><span class="s1">'cp -v'</span>
+<span class="n">alias</span> <span class="n">rm</span><span class="o">=</span><span class="s1">'rm -vi'</span>
+<span class="n">alias</span> <span class="n">grep</span><span class="o">=</span><span class="s1">'grep --color'</span>
+
+<span class="n">alias</span> <span class="n">du</span><span class="o">=</span><span class="s1">'du -h'</span>
+<span class="n">alias</span> <span class="n">df</span><span class="o">=</span><span class="s1">'df -h'</span>
+
+<span class="n">autoload</span> <span class="o">-</span><span class="n">U</span> <span class="n">compinit</span>
+<span class="n">compinit</span> <span class="o">-</span><span class="n">u</span>
+
+<span class="n">autoload</span> <span class="n">colors</span>
+<span class="n">colors</span>
+
+<span class="c1"># VCS settings</span>
+<span class="c1"># http://liosk.blog103.fc2.com/blog-entry-209.html</span>
+<span class="n">autoload</span> <span class="o">-</span><span class="n">Uz</span> <span class="n">vcs_info</span>
+<span class="n">precmd</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">psvar</span><span class="o">=</span><span class="p">()</span>
+    <span class="n">LANG</span><span class="o">=</span><span class="n">en_US</span><span class="o">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> <span class="n">vcs_info</span>
+    <span class="n">psvar</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=$</span><span class="n">vcs_info_msg_0_</span>
+<span class="p">}</span>
+
+<span class="n">PROMPT</span><span class="o">=</span><span class="s2">"%{${fg[green]}%}[%n@%m %*] %{${fg[magenta]}%}%(!.#.&gt;) %{${reset_color}%}"</span>
+<span class="n">PROMPT2</span><span class="o">=</span><span class="s2">"%{${fg[cyan]}%}%_&gt; %{${reset_color}%}"</span>
+<span class="n">SPROMPT</span><span class="o">=</span><span class="s2">"%{${fg[red]}%}correct: %R -&gt; </span><span class="si">%r</span><span class="s2"> %{${reset_color}%}"</span>
+<span class="n">RPROMPT</span><span class="o">=</span><span class="s2">"%{${fg[green]}%}[%{${fg[red]}%}%~%{${fg[white]}%}%1v%{${fg[green]}%}]%{${reset_color}%}"</span>
+</code></pre>
+
+<p>ちなみに最近はプロンプトに<code>starship</code>を使っているが、このマシンでインストールしようとしても失敗したので独自に設定している。</p>
+<hr>
+<h4>ファイルサーバ(samba)関連の設定</h4>
+<h5>fstabの設定</h5>
+<p>外付けHDDのUUIDを調べてシステム起動時に自動的にマウントされるように設定する。</p>
+<pre class="code literal-block"><span></span><code>$ sudo blkid -o list  <span class="c1"># UUIDを調べる</span>
+$ sudo mkdir /mnt/hdd /mnt/hdd2  <span class="c1"># マウントポイントを作成</span>
+$ sudo vim /etc/fstab
+</code></pre>
+
+<p>fstabには下記のような感じで書く。<code>${uuidN}</code>の部分は上記で調べたものに置き換えること。</p>
+<pre class="code literal-block"><span></span><code>UUID="<span class="cp">${</span><span class="n">uuid1</span><span class="cp">}</span>" /mnt/hdd hfsplus nofail,defaults,force 0 0
+UUID="<span class="cp">${</span><span class="n">uuid2</span><span class="cp">}</span>" /mnt/hdd2 ext4 nofail,defaults 0 0
+</code></pre>
+
+<p>記述後、再起動して無事にマウントされているかを確認する。
+nofailの記述は仮にマウントできなかった場合であってもエラーとして扱わないための指定である。
+(実際、hfsplusフォーマットのディスクのマウントは<code>sudo apt install hfsprogs</code>が必要であったためこの記述を付けていない場合にemergency modeに突入してしまった。)</p>
+<p>UUIDは外付けHDDに固有であるためか以前と変わっていなかったため、引き継ぎ元のマシンのfstabの追記内容をそのまま使い回すことができた。</p>
+<h5>
+<code>/etc/smb.conf</code>の設定およびavahi-daemonの設定をする</h5>
+<p>詳細は割愛するが<a href="https://www.hiromasa.info/posts/23/">前回の記事</a>を参考のこと。
+ここも<code>smb.conf</code>内のinterface名を変えたぐらいで基本的に元の設定ファイルをそのまま使い回すことができた。</p>
+<h5>sambaアクセス用のユーザーを追加する</h5>
+<p><code>guest ok</code>にしていてもTimeMachineバックアップの時には書き込み権限を持ったユーザーが登録されている必要があったので下記で設定しておく。</p>
+<p><code>sudo smbpasswd -a ${username}</code></p>
+<hr>
+<h4>VPNサーバーの設定</h4>
+<h5>SoftEtherの32bit対応版をダウンロードしてビルドする</h5>
+<p><a href="http://www.softether-download.com/ja.aspx?product=softether">ここ</a>から条件に合うものを落としてきてmakeする。makeの際にライセンスの同意などを求められる。
+ビルドした後は<code>/usr/local</code>に移動しておく。</p>
+<pre class="code literal-block"><span></span><code>$ wget https://jp.softether-download.com/files/softether/v4.34-9745-rtm-2020.04.05-tree/Linux/SoftEther_VPN_Server/32bit_-_Intel_x86/softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
+$ tar zxvf softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
+$ <span class="nb">cd</span> vpnserver
+$ make
+$ <span class="nb">cd</span> ..
+$ mv vpnserver /usr/local/
+</code></pre>
+
+<h5>systemdの設定</h5>
+<p><code>/etc/systemd/system/vpnserver.service</code>として下記ファイルを作成する。</p>
+<pre class="code literal-block"><span></span><code><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">SoftEther VPN Server</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network.target network-online.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver start</span>
+<span class="na">ExecStop</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver stop</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">forking</span>
+<span class="na">RestartSec</span><span class="o">=</span><span class="s">3s</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</code></pre>
+
+<h5>bridgeとtapデバイスの作成</h5>
+<p>下記のようなスクリプトを作成しsudoで実行する。</p>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># vim:fileencoding=utf-8</span>
+
+<span class="nv">ip_addr</span><span class="o">=</span><span class="s2">"192.168.xxx.xxx/xx"</span>
+<span class="nv">gateway_addr</span><span class="o">=</span><span class="s2">"192.168.xxx.xxx"</span>
+<span class="nv">interface</span><span class="o">=</span><span class="s2">"enp1s0"</span>
+
+<span class="nv">bridge_name</span><span class="o">=</span><span class="s2">"br0"</span>
+<span class="nv">tap_device_name</span><span class="o">=</span><span class="s2">"tap_softether"</span>
+
+<span class="nb">echo</span> <span class="s2">"create bridge interface"</span>
+/usr/bin/nmcli connection add <span class="nb">type</span> bridge ifname <span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">"disable STP"</span>
+/usr/bin/nmcli connection modify bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span> bridge.stp no
+<span class="nb">echo</span> <span class="s2">"modify bridge"</span>
+/usr/bin/nmcli connection modify bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span> ipv4.method manual ipv4.addresses <span class="si">${</span><span class="nv">ip_addr</span><span class="si">}</span> ipv4.gateway <span class="si">${</span><span class="nv">gateway_addr</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">"connect </span><span class="si">${</span><span class="nv">interface</span><span class="si">}</span><span class="s2"> to bridge"</span>
+/usr/bin/nmcli connection add <span class="nb">type</span> bridge-slave ifname <span class="si">${</span><span class="nv">interface</span><span class="si">}</span> master bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">"connect tap to bridge"</span>
+/usr/bin/nmcli connection add <span class="nb">type</span> bridge-slave ifname <span class="si">${</span><span class="nv">tap_device_name</span><span class="si">}</span> master bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">"up tap device"</span>
+/usr/bin/nmcli connection up bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
+</code></pre>
+
+<p>上記を実行すると下記のような出力が出る。</p>
+<pre class="code literal-block"><span></span><code><span class="err">create bridge interface</span>
+<span class="err">接続 'bridge-br0' (0aa0ae96-6428-4f7e-bc1c-fa6f22f98cea) が正常に追加されました。</span>
+<span class="err">disable STP</span>
+<span class="err">modify bridge</span>
+<span class="err">connect enp1s0 to bridge</span>
+<span class="err">接続 'bridge-slave-enp1s0' (ec87d050-f6ae-4ca8-adbf-7b1f0e4eb1b6) が正常に追加されました。</span>
+<span class="err">connect tap to bridge</span>
+<span class="err">接続 'bridge-slave-tap_softether' (f262c26c-2799-4c9b-b149-9d1b3c44f8ce) が正常に追加されました。</span>
+<span class="err">up tap device</span>
+<span class="err">接続が正常にアクティベートされました (master waiting for slaves) (D-Bus アクティブパス: /org/freedesktop/NetworkManager/ActiveConnection/3)</span>
+</code></pre>
+
+<p>この後に再起動を行い、<code>ip addr</code>でIPアドレスが割り振られていたり、<code>ip link show</code>でbr0のSTATEがUpになっていれば問題ないと思われる。</p>
+<p>なお<code>sudo apt install bridge-utils</code>を実行すると <code>/sbin/brctl</code>が使えるようになるが、今回は直接は不要であった。
+また上記スクリプトではnmcliを使っているがipコマンドでもどうやら作成できるらしい。</p>
+<h5>VPNサーバーの設定の読み込み</h5>
+<p>移行元で予め<code>vpncmd</code>のConfigGetを実行し保存しておく。
+これは</p>
+<pre class="code literal-block"><span></span><code>$ /usr/local/vpnserver/vpncmd
+  &gt; * <span class="m">1</span>. VPN Server または VPN Bridgeの管理 を実行
+  &gt; * 何も指定せずにEnterを押すことでローカルのサーバーに接続
+  &gt; * 更に何も指定せずにEnterを押すことでサーバー管理モードに入る
+  &gt; * 管理パスワードを入力
+  VPN Server&gt; ConfigGet 保存先パス
+</code></pre>
+
+<p>と実行することで保存が可能である。この設定ファイルを引き継ぎ先のマシンで読み込ませることを考える。</p>
+<p>まず、<code>sudo systemctl enable vpnserver</code>を実行し前述のsystemd用の設定によるサービスを有効化する。
+続いて<code>sudo systemctl start vpnserver</code>でVPNサーバーを起動する。</p>
+<p>この上で<code>/usr/local/vpnserver/vpncmd</code>を実行し、移行元での保存時と同様に1を指定の上で無指定でEnterを2回実行することでサーバー管理モードに入る。
+ここで<code>ConfigSet</code>を実行すると設定ファイルのパスを尋ねられるので、入力することで設定の読み込みが可能である。
+<a href="https://ja.softether.org/4-docs/1-manual/3/3.3#.E5.88.A5.E3.81.AE.E3.82.B3.E3.83.B3.E3.83.94.E3.83.A5.E3.83.BC.E3.82.BF.E3.81.B8.E3.81.AE.E3.82.B3.E3.83.B3.E3.83.95.E3.82.A3.E3.82.B0.E3.83.AC.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB.E3.81.AE.E7.A7.BB.E5.8B.95">ここ</a>によればこの時点で元マシンの環境は復元できるとのことである。</p>
+<h5>ルーターで通信に必要なポートを開放する</h5>
+<p>50, 51, 500, 4500番ポートの通信をホストマシンのIPアドレスに対して許可するようにルーターの設定を施した。</p>
+<h5>接続できない原因を探す</h5>
+<p>元マシンでの設定が正しければ上記までの設定で接続できるようになるはずだが案の定接続できない。
+そこで<code>/usr/local/vpnserver</code>以下に存在する<code>secure_log</code>や<code>server_log</code>といったログ見て原因を推察する。
+ここでは<code>server_log</code>以下に存在するlogにおける</p>
+<pre class="code literal-block"><span></span><code><span class="err">2020-11-21 xx:xx:xx.xxx L2TP PPP セッション [xxx.xxx.xxx.xxx:xxxx]:</span>
+<span class="err">  DHCP サーバーからの IP アドレスの取得に失敗しました。</span>
+<span class="err">  PPP の通信を受諾するためには DHCP サーバーが必要です。</span>
+<span class="err">  仮想 HUB の Ethernet セグメント上で DHCP サーバーが正しく動作しているかどうか確認してください。</span>
+<span class="err">  DHCP サーバーを用意することができない場合は、仮想 HUB の SecureNAT 機能を用いることもできます。</span>
+</code></pre>
+
+<p>という記述から<code>SecureNat</code>が有効化されていないことが分かったため、<code>vpncmd</code>を実行し仮想ハブの管理から<code>SecureNatEnable</code>を実行したところ、無事に接続されるようになった。</p>
+<hr>
+<h3>まとめ</h3>
+<p>古いMac miniにDebianを入れてファイルサーバ・VPNサーバとして復活させる手順のメモを記した。
+稼働させたばかりであり、そもそも古いマシンであるため、いつまで持つか不明であるがこのまましばらく運用してみようと思う。</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/23/" class="u-url">Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Hiromasa OHASHI
@@ -3672,387 +4022,6 @@ $ heroku open
 </div>
 </div>
 </div>
-</div>
-                </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/21/" class="u-url">Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Hiromasa OHASHI
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/21/" rel="bookmark">
-            <time class="published dt-published" datetime="2020-08-02T13:30:00+09:00" itemprop="datePublished" title="2020-08-02 13:30">2020-08-02 13:30</time></a>
-            </p>
-                        <p class="commentline">
-        
-    <a href="posts/21/#disqus_thread" data-disqus-identifier="cache/posts/21.html">Comments</a>
-
-
-                </p>
-</div>
-            </header><div class="e-content entry-content">
-                    <div>
-<h2>Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</h2>
-<ul>
-<li>最近のJupyter Blogから一部記事を抜粋して紹介します。</li>
-<li>Xeus関連の情報がメインです</li>
-</ul>
-<h3><a href="https://blog.jupyter.org/xeus-is-now-a-jupyter-subproject-c4ec5a1bf30b">Xeus is now Jupyter subproject (2020/2/4)</a></h3>
-<h4>
-<code>Xeus</code>とは</h4>
-<ul>
-<li>Jupyter kernel protocolのC++実装<ul>
-<li>ipykernelの代替として使用可能</li>
-</ul>
-</li>
-<li>
-<code>Xeus</code>はカーネルではなくカーネルを作るためのライブラリ</li>
-<li>いくつかのカーネルは<code>Xeus</code>を元に作られている<ul>
-<li>下記はXeusメンテナたちによるもの</li>
-<li>
-<a href="https://github.com/jupyter-xeus/xeus-cling"><code>xeus-cling</code></a><ul>
-<li>CERNのCling C++インタプリタベースのカーネル</li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/jupyter-xeus/xeus-python"><code>xeus-python</code></a><ul>
-<li>pythonインタプリタを埋め込んだpython用カーネル</li>
-<li>
-<a href="https://github.com/jupyterlab/debugger">@jupyterlab/debugger</a>で用いられる<code>Jupyter debugger protocol</code>を初めて実装(後述)</li>
-<li>
-<a href="https://microsoft.github.io/debug-adapter-protocol/">Debug Adapter Protocol</a>に対応</li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/jupyter-xeus/xeus-calc"><code>xeus-calc</code></a><ul>
-<li>電卓カーネル、Xeusの使い方を学ぶためのプロジェクト</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Xeusプロジェクトとは関係なく作成されているカーネル<ul>
-<li>
-<a href="https://github.com/JuniperKernel/JuniperKernel"><code>JuniperKernel</code></a><ul>
-<li>R用カーネル</li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/atomex-me/xeus-fift"><code>xeus-fift</code></a><ul>
-<li>fiftなるTelegramによって作られたTON blockchain contractのためのプログラミング言語向けカーネル</li>
-</ul>
-</li>
-<li>
-<a href="https://github.com/Slicer/SlicerJupyter"><code>SlicerJupyter</code></a><ul>
-<li>Kitwareによる"Slicer"プロジェクトのQtイベントループと統合されたPython向けカーネル</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4>
-<code>Xeus</code>がJupyter管轄下へと移行した理由</h4>
-<p>以下に引用</p>
-<pre class="code literal-block"><span></span><code><span class="err">While Xeus started as a side project for QuantStack engineers,</span>
-<span class="err">the project now has several stakeholders who depend on it.</span>
-<span class="err">We think that moving the project to an open governance organization may be a better way to reflect this situation.</span>
-</code></pre>
-
-<h3><a href="https://blog.jupyter.org/a-visual-debugger-for-jupyter-914e61716559">A visual debugger for Jupyter (2020/3/26)</a></h3>
-<ul>
-<li>日本語の紹介記事<ul>
-<li>https://www.publickey1.jp/blog/20/jupyterlab.html</li>
-</ul>
-</li>
-</ul>
-<h4>概要</h4>
-<ul>
-<li>Jupyter向けのvisual debuggerに関する紹介</li>
-<li>debuggerでできることの例<ul>
-<li>ブレークポイントの設定(ノートブックのセルおよびソースファイル)</li>
-<li>変数一覧の表示</li>
-<li>コールスタックの表示</li>
-</ul>
-</li>
-<li>リンク先のbinderから試しに実行可能</li>
-</ul>
-<h4>インストール方法</h4>
-<p>フロントエンドとなるプラグインとバックエンドとなるカーネルが必要</p>
-<h5>フロントエンド</h5>
-<pre class="code literal-block"><span></span><code>$ jupyter labextension install @jupyterlab/debugger
-</code></pre>
-
-<p>このデバッガフロントエンドは将来のリリースにおいてはデフォルトで同梱される予定。</p>
-<h5>バックエンド</h5>
-<ul>
-<li>
-<code>Jupyter Debug Protocol</code>(次の節で説明)を実装したカーネルが必要<ul>
-<li>このプロトコルを実装したカーネルはいまのところ<code>xeus-python</code>のみ</li>
-</ul>
-</li>
-<li>ipykernelにデバッガプロトコルを実装するのはロードマップには存在</li>
-</ul>
-<pre class="code literal-block"><span></span><code>$ conda install xeus-python -c conda-forge
-</code></pre>
-
-<ul>
-<li>
-<p>プラットフォームによってはPyPIのwheelsも使えるがまだ実験段階のもの</p>
-</li>
-<li>
-<p>condaで試しにinstallして試してみたところxeus-pythonではmatplotlibがうまく扱えない模様</p>
-<ul>
-<li>https://github.com/jupyter-xeus/xeus-python/issues/224</li>
-</ul>
-</li>
-</ul>
-<h4>Jupyter Debug Protocol</h4>
-<h5>ControlおよびIOPub Channelに対する新しいメッセージタイプ</h5>
-<ul>
-<li>Jupyter kernelはプロセス間コミュニケーションプロトコル(https://jupyter-client.readthedocs.io/en/stable/messaging.html)に基づき動作<ul>
-<li>Shellチャンネルはコード実行のリクエストなどのrequest/replyを行う</li>
-<li>IOPubチャンネルはkernelからclientへの片方向のチャンネル(標準出力やエラー出力で使用)</li>
-<li>ControlチャンネルはShellチャンネルに似ているが別ソケットで実行され、実行キューに溜めないhigh priorityなメッセージを扱う<ul>
-<li>InterruptやShutdownリクエストなど</li>
-<li>debuggerに送られるコマンドに対してControlチャンネルを使うことに決めた</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>protocolに2つのメッセージタイプを追加<ul>
-<li>
-<a href="https://jupyter-client.readthedocs.io/en/latest/messaging.html#debug-request">debug_request/reply</a><ul>
-<li>breakpointの追加やコードに対するstep into操作などのdebuggerによって実行される特定のアクションのrequest</li>
-<li>Controlチャンネルに送られる</li>
-</ul>
-</li>
-<li>
-<a href="https://jupyter-client.readthedocs.io/en/latest/messaging.html#debug-event">debug_event</a><ul>
-<li>debugging kernelからフロントエンドに対して片方向に送られるdebug eventメッセージ</li>
-<li>IOPubチャンネルを通じて送られる</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5>Debug Adapter Protocolの拡張</h5>
-<ul>
-<li>Jupyterにおけるデザインのキーとなる原理としてプログラミング言語について不可知であるというものがある<ul>
-<li>Jupyter debug protocolが他のカーネル実装に対しても適用できるものであることは重要である</li>
-</ul>
-</li>
-<li>標準的なプロトコルとしてMicrosoftの"Debug Adapter Protocol"(DAP)がある<ul>
-<li>JSONベースのprotocolでありVSCode下で様々な言語のバックエンドとして既に動作</li>
-</ul>
-</li>
-<li>JupyterでDAPを用いることが自然であるが、Jupyterにおける要件を満たすためには十分ではない<ul>
-<li>ページ再読み込みのサポートが必要<ul>
-<li>Jupyter kernelはデバッガの状態(breakpointや現在どこでstopしているか)を後から接続したclientのために保持しなければならない</li>
-<li>フロントエンドはその状態を<code>debug_request</code>メッセージで要求できる</li>
-</ul>
-</li>
-<li>ソースファイルベースではないnotebookのcellとconsoleに対するデバッグのサポートが必要<ul>
-<li>ブレークポイントを追加できるコードをdebuggerに送るためのメッセージが必要</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>これらの変更は<a href="https://github.com/jupyter/enhancement-proposals/pull/47">JEP</a>として提案されている<ul>
-<li>文書は<a href="https://github.com/jupyter/enhancement-proposals/blob/master/jupyter-debugger-protocol/jupyter-debugger-protocol.md">こちら</a>
-</li>
-</ul>
-</li>
-</ul>
-<h4>Xeus-python, the first Jupyter Kernel to support debugging</h4>
-<ul>
-<li>XeusはC++はJupyter kernelプロトコルのC++実装<ul>
-<li>それ自身がkernelではなくkernel作成を補助するlibrary</li>
-<li>CやC++ APIを持つ言語に対するカーネルを作成するのに便利<ul>
-<li>Python、Lua、SQLなど</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Xeus-pythonはdebugging protocolを実装する最初の実装として適切<ul>
-<li>プラガブルなconcurrencyモデルを持っているためControlチャンネルを別スレッドで動作させることが可能</li>
-<li>上記を繰り返し動作させるために便利なサンドボックスを持つ軽量なコードベースを持つ<ul>
-<li>ipykernelでdebuggingプロトコルを実装することはかなりのリファクタリングを要し早い段階でのconsensus buildingが必要となる</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Xeus-pythonのロードマップ<ul>
-<li>ipykernelに対して失われているmagicを追加</li>
-<li>PyPI wheelsを改善</li>
-</ul>
-</li>
-<li>他のカーネルにおけるdebugging<ul>
-<li>xeusベースのkernelについては大部分の実装が共有可能であるため例えばxeus-clingなどでは早期に使用可能となる</li>
-</ul>
-</li>
-</ul>
-<h4>Diving into the debugger front-end architecture</h4>
-<ul>
-<li>jupyterlabのdebugger extensionはユーザーが典型的なIDEから予想するようなUIを含む<ul>
-<li>サイドバーに変数エクスプローラ、ブレークポイントのリスト、ソースプレビュー、コールスタックを表示</li>
-<li>コードの横に直接ブレークポイントを設定できる(cell/console)</li>
-<li>現在コードのどの部分で停止しているかを示すヴィジュアルマーカー</li>
-</ul>
-</li>
-<li>screencastで種々の機能を説明<ul>
-<li>実行後に削除したセルに対するstep intoはread-only viewとして表示される</li>
-<li>コンソールおよびファイルに対してもデバッガは有効</li>
-<li>デバッグはノートブックレベルで実行されるため異なるノートブックに対して同時にデバッグを実行できる</li>
-<li>変数一覧はtree形式およびtable形式で閲覧可能</li>
-</ul>
-</li>
-</ul>
-<h4>Future developments</h4>
-<ul>
-<li>2020年の予定<ul>
-<li>変数ビューワでmime type renderingのサポート</li>
-<li>条件付きブレークポイントのサポート</li>
-<li>debugger UXの向上</li>
-<li>Voilå dashboardのデバッグの有効化</li>
-</ul>
-</li>
-</ul>
-<h3><a href="https://blog.jupyter.org/a-jupyter-kernel-for-sqlite-9549c5dcf551">A Jupyter Kernel for SQLite</a></h3>
-<h4>概要</h4>
-<ul>
-<li>SQLite用jupyterカーネルの紹介<ul>
-<li>SQLiteのシンタックスをcode cellで受け付ける</li>
-<li>magixコマンドでDBのオープンやクローズなどを行う</li>
-</ul>
-</li>
-<li>Xeusを用いて作成<ul>
-<li>wrapperの<a href="https://github.com/SRombauts/SQLiteCpp">SQLiteCpp</a>を使用</li>
-</ul>
-</li>
-</ul>
-<h4>現在の状況</h4>
-<ul>
-<li>現在進行形で開発中だが下記を備えている<ul>
-<li>SQLiteインタフェースに対する完全な機能</li>
-<li>高レベル操作のためのmagic<ul>
-<li>DBの作成、オープン、クローズ、バックアップ</li>
-<li>テーブルの存在チェック、keyの設定および解除、それらの情報の取得</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>テーブル表示<ul>
-<li>jupyter lab/notebookではHTMLで表示</li>
-<li>コンソールでは<a href="https://github.com/p-ranav/tabulate">tabulate</a>ライブラリを使って表示</li>
-</ul>
-</li>
-</ul>
-<h4>future</h4>
-<ul>
-<li>直感的なデータ表示(plot, graph, chart, mapsなど)の描画<ul>
-<li>Vegaを使えないかを検討中(ブログの画像を参照)</li>
-</ul>
-</li>
-<li>xeus-SQLiteとSQLiteライブラリのstaticビルドをバンドルしたシングルバイナリの供給</li>
-</ul>
-<h4>その他</h4>
-<ul>
-<li>binderで試しに実行可能(ブログ記事にリンク有)</li>
-<li>インストール方法<ul>
-<li><code>mamba install xeus-sqlite -c conda-forge</code></li>
-<li><code>conda install xeus-sqlite -c conda-forge</code></li>
-<li>
-<a href="https://github.com/TheSnakePit/mamba">mamba</a>はcondaのc++による再実装らしい<ul>
-<li>並列ダウンロードや高速な依存性解決を備えるとのこと</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3><a href="https://blog.jupyter.org/slicerjupyter-a-3d-slicer-kernel-for-interactive-publications-6f2ad829f635">SlicerJupyter: a 3D Slicer kernel for interactive publications</a></h3>
-<h4>概要</h4>
-<ul>
-<li>
-<a href="https://www.slicer.org/">3D Slicer</a><ul>
-<li>Qtを用いたC++で書かれたデスクトップアプリケーション<ul>
-<li>医用画像の分析および可視化に使用</li>
-</ul>
-</li>
-<li>3D描画に<a href="https://vtk.org/">Visualization Toolkit(VTK)</a>を用い、画像処理に<a href="https://itk.org/">Insight Toolkit(ITK)</a>を用いている</li>
-<li>pythonインタプリタが埋め込まれている</li>
-<li>xeus-pythonのインタプリタを統合すればQtベースのデスクトップアプリケーションがnotebookを通じて操作できることを紹介</li>
-</ul>
-</li>
-<li>githubの<a href="https://github.com/Slicer/SlicerJupyter">SlicerJupyter</a>に実装が存在<ul>
-<li>BlenderやFreeCAD、ParaViewといったpythonが埋め込まれた他のアプリケーションに対しても拡張可能</li>
-</ul>
-</li>
-<li>xeus-python integrationがJupyterのエコシステムとデスクトップアプリケーションの両方に対して必要不可欠</li>
-</ul>
-<h4>Powerful Medical Imaging Capabilities Available Through Jupyter</h4>
-<ul>
-<li>3D Slicer(以下Slicer)は内蔵しているpythonインタプリタを通じてすべての機能をpyhonから操作可能<ul>
-<li>pythonインタプリタに対する単純なコンソールは備えているがcellベースのインタラクティブ環境は備えていない</li>
-</ul>
-</li>
-<li>xeus-pythonを統合することによってSlicerのプロセスをJupyter kernelとして使用可能</li>
-<li>xeus-pythonは<a href="https://github.com/InsightSoftwareConsortium/itkwidgets">itkwidgets</a>のようなJupyter widgetsへのインタフェースとなるだけではなく、SlicerインタプリタのようなカスタムインタプリタやQtイベントループのようなGUIイベントループとも統合することが可能<ul>
-<li>これによりSlicer内部表現であるMedical Reality Markup Language(MRML)の表現が可能となる</li>
-<li>ノートブック内でpandasやNumPy配列のようなpythonのエコシステムを通じて完全なmedical imaging APIとデータへとアクセスが可能となる</li>
-</ul>
-</li>
-</ul>
-<h4>対話的操作におけるレベル</h4>
-<ul>
-<li>JupyterのWidget(sliderやボタンなど)をSlicer操作やデータ変更、処理やパラメータ可視化のために使える</li>
-<li>
-<p>Widgetを通じた対話的操作は異なるレベルごとに実装されている</p>
-</li>
-<li>
-<p>Level1</p>
-<ul>
-<li>Jupyter Widgetがアプリケーション固有のオブジェクトを自動変換の上で表示</li>
-<li>例えばSlicer markup fiducial listはフォーマット済みのテーブルとして表示され、モデルnodeは3Dオブジェクトとして描画される</li>
-</ul>
-</li>
-<li>Level2<ul>
-<li>Static image widgetがデスクトップアプリケーションが描画したコンテンツを描画</li>
-<li>これらのwidgetは追加された標準Widgetを用いてデータや描画パラメータが変更されることによって作成される</li>
-<li>様々なデータ型や非常に大きなデータセットなどの洗練された描画をJupyterから直接可能とする</li>
-</ul>
-</li>
-<li>Level3<ul>
-<li>Dynamic viewer Widgetがデスクトップアプリケーションが描画した2D/3D viewをを描画</li>
-<li>マウス/キーボードのイベントがデスクトップアプリケーションへと送られズームや回転を実現<ul>
-<li>アノテーションの付与、測定、画像分割のような3D対話操作をデスクトップアプリケーション上と同じように行える</li>
-<li>これは<a href="https://ipycanvas.readthedocs.io/en/latest/">ipycanvas</a>と<a href="https://github.com/mwcraig/ipyevents">ipyevents</a>パッケージを用いて実現される</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>Level4</p>
-<ul>
-<li>完全なGUI統合<ul>
-<li>ユーザーはアプリケーションウインドウを標準デスクトップWidget(スライダーやメニューなど)を含めてノートブックセルの中から見ることができる</li>
-<li>これはSlicer Jupyterの中ではnoVNCとTigerVNCを用いて実現される</li>
-<li>リモートサーバー上でアプリケーションが実行されているときに便利</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>現在は大部分の実装については安定しているが、まだデザイン面での改善やパフォーマンスの改善の余地がある</p>
-<ul>
-<li>自動変換(display hookの複雑な実装による)</li>
-<li>xeus-pythonのスレッディングモデルはメインスレッドをロックしないように改良する余地がある</li>
-<li>Level3の統合におけるdynamic viewer widgetはより高いリフレッシュレート実現のためにパフォーマンス最適化の余地がある</li>
-</ul>
-</li>
-</ul>
-<h4>History of Slicer and this integration</h4>
-<ul>
-<li>QtベースのデスクトップアプリケーションによってXeusカーネルのイベントループが駆動されている？</li>
-</ul>
 </div>
                 </div>
             </article>

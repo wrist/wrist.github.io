@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Debian 10 busterを初代Mac mini (A1176; 2006)にインストール | hiromasa.info</title>
+<link href="../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS (en)" hreflang="en" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS (ja)" hreflang="ja" href="../../../rss.xml">
+<link rel="canonical" href="http://www.hiromasa.info/en/posts/24/">
+<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data: http://*.google-analytics.com https://*.hiromasa.info https://*.google-analytics.com https://code.jquery.com http://*.disqus.com https://disqus.com https://*.disqus.com https://*.disquscdn.com https://*.cloudinary.com http://www.gravatar.com https://www.googletagmanager.com https://*.twitter.com http://*.facebook.com https://*.facebook.com https://*.facebook.net http://*.hatena.ne.jp https://*.st-hatena.com https://cdnjs.cloudflare.com https://fonts.gstatic.com;">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-48887105-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-48887105-1');
+</script><!-- End Google Analytics --><!-- for facebook button --><style>
+.fb-like {
+    display: inline;
+}
+#fb-root {
+    display: inline;
+}
+.fb_iframe_widget > span {
+    vertical-align: baseline !important; 
+}
+</style>
+<meta name="author" content="Hiromasa OHASHI">
+<link rel="prev" href="../23/" title="Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築" type="text/html">
+<meta property="og:site_name" content="hiromasa.info">
+<meta property="og:title" content="Debian 10 busterを初代Mac mini (A1176; 2006)にインストール">
+<meta property="og:url" content="http://www.hiromasa.info/en/posts/24/">
+<meta property="og:description" content="経緯
+前回の記事を書いた後にUbuntu 18.04がインストールされていたMacBook Pro 2009のトラックパッドがバッテリー膨張による圧力によって割れるという惨事が発生してしまった。
+このMacBook Proは以前に一度ファンとバッテリーを自力で換装したことがあるものであり、もう限界と判断して押入れに眠っていたMac mini 2006(大学の先輩から2万円で譲ってもらったもの)を復">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-11-22T00:00:00+09:00">
+<meta property="article:tag" content="debian">
+<meta property="article:tag" content="samba">
+<meta property="article:tag" content="softether">
+<meta property="article:tag" content="vpn">
+<link rel="alternate" hreflang="ja" href="../../../posts/24/">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
+
+            <span id="blog-title">hiromasa.info</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item"><a href="../../../" rel="alternate" hreflang="ja" class="nav-link">日本語</a></li>
+
+                    
+                    
+    
+    <li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">all posts</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">tag</a>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about/index.html" class="nav-link">about</a>
+                </li>
+<li class="nav-item">
+<a href="../../pages/slides/index.html" class="nav-link">slides</a>
+                </li>
+<li class="nav-item">
+<a href="../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Debian 10 busterを初代Mac mini (A1176; 2006)にインストール</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Hiromasa OHASHI
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-11-22T00:00:00+09:00" itemprop="datePublished" title="2020-11-22 00:00">2020-11-22 00:00</time></a>
+            </p>
+                <p class="commentline">
+        
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/24.html">Comments</a>
+
+
+            
+        </p>
+<p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<h3>経緯</h3>
+<p><a href="https://www.hiromasa.info/posts/23/">前回の記事</a>を書いた後にUbuntu 18.04がインストールされていたMacBook Pro 2009のトラックパッドがバッテリー膨張による圧力によって割れるという惨事が発生してしまった。
+このMacBook Proは以前に一度ファンとバッテリーを自力で換装したことがあるものであり、もう限界と判断して押入れに眠っていたMac mini 2006(大学の先輩から2万円で譲ってもらったもの)を復活させることを決意したのであった。</p>
+<p><img alt="白昼夢の惨劇" src="../../../images/24/broken_mbp.jpg"></p>
+<h4>ディストリビューションの選択</h4>
+<p>当初はarch linuxを入れようかと思い、<code>x86_64</code>のISOイメージをUSBに焼いてインストールしようとしたが、このタイミングでこのマシンのCPUが<code>x86_64</code>ではなく<code>i686</code>、つまり32bit CPUであるということが発覚した。
+2020年にもなり32bit CPUのマシンを稼働させることに躊躇いもあったが、調べたところUbuntuが32bit対応の廃止を表明している一方でDebianは32bit対応のイメージを今でも配布しているということもありインストールすることを決めた。</p>
+<h4>マシンのスペック</h4>
+<p><a href="https://www.apple.com/jp/support/datasheet/desktop/macmini_607_608.html">ここ</a>に載っている1.66GHzのCPUを積んでいるものである。</p>
+<ul>
+<li>CPU<ul>
+<li>1.66GHz Core Duo</li>
+</ul>
+</li>
+<li>メモリ<ul>
+<li>2GB(DDR2; 667MHz)</li>
+</ul>
+</li>
+<li>ディスク容量<ul>
+<li>60GB</li>
+</ul>
+</li>
+</ul>
+<p>ちなみに<a href="http://www.nextro.com/directworld/cms/%E3%81%84%E3%81%BE%E3%81%95%E3%82%89%E5%88%9D%E4%BB%A3-intel-mac-mini-a1176-%EF%BC%882006%EF%BC%89%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2-1-1-%E3%81%8B%E3%82%89-2-1-%E3%81%AB/">この記事</a>によればファームウェアをアップデートした場合CPUの換装や4GBまでのメモリの増設が可能になるらしい。</p>
+<h4>想定使用用途</h4>
+<ul>
+<li>ファイルサーバ<ul>
+<li>外付けHDDにもともと保存していたデータに対してsambaでアクセスしたいため</li>
+</ul>
+</li>
+<li>VPNサーバ<ul>
+<li>移行元マシンで稼働していたSoftEtherの設定を引き継ぐ</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>実際の作業</h3>
+<p>全般的に自分用のメモ書きである。</p>
+<h4>DebianのISOをUSBに焼く</h4>
+<p>ここでは<code>debian-10.6.0-i386-netinst.iso</code>を公式から落としてきてUSBメモリに書き込んだ。
+この作業は今回使用するMac miniではない別のマシンで行っている。</p>
+<pre class="code literal-block"><span></span><code>$ df -hか何かでUSBメモリのデバイスのパスを確認する<span class="o">(</span>ここでは<span class="sb">`</span>/dev/disk4<span class="sb">`</span><span class="o">)</span>
+$ diskutil umountDisk /dev/disk4
+$ sudo dd <span class="k">if</span><span class="o">=</span>debian-10.6.0-i386-netinst.iso <span class="nv">of</span><span class="o">=</span>/dev/rdisk4  <span class="c1"># /dev/rdisk4, とrを付けると早く書き込まれるらしい</span>
+</code></pre>
+
+<hr>
+<h4>Mac mini上での作業</h4>
+<h5>rEFIndのインストール</h5>
+<p>mac miniのosx側で予めrEFIndをインストールしておく。
+rEFIndに同梱のインストールスクリプトを実行した上で再起動すると起動時にrEFIndが立ち上がるはずである。
+ちなみにmac miniに入っていたosxのバージョンはLepardであった。</p>
+<h5>mac mini側のディスクユーティリティでosxのパーティションサイズを縮小しておく</h5>
+<p>HFS+フォーマットのosxがインストールされた領域のサイズを20GB程度に縮小した。
+残りの領域についてはこの時点でフォーマットなどは実施しない(GUIインストーラの実行時にやってくれるため)。</p>
+<h5>GUIインストーラによるDebianのインストール</h5>
+<p>rEFIndが使えるようになるとUSBメモリに焼いたbootableイメージからインストーラを起動することが可能となる。
+GUIインストーラで提示された項目を選んでいくだけで基本的には問題なくインストールは完了した。
+パーティションは予めosx側で分割した残りの空き領域に対しインストーラが自動的にroot, var, tmp, swap, homeを分割してくれたのでその通りにした。LVMは使っていない。ファイルシステムはext4になっている。
+デスクトップ環境はメモリが2GBしかなく必要かどうか悩んだがxfce4とした。
+SSHサーバもインストーラの選択肢で選べたためインストールしておく。
+よって基本的にこれ以降の作業はSSH越しの作業である。</p>
+<hr>
+<h4>ルーターの固定IP割当設定</h4>
+<p>以降でローカルLAN内でIPアドレスを固定化するためにルーターの割当設定を行っておく。
+Debian上で<code>ip addr</code>でMACアドレスを表示させ、有線LANのNICとWiFiアダプタに対して固定IP割当を設定。</p>
+<hr>
+<h4>Debian起動直後における設定</h4>
+<h5>sudoグループへの所属</h5>
+<p>インストール時に登録したユーザーがデフォルトではsudoを使えないため、一度suでrootユーザになった上でsudoグループに所属させる。
+<code>$</code>は一般ユーザ、<code>#</code>はrootユーザでの実行を意味する。</p>
+<pre class="code literal-block"><span></span><code>$ su
+<span class="c1"># gpasswd -a ${username} sudo</span>
+<span class="c1"># exit</span>
+</code></pre>
+
+<h5>SSHの設定</h5>
+<p>鍵認証による接続を行うために公開鍵の登録をした後に<code>/etc/ssh/sshd_config</code>を編集する。
+公開鍵はクライアント側から<code>ssh-copy-id -i id_rsa.pub ${ipaddr}</code>で転送しても良いが、GitHubに登録してある公開鍵を使う場合は<code>wget https://github.com/${username}.keys -qO - &gt;&gt; ~/.ssh/authorized_keys</code>で<code>authorized_keys</code>に追記しても良い。</p>
+<p>次に<code>sudo vi /etc/ssh/sshd_config</code>に下記項目を設定する。</p>
+<pre class="code literal-block"><span></span><code><span class="err">Port ポート番号  # 変更したい場合</span>
+<span class="err">PubkeyAuthentication yes</span>
+<span class="err">PermitRootLogin no</span>
+<span class="err">PermitEmptyPasswords no</span>
+<span class="err">PasswordAuthentication no</span>
+</code></pre>
+
+<p>設定後、<code>sudo systemctl restart sshd</code>でsshdを再起動する。</p>
+<p>このタイミングで他のターミナルからsshしてパスワードログインができなくなっていることを確認する。
+(元々接続していたターミナルでexitしてしまうと再度接続できなくなってしまったときに困る)。</p>
+<p>その後に、クライアント側で<code>~/.ssh/config</code>を下記のように編集しておくと<code>ssh hostname</code>で接続できるようになるため便利である。</p>
+<pre class="code literal-block"><span></span><code>Host hostname
+    HostName <span class="cp">${</span><span class="n">ipaddr</span><span class="cp">}</span>
+    Port ポート番号
+    preferredauthentications publickey
+    IdentityFile "/path/to/id_rsa"
+</code></pre>
+
+<h5>ホームディレクトリ配下の日本語ディレクトリの英語化</h5>
+<p>セットアップ時に日本語を選択するとホームディレクトリ配下の各種ディレクトリが日本語になってしまっている場合がある。
+その場合は<code>LC_ALL=C xdg-user-dirs-gtk-update --force</code>を実行して英語ディレクトリを作成する。
+日本語ディレクトリはそのまま残ってしまうため不要であれば消す。</p>
+<h5>aptで色々入れる</h5>
+<p>とりあえず最低限のパッケージと<a href="https://www.hiromasa.info/posts/23/">前回の記事</a>で書いたように最新版のsambaを使うためのppaを追加する。
+最初にインストールする<code>software-properties-common</code>はdebianで<code>add-apt-repository</code>を使うために必要である。</p>
+<pre class="code literal-block"><span></span><code>$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt install -y software-properties-common
+$ sudo add-apt-repository ppa:linux-schools/samba-latest
+$ sudo apt dist-upgrade
+$ sudo apt install -y git vim zsh tmux curl htop
+$ sudo apt install -y samba
+$ sudo apt install -y build-essential autotools-dev libtool automake autoconf autogen
+</code></pre>
+
+<hr>
+<h4>シェル環境周りの設定</h4>
+<h5>tmuxの設定</h5>
+<p><code>.tmux.conf</code>を作成し<code>C-t</code>をprefixキーとするために下記のような<code>.tmux.conf</code>を<code>~</code>以下に配置した。</p>
+<pre class="code literal-block"><span></span><code><span class="err">unbind C-b</span>
+<span class="err">set-option -g prefix C-t</span>
+<span class="err">set-window-option -g mode-keys vi</span>
+<span class="err">bind C-t send-prefix</span>
+</code></pre>
+
+<h5>シェルをzshに変える</h5>
+<pre class="code literal-block"><span></span><code>$ chsh  <span class="c1"># /bin/zshを指定</span>
+</code></pre>
+
+<p>再ログインすると色々zshの設定に関する対話スクリプトが走るが、blankファイルだけ生成して脱出した。
+その上で下記のような設定を<code>.zshrc</code>に記述した。
+内容自体は他マシンにおける設定の使い回しであるため各自好きに変更すると良いと思う。</p>
+<pre class="code literal-block"><span></span><code><span class="n">setopt</span> <span class="n">autopushd</span>
+<span class="n">setopt</span> <span class="n">auto_cd</span>
+
+<span class="n">WORDCHARS</span><span class="o">=</span><span class="s1">'*?_-.[]~=&amp;;!#$%^(){}&lt;&gt;'</span>
+
+<span class="n">compctl</span> <span class="o">-</span><span class="n">M</span> <span class="s1">'m:{a-z}={A-Z}'</span>
+
+<span class="n">setopt</span> <span class="n">IGNOREEOF</span>
+
+<span class="n">umask</span> <span class="mi">002</span>
+
+<span class="n">HISTFILE</span><span class="o">=$</span><span class="n">HOME</span><span class="o">/.</span><span class="n">zsh</span><span class="o">-</span><span class="n">history</span>
+<span class="n">HISTSIZE</span><span class="o">=</span><span class="mi">10000</span>
+<span class="n">SAVEHIST</span><span class="o">=</span><span class="mi">10000</span>
+
+<span class="n">setopt</span> <span class="n">hist_ignore_dups</span> <span class="c1"># ignore duplication command history</span>
+<span class="n">setopt</span> <span class="n">extended_history</span>
+<span class="n">setopt</span> <span class="n">share_history</span>
+<span class="n">function</span> <span class="n">history</span><span class="o">-</span><span class="n">all</span> <span class="p">{</span> <span class="n">history</span> <span class="o">-</span><span class="n">E</span> <span class="mi">1</span> <span class="p">}</span>
+
+<span class="c1"># bind</span>
+<span class="n">bindkey</span> <span class="o">-</span><span class="n">e</span>
+<span class="n">bindkey</span> <span class="s1">'^P'</span> <span class="n">history</span><span class="o">-</span><span class="n">beginning</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">backward</span>
+<span class="n">bindkey</span> <span class="s1">'^N'</span> <span class="n">history</span><span class="o">-</span><span class="n">beginning</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">forward</span>
+
+<span class="n">setopt</span> <span class="n">no_check_jobs</span>
+<span class="n">setopt</span> <span class="n">no_hup</span>
+
+<span class="n">setopt</span> <span class="n">print_eight_bit</span>
+
+<span class="k">export</span> <span class="n">LSCOLORS</span><span class="o">=</span><span class="n">gxfxcxdxbxegedadagacad</span>
+<span class="n">zstyle</span> <span class="s1">':completion:*:default'</span> <span class="n">list</span><span class="o">-</span><span class="n">colors</span> <span class="o">$</span><span class="n">LSCOLORS</span>
+
+<span class="n">alias</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"ls -vG"</span>
+<span class="n">alias</span> <span class="n">la</span><span class="o">=</span><span class="s1">'ls -aF'</span>
+<span class="n">alias</span> <span class="n">ll</span><span class="o">=</span><span class="s1">'ls -h -laF'</span>
+
+<span class="n">alias</span> <span class="n">mv</span><span class="o">=</span><span class="s1">'mv -v'</span>
+<span class="n">alias</span> <span class="n">cp</span><span class="o">=</span><span class="s1">'cp -v'</span>
+<span class="n">alias</span> <span class="n">rm</span><span class="o">=</span><span class="s1">'rm -vi'</span>
+<span class="n">alias</span> <span class="n">grep</span><span class="o">=</span><span class="s1">'grep --color'</span>
+
+<span class="n">alias</span> <span class="n">du</span><span class="o">=</span><span class="s1">'du -h'</span>
+<span class="n">alias</span> <span class="n">df</span><span class="o">=</span><span class="s1">'df -h'</span>
+
+<span class="n">autoload</span> <span class="o">-</span><span class="n">U</span> <span class="n">compinit</span>
+<span class="n">compinit</span> <span class="o">-</span><span class="n">u</span>
+
+<span class="n">autoload</span> <span class="n">colors</span>
+<span class="n">colors</span>
+
+<span class="c1"># VCS settings</span>
+<span class="c1"># http://liosk.blog103.fc2.com/blog-entry-209.html</span>
+<span class="n">autoload</span> <span class="o">-</span><span class="n">Uz</span> <span class="n">vcs_info</span>
+<span class="n">precmd</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">psvar</span><span class="o">=</span><span class="p">()</span>
+    <span class="n">LANG</span><span class="o">=</span><span class="n">en_US</span><span class="o">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> <span class="n">vcs_info</span>
+    <span class="n">psvar</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=$</span><span class="n">vcs_info_msg_0_</span>
+<span class="p">}</span>
+
+<span class="n">PROMPT</span><span class="o">=</span><span class="s2">"%{${fg[green]}%}[%n@%m %*] %{${fg[magenta]}%}%(!.#.&gt;) %{${reset_color}%}"</span>
+<span class="n">PROMPT2</span><span class="o">=</span><span class="s2">"%{${fg[cyan]}%}%_&gt; %{${reset_color}%}"</span>
+<span class="n">SPROMPT</span><span class="o">=</span><span class="s2">"%{${fg[red]}%}correct: %R -&gt; </span><span class="si">%r</span><span class="s2"> %{${reset_color}%}"</span>
+<span class="n">RPROMPT</span><span class="o">=</span><span class="s2">"%{${fg[green]}%}[%{${fg[red]}%}%~%{${fg[white]}%}%1v%{${fg[green]}%}]%{${reset_color}%}"</span>
+</code></pre>
+
+<p>ちなみに最近はプロンプトに<code>starship</code>を使っているが、このマシンでインストールしようとしても失敗したので独自に設定している。</p>
+<hr>
+<h4>ファイルサーバ(samba)関連の設定</h4>
+<h5>fstabの設定</h5>
+<p>外付けHDDのUUIDを調べてシステム起動時に自動的にマウントされるように設定する。</p>
+<pre class="code literal-block"><span></span><code>$ sudo blkid -o list  <span class="c1"># UUIDを調べる</span>
+$ sudo mkdir /mnt/hdd /mnt/hdd2  <span class="c1"># マウントポイントを作成</span>
+$ sudo vim /etc/fstab
+</code></pre>
+
+<p>fstabには下記のような感じで書く。<code>${uuidN}</code>の部分は上記で調べたものに置き換えること。</p>
+<pre class="code literal-block"><span></span><code>UUID="<span class="cp">${</span><span class="n">uuid1</span><span class="cp">}</span>" /mnt/hdd hfsplus nofail,defaults,force 0 0
+UUID="<span class="cp">${</span><span class="n">uuid2</span><span class="cp">}</span>" /mnt/hdd2 ext4 nofail,defaults 0 0
+</code></pre>
+
+<p>記述後、再起動して無事にマウントされているかを確認する。
+nofailの記述は仮にマウントできなかった場合であってもエラーとして扱わないための指定である。
+(実際、hfsplusフォーマットのディスクのマウントは<code>sudo apt install hfsprogs</code>が必要であったためこの記述を付けていない場合にemergency modeに突入してしまった。)</p>
+<p>UUIDは外付けHDDに固有であるためか以前と変わっていなかったため、引き継ぎ元のマシンのfstabの追記内容をそのまま使い回すことができた。</p>
+<h5>
+<code>/etc/smb.conf</code>の設定およびavahi-daemonの設定をする</h5>
+<p>詳細は割愛するが<a href="https://www.hiromasa.info/posts/23/">前回の記事</a>を参考のこと。
+ここも<code>smb.conf</code>内のinterface名を変えたぐらいで基本的に元の設定ファイルをそのまま使い回すことができた。</p>
+<h5>sambaアクセス用のユーザーを追加する</h5>
+<p><code>guest ok</code>にしていてもTimeMachineバックアップの時には書き込み権限を持ったユーザーが登録されている必要があったので下記で設定しておく。</p>
+<p><code>sudo smbpasswd -a ${username}</code></p>
+<hr>
+<h4>VPNサーバーの設定</h4>
+<h5>SoftEtherの32bit対応版をダウンロードしてビルドする</h5>
+<p><a href="http://www.softether-download.com/ja.aspx?product=softether">ここ</a>から条件に合うものを落としてきてmakeする。makeの際にライセンスの同意などを求められる。
+ビルドした後は<code>/usr/local</code>に移動しておく。</p>
+<pre class="code literal-block"><span></span><code>$ wget https://jp.softether-download.com/files/softether/v4.34-9745-rtm-2020.04.05-tree/Linux/SoftEther_VPN_Server/32bit_-_Intel_x86/softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
+$ tar zxvf softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
+$ <span class="nb">cd</span> vpnserver
+$ make
+$ <span class="nb">cd</span> ..
+$ mv vpnserver /usr/local/
+</code></pre>
+
+<h5>systemdの設定</h5>
+<p><code>/etc/systemd/system/vpnserver.service</code>として下記ファイルを作成する。</p>
+<pre class="code literal-block"><span></span><code><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">SoftEther VPN Server</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network.target network-online.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver start</span>
+<span class="na">ExecStop</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver stop</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">forking</span>
+<span class="na">RestartSec</span><span class="o">=</span><span class="s">3s</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</code></pre>
+
+<h5>bridgeとtapデバイスの作成</h5>
+<p>下記のようなスクリプトを作成しsudoで実行する。</p>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># vim:fileencoding=utf-8</span>
+
+<span class="nv">ip_addr</span><span class="o">=</span><span class="s2">"192.168.xxx.xxx/xx"</span>
+<span class="nv">gateway_addr</span><span class="o">=</span><span class="s2">"192.168.xxx.xxx"</span>
+<span class="nv">interface</span><span class="o">=</span><span class="s2">"enp1s0"</span>
+
+<span class="nv">bridge_name</span><span class="o">=</span><span class="s2">"br0"</span>
+<span class="nv">tap_device_name</span><span class="o">=</span><span class="s2">"tap_softether"</span>
+
+<span class="nb">echo</span> <span class="s2">"create bridge interface"</span>
+/usr/bin/nmcli connection add <span class="nb">type</span> bridge ifname <span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">"disable STP"</span>
+/usr/bin/nmcli connection modify bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span> bridge.stp no
+<span class="nb">echo</span> <span class="s2">"modify bridge"</span>
+/usr/bin/nmcli connection modify bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span> ipv4.method manual ipv4.addresses <span class="si">${</span><span class="nv">ip_addr</span><span class="si">}</span> ipv4.gateway <span class="si">${</span><span class="nv">gateway_addr</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">"connect </span><span class="si">${</span><span class="nv">interface</span><span class="si">}</span><span class="s2"> to bridge"</span>
+/usr/bin/nmcli connection add <span class="nb">type</span> bridge-slave ifname <span class="si">${</span><span class="nv">interface</span><span class="si">}</span> master bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">"connect tap to bridge"</span>
+/usr/bin/nmcli connection add <span class="nb">type</span> bridge-slave ifname <span class="si">${</span><span class="nv">tap_device_name</span><span class="si">}</span> master bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
+<span class="nb">echo</span> <span class="s2">"up tap device"</span>
+/usr/bin/nmcli connection up bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
+</code></pre>
+
+<p>上記を実行すると下記のような出力が出る。</p>
+<pre class="code literal-block"><span></span><code><span class="err">create bridge interface</span>
+<span class="err">接続 'bridge-br0' (0aa0ae96-6428-4f7e-bc1c-fa6f22f98cea) が正常に追加されました。</span>
+<span class="err">disable STP</span>
+<span class="err">modify bridge</span>
+<span class="err">connect enp1s0 to bridge</span>
+<span class="err">接続 'bridge-slave-enp1s0' (ec87d050-f6ae-4ca8-adbf-7b1f0e4eb1b6) が正常に追加されました。</span>
+<span class="err">connect tap to bridge</span>
+<span class="err">接続 'bridge-slave-tap_softether' (f262c26c-2799-4c9b-b149-9d1b3c44f8ce) が正常に追加されました。</span>
+<span class="err">up tap device</span>
+<span class="err">接続が正常にアクティベートされました (master waiting for slaves) (D-Bus アクティブパス: /org/freedesktop/NetworkManager/ActiveConnection/3)</span>
+</code></pre>
+
+<p>この後に再起動を行い、<code>ip addr</code>でIPアドレスが割り振られていたり、<code>ip link show</code>でbr0のSTATEがUpになっていれば問題ないと思われる。</p>
+<p>なお<code>sudo apt install bridge-utils</code>を実行すると <code>/sbin/brctl</code>が使えるようになるが、今回は直接は不要であった。
+また上記スクリプトではnmcliを使っているがipコマンドでもどうやら作成できるらしい。</p>
+<h5>VPNサーバーの設定の読み込み</h5>
+<p>移行元で予め<code>vpncmd</code>のConfigGetを実行し保存しておく。
+これは</p>
+<pre class="code literal-block"><span></span><code>$ /usr/local/vpnserver/vpncmd
+  &gt; * <span class="m">1</span>. VPN Server または VPN Bridgeの管理 を実行
+  &gt; * 何も指定せずにEnterを押すことでローカルのサーバーに接続
+  &gt; * 更に何も指定せずにEnterを押すことでサーバー管理モードに入る
+  &gt; * 管理パスワードを入力
+  VPN Server&gt; ConfigGet 保存先パス
+</code></pre>
+
+<p>と実行することで保存が可能である。この設定ファイルを引き継ぎ先のマシンで読み込ませることを考える。</p>
+<p>まず、<code>sudo systemctl enable vpnserver</code>を実行し前述のsystemd用の設定によるサービスを有効化する。
+続いて<code>sudo systemctl start vpnserver</code>でVPNサーバーを起動する。</p>
+<p>この上で<code>/usr/local/vpnserver/vpncmd</code>を実行し、移行元での保存時と同様に1を指定の上で無指定でEnterを2回実行することでサーバー管理モードに入る。
+ここで<code>ConfigSet</code>を実行すると設定ファイルのパスを尋ねられるので、入力することで設定の読み込みが可能である。
+<a href="https://ja.softether.org/4-docs/1-manual/3/3.3#.E5.88.A5.E3.81.AE.E3.82.B3.E3.83.B3.E3.83.94.E3.83.A5.E3.83.BC.E3.82.BF.E3.81.B8.E3.81.AE.E3.82.B3.E3.83.B3.E3.83.95.E3.82.A3.E3.82.B0.E3.83.AC.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB.E3.81.AE.E7.A7.BB.E5.8B.95">ここ</a>によればこの時点で元マシンの環境は復元できるとのことである。</p>
+<h5>ルーターで通信に必要なポートを開放する</h5>
+<p>50, 51, 500, 4500番ポートの通信をホストマシンのIPアドレスに対して許可するようにルーターの設定を施した。</p>
+<h5>接続できない原因を探す</h5>
+<p>元マシンでの設定が正しければ上記までの設定で接続できるようになるはずだが案の定接続できない。
+そこで<code>/usr/local/vpnserver</code>以下に存在する<code>secure_log</code>や<code>server_log</code>といったログ見て原因を推察する。
+ここでは<code>server_log</code>以下に存在するlogにおける</p>
+<pre class="code literal-block"><span></span><code><span class="err">2020-11-21 xx:xx:xx.xxx L2TP PPP セッション [xxx.xxx.xxx.xxx:xxxx]:</span>
+<span class="err">  DHCP サーバーからの IP アドレスの取得に失敗しました。</span>
+<span class="err">  PPP の通信を受諾するためには DHCP サーバーが必要です。</span>
+<span class="err">  仮想 HUB の Ethernet セグメント上で DHCP サーバーが正しく動作しているかどうか確認してください。</span>
+<span class="err">  DHCP サーバーを用意することができない場合は、仮想 HUB の SecureNAT 機能を用いることもできます。</span>
+</code></pre>
+
+<p>という記述から<code>SecureNat</code>が有効化されていないことが分かったため、<code>vpncmd</code>を実行し仮想ハブの管理から<code>SecureNatEnable</code>を実行したところ、無事に接続されるようになった。</p>
+<hr>
+<h3>まとめ</h3>
+<p>古いMac miniにDebianを入れてファイルサーバ・VPNサーバとして復活させる手順のメモを記した。
+稼働させたばかりであり、そもそも古いマシンであるため、いつまで持つか不明であるがこのまましばらく運用してみようと思う。</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/debian/" rel="tag">debian</a></li>
+            <li><a class="tag p-category" href="../../categories/samba/" rel="tag">samba</a></li>
+            <li><a class="tag p-category" href="../../categories/softether/" rel="tag">softether</a></li>
+            <li><a class="tag p-category" href="../../categories/vpn/" rel="tag">vpn</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../23/" rel="prev" title="Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築">Previous post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="hiromasa-info",
+            disqus_url="http://www.hiromasa.info/en/posts/24/",
+        disqus_title="Debian 10 buster\u3092\u521d\u4ee3Mac mini (A1176; 2006)\u306b\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb",
+        disqus_identifier="cache/posts/24.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+<!-- twitter -->
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script><div class="fb-like" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+<!-- hatena -->
+<a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="basic-counter" title="このエントリーをはてなブックマークに追加">
+<img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;"></a>
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script></footer>
+</div>
+</div>
+
+
+        <script src="../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
