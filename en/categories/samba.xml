@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about samba)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/samba.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sat, 21 Nov 2020 16:43:11 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Debian 10 busterを初代Mac mini (A1176; 2006)にインストール</title><link>http://www.hiromasa.info/en/posts/24/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;経緯&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about samba)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/samba.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 23 Nov 2020 09:00:11 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Debian 10 busterを初代Mac mini (A1176; 2006)にインストール</title><link>http://www.hiromasa.info/en/posts/24/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;経緯&lt;/h3&gt;
 &lt;p&gt;&lt;a href="https://www.hiromasa.info/posts/23/"&gt;前回の記事&lt;/a&gt;を書いた後にUbuntu 18.04がインストールされていたMacBook Pro 2009のトラックパッドがバッテリー膨張による圧力によって割れるという惨事が発生してしまった。
 このMacBook Proは以前に一度ファンとバッテリーを自力で換装したことがあるものであり、もう限界と判断して押入れに眠っていたMac mini 2006(大学の先輩から2万円で譲ってもらったもの)を復活させることを決意したのであった。&lt;/p&gt;
 &lt;p&gt;&lt;img alt="白昼夢の惨劇" src="http://www.hiromasa.info/images/24/broken_mbp.jpg"&gt;&lt;/p&gt;
@@ -114,6 +114,7 @@ $ sudo apt install -y samba
 $ sudo apt install -y build-essential autotools-dev libtool automake autoconf autogen
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;しかしリポジトリにppaを追加した後にupdateを掛けたところ無効である旨が表示されたためDebianでは使用不可能であった。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h4&gt;シェル環境周りの設定&lt;/h4&gt;
 &lt;h5&gt;tmuxの設定&lt;/h5&gt;
@@ -324,6 +325,53 @@ $ mv vpnserver /usr/local/
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;という記述から&lt;code&gt;SecureNat&lt;/code&gt;が有効化されていないことが分かったため、&lt;code&gt;vpncmd&lt;/code&gt;を実行し仮想ハブの管理から&lt;code&gt;SecureNatEnable&lt;/code&gt;を実行したところ、無事に接続されるようになった。&lt;/p&gt;
+&lt;h5&gt;SecureNATの利用を使用しない設定への変更&lt;/h5&gt;
+&lt;p&gt;前節の設定のままだとVPNでSecureNAT機能によりIPアドレスが割り振られるが、このままだとホストマシンにSSHアクセスできなかったため元マシンの設定を見返したところ&lt;code&gt;/etc/network/interfaces&lt;/code&gt;を明示的に指定していたことが分かった。
+よって&lt;code&gt;vpncmd&lt;/code&gt;で&lt;code&gt;SecureNATDisable&lt;/code&gt;を実行した上で再度&lt;code&gt;SecureNat&lt;/code&gt;を停止した上で下記のような設定を&lt;code&gt;/etc/network/interfaces&lt;/code&gt;に追記した。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;enp1s0&lt;/span&gt;
+&lt;span class="n"&gt;iface&lt;/span&gt; &lt;span class="n"&gt;enp1s0&lt;/span&gt; &lt;span class="n"&gt;inet&lt;/span&gt; &lt;span class="n"&gt;manual&lt;/span&gt;
+
+&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;br0&lt;/span&gt;
+&lt;span class="n"&gt;iface&lt;/span&gt; &lt;span class="n"&gt;br0&lt;/span&gt; &lt;span class="n"&gt;inet&lt;/span&gt; &lt;span class="k"&gt;static&lt;/span&gt;
+  &lt;span class="n"&gt;address&lt;/span&gt; &lt;span class="mi"&gt;192&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;168&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;
+  &lt;span class="n"&gt;netmask&lt;/span&gt; &lt;span class="mi"&gt;255&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;255&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;
+  &lt;span class="n"&gt;gateway&lt;/span&gt; &lt;span class="mi"&gt;192&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;168&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;
+  &lt;span class="n"&gt;bridge_ports&lt;/span&gt; &lt;span class="n"&gt;enp1s0&lt;/span&gt; &lt;span class="n"&gt;tap_softether&lt;/span&gt;
+  &lt;span class="n"&gt;dns&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;nameservers&lt;/span&gt; &lt;span class="mi"&gt;192&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;168&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;NetworkManagerは&lt;code&gt;/etc/NetworkManager/NetworkManager.conf&lt;/code&gt;において下記のような設定&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;[ifupdown]&lt;/span&gt;
+&lt;span class="na"&gt;managed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;となっている場合、&lt;code&gt;/etc/network/interface&lt;/code&gt;によって管理されているデバイスはNetworkManagerで制御を行わないとのことである。
+この上で&lt;code&gt;sudo systemctl restart networking&lt;/code&gt;を行うと&lt;code&gt;SecureNAT&lt;/code&gt;がdisableとなっている場合でも接続が可能となった。&lt;/p&gt;
+&lt;p&gt;しかし、この状態で再起動を行うとやはり接続できない状態に戻ってしまう。
+調べたところ&lt;code&gt;sudo systemctl restart networking&lt;/code&gt;を行った後は下記状態&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ /sbin/brctl show
+bridge name     bridge id               STP enabled     interfaces
+br0             &lt;span class="m"&gt;8000&lt;/span&gt;.0016cba5df15       no              enp1s0
+                                                        tap_softether
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;となっているが、マシンの再起動直後は&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ /sbin/brctl show
+bridge name     bridge id               STP enabled     interfaces
+br0             &lt;span class="m"&gt;8000&lt;/span&gt;.0016cba5df15       no              enp1s0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;という状態になっていることが分かった。
+つまりbr0に対して起動直後は何らかの理由で&lt;code&gt;tap_softether&lt;/code&gt;のtapデバイスがbr0に接続されていないことが原因となっていることが考えられ、
+実際に&lt;code&gt;/sbin/brctl addif br0 tap_softether&lt;/code&gt;を実行することで明示的に追加を行った場合はVPN接続が可能となった。&lt;/p&gt;
+&lt;p&gt;これを受けて&lt;code&gt;/etc/systemd/system/vpnserver.service&lt;/code&gt;に下記のように&lt;code&gt;ExecStartPost&lt;/code&gt;を追加した。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;[Service]&lt;/span&gt;
+&lt;span class="na"&gt;ExecStart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/usr/local/vpnserver/vpnserver start&lt;/span&gt;
+&lt;span class="na"&gt;ExecStartPost&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/bin/sleep 10 ; /sbin/brctl addif br0 tap_softether&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;sleepの秒数の後のセミコロンは10とセミコロンの間にスペースを空けないとエラーが生じるため注意が必要である。
+これによりマシン再起動後も手動での操作なしにVPN接続が可能な状態となった。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3&gt;まとめ&lt;/h3&gt;
 &lt;p&gt;古いMac miniにDebianを入れてファイルサーバ・VPNサーバとして復活させる手順のメモを記した。

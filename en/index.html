@@ -234,6 +234,7 @@ $ sudo apt install -y samba
 $ sudo apt install -y build-essential autotools-dev libtool automake autoconf autogen
 </code></pre>
 
+<p>しかしリポジトリにppaを追加した後にupdateを掛けたところ無効である旨が表示されたためDebianでは使用不可能であった。</p>
 <hr>
 <h4>シェル環境周りの設定</h4>
 <h5>tmuxの設定</h5>
@@ -445,6 +446,53 @@ $ mv vpnserver /usr/local/
 </code></pre>
 
 <p>という記述から<code>SecureNat</code>が有効化されていないことが分かったため、<code>vpncmd</code>を実行し仮想ハブの管理から<code>SecureNatEnable</code>を実行したところ、無事に接続されるようになった。</p>
+<h5>SecureNATの利用を使用しない設定への変更</h5>
+<p>前節の設定のままだとVPNでSecureNAT機能によりIPアドレスが割り振られるが、このままだとホストマシンにSSHアクセスできなかったため元マシンの設定を見返したところ<code>/etc/network/interfaces</code>を明示的に指定していたことが分かった。
+よって<code>vpncmd</code>で<code>SecureNATDisable</code>を実行した上で再度<code>SecureNat</code>を停止した上で下記のような設定を<code>/etc/network/interfaces</code>に追記した。</p>
+<pre class="code literal-block"><span></span><code><span class="n">auto</span> <span class="n">enp1s0</span>
+<span class="n">iface</span> <span class="n">enp1s0</span> <span class="n">inet</span> <span class="n">manual</span>
+
+<span class="n">auto</span> <span class="n">br0</span>
+<span class="n">iface</span> <span class="n">br0</span> <span class="n">inet</span> <span class="k">static</span>
+  <span class="n">address</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="n">xxx</span><span class="p">.</span><span class="n">xxx</span>
+  <span class="n">netmask</span> <span class="mi">255</span><span class="p">.</span><span class="mi">255</span><span class="p">.</span><span class="n">xxx</span><span class="p">.</span><span class="n">xxx</span>
+  <span class="n">gateway</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="n">xxx</span><span class="p">.</span><span class="n">xxx</span>
+  <span class="n">bridge_ports</span> <span class="n">enp1s0</span> <span class="n">tap_softether</span>
+  <span class="n">dns</span><span class="o">-</span><span class="n">nameservers</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="n">xxx</span><span class="p">.</span><span class="n">xxx</span>
+</code></pre>
+
+<p>NetworkManagerは<code>/etc/NetworkManager/NetworkManager.conf</code>において下記のような設定</p>
+<pre class="code literal-block"><span></span><code><span class="k">[ifupdown]</span>
+<span class="na">managed</span><span class="o">=</span><span class="s">false</span>
+</code></pre>
+
+<p>となっている場合、<code>/etc/network/interface</code>によって管理されているデバイスはNetworkManagerで制御を行わないとのことである。
+この上で<code>sudo systemctl restart networking</code>を行うと<code>SecureNAT</code>がdisableとなっている場合でも接続が可能となった。</p>
+<p>しかし、この状態で再起動を行うとやはり接続できない状態に戻ってしまう。
+調べたところ<code>sudo systemctl restart networking</code>を行った後は下記状態</p>
+<pre class="code literal-block"><span></span><code>$ /sbin/brctl show
+bridge name     bridge id               STP enabled     interfaces
+br0             <span class="m">8000</span>.0016cba5df15       no              enp1s0
+                                                        tap_softether
+</code></pre>
+
+<p>となっているが、マシンの再起動直後は</p>
+<pre class="code literal-block"><span></span><code>$ /sbin/brctl show
+bridge name     bridge id               STP enabled     interfaces
+br0             <span class="m">8000</span>.0016cba5df15       no              enp1s0
+</code></pre>
+
+<p>という状態になっていることが分かった。
+つまりbr0に対して起動直後は何らかの理由で<code>tap_softether</code>のtapデバイスがbr0に接続されていないことが原因となっていることが考えられ、
+実際に<code>/sbin/brctl addif br0 tap_softether</code>を実行することで明示的に追加を行った場合はVPN接続が可能となった。</p>
+<p>これを受けて<code>/etc/systemd/system/vpnserver.service</code>に下記のように<code>ExecStartPost</code>を追加した。</p>
+<pre class="code literal-block"><span></span><code><span class="k">[Service]</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver start</span>
+<span class="na">ExecStartPost</span><span class="o">=</span><span class="s">/bin/sleep 10 ; /sbin/brctl addif br0 tap_softether</span>
+</code></pre>
+
+<p>sleepの秒数の後のセミコロンは10とセミコロンの間にスペースを空けないとエラーが生じるため注意が必要である。
+これによりマシン再起動後も手動での操作なしにVPN接続が可能な状態となった。</p>
 <hr>
 <h3>まとめ</h3>
 <p>古いMac miniにDebianを入れてファイルサーバ・VPNサーバとして復活させる手順のメモを記した。
