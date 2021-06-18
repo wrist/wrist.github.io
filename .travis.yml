@@ -10,7 +10,7 @@ branches:
   only:
   - src
 python:
-- 3.6
+- 3.8
 before_install:
 - openssl aes-256-cbc -K $encrypted_cfbe830f6fec_key -iv $encrypted_cfbe830f6fec_iv
   -in id_rsa.enc -out id_rsa -d
