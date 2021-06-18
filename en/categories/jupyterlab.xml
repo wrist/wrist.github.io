@@ -1,5 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlab)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlab.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 23 Nov 2020 09:00:12 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</title><link>http://www.hiromasa.info/en/posts/21/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h2&gt;Xeus関連の情報(PyData Osaka 2020/8/2用の記事)&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlab)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlab.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 18 Jun 2021 01:43:20 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>jupyterlab-wav extensionをjupyterlab 3.xへ対応させた上でWaveSurfer.jsで波形・スペクトログラムが描画できるようにした</title><link>http://www.hiromasa.info/en/posts/25/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;p&gt;この記事では以前に&lt;a href="https://www.hiromasa.info/posts/20/"&gt;このポスト&lt;/a&gt;で作成した&lt;code&gt;jupyterlab-wav&lt;/code&gt;のExtensionを
+&lt;a href="https://wavesurfer-js.org/"&gt;WaveSurfer.js&lt;/a&gt;を用いて波形+スペクトログラムが描画できるように今年の2月ごろに改良したのでその過程について説明します。
+(この文章自体3月に書いたまま放置していたため内容として古くなっている部分があるかもしれません)。&lt;/p&gt;
+&lt;h3&gt;jupyterlab 3.x系への対応&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://blog.jupyter.org/jupyterlab-3-0-is-out-4f58385e25bb"&gt;Jupyter blog&lt;/a&gt;でも紹介されているようにJupyterlab 3.0が2021年の年始にリリースされました。
+jupyterlab 3.x系では&lt;a href="https://www.hiromasa.info/posts/21/"&gt;このポスト&lt;/a&gt;でも触れたDebuggerが導入されたなどの話もありますが、
+extension開発者にとって大きな変更点として&lt;code&gt;JupyterLab extensions can now be distributed as prebuilt extensions, which do not require a user to rebuild JupyterLab or have Node.js installed.&lt;/code&gt;
+とあるように、prebuilt extensionをPyPIなどに登録することによってpipやcondaでextensionをインストールできるようになったことが挙げられます。
+これにより、npmやjupyterによるローカルでのビルドなどが不要となったためユーザーはより気軽にExtensionを導入できるようになりました (後述のように従来通りnpmjsからインストールすることも可能です)。&lt;/p&gt;
+&lt;p&gt;そんな訳で&lt;code&gt;jupyterlab-wav&lt;/code&gt;もpipでインストールできるようになりました。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ pip install jupyterlab-wav
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で簡単に導入できます。&lt;/p&gt;
+&lt;h3&gt;&lt;a href="https://wavesurfer-js.org/"&gt;WaveSurfer.js&lt;/a&gt;の導入&lt;/h3&gt;
+&lt;p&gt;以前のポストで作成した&lt;code&gt;jupyterlab-wav&lt;/code&gt;はMIME Rendererのテンプレートをそのまま使っただけのものでしたが、
+今回の更新にあたり&lt;a href="https://wavesurfer-js.org/"&gt;WaveSurfer.js&lt;/a&gt;を用いて波形・スペクトログラムが描画できるようになりました。
+また、wavファイルだけでなくmp3ファイルとflacファイルも再生できるようになりました。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="screenshot" src="http://www.hiromasa.info/images/25/screenshot_v020.png"&gt;&lt;/p&gt;
+&lt;p&gt;マルチチャンネルファイルのスペクトログラムが描画できないなど、まだまだ不具合などは残っていますが最低限使えるような状態にはなっています。&lt;/p&gt;
+&lt;h3&gt;jupyterlab extensionの2.x系から3.x系への更新作業&lt;/h3&gt;
+&lt;p&gt;2.x系から3.x系へとextensionを更新する際には
+&lt;a href="https://jupyterlab.readthedocs.io/en/latest/extension/extension_migration.html"&gt;Extension Migration Guide&lt;/a&gt;を見ながら作業を行いました。&lt;/p&gt;
+&lt;h4&gt;手動で&lt;code&gt;package.json&lt;/code&gt;のバージョンを上げる場合&lt;/h4&gt;
+&lt;p&gt;下記の&lt;code&gt;@jupyterlab/application&lt;/code&gt;のバージョンを^3.0.0へと変更すれば良いとのこと。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;  &lt;span class="nt"&gt;"dependencies"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+          &lt;span class="nt"&gt;"@jupyterlab/application"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"^3.0.0"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;しかしjupyterlab 3.0には前述のようにextensionを&lt;code&gt;PyPI&lt;/code&gt;や&lt;code&gt;conda-forge&lt;/code&gt;にアップロードすることで&lt;code&gt;pip&lt;/code&gt;や&lt;code&gt;conda&lt;/code&gt;でextensionがインストールできるようになり、
+そのためのパッケージングの仕組みが提供されているため、下記手順に沿って対応した方が良いと思われます。&lt;/p&gt;
+&lt;h4&gt;upgradeスクリプトを用いた更新&lt;/h4&gt;
+&lt;p&gt;Jupyterlab 3.0はupgrade用のスクリプトを公開しているのでこれを用いてバージョンを上げたいと思います。
+まずpipで&lt;code&gt;jupyter-packaging&lt;/code&gt;と&lt;code&gt;cookiecutter&lt;/code&gt;をインストールします。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ pip install jupyterlab -U
+$ pip install jupyter-packaging cookiecutter
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記を実行した上でextensionのルートディレクトリで下記コマンドを実行すると対話的に各種項目を設定することができます。
+&lt;code&gt;python_name [wrist_jupyterlab_wav]:&lt;/code&gt;の部分はpythonパッケージ名となり、ここではデフォルトのまま実行していましたが、最終的には各種設定を手動で&lt;code&gt;jupyterlab_wav&lt;/code&gt;に書き直しています。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ python -m jupyterlab.upgrade_extension .
+author_name &lt;span class="o"&gt;[&lt;/span&gt;wrist &amp;lt;stoicheia1986@gmail.com&amp;gt;&lt;span class="o"&gt;]&lt;/span&gt;:
+python_name &lt;span class="o"&gt;[&lt;/span&gt;wrist_jupyterlab_wav&lt;span class="o"&gt;]&lt;/span&gt;:
+labextension_name &lt;span class="o"&gt;[&lt;/span&gt;@wrist/jupyterlab-wav&lt;span class="o"&gt;]&lt;/span&gt;:
+project_short_description &lt;span class="o"&gt;[&lt;/span&gt;A JupyterLab extension &lt;span class="k"&gt;for&lt;/span&gt; rendering wav files.&lt;span class="o"&gt;]&lt;/span&gt;:
+has_server_extension &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;:
+has_binder &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;:
+repository &lt;span class="o"&gt;[&lt;/span&gt;https://github.com/wrist/jupyterlab-wav&lt;span class="o"&gt;]&lt;/span&gt;:
+overwrite scripts &lt;span class="k"&gt;in&lt;/span&gt; package.json? &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;:
+overwrite &lt;span class="s2"&gt;".gitignore"&lt;/span&gt;? &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;:
+overwrite &lt;span class="s2"&gt;"README.md"&lt;/span&gt;? &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;:
+overwrite &lt;span class="s2"&gt;"tsconfig.json"&lt;/span&gt;? &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;:
+overwrite &lt;span class="s2"&gt;"src/index.ts"&lt;/span&gt;? &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;:
+overwrite &lt;span class="s2"&gt;"style/index.css"&lt;/span&gt;? &lt;span class="o"&gt;[&lt;/span&gt;n&lt;span class="o"&gt;]&lt;/span&gt;:
+** package.json scripts must be updated manually
+** skipped _temp_extension/.gitignore
+** skipped _temp_extension/README.md
+** skipped _temp_extension/tsconfig.json
+** skipped _temp_extension/src/index.ts
+** skipped _temp_extension/style/index.css
+** Remove _temp_extensions directory when finished
+&lt;span class="o"&gt;(&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記を実行すると、&lt;code&gt;package.json&lt;/code&gt;が下記のように上書きされます。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;(base) jovyan@188a4999b58c:/mnt/work/python/tmp/jupyterlab-wav$ git diff
+&lt;span class="gh"&gt;diff --git a/package.json b/package.json&lt;/span&gt;
+&lt;span class="gh"&gt;index 0feeaed..cf1620b 100644&lt;/span&gt;
+&lt;span class="gd"&gt;--- a/package.json&lt;/span&gt;
+&lt;span class="gi"&gt;+++ b/package.json&lt;/span&gt;
+&lt;span class="gu"&gt;@@ -4,8 +4,11 @@&lt;/span&gt;
+   "description": "A JupyterLab extension for rendering wav files.",
+   "author": "wrist &amp;lt;stoicheia1986@gmail.com&amp;gt;",
+   "homepage": "https://github.com/wrist/jupyterlab-wav",
+&lt;span class="gd"&gt;-  "repository": {"type": "git", "url": "https://github.com/wrist/jupyterlab-wav"},&lt;/span&gt;
+&lt;span class="gd"&gt;-  "license" : "MIT",&lt;/span&gt;
+&lt;span class="gi"&gt;+  "repository": {&lt;/span&gt;
+&lt;span class="gi"&gt;+    "type": "git",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "url": "https://github.com/wrist/jupyterlab-wav"&lt;/span&gt;
+&lt;span class="gi"&gt;+  },&lt;/span&gt;
+&lt;span class="gi"&gt;+  "license": "MIT",&lt;/span&gt;
+   "main": "lib/index.js",
+   "types": "lib/index.d.ts",
+   "style": "style/index.css",
+&lt;span class="gu"&gt;@@ -16,27 +19,38 @@&lt;/span&gt;
+   ],
+   "files": [
+     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
+&lt;span class="gd"&gt;-    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}"&lt;/span&gt;
+&lt;span class="gi"&gt;+    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "style/index.js"&lt;/span&gt;
+   ],
+   "jupyterlab": {
+&lt;span class="gd"&gt;-    "mimeExtension": true&lt;/span&gt;
+&lt;span class="gi"&gt;+    "mimeExtension": true,&lt;/span&gt;
+&lt;span class="gi"&gt;+    "outputDir": "wrist_jupyterlab_wav/labextension"&lt;/span&gt;
+   },
+   "scripts": {
+&lt;span class="gd"&gt;-    "clean": "rimraf lib &amp;amp;&amp;amp; rimraf tsconfig.tsbuildinfo",&lt;/span&gt;
+     "build": "tsc",
+&lt;span class="gd"&gt;-    "prepare": "npm run clean &amp;amp;&amp;amp; npm run build",&lt;/span&gt;
+&lt;span class="gd"&gt;-    "watch": "tsc -w",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "clean": "rimraf lib &amp;amp;&amp;amp; rimraf tsconfig.tsbuildinfo",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "extension:disable": "jupyter labextension disable jupyterlab-wav",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "extension:enable": "jupyter labextension enable jupyterlab-wav",&lt;/span&gt;
+     "extension:install": "jupyter labextension install jupyterlab-wav",
+     "extension:uninstall": "jupyter labextension uninstall  jupyterlab-wav",
+&lt;span class="gd"&gt;-    "extension:enable": "jupyter labextension enable jupyterlab-wav",&lt;/span&gt;
+&lt;span class="gd"&gt;-    "extension:disable": "jupyter labextension disable jupyterlab-wav"&lt;/span&gt;
+&lt;span class="gi"&gt;+    "prepare": "npm run clean &amp;amp;&amp;amp; npm run build",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "watch": "tsc -w"&lt;/span&gt;
+   },
+   "dependencies": {
+&lt;span class="gd"&gt;-    "@jupyterlab/rendermime-interfaces": "^2.0.0",&lt;/span&gt;
+&lt;span class="gd"&gt;-    "@lumino/widgets": "^1.5.0"&lt;/span&gt;
+&lt;span class="gi"&gt;+    "@jupyterlab/rendermime-interfaces": "^3.0.2",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "@lumino/widgets": "^1.16.1"&lt;/span&gt;
+   },
+   "devDependencies": {
+&lt;span class="gd"&gt;-    "rimraf": "^2.6.3",&lt;/span&gt;
+&lt;span class="gd"&gt;-    "typescript": "~3.7.0"&lt;/span&gt;
+&lt;span class="gd"&gt;-  }&lt;/span&gt;
+&lt;span class="gd"&gt;-}&lt;/span&gt;
+&lt;span class="gi"&gt;+    "@jupyterlab/builder": "^3.0.0",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "@typescript-eslint/eslint-plugin": "^4.8.1",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "@typescript-eslint/parser": "^4.8.1",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "eslint": "^7.14.0",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "eslint-config-prettier": "^6.15.0",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "eslint-plugin-prettier": "^3.1.4",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "npm-run-all": "^4.1.5",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "prettier": "^2.1.1",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "rimraf": "^3.0.2",&lt;/span&gt;
+&lt;span class="gi"&gt;+    "typescript": "~4.1.3"&lt;/span&gt;
+&lt;span class="gi"&gt;+  },&lt;/span&gt;
+&lt;span class="gi"&gt;+  "styleModule": "style/index.js"&lt;/span&gt;
+&lt;span class="gi"&gt;+}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;各種依存ライブラリのバージョンが更新されていることが分かります。
+&lt;code&gt;@jupyterlab/builder&lt;/code&gt;が&lt;code&gt;devDependency&lt;/code&gt;に追加されているが、これは&lt;code&gt;federated extension&lt;/code&gt;としてextensionをビルドするために必要となるものです。
+これはwebpackのような依存を内部に隠蔽し、pythonパッケージの一部として配布可能なassetを生成するものとのことです。
+extension開発においては直接&lt;code&gt;@jupyterlab/builder&lt;/code&gt;を対話的に操作することはないが、その代わりに&lt;code&gt;jupyter labextension build&lt;/code&gt;コマンドを用いることができます。
+このコマンドはビルドスクリプト&lt;code&gt;jlpm run build&lt;/code&gt;の一部として自動的に実行されます。&lt;/p&gt;
+&lt;p&gt;また、&lt;code&gt;python -m jupyterlab.upgrade_extension .&lt;/code&gt;の実行によりパッケージングに必要となる&lt;code&gt;setup.py&lt;/code&gt;や&lt;code&gt;pyproject.toml&lt;/code&gt;などが生成されています。
+実際に実行したところ、下記のファイル/ディレクトリ群が追加されていました。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;.eslintignore
+.eslintrc.js
+.github/
+.prettierignore
+.prettierrc
+LICENSE
+MANIFEST.in
+_temp_extension/
+install.json
+pyproject.toml
+setup.py
+style/base.css
+style/index.js
+wrist_jupyterlab_wav/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;eslint&lt;/code&gt;は構文チェック、&lt;code&gt;prettier&lt;/code&gt;はフォーマッタであり、それらの設定ファイルが追加されています。
+&lt;code&gt;LICENSE&lt;/code&gt;は自動的に追加されていたが中身は3条項BSDライセンスでした。元々存在していたpackage.jsonにはLicenseをMITと記載していましたが、これを受けてBSD3-clauseに修正しています。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;.github&lt;/code&gt;以下にはgithub actionsで使用するworkflow定義のymlファイルが格納されています。&lt;code&gt;main&lt;/code&gt;ブランチに対して動作するため、今回はmasterに対して発動するように修正しています。&lt;/p&gt;
+&lt;p&gt;また、実際にgithubにpushしてactionsのタブを見るとbuild時にエラーが出ていました、これは&lt;code&gt;package.json&lt;/code&gt;の&lt;code&gt;scripts&lt;/code&gt;に&lt;code&gt;eslint:check&lt;/code&gt;が存在していないためでした。
+ここでは下記のscirptsを追加した上で、実際にeslintを実行して指摘箇所の修正を行いました。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;   &lt;span class="nt"&gt;"eslint"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"eslint . --ext .ts,.tsx --fix"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+   &lt;span class="nt"&gt;"eslint:check"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"eslint . --ext .ts,.tsx"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ここに限らずmigrateの過程でpackage.jsonにscriptが全て追加されておらず、&lt;code&gt;build:prod&lt;/code&gt;のscriptがないために生じたエラーなどにも遭遇しましたが、
+最終的には&lt;code&gt;https://github.com/jupyterlab/extension-cookiecutter-ts&lt;/code&gt;のリポジトリのpackage.jsonに記載のscriptを追加することで解決しています。&lt;/p&gt;
+&lt;h4&gt;extensionのローカルインストール&lt;/h4&gt;
+&lt;p&gt;&lt;a href="https://www.hiromasa.info/posts/20/"&gt;過去に書いた記事&lt;/a&gt;では下記のようにビルドを実行していましたが、&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ jlpm install
+$ jlpm run build
+$ jupyter labextension install . --no-build
+$ jupyter lab
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;テンプレートディレクトリのREADME.mdに記載されている下記手順のように実行することでローカルでのテスト用にextensionをjupyterlabにリンクできます。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ pip install -e .
+$ jupyter labextension develop . --overwrite
+$ jlpm run build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;jlpmによるビルドが終了した後にjupyterlabを立ち上げるとextensionが有効化されているはずです。&lt;/p&gt;
+&lt;h3&gt;jupyterlab-wavの修正&lt;/h3&gt;
+&lt;p&gt;今回の作業のついでに&lt;code&gt;jupyterlab-wav&lt;/code&gt;を改良しています。
+前述のように波形可視化ライブラリである&lt;code&gt;wavesurfer.js&lt;/code&gt;を追加し、これを用いて描画を試みていますが、
+下記のように最初にjlpmでパッケージをいくつか追加しています。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ jlpm add wavesurfer.js
+$ jlpm add @types/wavesurfer.js
+$ jlpm add colormap
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;react-widgetの導入&lt;/h3&gt;
+&lt;p&gt;以前のMIME Extensionのテンプレートを改造しただけのプロジェクトでは&lt;code&gt;IRenderMime.IRenderer&lt;/code&gt;を実装するためのクラスを作り、
+ファイルをjupyterlabで開いた際に呼ばれる&lt;code&gt;renderModel&lt;/code&gt;メソッドを定義して&lt;code&gt;audio&lt;/code&gt;要素に&lt;code&gt;src&lt;/code&gt;属性を設定していただけでしたが、
+今回の修正では&lt;code&gt;react-widget&lt;/code&gt;を下記コードのように導入しています。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;ReactWidget&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'@jupyterlab/apputils'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;IRenderMime&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'@jupyterlab/rendermime-interfaces'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;React&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'react'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;AudioComponent&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'./AudioComponent'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="kd"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;CLASS_NAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'mimerenderer-wav'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="cm"&gt;/**&lt;/span&gt;
+&lt;span class="cm"&gt; * A widget for rendering wav.&lt;/span&gt;
+&lt;span class="cm"&gt; */&lt;/span&gt;
+&lt;span class="k"&gt;export&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;WavWidget&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="nx"&gt;ReactWidget&lt;/span&gt; &lt;span class="k"&gt;implements&lt;/span&gt; &lt;span class="nx"&gt;IRenderMime&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;IRenderer&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kr"&gt;constructor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;options&lt;/span&gt;: &lt;span class="kt"&gt;IRenderMime.IRendererOptions&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;super&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;_mimeType&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;mimeType&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;_src&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;''&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addClass&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;CLASS_NAME&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="nx"&gt;renderModel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;model&lt;/span&gt;: &lt;span class="kt"&gt;IRenderMime.IMimeModel&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;Promise&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;void&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;model&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;_mimeType&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="kr"&gt;as&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;_src&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sb"&gt;`data:&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;_mimeType&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;;base64,&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;update&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;resolve&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="nx"&gt;render&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;AudioComponent&lt;/span&gt; &lt;span class="nx"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;_src&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="o"&gt;/&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="nx"&gt;_src&lt;/span&gt;: &lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="nx"&gt;_mimeType&lt;/span&gt;: &lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;jupyterlab上でファイルを開いた際に&lt;code&gt;renderModel&lt;/code&gt;メソッドが呼ばれる点は同じですが、
+この際に&lt;code&gt;this.update()&lt;/code&gt;を実行することで&lt;code&gt;ReactWidget&lt;/code&gt;をextendsする際に必須となる&lt;code&gt;render&lt;/code&gt;メソッドを明示的に呼び出しています。
+&lt;code&gt;render&lt;/code&gt;メソッドは&lt;code&gt;&amp;lt;AudioComponent ...&amp;gt;&lt;/code&gt;のJSXタグを返しますが、この&lt;code&gt;AudioComponent&lt;/code&gt;は&lt;code&gt;AudioComponent.tsx&lt;/code&gt;内で定義されたReactコンポーネントとなります。
+Reactコンポーネント自体はjupyterlabと独立にReact単体のエコシステム上で別途動作検証やデバッグができるため、
+&lt;code&gt;ReactWidget&lt;/code&gt;の導入によりextension開発が容易になりました。&lt;/p&gt;
+&lt;h3&gt;extensionの公開方法&lt;/h3&gt;
+&lt;p&gt;パッケージングの方法については&lt;a href="https://jupyterlab.readthedocs.io/en/latest/extension/extension_tutorial.html#packaging-your-extension"&gt;extension tutorialのpackagingの部分&lt;/a&gt;に、
+アップロードの方法については&lt;a href="https://jupyterlab.readthedocs.io/en/latest/extension/extension_tutorial.html#extension-tutorial-publish"&gt;extension tutorialのpublishに関する部分&lt;/a&gt;に説明があります。&lt;/p&gt;
+&lt;h4&gt;PyPIへのアップロード&lt;/h4&gt;
+&lt;p&gt;自動生成された&lt;code&gt;setup.py&lt;/code&gt;を用いてパッケージのビルドを行います。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ python setup.py build sdist
+$ python setup.py build bdist_wheel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ビルドの成果物がdist以下に保存されるので、これらをPyPIへとアップロードします。
+ここではtwineを使ってアップロードを行います。
+予めTestPyPIにアップロードし問題ないことを確認した上でPyPIへとアップロードします。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ pip install twine
+$ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+$ twine upload dist/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4&gt;npmjsへのアップロード&lt;/h4&gt;
+&lt;p&gt;extensionはPyPIやconda-forgeにアップロードするだけでなく、従来のようにnpmへとアップロードすることもできます。
+これはnpmパッケージとして配布することでユーザーがJupyterLab 1.xや2.xと同様にextensionを明示的にコンパイルして追加することが可能となるためであったり、
+他のextensionからサービスとして利用されるextensionを公開したい場合はJavaScriptパッケージをpublishする必要があるためとのことです。&lt;/p&gt;
+&lt;p&gt;以前の記事では&lt;code&gt;npm&lt;/code&gt;を使ってアップロードしていましたが、ここではjlpmを使ってアップロードを試みました。&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ jlpm publish --access&lt;span class="o"&gt;=&lt;/span&gt;public
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4&gt;作成中に遭遇した問題&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;複数の音源ファイルを開いた場合に一つのタブに描画されてしまう&lt;ul&gt;
+&lt;li&gt;描画対象のdivをidで指定していたためであり、Reactの&lt;code&gt;useRef&lt;/code&gt;を用いた参照に切り替えることによって解決&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;開発用の手順が失敗する&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;jupyter labextension develop . --overwrite&lt;/code&gt;に失敗したが、これはPyPIに公開するパッケージディレクトリ(&lt;code&gt;jupyterlab_wav&lt;/code&gt;)の下に&lt;code&gt;__init__.py&lt;/code&gt;と&lt;code&gt;_version.py&lt;/code&gt;がないためでした&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/jupyterlab/extension-cookiecutter-ts/tree/3.0/%7B%7Bcookiecutter.python_name%7D%7D/%7B%7Bcookiecutter.python_name%7D%7D"&gt;このテンプレート&lt;/a&gt;のファイルを加工して使うことで成功するようになりました&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;既知の問題&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Multi channelのaudioファイルが正しく描画されない&lt;ul&gt;
+&lt;li&gt;波形は&lt;code&gt;splitChannels&lt;/code&gt;オプションを使うことで分割して描画されるようになりました&lt;/li&gt;
+&lt;li&gt;スペクトログラムは要対応&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;タブの再描画などの際に以前に再生した音声が止まらないまま残ってしまう&lt;ul&gt;
+&lt;li&gt;再生中にタブを閉じると再生され続ける&lt;ul&gt;
+&lt;li&gt;ReactWidgetの解放時に確実に止めるための何かが必要ではないかと思われる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;今後改良したい点&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;FFT長選択のUIをつける&lt;/li&gt;
+&lt;li&gt;Jupyterlabから設定を行えるようにする&lt;/li&gt;
+&lt;li&gt;キーボードショートカットをつける(スペースで再生など)&lt;/li&gt;
+&lt;li&gt;timelineの単位の指定(サンプルなど)&lt;/li&gt;
+&lt;li&gt;colormapの制御&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><guid>http://www.hiromasa.info/en/posts/25/</guid><pubDate>Thu, 17 Jun 2021 15:00:00 GMT</pubDate></item><item><title>Xeus関連の情報(PyData Osaka 2020/8/2用の記事)</title><link>http://www.hiromasa.info/en/posts/21/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h2&gt;Xeus関連の情報(PyData Osaka 2020/8/2用の記事)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;最近のJupyter Blogから一部記事を抜粋して紹介します。&lt;/li&gt;
 &lt;li&gt;Xeus関連の情報がメインです&lt;/li&gt;
@@ -48,9 +349,9 @@
 &lt;/ul&gt;
 &lt;h4&gt;&lt;code&gt;Xeus&lt;/code&gt;がJupyter管轄下へと移行した理由&lt;/h4&gt;
 &lt;p&gt;以下に引用&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;While Xeus started as a side project for QuantStack engineers,&lt;/span&gt;
-&lt;span class="err"&gt;the project now has several stakeholders who depend on it.&lt;/span&gt;
-&lt;span class="err"&gt;We think that moving the project to an open governance organization may be a better way to reflect this situation.&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;While&lt;/span&gt; &lt;span class="nv"&gt;Xeus&lt;/span&gt; &lt;span class="nv"&gt;started&lt;/span&gt; &lt;span class="nv"&gt;as&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="nv"&gt;side&lt;/span&gt; &lt;span class="nv"&gt;project&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nv"&gt;QuantStack&lt;/span&gt; &lt;span class="nv"&gt;engineers&lt;/span&gt;,
+&lt;span class="nv"&gt;the&lt;/span&gt; &lt;span class="nv"&gt;project&lt;/span&gt; &lt;span class="nv"&gt;now&lt;/span&gt; &lt;span class="nv"&gt;has&lt;/span&gt; &lt;span class="nv"&gt;several&lt;/span&gt; &lt;span class="nv"&gt;stakeholders&lt;/span&gt; &lt;span class="nv"&gt;who&lt;/span&gt; &lt;span class="nv"&gt;depend&lt;/span&gt; &lt;span class="nv"&gt;on&lt;/span&gt; &lt;span class="nv"&gt;it&lt;/span&gt;.
+&lt;span class="nv"&gt;We&lt;/span&gt; &lt;span class="nv"&gt;think&lt;/span&gt; &lt;span class="nv"&gt;that&lt;/span&gt; &lt;span class="nv"&gt;moving&lt;/span&gt; &lt;span class="nv"&gt;the&lt;/span&gt; &lt;span class="nv"&gt;project&lt;/span&gt; &lt;span class="nv"&gt;to&lt;/span&gt; &lt;span class="nv"&gt;an&lt;/span&gt; &lt;span class="nv"&gt;open&lt;/span&gt; &lt;span class="nv"&gt;governance&lt;/span&gt; &lt;span class="nv"&gt;organization&lt;/span&gt; &lt;span class="nv"&gt;may&lt;/span&gt; &lt;span class="nv"&gt;be&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="nv"&gt;better&lt;/span&gt; &lt;span class="nv"&gt;way&lt;/span&gt; &lt;span class="nv"&gt;to&lt;/span&gt; &lt;span class="nv"&gt;reflect&lt;/span&gt; &lt;span class="nv"&gt;this&lt;/span&gt; &lt;span class="nv"&gt;situation&lt;/span&gt;.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3&gt;&lt;a href="https://blog.jupyter.org/a-visual-debugger-for-jupyter-914e61716559"&gt;A visual debugger for Jupyter (2020/3/26)&lt;/a&gt;&lt;/h3&gt;
@@ -422,31 +723,31 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;大した量ではないためコード全体を下記に記します。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;IRenderMime&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="nx"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'@jupyterlab/rendermime-interfaces'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;IRenderMime&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'@jupyterlab/rendermime-interfaces'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 
 
-&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;Widget&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="nx"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'@lumino/widgets'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;Widget&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;from&lt;/span&gt; &lt;span class="s1"&gt;'@lumino/widgets'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * The default mime type for the extension.&lt;/span&gt;
 &lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;MIME_TYPE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'audio/wav'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kd"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;MIME_TYPE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'audio/wav'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * The class name added to the extension.&lt;/span&gt;
 &lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;CLASS_NAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'mimerenderer-wav'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="kd"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;CLASS_NAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'mimerenderer-wav'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * A widget for rendering wav.&lt;/span&gt;
 &lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kr"&gt;export&lt;/span&gt; &lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;WavWidget&lt;/span&gt; &lt;span class="kr"&gt;extends&lt;/span&gt; &lt;span class="nx"&gt;Widget&lt;/span&gt; &lt;span class="kr"&gt;implements&lt;/span&gt; &lt;span class="nx"&gt;IRenderMime&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;IRenderer&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="k"&gt;export&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;WavWidget&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="nx"&gt;Widget&lt;/span&gt; &lt;span class="k"&gt;implements&lt;/span&gt; &lt;span class="nx"&gt;IRenderMime&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;IRenderer&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;   * Construct a new output widget.&lt;/span&gt;
 &lt;span class="cm"&gt;   */&lt;/span&gt;
   &lt;span class="kr"&gt;constructor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;options&lt;/span&gt;: &lt;span class="kt"&gt;IRenderMime.IRendererOptions&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kr"&gt;super&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="k"&gt;super&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
     &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;_mimeType&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;mimeType&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
     &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addClass&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;CLASS_NAME&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="cm"&gt;/* 追加 */&lt;/span&gt;
@@ -467,14 +768,14 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;resolve&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
   &lt;span class="p"&gt;}&lt;/span&gt;
 
-  &lt;span class="kr"&gt;private&lt;/span&gt; &lt;span class="nx"&gt;_audio&lt;/span&gt;: &lt;span class="kt"&gt;HTMLAudioElement&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-  &lt;span class="kr"&gt;private&lt;/span&gt; &lt;span class="nx"&gt;_mimeType&lt;/span&gt;: &lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="nx"&gt;_audio&lt;/span&gt;: &lt;span class="kt"&gt;HTMLAudioElement&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="nx"&gt;_mimeType&lt;/span&gt;: &lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * A mime renderer factory for wav data.&lt;/span&gt;
 &lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kr"&gt;export&lt;/span&gt; &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;rendererFactory&lt;/span&gt;: &lt;span class="kt"&gt;IRenderMime.IRendererFactory&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="k"&gt;export&lt;/span&gt; &lt;span class="kd"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;rendererFactory&lt;/span&gt;: &lt;span class="kt"&gt;IRenderMime.IRendererFactory&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="nx"&gt;safe&lt;/span&gt;: &lt;span class="kt"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="nx"&gt;mimeTypes&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;MIME_TYPE&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
   &lt;span class="nx"&gt;createRenderer&lt;/span&gt;: &lt;span class="kt"&gt;options&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;WavWidget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;options&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -483,7 +784,7 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
 &lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt; * Extension definition.&lt;/span&gt;
 &lt;span class="cm"&gt; */&lt;/span&gt;
-&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;extension&lt;/span&gt;: &lt;span class="kt"&gt;IRenderMime.IExtension&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="kd"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;extension&lt;/span&gt;: &lt;span class="kt"&gt;IRenderMime.IExtension&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="nx"&gt;id&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'jupyterlab-wav:plugin'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="nx"&gt;rendererFactory&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="nx"&gt;rank&lt;/span&gt;: &lt;span class="kt"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -505,7 +806,7 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
   &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
 
-&lt;span class="kr"&gt;export&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="nx"&gt;extension&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;export&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="nx"&gt;extension&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;上記コードを再度ビルドしてjupyterlabを再読み込みすれば完了です。&lt;/p&gt;
@@ -607,10 +908,9 @@ $ pip install openfst-python
 
 
 
-&lt;div id="c4cedc0c-8f91-4a37-b9a5-edcc98a0d6d9"&gt;&lt;/div&gt;
-&lt;div class="output_subarea output_javascript "&gt;
+&lt;div id="509e575d-8242-43fd-9e66-fd9459f150f7" class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#c4cedc0c-8f91-4a37-b9a5-edcc98a0d6d9');
+var element = $('#509e575d-8242-43fd-9e66-fd9459f150f7');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
@@ -1068,7 +1368,7 @@ fstの各行のフォーマットは
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%writefile&lt;/span&gt; work/text.fst
-&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;
+&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="mf"&gt;.5&lt;/span&gt;
 &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="mf"&gt;1.5&lt;/span&gt;
 &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="n"&gt;z&lt;/span&gt; &lt;span class="mf"&gt;2.5&lt;/span&gt;
 &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="mf"&gt;3.5&lt;/span&gt;
@@ -2890,7 +3190,7 @@ nikolaについては過去に記事を書いていますのでご覧くださ�
 Metadataの設定は&lt;a href="https://github.com/jupyterlab/jupyterlab/issues/1308"&gt;https://github.com/jupyterlab/jupyterlab/issues/1308&lt;/a&gt;
 のissueで議論され、&lt;a href="https://github.com/jupyterlab/jupyterlab/pull/5968"&gt;https://github.com/jupyterlab/jupyterlab/pull/5968&lt;/a&gt; のプルリクエストで追加するためのUIが4月ごろに追加されています。&lt;/p&gt;
 &lt;p&gt;メタデータを付与するためには、一番左側のアイコンの並んでいるカラムからスパナアイコンを選択肢、Advanced Toolsの中のNotebook Metadataを編集すれば良いです。この記事では下記の様な感じにしています。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="s2"&gt;"nikola"&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;"nikola"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="nt"&gt;"tags"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"python,docker,nikola,jupyterlab"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
         &lt;span class="nt"&gt;"title"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"nikolaの記事をjupyter labで書く"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
         &lt;span class="nt"&gt;"date"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"2019-12-22 23:00:00 UTC+09:00"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;

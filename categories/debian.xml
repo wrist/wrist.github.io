@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (debianについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/debian.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 23 Nov 2020 08:59:58 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Debian 10 busterを初代Mac mini (A1176; 2006)にインストール</title><link>http://www.hiromasa.info/posts/24/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;経緯&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (debianについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/debian.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2021 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 18 Jun 2021 01:43:30 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Debian 10 busterを初代Mac mini (A1176; 2006)にインストール</title><link>http://www.hiromasa.info/posts/24/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;経緯&lt;/h3&gt;
 &lt;p&gt;&lt;a href="https://www.hiromasa.info/posts/23/"&gt;前回の記事&lt;/a&gt;を書いた後にUbuntu 18.04がインストールされていたMacBook Pro 2009のトラックパッドがバッテリー膨張による圧力によって割れるという惨事が発生してしまった。
 このMacBook Proは以前に一度ファンとバッテリーを自力で換装したことがあるものであり、もう限界と判断して押入れに眠っていたMac mini 2006(大学の先輩から2万円で譲ってもらったもの)を復活させることを決意したのであった。&lt;/p&gt;
 &lt;p&gt;&lt;img alt="白昼夢の惨劇" src="http://www.hiromasa.info/images/24/broken_mbp.jpg"&gt;&lt;/p&gt;
@@ -79,11 +79,11 @@ Debian上で&lt;code&gt;ip addr&lt;/code&gt;でMACアドレスを表示させ、
 &lt;p&gt;鍵認証による接続を行うために公開鍵の登録をした後に&lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt;を編集する。
 公開鍵はクライアント側から&lt;code&gt;ssh-copy-id -i id_rsa.pub ${ipaddr}&lt;/code&gt;で転送しても良いが、GitHubに登録してある公開鍵を使う場合は&lt;code&gt;wget https://github.com/${username}.keys -qO - &amp;gt;&amp;gt; ~/.ssh/authorized_keys&lt;/code&gt;で&lt;code&gt;authorized_keys&lt;/code&gt;に追記しても良い。&lt;/p&gt;
 &lt;p&gt;次に&lt;code&gt;sudo vi /etc/ssh/sshd_config&lt;/code&gt;に下記項目を設定する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;Port ポート番号  # 変更したい場合&lt;/span&gt;
-&lt;span class="err"&gt;PubkeyAuthentication yes&lt;/span&gt;
-&lt;span class="err"&gt;PermitRootLogin no&lt;/span&gt;
-&lt;span class="err"&gt;PermitEmptyPasswords no&lt;/span&gt;
-&lt;span class="err"&gt;PasswordAuthentication no&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Port ポート番号  # 変更したい場合
+PubkeyAuthentication yes
+PermitRootLogin no
+PermitEmptyPasswords no
+PasswordAuthentication no
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;設定後、&lt;code&gt;sudo systemctl restart sshd&lt;/code&gt;でsshdを再起動する。&lt;/p&gt;
@@ -119,10 +119,10 @@ $ sudo apt install -y build-essential autotools-dev libtool automake autoconf au
 &lt;h4&gt;シェル環境周りの設定&lt;/h4&gt;
 &lt;h5&gt;tmuxの設定&lt;/h5&gt;
 &lt;p&gt;&lt;code&gt;.tmux.conf&lt;/code&gt;を作成し&lt;code&gt;C-t&lt;/code&gt;をprefixキーとするために下記のような&lt;code&gt;.tmux.conf&lt;/code&gt;を&lt;code&gt;~&lt;/code&gt;以下に配置した。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;unbind C-b&lt;/span&gt;
-&lt;span class="err"&gt;set-option -g prefix C-t&lt;/span&gt;
-&lt;span class="err"&gt;set-window-option -g mode-keys vi&lt;/span&gt;
-&lt;span class="err"&gt;bind C-t send-prefix&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;unbind&lt;/span&gt; &lt;span class="nv"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;b&lt;/span&gt;
+&lt;span class="nv"&gt;set&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;option&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;g&lt;/span&gt; &lt;span class="nv"&gt;prefix&lt;/span&gt; &lt;span class="nv"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;t&lt;/span&gt;
+&lt;span class="nv"&gt;set&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;window&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;option&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;g&lt;/span&gt; &lt;span class="nv"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;keys&lt;/span&gt; &lt;span class="nv"&gt;vi&lt;/span&gt;
+&lt;span class="nv"&gt;bind&lt;/span&gt; &lt;span class="nv"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;t&lt;/span&gt; &lt;span class="k"&gt;send&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;prefix&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h5&gt;シェルをzshに変える&lt;/h5&gt;
@@ -279,16 +279,16 @@ $ mv vpnserver /usr/local/
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;上記を実行すると下記のような出力が出る。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;create bridge interface&lt;/span&gt;
-&lt;span class="err"&gt;接続 'bridge-br0' (0aa0ae96-6428-4f7e-bc1c-fa6f22f98cea) が正常に追加されました。&lt;/span&gt;
-&lt;span class="err"&gt;disable STP&lt;/span&gt;
-&lt;span class="err"&gt;modify bridge&lt;/span&gt;
-&lt;span class="err"&gt;connect enp1s0 to bridge&lt;/span&gt;
-&lt;span class="err"&gt;接続 'bridge-slave-enp1s0' (ec87d050-f6ae-4ca8-adbf-7b1f0e4eb1b6) が正常に追加されました。&lt;/span&gt;
-&lt;span class="err"&gt;connect tap to bridge&lt;/span&gt;
-&lt;span class="err"&gt;接続 'bridge-slave-tap_softether' (f262c26c-2799-4c9b-b149-9d1b3c44f8ce) が正常に追加されました。&lt;/span&gt;
-&lt;span class="err"&gt;up tap device&lt;/span&gt;
-&lt;span class="err"&gt;接続が正常にアクティベートされました (master waiting for slaves) (D-Bus アクティブパス: /org/freedesktop/NetworkManager/ActiveConnection/3)&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;create&lt;/span&gt; &lt;span class="nv"&gt;bridge&lt;/span&gt; &lt;span class="nv"&gt;interface&lt;/span&gt;
+接続 &lt;span class="s1"&gt;'&lt;/span&gt;&lt;span class="s"&gt;bridge-br0&lt;/span&gt;&lt;span class="s1"&gt;'&lt;/span&gt; &lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="nv"&gt;aa0ae96&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;6428&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="nv"&gt;f7e&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;bc1c&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;fa6f22f98cea&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt; が正常に追加されました。
+&lt;span class="nv"&gt;disable&lt;/span&gt; &lt;span class="nv"&gt;STP&lt;/span&gt;
+&lt;span class="nv"&gt;modify&lt;/span&gt; &lt;span class="nv"&gt;bridge&lt;/span&gt;
+&lt;span class="k"&gt;connect&lt;/span&gt; &lt;span class="nv"&gt;enp1s0&lt;/span&gt; &lt;span class="nv"&gt;to&lt;/span&gt; &lt;span class="nv"&gt;bridge&lt;/span&gt;
+接続 &lt;span class="s1"&gt;'&lt;/span&gt;&lt;span class="s"&gt;bridge-slave-enp1s0&lt;/span&gt;&lt;span class="s1"&gt;'&lt;/span&gt; &lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;ec87d050&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;f6ae&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="nv"&gt;ca8&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;adbf&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="nv"&gt;b1f0e4eb1b6&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt; が正常に追加されました。
+&lt;span class="k"&gt;connect&lt;/span&gt; &lt;span class="nv"&gt;tap&lt;/span&gt; &lt;span class="nv"&gt;to&lt;/span&gt; &lt;span class="nv"&gt;bridge&lt;/span&gt;
+接続 &lt;span class="s1"&gt;'&lt;/span&gt;&lt;span class="s"&gt;bridge-slave-tap_softether&lt;/span&gt;&lt;span class="s1"&gt;'&lt;/span&gt; &lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;f262c26c&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;2799&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="nv"&gt;c9b&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;b149&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="nv"&gt;d1b3c44f8ce&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt; が正常に追加されました。
+&lt;span class="nv"&gt;up&lt;/span&gt; &lt;span class="nv"&gt;tap&lt;/span&gt; &lt;span class="nv"&gt;device&lt;/span&gt;
+接続が正常にアクティベートされました &lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;master&lt;/span&gt; &lt;span class="nv"&gt;waiting&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nv"&gt;slaves&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt; &lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;D&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;Bus&lt;/span&gt; アクティブパス: &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nv"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nv"&gt;freedesktop&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nv"&gt;NetworkManager&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nv"&gt;ActiveConnection&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;この後に再起動を行い、&lt;code&gt;ip addr&lt;/code&gt;でIPアドレスが割り振られていたり、&lt;code&gt;ip link show&lt;/code&gt;でbr0のSTATEがUpになっていれば問題ないと思われる。&lt;/p&gt;
@@ -317,27 +317,27 @@ $ mv vpnserver /usr/local/
 &lt;p&gt;元マシンでの設定が正しければ上記までの設定で接続できるようになるはずだが案の定接続できない。
 そこで&lt;code&gt;/usr/local/vpnserver&lt;/code&gt;以下に存在する&lt;code&gt;secure_log&lt;/code&gt;や&lt;code&gt;server_log&lt;/code&gt;といったログ見て原因を推察する。
 ここでは&lt;code&gt;server_log&lt;/code&gt;以下に存在するlogにおける&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;2020-11-21 xx:xx:xx.xxx L2TP PPP セッション [xxx.xxx.xxx.xxx:xxxx]:&lt;/span&gt;
-&lt;span class="err"&gt;  DHCP サーバーからの IP アドレスの取得に失敗しました。&lt;/span&gt;
-&lt;span class="err"&gt;  PPP の通信を受諾するためには DHCP サーバーが必要です。&lt;/span&gt;
-&lt;span class="err"&gt;  仮想 HUB の Ethernet セグメント上で DHCP サーバーが正しく動作しているかどうか確認してください。&lt;/span&gt;
-&lt;span class="err"&gt;  DHCP サーバーを用意することができない場合は、仮想 HUB の SecureNAT 機能を用いることもできます。&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="mf"&gt;2020&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;11&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;21&lt;/span&gt; &lt;span class="n"&gt;xx&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;xx&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;xx&lt;/span&gt;&lt;span class="mf"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt; &lt;span class="n"&gt;L2TP&lt;/span&gt; &lt;span class="n"&gt;PPP&lt;/span&gt; &lt;span class="n"&gt;セッション&lt;/span&gt; &lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="mf"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="mf"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="mf"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;xxxx&lt;/span&gt;&lt;span class="err"&gt;]&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="n"&gt;DHCP&lt;/span&gt; &lt;span class="n"&gt;サーバーからの&lt;/span&gt; &lt;span class="n"&gt;IP&lt;/span&gt; &lt;span class="n"&gt;アドレスの取得に失敗しました&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
+  &lt;span class="n"&gt;PPP&lt;/span&gt; &lt;span class="n"&gt;の通信を受諾するためには&lt;/span&gt; &lt;span class="n"&gt;DHCP&lt;/span&gt; &lt;span class="n"&gt;サーバーが必要です&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
+  &lt;span class="n"&gt;仮想&lt;/span&gt; &lt;span class="n"&gt;HUB&lt;/span&gt; &lt;span class="n"&gt;の&lt;/span&gt; &lt;span class="n"&gt;Ethernet&lt;/span&gt; &lt;span class="n"&gt;セグメント上で&lt;/span&gt; &lt;span class="n"&gt;DHCP&lt;/span&gt; &lt;span class="n"&gt;サーバーが正しく動作しているかどうか確認してください&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
+  &lt;span class="n"&gt;DHCP&lt;/span&gt; &lt;span class="n"&gt;サーバーを用意することができない場合は&lt;/span&gt;&lt;span class="err"&gt;、&lt;/span&gt;&lt;span class="n"&gt;仮想&lt;/span&gt; &lt;span class="n"&gt;HUB&lt;/span&gt; &lt;span class="n"&gt;の&lt;/span&gt; &lt;span class="n"&gt;SecureNAT&lt;/span&gt; &lt;span class="n"&gt;機能を用いることもできます&lt;/span&gt;&lt;span class="err"&gt;。&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;という記述から&lt;code&gt;SecureNat&lt;/code&gt;が有効化されていないことが分かったため、&lt;code&gt;vpncmd&lt;/code&gt;を実行し仮想ハブの管理から&lt;code&gt;SecureNatEnable&lt;/code&gt;を実行したところ、無事に接続されるようになった。&lt;/p&gt;
 &lt;h5&gt;SecureNATの利用を使用しない設定への変更&lt;/h5&gt;
 &lt;p&gt;前節の設定のままだとVPNでSecureNAT機能によりIPアドレスが割り振られるが、このままだとホストマシンにSSHアクセスできなかったため元マシンの設定を見返したところ&lt;code&gt;/etc/network/interfaces&lt;/code&gt;を明示的に指定していたことが分かった。
 よって&lt;code&gt;vpncmd&lt;/code&gt;で&lt;code&gt;SecureNATDisable&lt;/code&gt;を実行した上で再度&lt;code&gt;SecureNat&lt;/code&gt;を停止した上で下記のような設定を&lt;code&gt;/etc/network/interfaces&lt;/code&gt;に追記した。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;enp1s0&lt;/span&gt;
-&lt;span class="n"&gt;iface&lt;/span&gt; &lt;span class="n"&gt;enp1s0&lt;/span&gt; &lt;span class="n"&gt;inet&lt;/span&gt; &lt;span class="n"&gt;manual&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;auto enp1s0
+iface enp1s0 inet manual
 
-&lt;span class="n"&gt;auto&lt;/span&gt; &lt;span class="n"&gt;br0&lt;/span&gt;
-&lt;span class="n"&gt;iface&lt;/span&gt; &lt;span class="n"&gt;br0&lt;/span&gt; &lt;span class="n"&gt;inet&lt;/span&gt; &lt;span class="k"&gt;static&lt;/span&gt;
-  &lt;span class="n"&gt;address&lt;/span&gt; &lt;span class="mi"&gt;192&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;168&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;
-  &lt;span class="n"&gt;netmask&lt;/span&gt; &lt;span class="mi"&gt;255&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;255&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;
-  &lt;span class="n"&gt;gateway&lt;/span&gt; &lt;span class="mi"&gt;192&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;168&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;
-  &lt;span class="n"&gt;bridge_ports&lt;/span&gt; &lt;span class="n"&gt;enp1s0&lt;/span&gt; &lt;span class="n"&gt;tap_softether&lt;/span&gt;
-  &lt;span class="n"&gt;dns&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;nameservers&lt;/span&gt; &lt;span class="mi"&gt;192&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;168&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xxx&lt;/span&gt;
+auto br0
+iface br0 inet static
+  address 192.168.xxx.xxx
+  netmask 255.255.xxx.xxx
+  gateway 192.168.xxx.xxx
+  bridge_ports enp1s0 tap_softether
+  dns-nameservers 192.168.xxx.xxx
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;NetworkManagerは&lt;code&gt;/etc/NetworkManager/NetworkManager.conf&lt;/code&gt;において下記のような設定&lt;/p&gt;

@@ -175,16 +175,16 @@ pathは適宜共有したいディレクトリに書き換えること。また<
 
 <span class="k">[TimeMachine]</span>
   <span class="na">comment</span> <span class="o">=</span> <span class="s">Backup for Mac Computers</span>
-<span class="s">  path = /path/to/share</span>
-<span class="s">  writable = yes</span>
-<span class="s">  browsable = yes</span>
-<span class="s">  guest ok = yes</span>
-<span class="s">  fruit:time machine = yes</span>
-<span class="s">  fruit:time machine max size = 600G</span>
-<span class="s">  durable handles = yes</span>
-<span class="s">  kernel oplocks = no</span>
-<span class="s">  kernel share modes = no</span>
-<span class="s">  posix locking = no</span>
+  <span class="na">path</span> <span class="o">=</span> <span class="s">/path/to/share</span>
+  <span class="na">writable</span> <span class="o">=</span> <span class="s">yes</span>
+  <span class="na">browsable</span> <span class="o">=</span> <span class="s">yes</span>
+  <span class="na">guest ok</span> <span class="o">=</span> <span class="s">yes</span>
+  <span class="na">fruit:time machine</span> <span class="o">=</span> <span class="s">yes</span>
+  <span class="na">fruit:time machine max size</span> <span class="o">=</span> <span class="s">600G</span>
+  <span class="na">durable handles</span> <span class="o">=</span> <span class="s">yes</span>
+  <span class="na">kernel oplocks</span> <span class="o">=</span> <span class="s">no</span>
+  <span class="na">kernel share modes</span> <span class="o">=</span> <span class="s">no</span>
+  <span class="na">posix locking</span> <span class="o">=</span> <span class="s">no</span>
 </code></pre>
 
 <h3>3. <code>avahi-daemon</code>の設定をする</h3>
@@ -266,7 +266,7 @@ MacOS(手元のマシンはCatalina 10.15.7)のシステム環境設定にある
 
 
         </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2020         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>
@@ -289,9 +289,7 @@ MacOS(手元のマシンはCatalina 10.15.7)のシステム環境設定にある
         <script src="../../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script>
 </body>
 </html>

@@ -32,6 +32,7 @@
 </style>
 <meta name="author" content="Hiromasa OHASHI">
 <link rel="prev" href="../23/" title="Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築" type="text/html">
+<link rel="next" href="../25/" title="jupyterlab-wav extensionをjupyterlab 3.xへ対応させた上でWaveSurfer.jsで波形・スペクトログラムが描画できるようにした" type="text/html">
 <meta property="og:site_name" content="hiromasa.info">
 <meta property="og:title" content="Debian 10 busterを初代Mac mini (A1176; 2006)にインストール">
 <meta property="og:url" content="http://www.hiromasa.info/posts/24/">
@@ -217,11 +218,11 @@ Debian上で<code>ip addr</code>でMACアドレスを表示させ、有線LANの
 <p>鍵認証による接続を行うために公開鍵の登録をした後に<code>/etc/ssh/sshd_config</code>を編集する。
 公開鍵はクライアント側から<code>ssh-copy-id -i id_rsa.pub ${ipaddr}</code>で転送しても良いが、GitHubに登録してある公開鍵を使う場合は<code>wget https://github.com/${username}.keys -qO - &gt;&gt; ~/.ssh/authorized_keys</code>で<code>authorized_keys</code>に追記しても良い。</p>
 <p>次に<code>sudo vi /etc/ssh/sshd_config</code>に下記項目を設定する。</p>
-<pre class="code literal-block"><span></span><code><span class="err">Port ポート番号  # 変更したい場合</span>
-<span class="err">PubkeyAuthentication yes</span>
-<span class="err">PermitRootLogin no</span>
-<span class="err">PermitEmptyPasswords no</span>
-<span class="err">PasswordAuthentication no</span>
+<pre class="code literal-block"><span></span><code>Port ポート番号  # 変更したい場合
+PubkeyAuthentication yes
+PermitRootLogin no
+PermitEmptyPasswords no
+PasswordAuthentication no
 </code></pre>
 
 <p>設定後、<code>sudo systemctl restart sshd</code>でsshdを再起動する。</p>
@@ -257,10 +258,10 @@ $ sudo apt install -y build-essential autotools-dev libtool automake autoconf au
 <h4>シェル環境周りの設定</h4>
 <h5>tmuxの設定</h5>
 <p><code>.tmux.conf</code>を作成し<code>C-t</code>をprefixキーとするために下記のような<code>.tmux.conf</code>を<code>~</code>以下に配置した。</p>
-<pre class="code literal-block"><span></span><code><span class="err">unbind C-b</span>
-<span class="err">set-option -g prefix C-t</span>
-<span class="err">set-window-option -g mode-keys vi</span>
-<span class="err">bind C-t send-prefix</span>
+<pre class="code literal-block"><span></span><code><span class="nv">unbind</span> <span class="nv">C</span><span class="o">-</span><span class="nv">b</span>
+<span class="nv">set</span><span class="o">-</span><span class="nv">option</span> <span class="o">-</span><span class="nv">g</span> <span class="nv">prefix</span> <span class="nv">C</span><span class="o">-</span><span class="nv">t</span>
+<span class="nv">set</span><span class="o">-</span><span class="nv">window</span><span class="o">-</span><span class="nv">option</span> <span class="o">-</span><span class="nv">g</span> <span class="nv">mode</span><span class="o">-</span><span class="nv">keys</span> <span class="nv">vi</span>
+<span class="nv">bind</span> <span class="nv">C</span><span class="o">-</span><span class="nv">t</span> <span class="k">send</span><span class="o">-</span><span class="nv">prefix</span>
 </code></pre>
 
 <h5>シェルをzshに変える</h5>
@@ -418,16 +419,16 @@ $ mv vpnserver /usr/local/
 </code></pre>
 
 <p>上記を実行すると下記のような出力が出る。</p>
-<pre class="code literal-block"><span></span><code><span class="err">create bridge interface</span>
-<span class="err">接続 'bridge-br0' (0aa0ae96-6428-4f7e-bc1c-fa6f22f98cea) が正常に追加されました。</span>
-<span class="err">disable STP</span>
-<span class="err">modify bridge</span>
-<span class="err">connect enp1s0 to bridge</span>
-<span class="err">接続 'bridge-slave-enp1s0' (ec87d050-f6ae-4ca8-adbf-7b1f0e4eb1b6) が正常に追加されました。</span>
-<span class="err">connect tap to bridge</span>
-<span class="err">接続 'bridge-slave-tap_softether' (f262c26c-2799-4c9b-b149-9d1b3c44f8ce) が正常に追加されました。</span>
-<span class="err">up tap device</span>
-<span class="err">接続が正常にアクティベートされました (master waiting for slaves) (D-Bus アクティブパス: /org/freedesktop/NetworkManager/ActiveConnection/3)</span>
+<pre class="code literal-block"><span></span><code><span class="nv">create</span> <span class="nv">bridge</span> <span class="nv">interface</span>
+接続 <span class="s1">'</span><span class="s">bridge-br0</span><span class="s1">'</span> <span class="ss">(</span><span class="mi">0</span><span class="nv">aa0ae96</span><span class="o">-</span><span class="mi">6428</span><span class="o">-</span><span class="mi">4</span><span class="nv">f7e</span><span class="o">-</span><span class="nv">bc1c</span><span class="o">-</span><span class="nv">fa6f22f98cea</span><span class="ss">)</span> が正常に追加されました。
+<span class="nv">disable</span> <span class="nv">STP</span>
+<span class="nv">modify</span> <span class="nv">bridge</span>
+<span class="k">connect</span> <span class="nv">enp1s0</span> <span class="nv">to</span> <span class="nv">bridge</span>
+接続 <span class="s1">'</span><span class="s">bridge-slave-enp1s0</span><span class="s1">'</span> <span class="ss">(</span><span class="nv">ec87d050</span><span class="o">-</span><span class="nv">f6ae</span><span class="o">-</span><span class="mi">4</span><span class="nv">ca8</span><span class="o">-</span><span class="nv">adbf</span><span class="o">-</span><span class="mi">7</span><span class="nv">b1f0e4eb1b6</span><span class="ss">)</span> が正常に追加されました。
+<span class="k">connect</span> <span class="nv">tap</span> <span class="nv">to</span> <span class="nv">bridge</span>
+接続 <span class="s1">'</span><span class="s">bridge-slave-tap_softether</span><span class="s1">'</span> <span class="ss">(</span><span class="nv">f262c26c</span><span class="o">-</span><span class="mi">2799</span><span class="o">-</span><span class="mi">4</span><span class="nv">c9b</span><span class="o">-</span><span class="nv">b149</span><span class="o">-</span><span class="mi">9</span><span class="nv">d1b3c44f8ce</span><span class="ss">)</span> が正常に追加されました。
+<span class="nv">up</span> <span class="nv">tap</span> <span class="nv">device</span>
+接続が正常にアクティベートされました <span class="ss">(</span><span class="nv">master</span> <span class="nv">waiting</span> <span class="k">for</span> <span class="nv">slaves</span><span class="ss">)</span> <span class="ss">(</span><span class="nv">D</span><span class="o">-</span><span class="nv">Bus</span> アクティブパス: <span class="o">/</span><span class="nv">org</span><span class="o">/</span><span class="nv">freedesktop</span><span class="o">/</span><span class="nv">NetworkManager</span><span class="o">/</span><span class="nv">ActiveConnection</span><span class="o">/</span><span class="mi">3</span><span class="ss">)</span>
 </code></pre>
 
 <p>この後に再起動を行い、<code>ip addr</code>でIPアドレスが割り振られていたり、<code>ip link show</code>でbr0のSTATEがUpになっていれば問題ないと思われる。</p>
@@ -456,27 +457,27 @@ $ mv vpnserver /usr/local/
 <p>元マシンでの設定が正しければ上記までの設定で接続できるようになるはずだが案の定接続できない。
 そこで<code>/usr/local/vpnserver</code>以下に存在する<code>secure_log</code>や<code>server_log</code>といったログ見て原因を推察する。
 ここでは<code>server_log</code>以下に存在するlogにおける</p>
-<pre class="code literal-block"><span></span><code><span class="err">2020-11-21 xx:xx:xx.xxx L2TP PPP セッション [xxx.xxx.xxx.xxx:xxxx]:</span>
-<span class="err">  DHCP サーバーからの IP アドレスの取得に失敗しました。</span>
-<span class="err">  PPP の通信を受諾するためには DHCP サーバーが必要です。</span>
-<span class="err">  仮想 HUB の Ethernet セグメント上で DHCP サーバーが正しく動作しているかどうか確認してください。</span>
-<span class="err">  DHCP サーバーを用意することができない場合は、仮想 HUB の SecureNAT 機能を用いることもできます。</span>
+<pre class="code literal-block"><span></span><code><span class="mf">2020</span><span class="o">-</span><span class="mf">11</span><span class="o">-</span><span class="mf">21</span> <span class="n">xx</span><span class="p">:</span><span class="n">xx</span><span class="p">:</span><span class="n">xx</span><span class="mf">.</span><span class="n">xxx</span> <span class="n">L2TP</span> <span class="n">PPP</span> <span class="n">セッション</span> <span class="err">[</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="p">:</span><span class="n">xxxx</span><span class="err">]</span><span class="p">:</span>
+  <span class="n">DHCP</span> <span class="n">サーバーからの</span> <span class="n">IP</span> <span class="n">アドレスの取得に失敗しました</span><span class="err">。</span>
+  <span class="n">PPP</span> <span class="n">の通信を受諾するためには</span> <span class="n">DHCP</span> <span class="n">サーバーが必要です</span><span class="err">。</span>
+  <span class="n">仮想</span> <span class="n">HUB</span> <span class="n">の</span> <span class="n">Ethernet</span> <span class="n">セグメント上で</span> <span class="n">DHCP</span> <span class="n">サーバーが正しく動作しているかどうか確認してください</span><span class="err">。</span>
+  <span class="n">DHCP</span> <span class="n">サーバーを用意することができない場合は</span><span class="err">、</span><span class="n">仮想</span> <span class="n">HUB</span> <span class="n">の</span> <span class="n">SecureNAT</span> <span class="n">機能を用いることもできます</span><span class="err">。</span>
 </code></pre>
 
 <p>という記述から<code>SecureNat</code>が有効化されていないことが分かったため、<code>vpncmd</code>を実行し仮想ハブの管理から<code>SecureNatEnable</code>を実行したところ、無事に接続されるようになった。</p>
 <h5>SecureNATの利用を使用しない設定への変更</h5>
 <p>前節の設定のままだとVPNでSecureNAT機能によりIPアドレスが割り振られるが、このままだとホストマシンにSSHアクセスできなかったため元マシンの設定を見返したところ<code>/etc/network/interfaces</code>を明示的に指定していたことが分かった。
 よって<code>vpncmd</code>で<code>SecureNATDisable</code>を実行した上で再度<code>SecureNat</code>を停止した上で下記のような設定を<code>/etc/network/interfaces</code>に追記した。</p>
-<pre class="code literal-block"><span></span><code><span class="n">auto</span> <span class="n">enp1s0</span>
-<span class="n">iface</span> <span class="n">enp1s0</span> <span class="n">inet</span> <span class="n">manual</span>
+<pre class="code literal-block"><span></span><code>auto enp1s0
+iface enp1s0 inet manual
 
-<span class="n">auto</span> <span class="n">br0</span>
-<span class="n">iface</span> <span class="n">br0</span> <span class="n">inet</span> <span class="k">static</span>
-  <span class="n">address</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="n">xxx</span><span class="p">.</span><span class="n">xxx</span>
-  <span class="n">netmask</span> <span class="mi">255</span><span class="p">.</span><span class="mi">255</span><span class="p">.</span><span class="n">xxx</span><span class="p">.</span><span class="n">xxx</span>
-  <span class="n">gateway</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="n">xxx</span><span class="p">.</span><span class="n">xxx</span>
-  <span class="n">bridge_ports</span> <span class="n">enp1s0</span> <span class="n">tap_softether</span>
-  <span class="n">dns</span><span class="o">-</span><span class="n">nameservers</span> <span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="n">xxx</span><span class="p">.</span><span class="n">xxx</span>
+auto br0
+iface br0 inet static
+  address 192.168.xxx.xxx
+  netmask 255.255.xxx.xxx
+  gateway 192.168.xxx.xxx
+  bridge_ports enp1s0 tap_softether
+  dns-nameservers 192.168.xxx.xxx
 </code></pre>
 
 <p>NetworkManagerは<code>/etc/NetworkManager/NetworkManager.conf</code>において下記のような設定</p>
@@ -527,6 +528,9 @@ br0             <span class="m">8000</span>.0016cba5df15       no              e
 <li class="previous">
                 <a href="../23/" rel="prev" title="Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築">一つ前の記事</a>
             </li>
+            <li class="next">
+                <a href="../25/" rel="next" title="jupyterlab-wav extensionをjupyterlab 3.xへ対応させた上でWaveSurfer.jsで波形・スペクトログラムが描画できるようにした">次の記事</a>
+            </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>コメント</h2>
         
         
@@ -550,7 +554,7 @@ br0             <span class="m">8000</span>.0016cba5df15       no              e
 
 
         </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2020         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>
@@ -573,9 +577,7 @@ br0             <span class="m">8000</span>.0016cba5df15       no              e
         <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script>
 </body>
 </html>

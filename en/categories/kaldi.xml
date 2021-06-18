@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about kaldi)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/kaldi.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 23 Nov 2020 09:00:01 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>KaldiでVoxForgeの音響モデルを学習する(1)</title><link>http://www.hiromasa.info/en/posts/8/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;KaldiでVoxForgeの音響モデルを学習する(1)&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about kaldi)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/kaldi.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 18 Jun 2021 01:43:24 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>KaldiでVoxForgeの音響モデルを学習する(1)</title><link>http://www.hiromasa.info/en/posts/8/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;KaldiでVoxForgeの音響モデルを学習する(1)&lt;/h3&gt;
 &lt;p&gt;近年の音声認識のモデル学習ではデファクトスタンダードになっている&lt;a href="https://github.com/kaldi-asr/kaldi"&gt;Kaldi&lt;/a&gt;の使い方を少しずつ学んでいくためにVoxForgeに対する学習レシピをローカルのマシンで実行したのでメモを下記に記す。&lt;/p&gt;
 &lt;h3&gt;実行環境および学習完了までの所要時間&lt;/h3&gt;
 &lt;ul&gt;
@@ -79,7 +79,7 @@ $ make clean -j&lt;span class="p"&gt;;&lt;/span&gt; make depend -j&lt;span class
 &lt;h5&gt;&lt;code&gt;local/make_trans.py&lt;/code&gt;の書き換え&lt;/h5&gt;
 &lt;p&gt;python2.x系のスクリプトであるためpython3.x系で動くように下記のように修正する。&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;diff&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
-&lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;b4f5c413&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;&lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="n"&gt;a5b3a15&lt;/span&gt; &lt;span class="mi"&gt;100755&lt;/span&gt;
+&lt;span class="n"&gt;index&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;b4f5c413&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mf"&gt;.45&lt;/span&gt;&lt;span class="n"&gt;a5b3a15&lt;/span&gt; &lt;span class="mi"&gt;100755&lt;/span&gt;
 &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
 &lt;span class="o"&gt;+++&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;egs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;voxforge&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;s5&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;make_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
 &lt;span class="o"&gt;@@&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="o"&gt;@@&lt;/span&gt; &lt;span class="n"&gt;prefix_a0405&lt;/span&gt; &lt;span class="n"&gt;IT&lt;/span&gt; &lt;span class="n"&gt;SEEMED&lt;/span&gt; &lt;span class="n"&gt;THE&lt;/span&gt; &lt;span class="n"&gt;ORDAINED&lt;/span&gt; &lt;span class="n"&gt;ORDER&lt;/span&gt; &lt;span class="n"&gt;OF&lt;/span&gt; &lt;span class="n"&gt;THINGS&lt;/span&gt; &lt;span class="n"&gt;THAT&lt;/span&gt; &lt;span class="n"&gt;DOGS&lt;/span&gt; &lt;span class="n"&gt;SHOULD&lt;/span&gt; &lt;span class="n"&gt;WORK&lt;/span&gt;
@@ -199,7 +199,7 @@ Checking sumation: silence.txt, nonsilence.txt, disambig.txt ...
 Checking data/lang/phones/context_indep.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, csl&lt;span class="o"&gt;}&lt;/span&gt; ...
 --&amp;gt; text seems to be UTF-8 or ASCII, checking whitespaces
 --&amp;gt; text contains only allowed whitespaces
---&amp;gt; &lt;span class="m"&gt;5&lt;/span&gt; entry/entries in data/lang/phones/context_indep.txt
+--&amp;gt; &lt;span class="m"&gt;5&lt;/span&gt; entry/entries &lt;span class="k"&gt;in&lt;/span&gt; data/lang/phones/context_indep.txt
 --&amp;gt; data/lang/phones/context_indep.int corresponds to data/lang/phones/context_indep.txt
 --&amp;gt; data/lang/phones/context_indep.csl corresponds to data/lang/phones/context_indep.txt
 --&amp;gt; data/lang/phones/context_indep.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, csl&lt;span class="o"&gt;}&lt;/span&gt; are OK
@@ -207,7 +207,7 @@ Checking data/lang/phones/context_indep.&lt;span class="o"&gt;{&lt;/span&gt;txt,
 Checking data/lang/phones/nonsilence.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, csl&lt;span class="o"&gt;}&lt;/span&gt; ...
 --&amp;gt; text seems to be UTF-8 or ASCII, checking whitespaces
 --&amp;gt; text contains only allowed whitespaces
---&amp;gt; &lt;span class="m"&gt;156&lt;/span&gt; entry/entries in data/lang/phones/nonsilence.txt
+--&amp;gt; &lt;span class="m"&gt;156&lt;/span&gt; entry/entries &lt;span class="k"&gt;in&lt;/span&gt; data/lang/phones/nonsilence.txt
 --&amp;gt; data/lang/phones/nonsilence.int corresponds to data/lang/phones/nonsilence.txt
 --&amp;gt; data/lang/phones/nonsilence.csl corresponds to data/lang/phones/nonsilence.txt
 --&amp;gt; data/lang/phones/nonsilence.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, csl&lt;span class="o"&gt;}&lt;/span&gt; are OK
@@ -215,7 +215,7 @@ Checking data/lang/phones/nonsilence.&lt;span class="o"&gt;{&lt;/span&gt;txt, in
 Checking data/lang/phones/silence.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, csl&lt;span class="o"&gt;}&lt;/span&gt; ...
 --&amp;gt; text seems to be UTF-8 or ASCII, checking whitespaces
 --&amp;gt; text contains only allowed whitespaces
---&amp;gt; &lt;span class="m"&gt;5&lt;/span&gt; entry/entries in data/lang/phones/silence.txt
+--&amp;gt; &lt;span class="m"&gt;5&lt;/span&gt; entry/entries &lt;span class="k"&gt;in&lt;/span&gt; data/lang/phones/silence.txt
 --&amp;gt; data/lang/phones/silence.int corresponds to data/lang/phones/silence.txt
 --&amp;gt; data/lang/phones/silence.csl corresponds to data/lang/phones/silence.txt
 --&amp;gt; data/lang/phones/silence.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, csl&lt;span class="o"&gt;}&lt;/span&gt; are OK
@@ -223,7 +223,7 @@ Checking data/lang/phones/silence.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, 
 Checking data/lang/phones/optional_silence.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, csl&lt;span class="o"&gt;}&lt;/span&gt; ...
 --&amp;gt; text seems to be UTF-8 or ASCII, checking whitespaces
 --&amp;gt; text contains only allowed whitespaces
---&amp;gt; &lt;span class="m"&gt;1&lt;/span&gt; entry/entries in data/lang/phones/optional_silence.txt
+--&amp;gt; &lt;span class="m"&gt;1&lt;/span&gt; entry/entries &lt;span class="k"&gt;in&lt;/span&gt; data/lang/phones/optional_silence.txt
 --&amp;gt; data/lang/phones/optional_silence.int corresponds to data/lang/phones/optional_silence.txt
 --&amp;gt; data/lang/phones/optional_silence.csl corresponds to data/lang/phones/optional_silence.txt
 --&amp;gt; data/lang/phones/optional_silence.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, csl&lt;span class="o"&gt;}&lt;/span&gt; are OK
@@ -231,7 +231,7 @@ Checking data/lang/phones/optional_silence.&lt;span class="o"&gt;{&lt;/span&gt;t
 Checking data/lang/phones/disambig.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, csl&lt;span class="o"&gt;}&lt;/span&gt; ...
 --&amp;gt; text seems to be UTF-8 or ASCII, checking whitespaces
 --&amp;gt; text contains only allowed whitespaces
---&amp;gt; &lt;span class="m"&gt;6&lt;/span&gt; entry/entries in data/lang/phones/disambig.txt
+--&amp;gt; &lt;span class="m"&gt;6&lt;/span&gt; entry/entries &lt;span class="k"&gt;in&lt;/span&gt; data/lang/phones/disambig.txt
 --&amp;gt; data/lang/phones/disambig.int corresponds to data/lang/phones/disambig.txt
 --&amp;gt; data/lang/phones/disambig.csl corresponds to data/lang/phones/disambig.txt
 --&amp;gt; data/lang/phones/disambig.&lt;span class="o"&gt;{&lt;/span&gt;txt, int, csl&lt;span class="o"&gt;}&lt;/span&gt; are OK
@@ -239,28 +239,28 @@ Checking data/lang/phones/disambig.&lt;span class="o"&gt;{&lt;/span&gt;txt, int,
 Checking data/lang/phones/roots.&lt;span class="o"&gt;{&lt;/span&gt;txt, int&lt;span class="o"&gt;}&lt;/span&gt; ...
 --&amp;gt; text seems to be UTF-8 or ASCII, checking whitespaces
 --&amp;gt; text contains only allowed whitespaces
---&amp;gt; &lt;span class="m"&gt;40&lt;/span&gt; entry/entries in data/lang/phones/roots.txt
+--&amp;gt; &lt;span class="m"&gt;40&lt;/span&gt; entry/entries &lt;span class="k"&gt;in&lt;/span&gt; data/lang/phones/roots.txt
 --&amp;gt; data/lang/phones/roots.int corresponds to data/lang/phones/roots.txt
 --&amp;gt; data/lang/phones/roots.&lt;span class="o"&gt;{&lt;/span&gt;txt, int&lt;span class="o"&gt;}&lt;/span&gt; are OK
 
 Checking data/lang/phones/sets.&lt;span class="o"&gt;{&lt;/span&gt;txt, int&lt;span class="o"&gt;}&lt;/span&gt; ...
 --&amp;gt; text seems to be UTF-8 or ASCII, checking whitespaces
 --&amp;gt; text contains only allowed whitespaces
---&amp;gt; &lt;span class="m"&gt;40&lt;/span&gt; entry/entries in data/lang/phones/sets.txt
+--&amp;gt; &lt;span class="m"&gt;40&lt;/span&gt; entry/entries &lt;span class="k"&gt;in&lt;/span&gt; data/lang/phones/sets.txt
 --&amp;gt; data/lang/phones/sets.int corresponds to data/lang/phones/sets.txt
 --&amp;gt; data/lang/phones/sets.&lt;span class="o"&gt;{&lt;/span&gt;txt, int&lt;span class="o"&gt;}&lt;/span&gt; are OK
 
 Checking data/lang/phones/extra_questions.&lt;span class="o"&gt;{&lt;/span&gt;txt, int&lt;span class="o"&gt;}&lt;/span&gt; ...
 --&amp;gt; text seems to be UTF-8 or ASCII, checking whitespaces
 --&amp;gt; text contains only allowed whitespaces
---&amp;gt; &lt;span class="m"&gt;9&lt;/span&gt; entry/entries in data/lang/phones/extra_questions.txt
+--&amp;gt; &lt;span class="m"&gt;9&lt;/span&gt; entry/entries &lt;span class="k"&gt;in&lt;/span&gt; data/lang/phones/extra_questions.txt
 --&amp;gt; data/lang/phones/extra_questions.int corresponds to data/lang/phones/extra_questions.txt
 --&amp;gt; data/lang/phones/extra_questions.&lt;span class="o"&gt;{&lt;/span&gt;txt, int&lt;span class="o"&gt;}&lt;/span&gt; are OK
 
 Checking data/lang/phones/word_boundary.&lt;span class="o"&gt;{&lt;/span&gt;txt, int&lt;span class="o"&gt;}&lt;/span&gt; ...
 --&amp;gt; text seems to be UTF-8 or ASCII, checking whitespaces
 --&amp;gt; text contains only allowed whitespaces
---&amp;gt; &lt;span class="m"&gt;161&lt;/span&gt; entry/entries in data/lang/phones/word_boundary.txt
+--&amp;gt; &lt;span class="m"&gt;161&lt;/span&gt; entry/entries &lt;span class="k"&gt;in&lt;/span&gt; data/lang/phones/word_boundary.txt
 --&amp;gt; data/lang/phones/word_boundary.int corresponds to data/lang/phones/word_boundary.txt
 --&amp;gt; data/lang/phones/word_boundary.&lt;span class="o"&gt;{&lt;/span&gt;txt, int&lt;span class="o"&gt;}&lt;/span&gt; are OK
 
@@ -292,7 +292,7 @@ Checking word_boundary.int and disambig.int
 Checking data/lang/oov.&lt;span class="o"&gt;{&lt;/span&gt;txt, int&lt;span class="o"&gt;}&lt;/span&gt; ...
 --&amp;gt; text seems to be UTF-8 or ASCII, checking whitespaces
 --&amp;gt; text contains only allowed whitespaces
---&amp;gt; &lt;span class="m"&gt;1&lt;/span&gt; entry/entries in data/lang/oov.txt
+--&amp;gt; &lt;span class="m"&gt;1&lt;/span&gt; entry/entries &lt;span class="k"&gt;in&lt;/span&gt; data/lang/oov.txt
 --&amp;gt; data/lang/oov.int corresponds to data/lang/oov.txt
 --&amp;gt; data/lang/oov.&lt;span class="o"&gt;{&lt;/span&gt;txt, int&lt;span class="o"&gt;}&lt;/span&gt; are OK
 
@@ -308,7 +308,7 @@ LOG &lt;span class="o"&gt;(&lt;/span&gt;arpa2fst&lt;span class="o"&gt;[&lt;/span
 LOG &lt;span class="o"&gt;(&lt;/span&gt;arpa2fst&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;.4.228~1-5b27&lt;span class="o"&gt;]&lt;/span&gt;:RemoveRedundantStates&lt;span class="o"&gt;()&lt;/span&gt;:arpa-lm-compiler.cc:359&lt;span class="o"&gt;)&lt;/span&gt; Reduced num-states from &lt;span class="m"&gt;13940&lt;/span&gt; to &lt;span class="m"&gt;13940&lt;/span&gt;
 fstisstochastic data/lang_test/G.fst
 &lt;span class="m"&gt;7&lt;/span&gt;.16284e-07 -0.450846
-*** Succeeded in formatting data.
+*** Succeeded &lt;span class="k"&gt;in&lt;/span&gt; formatting data.
 steps/make_mfcc.sh --cmd run.pl --mem 2G --nj &lt;span class="m"&gt;2&lt;/span&gt; data/train exp/make_mfcc/train /Users/wrist/work/asr/kaldi/egs/voxforge/s5/../../../egs/voxforge/s5/voxforge/mfcc
 utils/validate_data_dir.sh: Successfully validated data-directory data/train
 steps/make_mfcc.sh: &lt;span class="o"&gt;[&lt;/span&gt;info&lt;span class="o"&gt;]&lt;/span&gt;: no segments file exists: assuming wav.scp indexed by utterance.
@@ -387,11 +387,11 @@ steps/train_mono.sh: Pass &lt;span class="m"&gt;38&lt;/span&gt;
 steps/train_mono.sh: Aligning data
 steps/train_mono.sh: Pass &lt;span class="m"&gt;39&lt;/span&gt;
 steps/diagnostic/analyze_alignments.sh --cmd run.pl --mem 2G data/lang exp/mono
-steps/diagnostic/analyze_alignments.sh: see stats in exp/mono/log/analyze_alignments.log
-&lt;span class="m"&gt;1015&lt;/span&gt; warnings in exp/mono/log/align.*.*.log
-&lt;span class="m"&gt;68&lt;/span&gt; warnings in exp/mono/log/acc.*.*.log
+steps/diagnostic/analyze_alignments.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/mono/log/analyze_alignments.log
+&lt;span class="m"&gt;1015&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/mono/log/align.*.*.log
+&lt;span class="m"&gt;68&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/mono/log/acc.*.*.log
 exp/mono: &lt;span class="nv"&gt;nj&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; align &lt;span class="nv"&gt;prob&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;-92.05 over &lt;span class="m"&gt;1&lt;/span&gt;.38h &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;retry&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.3%, &lt;span class="nv"&gt;fail&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.1%&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="nv"&gt;states&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;122&lt;/span&gt; &lt;span class="nv"&gt;gauss&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;995&lt;/span&gt;
-steps/train_mono.sh: Done training monophone system in exp/mono
+steps/train_mono.sh: Done training monophone system &lt;span class="k"&gt;in&lt;/span&gt; exp/mono
 tree-info exp/mono/tree
 tree-info exp/mono/tree
 fstpushspecial
@@ -418,9 +418,9 @@ add-self-loops --self-loop-scale&lt;span class="o"&gt;=&lt;/span&gt;&lt;span cla
 steps/decode.sh --config conf/decode.config --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G exp/mono/graph data/test exp/mono/decode
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is delta
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/mono/graph exp/mono/decode
-steps/diagnostic/analyze_lats.sh: see stats in exp/mono/decode/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/mono/decode/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,23,195&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;71&lt;/span&gt;.9
-steps/diagnostic/analyze_lats.sh: see stats in exp/mono/decode/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/mono/decode/log/analyze_lattice_depth_stats.log
 exp/mono/decode/wer_10
 %WER &lt;span class="m"&gt;47&lt;/span&gt;.49 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;2121&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;53&lt;/span&gt; ins, &lt;span class="m"&gt;720&lt;/span&gt; del, &lt;span class="m"&gt;1348&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;89&lt;/span&gt;.20 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;446&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -456,9 +456,9 @@ exp/mono/decode/wer_9
 %SER &lt;span class="m"&gt;88&lt;/span&gt;.40 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;442&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
 steps/align_si.sh --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 2G data/train data/lang exp/mono exp/mono_ali
 steps/align_si.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is delta
-steps/align_si.sh: aligning data in data/train using model from exp/mono, putting alignments in exp/mono_ali
+steps/align_si.sh: aligning data &lt;span class="k"&gt;in&lt;/span&gt; data/train using model from exp/mono, putting alignments &lt;span class="k"&gt;in&lt;/span&gt; exp/mono_ali
 steps/diagnostic/analyze_alignments.sh --cmd run.pl --mem 2G data/lang exp/mono_ali
-steps/diagnostic/analyze_alignments.sh: see stats in exp/mono_ali/log/analyze_alignments.log
+steps/diagnostic/analyze_alignments.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/mono_ali/log/analyze_alignments.log
 steps/align_si.sh: &lt;span class="k"&gt;done&lt;/span&gt; aligning data.
 steps/train_deltas.sh --cmd run.pl --mem 2G &lt;span class="m"&gt;2000&lt;/span&gt; &lt;span class="m"&gt;11000&lt;/span&gt; data/train data/lang exp/mono_ali exp/tri1
 steps/train_deltas.sh: accumulating tree stats
@@ -504,12 +504,12 @@ steps/train_deltas.sh: training pass &lt;span class="m"&gt;32&lt;/span&gt;
 steps/train_deltas.sh: training pass &lt;span class="m"&gt;33&lt;/span&gt;
 steps/train_deltas.sh: training pass &lt;span class="m"&gt;34&lt;/span&gt;
 steps/diagnostic/analyze_alignments.sh --cmd run.pl --mem 2G data/lang exp/tri1
-steps/diagnostic/analyze_alignments.sh: see stats in exp/tri1/log/analyze_alignments.log
-&lt;span class="m"&gt;3344&lt;/span&gt; warnings in exp/tri1/log/acc.*.*.log
-&lt;span class="m"&gt;1&lt;/span&gt; warnings in exp/tri1/log/build_tree.log
-&lt;span class="m"&gt;3306&lt;/span&gt; warnings in exp/tri1/log/align.*.*.log
+steps/diagnostic/analyze_alignments.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri1/log/analyze_alignments.log
+&lt;span class="m"&gt;3344&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri1/log/acc.*.*.log
+&lt;span class="m"&gt;1&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri1/log/build_tree.log
+&lt;span class="m"&gt;3306&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri1/log/align.*.*.log
 exp/tri1: &lt;span class="nv"&gt;nj&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; align &lt;span class="nv"&gt;prob&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;-90.58 over &lt;span class="m"&gt;81&lt;/span&gt;.14h &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;retry&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.6%, &lt;span class="nv"&gt;fail&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.2%&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="nv"&gt;states&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1584&lt;/span&gt; &lt;span class="nv"&gt;gauss&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;11030&lt;/span&gt; tree-impr&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.41
-steps/train_deltas.sh: Done training system with delta+delta-delta features in exp/tri1
+steps/train_deltas.sh: Done training system with delta+delta-delta features &lt;span class="k"&gt;in&lt;/span&gt; exp/tri1
 tree-info exp/tri1/tree
 tree-info exp/tri1/tree
 fstcomposecontext --context-size&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt; --central-position&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; --read-disambig-syms&lt;span class="o"&gt;=&lt;/span&gt;data/lang_test/phones/disambig.int --write-disambig-syms&lt;span class="o"&gt;=&lt;/span&gt;data/lang_test/tmp/disambig_ilabels_3_1.int data/lang_test/tmp/ilabels_3_1.58654
@@ -529,9 +529,9 @@ add-self-loops --self-loop-scale&lt;span class="o"&gt;=&lt;/span&gt;&lt;span cla
 steps/decode.sh --config conf/decode.config --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G exp/tri1/graph data/test exp/tri1/decode
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is delta
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/tri1/graph exp/tri1/decode
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri1/decode/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri1/decode/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,3,47&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;19&lt;/span&gt;.5
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri1/decode/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri1/decode/log/analyze_lattice_depth_stats.log
 exp/tri1/decode/wer_10
 %WER &lt;span class="m"&gt;22&lt;/span&gt;.55 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;1007&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;85&lt;/span&gt; ins, &lt;span class="m"&gt;222&lt;/span&gt; del, &lt;span class="m"&gt;700&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;61&lt;/span&gt;.40 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;307&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -567,9 +567,9 @@ exp/tri1/decode/wer_9
 %SER &lt;span class="m"&gt;64&lt;/span&gt;.40 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;322&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
 steps/align_si.sh --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 2G --use-graphs &lt;span class="nb"&gt;true&lt;/span&gt; data/train data/lang exp/tri1 exp/tri1_ali
 steps/align_si.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is delta
-steps/align_si.sh: aligning data in data/train using model from exp/tri1, putting alignments in exp/tri1_ali
+steps/align_si.sh: aligning data &lt;span class="k"&gt;in&lt;/span&gt; data/train using model from exp/tri1, putting alignments &lt;span class="k"&gt;in&lt;/span&gt; exp/tri1_ali
 steps/diagnostic/analyze_alignments.sh --cmd run.pl --mem 2G data/lang exp/tri1_ali
-steps/diagnostic/analyze_alignments.sh: see stats in exp/tri1_ali/log/analyze_alignments.log
+steps/diagnostic/analyze_alignments.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri1_ali/log/analyze_alignments.log
 steps/align_si.sh: &lt;span class="k"&gt;done&lt;/span&gt; aligning data.
 steps/train_deltas.sh --cmd run.pl --mem 2G &lt;span class="m"&gt;2000&lt;/span&gt; &lt;span class="m"&gt;11000&lt;/span&gt; data/train data/lang exp/tri1_ali exp/tri2a
 steps/train_deltas.sh: accumulating tree stats
@@ -615,12 +615,12 @@ steps/train_deltas.sh: training pass &lt;span class="m"&gt;32&lt;/span&gt;
 steps/train_deltas.sh: training pass &lt;span class="m"&gt;33&lt;/span&gt;
 steps/train_deltas.sh: training pass &lt;span class="m"&gt;34&lt;/span&gt;
 steps/diagnostic/analyze_alignments.sh --cmd run.pl --mem 2G data/lang exp/tri2a
-steps/diagnostic/analyze_alignments.sh: see stats in exp/tri2a/log/analyze_alignments.log
-&lt;span class="m"&gt;3770&lt;/span&gt; warnings in exp/tri2a/log/acc.*.*.log
-&lt;span class="m"&gt;3334&lt;/span&gt; warnings in exp/tri2a/log/align.*.*.log
-&lt;span class="m"&gt;1&lt;/span&gt; warnings in exp/tri2a/log/build_tree.log
+steps/diagnostic/analyze_alignments.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2a/log/analyze_alignments.log
+&lt;span class="m"&gt;3770&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2a/log/acc.*.*.log
+&lt;span class="m"&gt;3334&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2a/log/align.*.*.log
+&lt;span class="m"&gt;1&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2a/log/build_tree.log
 exp/tri2a: &lt;span class="nv"&gt;nj&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; align &lt;span class="nv"&gt;prob&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;-90.54 over &lt;span class="m"&gt;81&lt;/span&gt;.18h &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;retry&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.5%, &lt;span class="nv"&gt;fail&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.2%&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="nv"&gt;states&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1584&lt;/span&gt; &lt;span class="nv"&gt;gauss&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;11021&lt;/span&gt; tree-impr&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.75
-steps/train_deltas.sh: Done training system with delta+delta-delta features in exp/tri2a
+steps/train_deltas.sh: Done training system with delta+delta-delta features &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2a
 tree-info exp/tri2a/tree
 tree-info exp/tri2a/tree
 make-h-transducer --disambig-syms-out&lt;span class="o"&gt;=&lt;/span&gt;exp/tri2a/graph/disambig_tid.int --transition-scale&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.0 data/lang_test/tmp/ilabels_3_1 exp/tri2a/tree exp/tri2a/final.mdl
@@ -636,9 +636,9 @@ add-self-loops --self-loop-scale&lt;span class="o"&gt;=&lt;/span&gt;&lt;span cla
 steps/decode.sh --config conf/decode.config --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G exp/tri2a/graph data/test exp/tri2a/decode
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is delta
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/tri2a/graph exp/tri2a/decode
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2a/decode/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2a/decode/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,3,46&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;21&lt;/span&gt;.0
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2a/decode/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2a/decode/log/analyze_lattice_depth_stats.log
 exp/tri2a/decode/wer_10
 %WER &lt;span class="m"&gt;21&lt;/span&gt;.65 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;967&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;78&lt;/span&gt; ins, &lt;span class="m"&gt;210&lt;/span&gt; del, &lt;span class="m"&gt;679&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;61&lt;/span&gt;.80 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;309&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -722,13 +722,13 @@ Training pass &lt;span class="m"&gt;32&lt;/span&gt;
 Training pass &lt;span class="m"&gt;33&lt;/span&gt;
 Training pass &lt;span class="m"&gt;34&lt;/span&gt;
 steps/diagnostic/analyze_alignments.sh --cmd run.pl --mem 2G data/lang exp/tri2b
-steps/diagnostic/analyze_alignments.sh: see stats in exp/tri2b/log/analyze_alignments.log
-&lt;span class="m"&gt;5560&lt;/span&gt; warnings in exp/tri2b/log/acc.*.*.log
-&lt;span class="m"&gt;100&lt;/span&gt; warnings in exp/tri2b/log/lda_acc.*.log
-&lt;span class="m"&gt;4284&lt;/span&gt; warnings in exp/tri2b/log/align.*.*.log
-&lt;span class="m"&gt;1&lt;/span&gt; warnings in exp/tri2b/log/build_tree.log
+steps/diagnostic/analyze_alignments.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b/log/analyze_alignments.log
+&lt;span class="m"&gt;5560&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b/log/acc.*.*.log
+&lt;span class="m"&gt;100&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b/log/lda_acc.*.log
+&lt;span class="m"&gt;4284&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b/log/align.*.*.log
+&lt;span class="m"&gt;1&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b/log/build_tree.log
 exp/tri2b: &lt;span class="nv"&gt;nj&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; align &lt;span class="nv"&gt;prob&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;-43.01 over &lt;span class="m"&gt;81&lt;/span&gt;.07h &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;retry&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.9%, &lt;span class="nv"&gt;fail&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.3%&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="nv"&gt;states&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1664&lt;/span&gt; &lt;span class="nv"&gt;gauss&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;11020&lt;/span&gt; tree-impr&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.79 lda-sum&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;17&lt;/span&gt;.42 mllt:impr,logdet&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.99,1.45
-steps/train_lda_mllt.sh: Done training system with LDA+MLLT features in exp/tri2b
+steps/train_lda_mllt.sh: Done training system with LDA+MLLT features &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b
 tree-info exp/tri2b/tree
 tree-info exp/tri2b/tree
 make-h-transducer --disambig-syms-out&lt;span class="o"&gt;=&lt;/span&gt;exp/tri2b/graph/disambig_tid.int --transition-scale&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.0 data/lang_test/tmp/ilabels_3_1 exp/tri2b/tree exp/tri2b/final.mdl
@@ -744,9 +744,9 @@ add-self-loops --self-loop-scale&lt;span class="o"&gt;=&lt;/span&gt;&lt;span cla
 steps/decode.sh --config conf/decode.config --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G exp/tri2b/graph data/test exp/tri2b/decode
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/tri2b/graph exp/tri2b/decode
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b/decode/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b/decode/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,3,35&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;13&lt;/span&gt;.2
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b/decode/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b/decode/log/analyze_lattice_depth_stats.log
 exp/tri2b/decode/wer_10
 %WER &lt;span class="m"&gt;23&lt;/span&gt;.15 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;1034&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;88&lt;/span&gt; ins, &lt;span class="m"&gt;247&lt;/span&gt; del, &lt;span class="m"&gt;699&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;64&lt;/span&gt;.20 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;321&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -782,13 +782,13 @@ exp/tri2b/decode/wer_9
 %SER &lt;span class="m"&gt;67&lt;/span&gt;.20 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;336&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
 steps/align_si.sh --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 2G --use-graphs &lt;span class="nb"&gt;true&lt;/span&gt; data/train data/lang exp/tri2b exp/tri2b_ali
 steps/align_si.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
-steps/align_si.sh: aligning data in data/train using model from exp/tri2b, putting alignments in exp/tri2b_ali
+steps/align_si.sh: aligning data &lt;span class="k"&gt;in&lt;/span&gt; data/train using model from exp/tri2b, putting alignments &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_ali
 steps/diagnostic/analyze_alignments.sh --cmd run.pl --mem 2G data/lang exp/tri2b_ali
-steps/diagnostic/analyze_alignments.sh: see stats in exp/tri2b_ali/log/analyze_alignments.log
+steps/diagnostic/analyze_alignments.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_ali/log/analyze_alignments.log
 steps/align_si.sh: &lt;span class="k"&gt;done&lt;/span&gt; aligning data.
 steps/make_denlats.sh --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 2G data/train data/lang exp/tri2b exp/tri2b_denlats
-Making unigram grammar FST in exp/tri2b_denlats/lang
-Compiling decoding graph in exp/tri2b_denlats/dengraph
+Making unigram grammar FST &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_denlats/lang
+Compiling decoding graph &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_denlats/dengraph
 tree-info exp/tri2b/tree
 tree-info exp/tri2b/tree
 fsttablecompose exp/tri2b_denlats/lang/L_disambig.fst exp/tri2b_denlats/lang/G.fst
@@ -825,9 +825,9 @@ MMI training finished
 steps/decode.sh --config conf/decode.config --iter &lt;span class="m"&gt;4&lt;/span&gt; --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G exp/tri2b/graph data/test exp/tri2b_mmi/decode_it4
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G --iter &lt;span class="m"&gt;4&lt;/span&gt; exp/tri2b/graph exp/tri2b_mmi/decode_it4
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mmi/decode_it4/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mmi/decode_it4/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,2,35&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;16&lt;/span&gt;.9
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mmi/decode_it4/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mmi/decode_it4/log/analyze_lattice_depth_stats.log
 exp/tri2b_mmi/decode_it4/wer_10
 %WER &lt;span class="m"&gt;16&lt;/span&gt;.35 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;730&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;36&lt;/span&gt; ins, &lt;span class="m"&gt;218&lt;/span&gt; del, &lt;span class="m"&gt;476&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;50&lt;/span&gt;.40 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;252&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -864,9 +864,9 @@ exp/tri2b_mmi/decode_it4/wer_9
 steps/decode.sh --config conf/decode.config --iter &lt;span class="m"&gt;3&lt;/span&gt; --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G exp/tri2b/graph data/test exp/tri2b_mmi/decode_it3
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G --iter &lt;span class="m"&gt;3&lt;/span&gt; exp/tri2b/graph exp/tri2b_mmi/decode_it3
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mmi/decode_it3/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mmi/decode_it3/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,2,33&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;14&lt;/span&gt;.6
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mmi/decode_it3/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mmi/decode_it3/log/analyze_lattice_depth_stats.log
 exp/tri2b_mmi/decode_it3/wer_10
 %WER &lt;span class="m"&gt;16&lt;/span&gt;.82 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;751&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;40&lt;/span&gt; ins, &lt;span class="m"&gt;228&lt;/span&gt; del, &lt;span class="m"&gt;483&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;51&lt;/span&gt;.40 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;257&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -914,9 +914,9 @@ MMI training finished
 steps/decode.sh --config conf/decode.config --iter &lt;span class="m"&gt;4&lt;/span&gt; --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G exp/tri2b/graph data/test exp/tri2b_mmi_b0.05/decode_it4
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G --iter &lt;span class="m"&gt;4&lt;/span&gt; exp/tri2b/graph exp/tri2b_mmi_b0.05/decode_it4
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mmi_b0.05/decode_it4/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mmi_b0.05/decode_it4/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,2,33&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;.5
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mmi_b0.05/decode_it4/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mmi_b0.05/decode_it4/log/analyze_lattice_depth_stats.log
 exp/tri2b_mmi_b0.05/decode_it4/wer_10
 %WER &lt;span class="m"&gt;16&lt;/span&gt;.41 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;733&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;36&lt;/span&gt; ins, &lt;span class="m"&gt;215&lt;/span&gt; del, &lt;span class="m"&gt;482&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;50&lt;/span&gt;.60 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;253&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -953,9 +953,9 @@ exp/tri2b_mmi_b0.05/decode_it4/wer_9
 steps/decode.sh --config conf/decode.config --iter &lt;span class="m"&gt;3&lt;/span&gt; --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G exp/tri2b/graph data/test exp/tri2b_mmi_b0.05/decode_it3
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G --iter &lt;span class="m"&gt;3&lt;/span&gt; exp/tri2b/graph exp/tri2b_mmi_b0.05/decode_it3
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mmi_b0.05/decode_it3/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mmi_b0.05/decode_it3/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,2,32&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;14&lt;/span&gt;.2
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mmi_b0.05/decode_it3/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mmi_b0.05/decode_it3/log/analyze_lattice_depth_stats.log
 exp/tri2b_mmi_b0.05/decode_it3/wer_10
 %WER &lt;span class="m"&gt;16&lt;/span&gt;.86 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;753&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;37&lt;/span&gt; ins, &lt;span class="m"&gt;225&lt;/span&gt; del, &lt;span class="m"&gt;491&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;52&lt;/span&gt;.00 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;260&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -1003,9 +1003,9 @@ MPE training finished
 steps/decode.sh --config conf/decode.config --iter &lt;span class="m"&gt;4&lt;/span&gt; --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G exp/tri2b/graph data/test exp/tri2b_mpe/decode_it4
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G --iter &lt;span class="m"&gt;4&lt;/span&gt; exp/tri2b/graph exp/tri2b_mpe/decode_it4
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mpe/decode_it4/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mpe/decode_it4/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,2,25&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;.3
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mpe/decode_it4/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mpe/decode_it4/log/analyze_lattice_depth_stats.log
 exp/tri2b_mpe/decode_it4/wer_10
 %WER &lt;span class="m"&gt;18&lt;/span&gt;.16 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;811&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;50&lt;/span&gt; ins, &lt;span class="m"&gt;227&lt;/span&gt; del, &lt;span class="m"&gt;534&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;55&lt;/span&gt;.80 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;279&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -1042,9 +1042,9 @@ exp/tri2b_mpe/decode_it4/wer_9
 steps/decode.sh --config conf/decode.config --iter &lt;span class="m"&gt;3&lt;/span&gt; --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G exp/tri2b/graph data/test exp/tri2b_mpe/decode_it3
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G --iter &lt;span class="m"&gt;3&lt;/span&gt; exp/tri2b/graph exp/tri2b_mpe/decode_it3
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mpe/decode_it3/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mpe/decode_it3/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,2,24&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;.3
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri2b_mpe/decode_it3/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_mpe/decode_it3/log/analyze_lattice_depth_stats.log
 exp/tri2b_mpe/decode_it3/wer_10
 %WER &lt;span class="m"&gt;17&lt;/span&gt;.80 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;795&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;40&lt;/span&gt; ins, &lt;span class="m"&gt;213&lt;/span&gt; del, &lt;span class="m"&gt;542&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;54&lt;/span&gt;.20 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;271&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -1080,7 +1080,7 @@ exp/tri2b_mpe/decode_it3/wer_9
 %SER &lt;span class="m"&gt;57&lt;/span&gt;.40 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;287&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
 steps/train_sat.sh &lt;span class="m"&gt;2000&lt;/span&gt; &lt;span class="m"&gt;11000&lt;/span&gt; data/train data/lang exp/tri2b_ali exp/tri3b
 steps/train_sat.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
-steps/train_sat.sh: obtaining initial fMLLR transforms since not present in exp/tri2b_ali
+steps/train_sat.sh: obtaining initial fMLLR transforms since not present &lt;span class="k"&gt;in&lt;/span&gt; exp/tri2b_ali
 steps/train_sat.sh: Accumulating tree stats
 steps/train_sat.sh: Getting questions &lt;span class="k"&gt;for&lt;/span&gt; tree clustering.
 steps/train_sat.sh: Building the tree
@@ -1129,15 +1129,15 @@ Pass &lt;span class="m"&gt;32&lt;/span&gt;
 Pass &lt;span class="m"&gt;33&lt;/span&gt;
 Pass &lt;span class="m"&gt;34&lt;/span&gt;
 steps/diagnostic/analyze_alignments.sh --cmd run.pl data/lang exp/tri3b
-steps/diagnostic/analyze_alignments.sh: see stats in exp/tri3b/log/analyze_alignments.log
-&lt;span class="m"&gt;2608&lt;/span&gt; warnings in exp/tri3b/log/align.*.*.log
-&lt;span class="m"&gt;1&lt;/span&gt; warnings in exp/tri3b/log/build_tree.log
-&lt;span class="m"&gt;645&lt;/span&gt; warnings in exp/tri3b/log/fmllr.*.*.log
-&lt;span class="m"&gt;3621&lt;/span&gt; warnings in exp/tri3b/log/acc.*.*.log
+steps/diagnostic/analyze_alignments.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b/log/analyze_alignments.log
+&lt;span class="m"&gt;2608&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b/log/align.*.*.log
+&lt;span class="m"&gt;1&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b/log/build_tree.log
+&lt;span class="m"&gt;645&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b/log/fmllr.*.*.log
+&lt;span class="m"&gt;3621&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b/log/acc.*.*.log
 steps/train_sat.sh: Likelihood evolution:
 -43.8143 -43.9506 -43.7709 -43.4475 -42.6764 -42.1978 -41.9285 -41.7131 -41.54 -40.9717 -40.7908 -40.5139 -40.4036 -40.3333 -40.262 -40.1876 -40.1194 -40.059 -40.0037 -39.8626 -39.7879 -39.7417 -39.6991 -39.6595 -39.6222 -39.5869 -39.5529 -39.5197 -39.4883 -39.4076 -39.3606 -39.3391 -39.3255 -39.316
 exp/tri3b: &lt;span class="nv"&gt;nj&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; align &lt;span class="nv"&gt;prob&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;-43.54 over &lt;span class="m"&gt;81&lt;/span&gt;.19h &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;retry&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.2%, &lt;span class="nv"&gt;fail&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.2%&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="nv"&gt;states&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1688&lt;/span&gt; &lt;span class="nv"&gt;gauss&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;11014&lt;/span&gt; fmllr-impr&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.90 over &lt;span class="m"&gt;49&lt;/span&gt;.94h tree-impr&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;.48
-steps/train_sat.sh: &lt;span class="k"&gt;done&lt;/span&gt; training SAT system in exp/tri3b
+steps/train_sat.sh: &lt;span class="k"&gt;done&lt;/span&gt; training SAT system &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b
 tree-info exp/tri3b/tree
 tree-info exp/tri3b/tree
 make-h-transducer --disambig-syms-out&lt;span class="o"&gt;=&lt;/span&gt;exp/tri3b/graph/disambig_tid.int --transition-scale&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;.0 data/lang_test/tmp/ilabels_3_1 exp/tri3b/tree exp/tri3b/final.mdl
@@ -1154,9 +1154,9 @@ steps/decode_fmllr.sh --config conf/decode.config --nj &lt;span class="m"&gt;2&l
 steps/decode.sh --scoring-opts  --num-threads &lt;span class="m"&gt;1&lt;/span&gt; --skip-scoring &lt;span class="nb"&gt;false&lt;/span&gt; --acwt &lt;span class="m"&gt;0&lt;/span&gt;.083333 --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G --beam &lt;span class="m"&gt;10&lt;/span&gt;.0 --model exp/tri3b/final.alimdl --max-active &lt;span class="m"&gt;2000&lt;/span&gt; exp/tri3b/graph data/test exp/tri3b/decode.si
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/tri3b/graph exp/tri3b/decode.si
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri3b/decode.si/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b/decode.si/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,3,26&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;11&lt;/span&gt;.0
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri3b/decode.si/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b/decode.si/log/analyze_lattice_depth_stats.log
 exp/tri3b/decode.si/wer_10
 %WER &lt;span class="m"&gt;23&lt;/span&gt;.82 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;1064&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;74&lt;/span&gt; ins, &lt;span class="m"&gt;270&lt;/span&gt; del, &lt;span class="m"&gt;720&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;65&lt;/span&gt;.60 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;328&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -1196,9 +1196,9 @@ steps/decode_fmllr.sh: doing main lattice generation phase
 steps/decode_fmllr.sh: estimating fMLLR transforms a second time.
 steps/decode_fmllr.sh: doing a final pass of acoustic rescoring.
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/tri3b/graph exp/tri3b/decode
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri3b/decode/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b/decode/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,2,10&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;.4
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri3b/decode/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b/decode/log/analyze_lattice_depth_stats.log
 exp/tri3b/decode/wer_10
 %WER &lt;span class="m"&gt;15&lt;/span&gt;.36 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;686&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;84&lt;/span&gt; ins, &lt;span class="m"&gt;129&lt;/span&gt; del, &lt;span class="m"&gt;473&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;51&lt;/span&gt;.20 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;256&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -1234,18 +1234,18 @@ exp/tri3b/decode/wer_9
 %SER &lt;span class="m"&gt;53&lt;/span&gt;.80 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;269&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
 steps/align_fmllr.sh --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 2G --use-graphs &lt;span class="nb"&gt;true&lt;/span&gt; data/train data/lang exp/tri3b exp/tri3b_ali
 steps/align_fmllr.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
-steps/align_fmllr.sh: aligning data in data/train using exp/tri3b/final.alimdl and speaker-independent features.
+steps/align_fmllr.sh: aligning data &lt;span class="k"&gt;in&lt;/span&gt; data/train using exp/tri3b/final.alimdl and speaker-independent features.
 steps/align_fmllr.sh: computing fMLLR transforms
 steps/align_fmllr.sh: doing final alignment.
 steps/align_fmllr.sh: &lt;span class="k"&gt;done&lt;/span&gt; aligning data.
 steps/diagnostic/analyze_alignments.sh --cmd run.pl --mem 2G data/lang exp/tri3b_ali
-steps/diagnostic/analyze_alignments.sh: see stats in exp/tri3b_ali/log/analyze_alignments.log
-&lt;span class="m"&gt;1333&lt;/span&gt; warnings in exp/tri3b_ali/log/align_pass1.*.log
-&lt;span class="m"&gt;895&lt;/span&gt; warnings in exp/tri3b_ali/log/align_pass2.*.log
-&lt;span class="m"&gt;169&lt;/span&gt; warnings in exp/tri3b_ali/log/fmllr.*.log
+steps/diagnostic/analyze_alignments.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_ali/log/analyze_alignments.log
+&lt;span class="m"&gt;1333&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_ali/log/align_pass1.*.log
+&lt;span class="m"&gt;895&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_ali/log/align_pass2.*.log
+&lt;span class="m"&gt;169&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_ali/log/fmllr.*.log
 steps/make_denlats.sh --config conf/decode.config --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 2G --transform-dir exp/tri3b_ali data/train data/lang exp/tri3b exp/tri3b_denlats
-Making unigram grammar FST in exp/tri3b_denlats/lang
-Compiling decoding graph in exp/tri3b_denlats/dengraph
+Making unigram grammar FST &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_denlats/lang
+Compiling decoding graph &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_denlats/dengraph
 tree-info exp/tri3b/tree
 tree-info exp/tri3b/tree
 fstminimizeencoded
@@ -1285,9 +1285,9 @@ steps/decode_fmllr.sh --config conf/decode.config --nj &lt;span class="m"&gt;2&l
 steps/decode.sh --scoring-opts  --num-threads &lt;span class="m"&gt;1&lt;/span&gt; --skip-scoring &lt;span class="nb"&gt;false&lt;/span&gt; --acwt &lt;span class="m"&gt;0&lt;/span&gt;.083333 --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 4G --beam &lt;span class="m"&gt;10&lt;/span&gt;.0 --model exp/tri3b/final.alimdl --max-active &lt;span class="m"&gt;2000&lt;/span&gt; exp/tri3b/graph data/test exp/tri3b_mmi/decode.si
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/tri3b/graph exp/tri3b_mmi/decode.si
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri3b_mmi/decode.si/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_mmi/decode.si/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,3,26&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;11&lt;/span&gt;.0
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri3b_mmi/decode.si/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_mmi/decode.si/log/analyze_lattice_depth_stats.log
 exp/tri3b_mmi/decode.si/wer_10
 %WER &lt;span class="m"&gt;23&lt;/span&gt;.82 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;1064&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;74&lt;/span&gt; ins, &lt;span class="m"&gt;270&lt;/span&gt; del, &lt;span class="m"&gt;720&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;65&lt;/span&gt;.60 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;328&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -1327,9 +1327,9 @@ steps/decode_fmllr.sh: doing main lattice generation phase
 steps/decode_fmllr.sh: estimating fMLLR transforms a second time.
 steps/decode_fmllr.sh: doing a final pass of acoustic rescoring.
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/tri3b/graph exp/tri3b_mmi/decode
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri3b_mmi/decode/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_mmi/decode/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,1,6&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.1
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri3b_mmi/decode/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_mmi/decode/log/analyze_lattice_depth_stats.log
 exp/tri3b_mmi/decode/wer_10
 %WER &lt;span class="m"&gt;11&lt;/span&gt;.82 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;528&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;59&lt;/span&gt; ins, &lt;span class="m"&gt;106&lt;/span&gt; del, &lt;span class="m"&gt;363&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;43&lt;/span&gt;.00 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;215&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -1367,9 +1367,9 @@ steps/decode.sh --config conf/decode.config --nj &lt;span class="m"&gt;2&lt;/spa
 decode.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 Using fMLLR transforms from exp/tri3b/decode
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/tri3b/graph exp/tri3b_mmi/decode2
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri3b_mmi/decode2/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_mmi/decode2/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,1,11&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;6&lt;/span&gt;.5
-steps/diagnostic/analyze_lats.sh: see stats in exp/tri3b_mmi/decode2/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_mmi/decode2/log/analyze_lattice_depth_stats.log
 exp/tri3b_mmi/decode2/wer_10
 %WER &lt;span class="m"&gt;10&lt;/span&gt;.95 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;489&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;47&lt;/span&gt; ins, &lt;span class="m"&gt;106&lt;/span&gt; del, &lt;span class="m"&gt;336&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;40&lt;/span&gt;.40 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;202&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -1406,7 +1406,7 @@ exp/tri3b_mmi/decode2/wer_9
 steps/train_diag_ubm.sh --silence-weight &lt;span class="m"&gt;0&lt;/span&gt;.5 --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 2G &lt;span class="m"&gt;250&lt;/span&gt; data/train data/lang exp/tri3b_ali exp/dubm3b
 steps/train_diag_ubm.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 Using transforms from exp/tri3b_ali
-Clustering Gaussians in exp/tri3b_ali/final.mdl
+Clustering Gaussians &lt;span class="k"&gt;in&lt;/span&gt; exp/tri3b_ali/final.mdl
 Getting Gaussian-selection info
 Training pass &lt;span class="m"&gt;0&lt;/span&gt;
 Training pass &lt;span class="m"&gt;1&lt;/span&gt;
@@ -2177,13 +2177,13 @@ steps/train_sgmm2.sh: training pass &lt;span class="m"&gt;24&lt;/span&gt; ...
 steps/train_sgmm2.sh: building alignment model &lt;span class="o"&gt;(&lt;/span&gt;pass &lt;span class="m"&gt;25&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
 steps/train_sgmm2.sh: building alignment model &lt;span class="o"&gt;(&lt;/span&gt;pass &lt;span class="m"&gt;26&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
 steps/train_sgmm2.sh: building alignment model &lt;span class="o"&gt;(&lt;/span&gt;pass &lt;span class="m"&gt;27&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;span class="m"&gt;93&lt;/span&gt; warnings in exp/sgmm2_4a/log/spkvecs.*.*.log
-&lt;span class="m"&gt;168&lt;/span&gt; warnings in exp/sgmm2_4a/log/acc_ali.*.*.log
-&lt;span class="m"&gt;794&lt;/span&gt; warnings in exp/sgmm2_4a/log/update.*.log
-&lt;span class="m"&gt;1&lt;/span&gt; warnings in exp/sgmm2_4a/log/build_tree.log
-&lt;span class="m"&gt;68&lt;/span&gt; warnings in exp/sgmm2_4a/log/update_ali.*.log
-&lt;span class="m"&gt;920&lt;/span&gt; warnings in exp/sgmm2_4a/log/acc.*.*.log
-&lt;span class="m"&gt;1376&lt;/span&gt; warnings in exp/sgmm2_4a/log/align.*.*.log
+&lt;span class="m"&gt;93&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/log/spkvecs.*.*.log
+&lt;span class="m"&gt;168&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/log/acc_ali.*.*.log
+&lt;span class="m"&gt;794&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/log/update.*.log
+&lt;span class="m"&gt;1&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/log/build_tree.log
+&lt;span class="m"&gt;68&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/log/update_ali.*.log
+&lt;span class="m"&gt;920&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/log/acc.*.*.log
+&lt;span class="m"&gt;1376&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/log/align.*.*.log
 Done
 tree-info exp/sgmm2_4a/tree
 tree-info exp/sgmm2_4a/tree
@@ -2201,9 +2201,9 @@ steps/decode_sgmm2.sh --config conf/decode.config --nj &lt;span class="m"&gt;2&l
 steps/decode_sgmm2.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/decode_sgmm2.sh: using transforms from exp/tri3b/decode
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/sgmm2_4a/graph exp/sgmm2_4a/decode
-steps/diagnostic/analyze_lats.sh: see stats in exp/sgmm2_4a/decode/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/decode/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,1,6&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.2
-steps/diagnostic/analyze_lats.sh: see stats in exp/sgmm2_4a/decode/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/decode/log/analyze_lattice_depth_stats.log
 exp/sgmm2_4a/decode/wer_10
 %WER &lt;span class="m"&gt;10&lt;/span&gt;.03 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;448&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;60&lt;/span&gt; ins, &lt;span class="m"&gt;101&lt;/span&gt; del, &lt;span class="m"&gt;287&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;38&lt;/span&gt;.20 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;191&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -2245,9 +2245,9 @@ steps/decode_sgmm2.sh: computing pre-transform &lt;span class="k"&gt;for&lt;/spa
 sgmm2-comp-prexform exp/sgmm2_4a/final.mdl exp/sgmm2_4a/final.occs exp/sgmm2_4a/final.fmllr_mdl
 LOG &lt;span class="o"&gt;(&lt;/span&gt;sgmm2-comp-prexform&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;.4.228~1-5b27&lt;span class="o"&gt;]&lt;/span&gt;:main&lt;span class="o"&gt;()&lt;/span&gt;:sgmm2-comp-prexform.cc:77&lt;span class="o"&gt;)&lt;/span&gt; Written model to exp/sgmm2_4a/final.fmllr_mdl
 steps/diagnostic/analyze_lats.sh --cmd run.pl --mem 4G exp/sgmm2_4a/graph exp/sgmm2_4a/decode_fmllr
-steps/diagnostic/analyze_lats.sh: see stats in exp/sgmm2_4a/decode_fmllr/log/analyze_alignments.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/decode_fmllr/log/analyze_alignments.log
 Overall, lattice depth &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;,50,90-percentile&lt;span class="o"&gt;)=(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;,1,6&lt;span class="o"&gt;)&lt;/span&gt; and &lt;span class="nv"&gt;mean&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;.9
-steps/diagnostic/analyze_lats.sh: see stats in exp/sgmm2_4a/decode_fmllr/log/analyze_lattice_depth_stats.log
+steps/diagnostic/analyze_lats.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a/decode_fmllr/log/analyze_lattice_depth_stats.log
 exp/sgmm2_4a/decode_fmllr/wer_10
 %WER &lt;span class="m"&gt;9&lt;/span&gt;.90 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;442&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;59&lt;/span&gt; ins, &lt;span class="m"&gt;101&lt;/span&gt; del, &lt;span class="m"&gt;282&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;38&lt;/span&gt;.40 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;192&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
@@ -2284,20 +2284,20 @@ exp/sgmm2_4a/decode_fmllr/wer_9
 steps/align_sgmm2.sh --nj &lt;span class="m"&gt;2&lt;/span&gt; --cmd run.pl --mem 2G --transform-dir exp/tri3b --use-graphs &lt;span class="nb"&gt;true&lt;/span&gt; --use-gselect &lt;span class="nb"&gt;true&lt;/span&gt; data/train data/lang exp/sgmm2_4a exp/sgmm2_4a_ali
 steps/align_sgmm2.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/align_sgmm2.sh: using transforms from exp/tri3b
-steps/align_sgmm2.sh: aligning data in data/train using model exp/sgmm2_4a/final.alimdl
+steps/align_sgmm2.sh: aligning data &lt;span class="k"&gt;in&lt;/span&gt; data/train using model exp/sgmm2_4a/final.alimdl
 steps/align_sgmm2.sh: computing speaker vectors &lt;span class="o"&gt;(&lt;/span&gt;1st pass&lt;span class="o"&gt;)&lt;/span&gt;
 steps/align_sgmm2.sh: computing speaker vectors &lt;span class="o"&gt;(&lt;/span&gt;2nd pass&lt;span class="o"&gt;)&lt;/span&gt;
 steps/align_sgmm2.sh: doing final alignment.
 steps/align_sgmm2.sh: &lt;span class="k"&gt;done&lt;/span&gt; aligning data.
 steps/diagnostic/analyze_alignments.sh --cmd run.pl --mem 2G data/lang exp/sgmm2_4a_ali
-steps/diagnostic/analyze_alignments.sh: see stats in exp/sgmm2_4a_ali/log/analyze_alignments.log
-&lt;span class="m"&gt;32&lt;/span&gt; warnings in exp/sgmm2_4a_ali/log/spk_vecs2.*.log
-&lt;span class="m"&gt;309&lt;/span&gt; warnings in exp/sgmm2_4a_ali/log/align_pass1.*.log
-&lt;span class="m"&gt;337&lt;/span&gt; warnings in exp/sgmm2_4a_ali/log/align_pass2.*.log
-&lt;span class="m"&gt;57&lt;/span&gt; warnings in exp/sgmm2_4a_ali/log/spk_vecs1.*.log
+steps/diagnostic/analyze_alignments.sh: see stats &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_ali/log/analyze_alignments.log
+&lt;span class="m"&gt;32&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_ali/log/spk_vecs2.*.log
+&lt;span class="m"&gt;309&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_ali/log/align_pass1.*.log
+&lt;span class="m"&gt;337&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_ali/log/align_pass2.*.log
+&lt;span class="m"&gt;57&lt;/span&gt; warnings &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_ali/log/spk_vecs1.*.log
 steps/make_denlats_sgmm2.sh --nj &lt;span class="m"&gt;2&lt;/span&gt; --sub-split &lt;span class="m"&gt;20&lt;/span&gt; --cmd run.pl --mem 4G --transform-dir exp/tri3b data/train data/lang exp/sgmm2_4a_ali exp/sgmm2_4a_denlats
-steps/make_denlats_sgmm2.sh: Making unigram grammar FST in exp/sgmm2_4a_denlats/lang
-steps/make_denlats_sgmm2.sh: Compiling decoding graph in exp/sgmm2_4a_denlats/dengraph
+steps/make_denlats_sgmm2.sh: Making unigram grammar FST &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_denlats/lang
+steps/make_denlats_sgmm2.sh: Compiling decoding graph &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_denlats/dengraph
 tree-info exp/sgmm2_4a_ali/tree
 tree-info exp/sgmm2_4a_ali/tree
 fstdeterminizestar --use-log&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;
@@ -2351,13 +2351,13 @@ steps/decode_sgmm2_rescore.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; 
 steps/decode_sgmm2_rescore.sh: using transforms from exp/tri3b/decode
 steps/decode_sgmm2_rescore.sh: using transforms from exp/tri3b/decode
 steps/decode_sgmm2_rescore.sh: using transforms from exp/tri3b/decode
-steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model in exp/sgmm2_4a_mmi_b0.15/3.mdl
-steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model in exp/sgmm2_4a_mmi_b0.15/2.mdl
-steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model in exp/sgmm2_4a_mmi_b0.15/1.mdl
+steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_mmi_b0.15/3.mdl
+steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_mmi_b0.15/2.mdl
+steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_mmi_b0.15/1.mdl
 steps/decode_sgmm2_rescore.sh: using speaker vectors from exp/sgmm2_4a/decode
 steps/decode_sgmm2_rescore.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/decode_sgmm2_rescore.sh: using transforms from exp/tri3b/decode
-steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model in exp/sgmm2_4a_mmi_b0.15/4.mdl
+steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_mmi_b0.15/4.mdl
 steps/train_mmi_sgmm2.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/train_mmi_sgmm2.sh: using transforms from exp/tri3b
 steps/train_mmi_sgmm2.sh: using speaker vectors from exp/sgmm2_4a_ali
@@ -2517,13 +2517,13 @@ steps/decode_sgmm2_rescore.sh: using transforms from exp/tri3b/decode
 steps/decode_sgmm2_rescore.sh: using speaker vectors from exp/sgmm2_4a/decode
 steps/decode_sgmm2_rescore.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/decode_sgmm2_rescore.sh: using transforms from exp/tri3b/decode
-steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model in exp/sgmm2_4a_mmi_b0.15_x/2.mdl
+steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_mmi_b0.15_x/2.mdl
 steps/decode_sgmm2_rescore.sh: using speaker vectors from exp/sgmm2_4a/decode
 steps/decode_sgmm2_rescore.sh: feature &lt;span class="nb"&gt;type&lt;/span&gt; is lda
 steps/decode_sgmm2_rescore.sh: using transforms from exp/tri3b/decode
-steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model in exp/sgmm2_4a_mmi_b0.15_x/1.mdl
-steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model in exp/sgmm2_4a_mmi_b0.15_x/4.mdl
-steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model in exp/sgmm2_4a_mmi_b0.15_x/3.mdl
+steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_mmi_b0.15_x/1.mdl
+steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_mmi_b0.15_x/4.mdl
+steps/decode_sgmm2_rescore.sh: rescoring lattices with SGMM model &lt;span class="k"&gt;in&lt;/span&gt; exp/sgmm2_4a_mmi_b0.15_x/3.mdl
 exp/sgmm2_4a_mmi_b0.15_x/decode_it1/wer_10
 %WER &lt;span class="m"&gt;8&lt;/span&gt;.93 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;399&lt;/span&gt; / &lt;span class="m"&gt;4466&lt;/span&gt;, &lt;span class="m"&gt;54&lt;/span&gt; ins, &lt;span class="m"&gt;88&lt;/span&gt; del, &lt;span class="m"&gt;257&lt;/span&gt; sub &lt;span class="o"&gt;]&lt;/span&gt;
 %SER &lt;span class="m"&gt;35&lt;/span&gt;.00 &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="m"&gt;175&lt;/span&gt; / &lt;span class="m"&gt;500&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;

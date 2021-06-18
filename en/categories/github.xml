@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about github)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/github.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 23 Nov 2020 09:00:05 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Nikolaでブログ構築してGithub Pagesに設置</title><link>http://www.hiromasa.info/en/posts/1/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Nikolaとは&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about github)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/github.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 18 Jun 2021 01:43:28 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Nikolaでブログ構築してGithub Pagesに設置</title><link>http://www.hiromasa.info/en/posts/1/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;Nikolaとは&lt;/h3&gt;
 &lt;p&gt;Python製のstatic site generator。python製だとpelicanの方が有名だがipynbが使えると聞いたのでこちらを使うことにした。&lt;/p&gt;
 &lt;h3&gt;Nikolaでブログを生成&lt;/h3&gt;
 &lt;h4&gt;インストール&lt;/h4&gt;
@@ -9,8 +9,8 @@ $ pip install webassets
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;後述するbuildの際などに下記のようなメッセージが出るので合わせてwebassetsもインストールしておくと良い。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.&lt;/span&gt;
-&lt;span class="err"&gt;[2018-01-08T01:42:01Z] WARNING: bundles: Setting USE_BUNDLES to False.&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.
+[2018-01-08T01:42:01Z] WARNING: bundles: Setting USE_BUNDLES to False.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4&gt;ブログの雛形生成&lt;/h4&gt;
@@ -31,16 +31,16 @@ commentシステムとして何を使うかを聞かれるが、後でconf.pyを
 &lt;p&gt;実行すると記事タイトルを聞かれるので打ち込むと&lt;code&gt;-f&lt;/code&gt;で指定した形式のファイルがposts以下に生成される。
 また、引数に&lt;code&gt;-e&lt;/code&gt;を付けるとそのままエディタでの編集画面となる。&lt;/p&gt;
 &lt;p&gt;生成されたファイルの冒頭には下記のような形のヘッダーが付いている。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;&amp;lt;!--&lt;/span&gt;
-&lt;span class="err"&gt;.. title: Nikolaでブログ構築してGithub Pagesに設置&lt;/span&gt;
-&lt;span class="err"&gt;.. slug: 1&lt;/span&gt;
-&lt;span class="err"&gt;.. date: 2018-01-07 23:35:28 UTC+09:00&lt;/span&gt;
-&lt;span class="err"&gt;.. tags: nikola, python, github&lt;/span&gt;
-&lt;span class="err"&gt;.. category: &lt;/span&gt;
-&lt;span class="err"&gt;.. link: &lt;/span&gt;
-&lt;span class="err"&gt;.. description: &lt;/span&gt;
-&lt;span class="err"&gt;.. type: text&lt;/span&gt;
-&lt;span class="err"&gt;--&amp;gt;&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;&amp;lt;!--&lt;/span&gt;
+&lt;span class="p"&gt;..&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Nikolaでブログ構築してGithub&lt;/span&gt; &lt;span class="n"&gt;Pagesに設置&lt;/span&gt;
+&lt;span class="p"&gt;..&lt;/span&gt; &lt;span class="n"&gt;slug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="p"&gt;..&lt;/span&gt; &lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2018&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mo"&gt;01&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mo"&gt;07&lt;/span&gt; &lt;span class="mi"&gt;23&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;35&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;28&lt;/span&gt; &lt;span class="n"&gt;UTC&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;00&lt;/span&gt;
+&lt;span class="p"&gt;..&lt;/span&gt; &lt;span class="n"&gt;tags&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;nikola&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;
+&lt;span class="p"&gt;..&lt;/span&gt; &lt;span class="n"&gt;category&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
+&lt;span class="p"&gt;..&lt;/span&gt; &lt;span class="n"&gt;link&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
+&lt;span class="p"&gt;..&lt;/span&gt; &lt;span class="n"&gt;description&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; 
+&lt;span class="p"&gt;..&lt;/span&gt; &lt;span class="kr"&gt;type&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt;
+&lt;span class="o"&gt;--&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;titleは記事タイトルである。
@@ -123,8 +123,8 @@ $ git remote add origin git@github.com:wrist/wrist.github.io
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;下記のように表示された場合は&lt;code&gt;pip install ghp-import2&lt;/code&gt;でghp-import2をインストールする。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.&lt;/span&gt;
-&lt;span class="err"&gt;[2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.
+[2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;通常はこれで改めて&lt;code&gt;nikola github_deploy&lt;/code&gt;を実行すれば終わりのはずである。
@@ -137,7 +137,7 @@ hint: Updates were rejected because the remote contains work that you &lt;span c
 hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
 hint: &lt;span class="o"&gt;(&lt;/span&gt;e.g., &lt;span class="s1"&gt;'git pull ...'&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; before pushing again.
-hint: See the &lt;span class="s1"&gt;'Note about fast-forwards'&lt;/span&gt; in &lt;span class="s1"&gt;'git push --help'&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; details.
+hint: See the &lt;span class="s1"&gt;'Note about fast-forwards'&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="s1"&gt;'git push --help'&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; details.
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;仕方ないので&lt;a href="https://rcmdnk.com/blog/2013/11/01/computer-git/"&gt;この記事&lt;/a&gt;に倣い、先にmasterを強制pushする。&lt;/p&gt;

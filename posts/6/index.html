@@ -192,12 +192,12 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
 </code></pre>
 
 <p>ここで、</p>
-<pre class="code literal-block"><span></span><code><span class="err">- git config --global user.name 'USERNAME'</span>
-<span class="err">- git config --global user.email 'travis@invalid'</span>
+<pre class="code literal-block"><span></span><code><span class="o">-</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">--</span><span class="k">global</span><span class="w"> </span><span class="k">user</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s1">'USERNAME'</span><span class="w"></span>
+<span class="o">-</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="c1">--global user.email 'travis@invalid'</span>
 </code></pre>
 
 <p>の行は適切なユーザー名、メールアドレスに、</p>
-<pre class="code literal-block"><span></span><code><span class="err">- git remote add origin git@github.com:USERNAME/REPO.git</span>
+<pre class="code literal-block"><span></span><code><span class="o">-</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">remote</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="n">git</span><span class="nv">@github</span><span class="p">.</span><span class="nl">com</span><span class="p">:</span><span class="n">USERNAME</span><span class="o">/</span><span class="n">REPO</span><span class="p">.</span><span class="n">git</span><span class="w"></span>
 </code></pre>
 
 <p>の行は適切なユーザー名およびリポジトリ名に変更する必要があります。</p>
@@ -301,7 +301,7 @@ $ git push origin src
 
 
         </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2020         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>
@@ -324,9 +324,7 @@ $ git push origin src
         <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script>
 </body>
 </html>

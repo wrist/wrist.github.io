@@ -183,7 +183,7 @@ nikolaについては過去に記事を書いていますのでご覧くださ�
 Metadataの設定は<a href="https://github.com/jupyterlab/jupyterlab/issues/1308">https://github.com/jupyterlab/jupyterlab/issues/1308</a>
 のissueで議論され、<a href="https://github.com/jupyterlab/jupyterlab/pull/5968">https://github.com/jupyterlab/jupyterlab/pull/5968</a> のプルリクエストで追加するためのUIが4月ごろに追加されています。</p>
 <p>メタデータを付与するためには、一番左側のアイコンの並んでいるカラムからスパナアイコンを選択肢、Advanced Toolsの中のNotebook Metadataを編集すれば良いです。この記事では下記の様な感じにしています。</p>
-<div class="highlight"><pre><span></span><span class="s2">"nikola"</span><span class="err">:</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="nt">"nikola"</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">"tags"</span><span class="p">:</span> <span class="s2">"python,docker,nikola,jupyterlab"</span><span class="p">,</span>
         <span class="nt">"title"</span><span class="p">:</span> <span class="s2">"nikolaの記事をjupyter labで書く"</span><span class="p">,</span>
         <span class="nt">"date"</span><span class="p">:</span> <span class="s2">"2019-12-22 23:00:00 UTC+09:00"</span><span class="p">,</span>
@@ -492,7 +492,7 @@ delimiters: [
                     }
                 );
             </script></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2020         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>
@@ -515,9 +515,7 @@ delimiters: [
         <script src="../../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script>
 </body>
 </html>
