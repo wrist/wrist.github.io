@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (jupyterliteについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/jupyterlite.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 21 Oct 2022 17:37:50 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>2022/10/22 PyData Osaka #026における JupyterLite関連の紹介記事</title><link>http://www.hiromasa.info/posts/26/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;h2&gt;2022/10/22 PyData Osaka Meetup #026におけるJupyterLite関連の紹介記事&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (jupyterliteについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/jupyterlite.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 21 Oct 2022 17:58:10 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>2022/10/22 PyData Osaka #026における JupyterLite関連の紹介記事</title><link>http://www.hiromasa.info/posts/26/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;h2&gt;2022/10/22 PyData Osaka Meetup #026におけるJupyterLite関連の紹介記事&lt;/h2&gt;
 &lt;p&gt;本記事はタイトルの通り&lt;a href="https://pydataosaka.connpass.com/event/261492/"&gt;PyData Osaka Meetup #026&lt;/a&gt;で使用する、主にJupyterLiteについて紹介するための記事となります。&lt;/p&gt;
 &lt;h3&gt;Jupyterliteに関する翻訳記事の紹介(前半)&lt;/h3&gt;
 &lt;p&gt;&lt;a href="https://github.com/PyDataOsaka/jupyterblog-translation"&gt;このリポジトリ&lt;/a&gt;で翻訳した内容を&lt;a href="https://medium.com/pydata-osaka"&gt;Medium&lt;/a&gt;へと転記しています。
@@ -34,4 +34,17 @@ StarやMediumでのフォローをよろしくお願いします。
 &lt;/ul&gt;
 &lt;h4&gt;jupyterlab-wav&lt;/h4&gt;
 &lt;p&gt;&lt;a href="https://github.com/wrist/jupyterlab-wav"&gt;このリポジトリ&lt;/a&gt;で公開しているjupyterlab向けの波形可視化エクステンションがありますが、
-dockerでの実行環境内に存在している場合は、federated extensionとして使用可能な状態になっているはずです。&lt;/p&gt;</description><category>jupyterlite</category><guid>http://www.hiromasa.info/posts/26/</guid><pubDate>Fri, 21 Oct 2022 15:00:00 GMT</pubDate></item></channel></rss>
+dockerでの実行環境内に存在している場合(actionsのworkflow内でpip installしている場合)は、federated extensionとして使用可能な状態になっているはずですので紹介します。&lt;/p&gt;
+&lt;h4&gt;GitHub Actions設定時に遭遇したトラブルと対策&lt;/h4&gt;
+&lt;h5&gt;&lt;code&gt;actions/checkout@v3&lt;/code&gt;で&lt;code&gt;EACCESS: permission denied&lt;/code&gt;などとエラーが出てチェックアウトできない&lt;/h5&gt;
+&lt;p&gt;&lt;a href="https://github.com/actions/checkout/issues/841"&gt;ここ&lt;/a&gt;を見て解決しましたが、コンテナ内でチェックアウトする場合は所有権の問題でチェックアウトできないようで、下記のように&lt;code&gt;options: --user root&lt;/code&gt;を付けてroot実行が必要でした。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="nt"&gt;container&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;image&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;&amp;lt;image&amp;gt;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;options&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;--user root&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h5&gt;&lt;code&gt;fatal: unsafe repository&lt;/code&gt;が出る&lt;/h5&gt;
+&lt;p&gt;&lt;a href="https://zenn.dev/kouta/scraps/726bfce243f72b"&gt;ここ&lt;/a&gt;を参考に、&lt;code&gt;git config --global --add safe.directory&lt;/code&gt;を実行するようにした。&lt;/p&gt;
+&lt;h5&gt;&lt;code&gt;fatal: refusing to merge unrelated histories&lt;/code&gt;と表示され落ちる&lt;/h5&gt;
+&lt;p&gt;masterブランチがfetchされておらずローカルとリモートが連続していないことが原因でした。
+&lt;code&gt;git fetch origin master --depth 1&lt;/code&gt;を追加することで解決しました。&lt;/p&gt;</description><category>jupyterlite</category><guid>http://www.hiromasa.info/posts/26/</guid><pubDate>Fri, 21 Oct 2022 15:00:00 GMT</pubDate></item></channel></rss>

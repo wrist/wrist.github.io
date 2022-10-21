@@ -45,4 +45,25 @@ StarやMediumでのフォローをよろしくお願いします。
 ### jupyterlab-wav
 
 [このリポジトリ](https://github.com/wrist/jupyterlab-wav)で公開しているjupyterlab向けの波形可視化エクステンションがありますが、
-dockerでの実行環境内に存在している場合は、federated extensionとして使用可能な状態になっているはずです。
+dockerでの実行環境内に存在している場合(actionsのworkflow内でpip installしている場合)は、federated extensionとして使用可能な状態になっているはずですので紹介します。
+
+### GitHub Actions設定時に遭遇したトラブルと対策
+
+#### `actions/checkout@v3`で`EACCESS: permission denied`などとエラーが出てチェックアウトできない
+
+[ここ](https://github.com/actions/checkout/issues/841)を見て解決しましたが、コンテナ内でチェックアウトする場合は所有権の問題でチェックアウトできないようで、下記のように`options: --user root`を付けてroot実行が必要でした。
+
+```yaml
+container:
+  image: <image>
+    options: --user root
+```
+
+#### `fatal: unsafe repository`が出る
+
+[ここ](https://zenn.dev/kouta/scraps/726bfce243f72b)を参考に、`git config --global --add safe.directory`を実行するようにした。
+
+#### `fatal: refusing to merge unrelated histories`と表示され落ちる
+
+masterブランチがfetchされておらずローカルとリモートが連続していないことが原因でした。
+`git fetch origin master --depth 1`を追加することで解決しました。

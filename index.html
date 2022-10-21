@@ -160,7 +160,23 @@ StarやMediumでのフォローをよろしくお願いします。
 </ul>
 <h4>jupyterlab-wav</h4>
 <p><a href="https://github.com/wrist/jupyterlab-wav">このリポジトリ</a>で公開しているjupyterlab向けの波形可視化エクステンションがありますが、
-dockerでの実行環境内に存在している場合は、federated extensionとして使用可能な状態になっているはずです。</p>
+dockerでの実行環境内に存在している場合(actionsのworkflow内でpip installしている場合)は、federated extensionとして使用可能な状態になっているはずですので紹介します。</p>
+<h4>GitHub Actions設定時に遭遇したトラブルと対策</h4>
+<h5>
+<code>actions/checkout@v3</code>で<code>EACCESS: permission denied</code>などとエラーが出てチェックアウトできない</h5>
+<p><a href="https://github.com/actions/checkout/issues/841">ここ</a>を見て解決しましたが、コンテナ内でチェックアウトする場合は所有権の問題でチェックアウトできないようで、下記のように<code>options: --user root</code>を付けてroot実行が必要でした。</p>
+<div class="code"><pre class="code literal-block"><span class="nt">container</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;image&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">options</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--user root</span><span class="w"></span>
+</pre></div>
+
+<h5>
+<code>fatal: unsafe repository</code>が出る</h5>
+<p><a href="https://zenn.dev/kouta/scraps/726bfce243f72b">ここ</a>を参考に、<code>git config --global --add safe.directory</code>を実行するようにした。</p>
+<h5>
+<code>fatal: refusing to merge unrelated histories</code>と表示され落ちる</h5>
+<p>masterブランチがfetchされておらずローカルとリモートが連続していないことが原因でした。
+<code>git fetch origin master --depth 1</code>を追加することで解決しました。</p>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/25/" class="u-url">jupyterlab-wav extensionをjupyterlab 3.xへ対応させた上でWaveSurfer.jsで波形・スペクトログラムが描画できるようにした</a></h1>
                 <div class="metadata">
