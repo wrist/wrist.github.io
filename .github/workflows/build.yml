@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: wrist/jupyterlab-custom
+      options: --user root
     name: 'Deploy Nikola to GitHub Pages'
     steps:
     - name: Check out
