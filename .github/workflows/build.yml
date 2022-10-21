@@ -18,7 +18,9 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Generate jupyterlite
-      run: ./generate_jupyterlite.sh
+      run: |
+        pip install jupyterlab-wav
+        ./generate_jupyterlite.sh
 
     - name: Build and Deploy Nikola
       run: | 
