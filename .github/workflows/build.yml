@@ -1,0 +1,25 @@
+name: build-nikola-blog
+on: 
+  push:
+    branches:
+      - src
+
+jobs:
+  nikola_build:
+    using: 'docker'
+    container:
+      image: wrist/jupyterlab-custom
+    name: 'Deploy Nikola to GitHub Pages'
+    steps:
+    - name: Check out
+      uses: actions/checkout@v2
+
+    - name: Generate jupyterlite
+      run: ./generate_jupyterlite.sh
+      #run: ./echo.sh
+
+    - name: Build and Deploy Nikola
+      run: | 
+        pip install poetry
+        poetry install
+        poetry run nikola build && poetry run nikola github_deploy -m 'Nikola auto deploy [ci skip]'

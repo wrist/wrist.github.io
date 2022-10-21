@@ -142,6 +142,7 @@ NAVIGATION_LINKS = {
         ("/categories/", "タグ"),
         ("/pages/about/index.html", "about"),
         ("/pages/slides/index.html", "slide一覧"),
+        ("/jupyterlite/lab/", "my jupyterlite"),
         ("/rss.xml", "RSSフィード"),
     ),
     "en": (
@@ -149,6 +150,7 @@ NAVIGATION_LINKS = {
         ("/en/categories/", "tag"),
         ("/en/pages/about/index.html", "about"),
         ("/en/pages/slides/index.html", "slides"),
+        ("/jupyterlite/lab/", "my jupyterlite"),
         ("/en/rss.xml", "RSS feed"),
     )
 }
