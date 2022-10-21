@@ -6,7 +6,7 @@ on:
 
 jobs:
   nikola_build:
-    using: 'docker'
+    runs-on: ubuntu-latest
     container:
       image: wrist/jupyterlab-custom
     name: 'Deploy Nikola to GitHub Pages'
@@ -16,7 +16,6 @@ jobs:
 
     - name: Generate jupyterlite
       run: ./generate_jupyterlite.sh
-      #run: ./echo.sh
 
     - name: Build and Deploy Nikola
       run: | 
