@@ -105,7 +105,115 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/22/" class="u-url">Streamlitを用いた音響信号処理ダッシュボードの開発(Tokyo BISH Bash #03発表資料)</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/23/" class="u-url">Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hiromasa OHASHI
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/23/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-10-31T23:00:00+09:00" itemprop="datePublished" title="2020-10-31 23:00">2020-10-31 23:00</time></a>
+            </p>
+                        <p class="commentline">
+    
+    <a href="posts/23/#disqus_thread" data-disqus-identifier="cache/posts/23.html">コメント</a>
+
+
+                </p>
+</div>
+            </header><div class="e-content entry-content">
+                    <p>普段使用しているMacBook Proのバタフライキーボードにおいて特定のキーが繰り返し入力されたりバッテリーが膨張しつつある問題が発生したため修理に出す前にTimeMachineを用いてバックアップを取ろうと思ったが、調べたところ最近のSambaでは特定の条件が揃えばネットワーク越しにTimeMachineを用いてバックアップを取ることが可能であることが分かったため、その際に設定した環境構築のメモを下記に記す。</p>
+<h3>手順</h3>
+<ol>
+<li>ppaを追加し新しめのバージョンのsambaを入れる</li>
+<li>
+<code>/etc/samba/smbd.conf</code>を編集する</li>
+<li>
+<code>avahi-daemon</code>の設定をする</li>
+<li>sambaのdaemonをrestartする</li>
+</ol>
+<h3>1.ppaを追加し新しめのバージョンのsambaを入れる</h3>
+<p>2020/10/31現在、aptでインストールされるsambaはバージョン4.7.6であるが、
+バージョン4.8以降でなければTimeMachineバックアップ用の設定ができないのでリポジトリを追加した上で新しいバージョンのsambaをインストールする。
+<a href="https://askubuntu.com/questions/1166875/unable-to-built-samba-4-10-6-from-source">このQA</a>のAnswerを参考に下記のようにppaを追加する。</p>
+<div class="code"><pre class="code literal-block">$ sudo add-apt-repository ppa:linux-schools/samba-latest
+$ sudo apt-get dist-upgrade
+$ sudo apt-get install samba
+</pre></div>
+
+<p>バージョンは下記のように確認可能である。</p>
+<div class="code"><pre class="code literal-block">$ smbd -V
+&gt; Version <span class="m">4</span>.10.18
+</pre></div>
+
+<h3>2. <code>/etc/samba/smbd.conf</code>を編集する</h3>
+<p>様々なサイトを参考に下記のような項目を追加した(が不要な設定もあるかもしれない)。
+pathは適宜共有したいディレクトリに書き換えること。また<code>fruit:time machine max size</code>の項目は適切なサイズを設定しておかないとTimeMachineはディスクをフルに使おうとしてしまうので注意が必要である。
+正確な設定項目については<a href="https://www.samba.org/samba/docs/current/man-html/vfs_fruit.8.html">マニュアル</a>を見たほうが良い。</p>
+<div class="code"><pre class="code literal-block"><span class="k">[global]</span><span class="w"></span>
+
+<span class="c1"># Special configuration for Apple's Time Machine</span><span class="w"></span>
+<span class="na">vfs objects</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">catia fruit streams_xattr </span><span class="w"></span>
+<span class="na">fruit:model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">MacPro</span><span class="w"></span>
+<span class="na">fruit:advertise_fullsync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span><span class="w"></span>
+<span class="na">fruit:aapl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
+
+<span class="k">[TimeMachine]</span><span class="w"></span>
+<span class="w">  </span><span class="na">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Backup for Mac Computers</span><span class="w"></span>
+<span class="w">  </span><span class="na">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/share</span><span class="w"></span>
+<span class="w">  </span><span class="na">writable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
+<span class="w">  </span><span class="na">browsable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
+<span class="w">  </span><span class="na">guest ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
+<span class="w">  </span><span class="na">fruit:time machine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
+<span class="w">  </span><span class="na">fruit:time machine max size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">600G</span><span class="w"></span>
+<span class="w">  </span><span class="na">durable handles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
+<span class="w">  </span><span class="na">kernel oplocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">no</span><span class="w"></span>
+<span class="w">  </span><span class="na">kernel share modes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">no</span><span class="w"></span>
+<span class="w">  </span><span class="na">posix locking</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">no</span><span class="w"></span>
+</pre></div>
+
+<h3>3. <code>avahi-daemon</code>の設定をする</h3>
+<p>上記設定を施したのちにsambaのデーモンを再起動した時点で使えるかと思ったがどうやら別途<code>avahi-daemon</code>(mDNS)の設定をしなければならなかったことが分かった。
+<a href="https://www.samba.org/samba/docs/current/man-html/vfs_fruit.8.html">この記事</a>を参考に下記のような設定を記述したファイルを<code>/etc/avahi/services/timemachine.service</code>として作成した。
+なおここでは<code>avahi-daemon</code>自体はaptで別途インストール済みであることを想定している。</p>
+<div class="code"><pre class="code literal-block"><span class="cp">&lt;?xml version="1.0" standalone='no'?&gt;</span>
+<span class="cp">&lt;!DOCTYPE service-group SYSTEM "avahi-service.dtd"&gt;</span>
+<span class="nt">&lt;service-group&gt;</span>
+ <span class="nt">&lt;name</span> <span class="na">replace-wildcards=</span><span class="s">"yes"</span><span class="nt">&gt;</span>%h<span class="nt">&lt;/name&gt;</span>
+ <span class="nt">&lt;service&gt;</span>
+   <span class="nt">&lt;type&gt;</span>_smb._tcp<span class="nt">&lt;/type&gt;</span>
+   <span class="nt">&lt;port&gt;</span>445<span class="nt">&lt;/port&gt;</span>
+ <span class="nt">&lt;/service&gt;</span>
+ <span class="nt">&lt;service&gt;</span>
+   <span class="nt">&lt;type&gt;</span>_adisk._tcp<span class="nt">&lt;/type&gt;</span>
+   <span class="nt">&lt;txt-record&gt;</span>dk0=adVN=TimeMachine,adVF=0x82<span class="nt">&lt;/txt-record&gt;</span>
+ <span class="nt">&lt;/service&gt;</span>
+<span class="nt">&lt;/service-group&gt;</span>
+</pre></div>
+
+<p>ここで<code>&lt;txt-record&gt;dk0=adVN=TimeMachine,adVF=0x82&lt;/txt-record&gt;</code>の<code>TimeMachine</code>となっている部分は<code>/etc/samba/smb.conf</code>の共有名と共通にしておく必要がある。</p>
+<h3>4. sambaのdaemonをrestartしMacOSからTimeMachineを実行</h3>
+<p>3までを実施した後で、<code>sudo systemctl restart avahi-daemon</code>および<code>sudo systemctl restart smbd</code>を実行しavahi-daemonとsmbdをrestartさせると
+MacOS(手元のマシンはCatalina 10.15.7)のシステム環境設定にあるTimeMachineの<code>ディスクを選択</code>の項目から設定したディスクが探せるようになっているはずである。
+保存先として設定するとIDとパスワードを入力するダイアログが出るため書き込み権限のあるユーザーIDを打ち込むとバックアップが進行するようになった。</p>
+<h3>参考にさせていただいたサイト</h3>
+<ul>
+<li>https://askubuntu.com/questions/1166875/unable-to-built-samba-4-10-6-from-source<ul>
+<li>ppaからのsambaをインストールする際の参考にしました</li>
+</ul>
+</li>
+<li>https://ideal-reality.com/computer/server/time-machine-samba/<ul>
+<li>設定の参考にしました</li>
+</ul>
+</li>
+<li>https://qiita.com/upsilon/items/c368726845f89cb0ffe9<ul>
+<li>
+<code>avahi</code>の設定を参考にしました</li>
+</ul>
+</li>
+</ul>
+</div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/22/" class="u-url">Streamlitを用いた音響信号処理ダッシュボードの開発(Tokyo BISH Bash #03発表資料)</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Hiromasa OHASHI

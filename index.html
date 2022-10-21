@@ -32,7 +32,7 @@
     vertical-align: baseline !important; 
 }
 </style>
-<link rel="prefetch" href="posts/25/" type="text/html">
+<link rel="prefetch" href="posts/26/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">本文を読み飛ばす</a>
@@ -104,7 +104,65 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/25/" class="u-url">jupyterlab-wav extensionをjupyterlab 3.xへ対応させた上でWaveSurfer.jsで波形・スペクトログラムが描画できるようにした</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/26/" class="u-url">2022/10/22 PyData Osaka #026における JupyterLite関連の紹介記事</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hiromasa OHASHI
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/26/" rel="bookmark">
+            <time class="published dt-published" datetime="2022-10-22T00:00:00+09:00" itemprop="datePublished" title="2022-10-22 00:00">2022-10-22 00:00</time></a>
+            </p>
+                        <p class="commentline">
+    
+    <a href="posts/26/#disqus_thread" data-disqus-identifier="cache/posts/26.html">コメント</a>
+
+
+                </p>
+</div>
+            </header><div class="e-content entry-content">
+                    <h2>2022/10/22 PyData Osaka Meetup #026におけるJupyterLite関連の紹介記事</h2>
+<p>本記事はタイトルの通り<a href="https://pydataosaka.connpass.com/event/261492/">PyData Osaka Meetup #026</a>で使用する、主にJupyterLiteについて紹介するための記事となります。</p>
+<h3>Jupyterliteに関する翻訳記事の紹介(前半)</h3>
+<p><a href="https://github.com/PyDataOsaka/jupyterblog-translation">このリポジトリ</a>で翻訳した内容を<a href="https://medium.com/pydata-osaka">Medium</a>へと転記しています。
+StarやMediumでのフォローをよろしくお願いします。
+本日のイベントでは下記ブログ記事を読んでいきます。</p>
+<ul>
+<li><a href="https://github.com/PyDataOsaka/jupyterblog-translation/blob/main/posts/2021-07-13-jupyterlite-loves-webassembly.md">jupyterlite loves webassembly</a></li>
+<li><a href="https://github.com/PyDataOsaka/jupyterblog-translation/blob/main/posts/2022-07-14-mamba_meets_jupyterlite.md">mamba meets jupyterlite</a></li>
+</ul>
+<p>また、翻訳が間に合っておりませんが、下記2つの記事についても触れる予定です。</p>
+<ul>
+<li>
+<a href="https://blog.jupyter.org/jupyter-everywhere-f8151c2cc6e8">Jupyter Everywhere</a><ul>
+<li>ウェブページにコンソールやnotebookを埋め込む方法について書かれています</li>
+</ul>
+</li>
+<li>
+<a href="https://blog.jupyter.org/xeus-lite-379e96bb199d">Xeus lite</a><ul>
+<li>カーネルを作成するためのC++ライブラリであるXeusをJupyterliteで使うための話が載っています。</li>
+</ul>
+</li>
+</ul>
+<p>上記についても将来的に翻訳したいと考えているため、回を分けて紹介するかもしれません。</p>
+<h3>nikolaブログの記事をコンテンツとして追加した状態でjupyterlite静的サイトを作る方法(後半)</h3>
+<p>本ブログはmarkdownとipynbで書かれていますが、これらの記事を追加した状態でjupyterliteの静的サイトをGitHub actionsで生成し、公開する例を紹介します。</p>
+<h4>仕組みの概要</h4>
+<ul>
+<li>
+<a href="https://github.com/wrist/wrist.github.io/tree/src">ブログのsrcブランチ</a>の内容を元に静的ブログをビルド</li>
+<li>
+<a href="https://github.com/wrist/wrist.github.io/blob/src/.github/workflows/build.yml">このワークフロー</a>でjupyterliteを静的アセットとして動的に生成した上で、nikolaブログのビルドを行い、デプロイを実行<ul>
+<li>GitHub actionsは<a href="https://github.com/wrist/docker-jupyterlab-custom">このリポジトリに従って作成されたDockerイメージ</a>を用いて実行</li>
+<li>jupyterliteの生成のためには<a href="https://github.com/wrist/wrist.github.io/blob/src/generate_jupyterlite.sh">このスクリプト</a>を実行</li>
+</ul>
+</li>
+</ul>
+<h4>jupyterlab-wav</h4>
+<p><a href="https://github.com/wrist/jupyterlab-wav">このリポジトリ</a>で公開しているjupyterlab向けの波形可視化エクステンションがありますが、
+dockerでの実行環境内に存在している場合は、federated extensionとして使用可能な状態になっているはずです。</p>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/25/" class="u-url">jupyterlab-wav extensionをjupyterlab 3.xへ対応させた上でWaveSurfer.jsで波形・スペクトログラムが描画できるようにした</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Hiromasa OHASHI
@@ -823,114 +881,6 @@ br0             <span class="m">8000</span>.0016cba5df15       no              e
 <p>古いMac miniにDebianを入れてファイルサーバ・VPNサーバとして復活させる手順のメモを記した。
 稼働させたばかりであり、そもそも古いマシンであるため、いつまで持つか不明であるがこのまましばらく運用してみようと思う。</p>
                 </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/23/" class="u-url">Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Hiromasa OHASHI
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/23/" rel="bookmark">
-            <time class="published dt-published" datetime="2020-10-31T23:00:00+09:00" itemprop="datePublished" title="2020-10-31 23:00">2020-10-31 23:00</time></a>
-            </p>
-                        <p class="commentline">
-    
-    <a href="posts/23/#disqus_thread" data-disqus-identifier="cache/posts/23.html">コメント</a>
-
-
-                </p>
-</div>
-            </header><div class="e-content entry-content">
-                    <p>普段使用しているMacBook Proのバタフライキーボードにおいて特定のキーが繰り返し入力されたりバッテリーが膨張しつつある問題が発生したため修理に出す前にTimeMachineを用いてバックアップを取ろうと思ったが、調べたところ最近のSambaでは特定の条件が揃えばネットワーク越しにTimeMachineを用いてバックアップを取ることが可能であることが分かったため、その際に設定した環境構築のメモを下記に記す。</p>
-<h3>手順</h3>
-<ol>
-<li>ppaを追加し新しめのバージョンのsambaを入れる</li>
-<li>
-<code>/etc/samba/smbd.conf</code>を編集する</li>
-<li>
-<code>avahi-daemon</code>の設定をする</li>
-<li>sambaのdaemonをrestartする</li>
-</ol>
-<h3>1.ppaを追加し新しめのバージョンのsambaを入れる</h3>
-<p>2020/10/31現在、aptでインストールされるsambaはバージョン4.7.6であるが、
-バージョン4.8以降でなければTimeMachineバックアップ用の設定ができないのでリポジトリを追加した上で新しいバージョンのsambaをインストールする。
-<a href="https://askubuntu.com/questions/1166875/unable-to-built-samba-4-10-6-from-source">このQA</a>のAnswerを参考に下記のようにppaを追加する。</p>
-<div class="code"><pre class="code literal-block">$ sudo add-apt-repository ppa:linux-schools/samba-latest
-$ sudo apt-get dist-upgrade
-$ sudo apt-get install samba
-</pre></div>
-
-<p>バージョンは下記のように確認可能である。</p>
-<div class="code"><pre class="code literal-block">$ smbd -V
-&gt; Version <span class="m">4</span>.10.18
-</pre></div>
-
-<h3>2. <code>/etc/samba/smbd.conf</code>を編集する</h3>
-<p>様々なサイトを参考に下記のような項目を追加した(が不要な設定もあるかもしれない)。
-pathは適宜共有したいディレクトリに書き換えること。また<code>fruit:time machine max size</code>の項目は適切なサイズを設定しておかないとTimeMachineはディスクをフルに使おうとしてしまうので注意が必要である。
-正確な設定項目については<a href="https://www.samba.org/samba/docs/current/man-html/vfs_fruit.8.html">マニュアル</a>を見たほうが良い。</p>
-<div class="code"><pre class="code literal-block"><span class="k">[global]</span><span class="w"></span>
-
-<span class="c1"># Special configuration for Apple's Time Machine</span><span class="w"></span>
-<span class="na">vfs objects</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">catia fruit streams_xattr </span><span class="w"></span>
-<span class="na">fruit:model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">MacPro</span><span class="w"></span>
-<span class="na">fruit:advertise_fullsync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span><span class="w"></span>
-<span class="na">fruit:aapl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
-
-<span class="k">[TimeMachine]</span><span class="w"></span>
-<span class="w">  </span><span class="na">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Backup for Mac Computers</span><span class="w"></span>
-<span class="w">  </span><span class="na">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/share</span><span class="w"></span>
-<span class="w">  </span><span class="na">writable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
-<span class="w">  </span><span class="na">browsable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
-<span class="w">  </span><span class="na">guest ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
-<span class="w">  </span><span class="na">fruit:time machine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
-<span class="w">  </span><span class="na">fruit:time machine max size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">600G</span><span class="w"></span>
-<span class="w">  </span><span class="na">durable handles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span><span class="w"></span>
-<span class="w">  </span><span class="na">kernel oplocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">no</span><span class="w"></span>
-<span class="w">  </span><span class="na">kernel share modes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">no</span><span class="w"></span>
-<span class="w">  </span><span class="na">posix locking</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">no</span><span class="w"></span>
-</pre></div>
-
-<h3>3. <code>avahi-daemon</code>の設定をする</h3>
-<p>上記設定を施したのちにsambaのデーモンを再起動した時点で使えるかと思ったがどうやら別途<code>avahi-daemon</code>(mDNS)の設定をしなければならなかったことが分かった。
-<a href="https://www.samba.org/samba/docs/current/man-html/vfs_fruit.8.html">この記事</a>を参考に下記のような設定を記述したファイルを<code>/etc/avahi/services/timemachine.service</code>として作成した。
-なおここでは<code>avahi-daemon</code>自体はaptで別途インストール済みであることを想定している。</p>
-<div class="code"><pre class="code literal-block"><span class="cp">&lt;?xml version="1.0" standalone='no'?&gt;</span>
-<span class="cp">&lt;!DOCTYPE service-group SYSTEM "avahi-service.dtd"&gt;</span>
-<span class="nt">&lt;service-group&gt;</span>
- <span class="nt">&lt;name</span> <span class="na">replace-wildcards=</span><span class="s">"yes"</span><span class="nt">&gt;</span>%h<span class="nt">&lt;/name&gt;</span>
- <span class="nt">&lt;service&gt;</span>
-   <span class="nt">&lt;type&gt;</span>_smb._tcp<span class="nt">&lt;/type&gt;</span>
-   <span class="nt">&lt;port&gt;</span>445<span class="nt">&lt;/port&gt;</span>
- <span class="nt">&lt;/service&gt;</span>
- <span class="nt">&lt;service&gt;</span>
-   <span class="nt">&lt;type&gt;</span>_adisk._tcp<span class="nt">&lt;/type&gt;</span>
-   <span class="nt">&lt;txt-record&gt;</span>dk0=adVN=TimeMachine,adVF=0x82<span class="nt">&lt;/txt-record&gt;</span>
- <span class="nt">&lt;/service&gt;</span>
-<span class="nt">&lt;/service-group&gt;</span>
-</pre></div>
-
-<p>ここで<code>&lt;txt-record&gt;dk0=adVN=TimeMachine,adVF=0x82&lt;/txt-record&gt;</code>の<code>TimeMachine</code>となっている部分は<code>/etc/samba/smb.conf</code>の共有名と共通にしておく必要がある。</p>
-<h3>4. sambaのdaemonをrestartしMacOSからTimeMachineを実行</h3>
-<p>3までを実施した後で、<code>sudo systemctl restart avahi-daemon</code>および<code>sudo systemctl restart smbd</code>を実行しavahi-daemonとsmbdをrestartさせると
-MacOS(手元のマシンはCatalina 10.15.7)のシステム環境設定にあるTimeMachineの<code>ディスクを選択</code>の項目から設定したディスクが探せるようになっているはずである。
-保存先として設定するとIDとパスワードを入力するダイアログが出るため書き込み権限のあるユーザーIDを打ち込むとバックアップが進行するようになった。</p>
-<h3>参考にさせていただいたサイト</h3>
-<ul>
-<li>https://askubuntu.com/questions/1166875/unable-to-built-samba-4-10-6-from-source<ul>
-<li>ppaからのsambaをインストールする際の参考にしました</li>
-</ul>
-</li>
-<li>https://ideal-reality.com/computer/server/time-machine-samba/<ul>
-<li>設定の参考にしました</li>
-</ul>
-</li>
-<li>https://qiita.com/upsilon/items/c368726845f89cb0ffe9<ul>
-<li>
-<code>avahi</code>の設定を参考にしました</li>
-</ul>
-</li>
-</ul>
-</div>
             </article>
 </div>
     

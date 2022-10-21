@@ -46,6 +46,13 @@
         "style": "./style"
       },
       {
+        "liteExtension": false,
+        "load": "static/remoteEntry.5b1700d2534d43a2b820.js",
+        "mimeExtension": "./mimeExtension",
+        "name": "@wrist/jupyterlab-wav",
+        "style": "./style"
+      },
+      {
         "extension": "./extension",
         "liteExtension": false,
         "load": "static/remoteEntry.6a761b1842f6f2e31f74.js",
