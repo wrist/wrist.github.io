@@ -25,4 +25,5 @@ jobs:
         pip install poetry
         poetry install
         git config --global --add safe.directory /__w/wrist.github.io/wrist.github.io
+        git pull origin master:master
         poetry run nikola build && poetry run nikola github_deploy -m 'Nikola auto deploy [ci skip]'
