@@ -97,6 +97,9 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
 <a href="../../pages/slides/index.html" class="nav-link">slide一覧</a>
                 </li>
 <li class="nav-item">
+<a href="../../jupyterlite/lab/" class="nav-link">my jupyterlite</a>
+                </li>
+<li class="nav-item">
 <a href="../../rss.xml" class="nav-link">RSSフィード</a>
 
                 
@@ -124,7 +127,7 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
             <time class="published dt-published" datetime="2018-07-15T18:25:00+09:00" itemprop="datePublished" title="2018-07-15 18:25">2018-07-15 18:25</time></a>
             </p>
                 <p class="commentline">
-        
+    
     <a href="#disqus_thread" data-disqus-identifier="cache/posts/6.html">コメント</a>
 
 
@@ -136,16 +139,15 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<h3>Travis CIによるNikolaブログ構築の自動化</h3>
+    <h3>Travis CIによるNikolaブログ構築の自動化</h3>
 <p>Nikolaでブログを構築するための方法は過去の記事(<a href="http://www.hiromasa.info/posts/1/">1</a>, <a href="http://www.hiromasa.info/posts/2/">2</a>, <a href="http://www.hiromasa.info/posts/3/">3</a>)に書いていますが、手元でのビルドのためにpythonやnikolaがインストールされたPCが必要になるため、ブログ記事を書くための環境が限定されてしまうという問題がありました。
 そこで、この記事では<a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html">Nikola公式の記事</a>を参考に、Travis CIを用いることでsrcブランチにブログ記事をコミットするだけでTravis CI側で自動的にブログを構築し、masterブランチにプッシュしてくれる仕組みを構築する過程を紹介します。
 なお、以下の作業はすべてsrcブランチ上で行います。</p>
 <h4>
 <code>conf.py</code>の編集</h4>
 <p>まず、<code>nikola github_deploy</code>コマンド実行時に、デプロイと同時にsrcブランチもコミットするかどうかを制御するためのオプションをFalseに設定します。</p>
-<pre class="code literal-block"><span></span><code><span class="n">GITHUB_COMMIT_SOURCE</span> <span class="o">=</span> <span class="kc">False</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="n">GITHUB_COMMIT_SOURCE</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
 
 <p>これはTravis CIではソースブランチへのコミットをトリガーに<code>nikola build &amp;&amp; nikola github_deploy</code>を実行するため、<code>nikola github_deploy</code>によってsrcブランチがコミットされると再度それがトリガーとなって無限ループに陥ってしまうことを防ぐためです。</p>
 <h4>
@@ -153,60 +155,60 @@ Nikolaでブログを構築するための方法は過去の記事(1, 2, 3)に�
 <p>nikolaブログのルートディレクトリ(<code>conf.py</code>が置いてあるディレクトリ)に以下のような<code>.travis.yml</code>ファイルを作成します。
 これは<a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html">Nikola公式の記事</a>に記載のtravis.ymlを改変したものになります。</p>
 <p>※2019/4/8追記, <a href="https://github.com/getnikola/nikola/issues/3237">travis CIでのビルドに失敗する対策のissue</a>の内容を反映</p>
-<pre class="code literal-block"><span></span><code><span class="nt">language</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
-<span class="nt">cache</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apt</span>
-<span class="nt">sudo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="nt">addons</span><span class="p">:</span>
-  <span class="nt">apt</span><span class="p">:</span>
-    <span class="nt">packages</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-ja-base</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-ja</span>
-<span class="nt">branches</span><span class="p">:</span>
-  <span class="nt">only</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">src</span>
-<span class="nt">python</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">3.6</span>
-<span class="nt">before_install</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config --global user.name 'USERNAME'</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config --global user.email 'travis@invalid'</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git config --global push.default 'simple'</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install --upgrade pip wheel</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo -e 'Host github.com\n    StrictHostKeyChecking no' &gt;&gt; ~/.ssh/config</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">eval "$(ssh-agent -s)"</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">chmod 600 id_rsa</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ssh-add id_rsa</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git remote rm origin</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git remote add origin git@github.com:USERNAME/REPO.git</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git fetch origin master</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git branch master FETCH_HEAD</span>
-<span class="nt">install</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'ghp-import2'</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install 'webassets'</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install -U --upgrade-strategy=eager 'Nikola[extras]'</span>
-<span class="nt">script</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nikola build &amp;&amp; nikola github_deploy -m 'Nikola auto deploy [ci skip]'</span>
-<span class="nt">notifications</span><span class="p">:</span>
-  <span class="nt">email</span><span class="p">:</span>
-    <span class="nt">on_success</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">change</span>
-    <span class="nt">on_failure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">always</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w"></span>
+<span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apt</span><span class="w"></span>
+<span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="nt">addons</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">apt</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">packages</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">language-pack-ja-base</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">language-pack-ja</span><span class="w"></span>
+<span class="nt">branches</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">only</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src</span><span class="w"></span>
+<span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.6</span><span class="w"></span>
+<span class="nt">before_install</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git config --global user.name 'USERNAME'</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git config --global user.email 'travis@invalid'</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git config --global push.default 'simple'</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install --upgrade pip wheel</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo -e 'Host github.com\n    StrictHostKeyChecking no' &gt;&gt; ~/.ssh/config</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eval "$(ssh-agent -s)"</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chmod 600 id_rsa</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ssh-add id_rsa</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git remote rm origin</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git remote add origin git@github.com:USERNAME/REPO.git</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git fetch origin master</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git branch master FETCH_HEAD</span><span class="w"></span>
+<span class="nt">install</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install 'ghp-import2'</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install 'webassets'</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -U --upgrade-strategy=eager 'Nikola[extras]'</span><span class="w"></span>
+<span class="nt">script</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nikola build &amp;&amp; nikola github_deploy -m 'Nikola auto deploy [ci skip]'</span><span class="w"></span>
+<span class="nt">notifications</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">email</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">on_success</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">change</span><span class="w"></span>
+<span class="w">    </span><span class="nt">on_failure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span><span class="w"></span>
+</pre></div>
 
 <p>ここで、</p>
-<pre class="code literal-block"><span></span><code><span class="o">-</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">--</span><span class="k">global</span><span class="w"> </span><span class="k">user</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s1">'USERNAME'</span><span class="w"></span>
+<div class="code"><pre class="code literal-block"><span class="o">-</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">--</span><span class="k">global</span><span class="w"> </span><span class="k">user</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="s1">'USERNAME'</span><span class="w"></span>
 <span class="o">-</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="c1">--global user.email 'travis@invalid'</span>
-</code></pre>
+</pre></div>
 
 <p>の行は適切なユーザー名、メールアドレスに、</p>
-<pre class="code literal-block"><span></span><code><span class="o">-</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">remote</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="n">git</span><span class="nv">@github</span><span class="p">.</span><span class="nl">com</span><span class="p">:</span><span class="n">USERNAME</span><span class="o">/</span><span class="n">REPO</span><span class="p">.</span><span class="n">git</span><span class="w"></span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="o">-</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">remote</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="n">git</span><span class="nv">@github</span><span class="p">.</span><span class="nl">com</span><span class="p">:</span><span class="n">USERNAME</span><span class="o">/</span><span class="n">REPO</span><span class="p">.</span><span class="n">git</span><span class="w"></span>
+</pre></div>
 
 <p>の行は適切なユーザー名およびリポジトリ名に変更する必要があります。</p>
 <h4>SSH鍵の生成</h4>
 <p>まず、<code>.gitignore</code>ファイルに<code>id_rsa</code>と<code>id_rsa.pub</code>を無視する設定を追記した上でSSH鍵を生成します。</p>
-<pre class="code literal-block"><span></span><code>$ <span class="nb">echo</span> id_rsa &gt;&gt; .gitignore
+<div class="code"><pre class="code literal-block">$ <span class="nb">echo</span> id_rsa &gt;&gt; .gitignore
 $ <span class="nb">echo</span> id_rsa.pub &gt;&gt; .gitignore
 $ ssh-keygen -C TravisCI -f id_rsa -N <span class="s1">''</span>
-</code></pre>
+</pre></div>
 
 <p>上記を実行すると秘密鍵<code>id_rsa</code>および公開鍵<code>id_rsa.pub</code>が作成されます。
 念のため、<code>.gitignore</code>の無視設定が合っているかを確認するために<code>git status</code>を実行してもaddされる対象となっていないことを確認しておきましょう。
@@ -222,34 +224,34 @@ $ ssh-keygen -C TravisCI -f id_rsa -N <span class="s1">''</span>
 <p>生成した秘密鍵<code>id_rsa</code>は<code>travis encrypt-file</code>によって<code>id_rsa.enc</code>に共通鍵による暗号化を施した上でリポジトリに追加します。
 この暗号化された<code>id_rsa.enc</code>はTravis CIでの自動ビルド時に共通鍵によって復号化され、Travis CIのgithubへのアクセスに使用されます。</p>
 <p>この作業を実行するためにはtravisコマンドが必要となりますが、これはrubyのgemとして配布されているため、インストールされていない場合は下記にようにgemでインストールする必要があります。</p>
-<pre class="code literal-block"><span></span><code>$ gem install --user-install travis
-</code></pre>
+<div class="code"><pre class="code literal-block">$ gem install --user-install travis
+</pre></div>
 
 <p>なおtravisコマンドがインストールされる場所にPATHが通っていない場合はPATHに追加するか、下記一連のコマンドをフルパスで実行する必要があります。</p>
 <p>travisコマンドが実行可能になったら、更に下記を実行します。</p>
-<pre class="code literal-block"><span></span><code>$ travis login
+<div class="code"><pre class="code literal-block">$ travis login
 $ travis <span class="nb">enable</span>
 $ travis encrypt-file id_rsa --add
-</code></pre>
+</pre></div>
 
 <p><code>travis login</code>を実行するとgithubアカウントのユーザ名、パスワードを求められるため入力してください。
 この上で<code>travis enable</code>を実行すると自動ビルドを有効化するリポジトリが正しいか確認されるため、正しければyesと入力しましょう。
 更に<code>travis encrypt-file id_rsa --add</code>を実行すると、秘密鍵<code>id_rsa</code>が暗号化されて<code>id_rsa.enc</code>が生成されます。
 この<code>id_rsa.enc</code>は<code>.gitignore</code>に追加されていないため、<code>git add</code>によってgitの管理下に置かれることになります。
 なお引数の<code>--add</code>を付けておくと、<code>.travis.yml</code>ファイルに<code>id_rsa.enc</code>の復号化を行うための下記のようなopensslのコマンドを追加してくれます。</p>
-<pre class="code literal-block"><span></span><code><span class="nt">before_install</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">openssl aes-256-cbc -K $encrypted_XXXXXX_key -iv $encrypted_XXXXXX_iv</span>
-  <span class="l l-Scalar l-Scalar-Plain">-in id_rsa.enc -out id_rsa -d</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="nt">before_install</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openssl aes-256-cbc -K $encrypted_XXXXXX_key -iv $encrypted_XXXXXX_iv</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">-in id_rsa.enc -out id_rsa -d</span><span class="w"></span>
+</pre></div>
 
 <p><code>-K</code>は共通鍵、<code>-iv</code>は初期ベクトルの指定であり、指定されている値はTravis CI側で環境変数として設定されています。
 (ブラウザからTravis CIの設定を見ると確認することができます)</p>
 <h4>srcブランチへの各種ファイルのadd, commitおよびgithubへのpush</h4>
 <p>以上の作業により<code>conf.py</code>、<code>.gitignore</code>、<code>.travis.yml</code>、<code>id_rsa.enc</code>の4つのファイルが編集・生成されているため、これをsrcブランチにaddした上でcommitし、更にremoteとなっているgithubにpushします。</p>
-<pre class="code literal-block"><span></span><code>$ git add .
+<div class="code"><pre class="code literal-block">$ git add .
 $ git commit -am <span class="s2">"Automate builds with Travis CI"</span>
 $ git push origin src
-</code></pre>
+</pre></div>
 
 <p>これによりTravis CIの自動ビルドが実行されるはずなので、あとはブラウザからTravis CIのページを確認し、ビルドが通っているかを確認するのが良いでしょう。</p>
 <h4>上記設定以降の記事の追加方法</h4>
@@ -265,7 +267,6 @@ $ git push origin src
 <li><a href="https://getnikola.com/blog/automating-nikola-rebuilds-with-travis-ci.html">Nikola公式の記事</a></li>
 </ul>
 </div>
-    </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/nikola/" rel="tag">nikola</a></li>
             <li><a class="tag p-category" href="../../categories/python/" rel="tag">python</a></li>
@@ -280,7 +281,7 @@ $ git push origin src
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>コメント</h2>
         
-        
+    
         <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="hiromasa-info",
@@ -301,7 +302,7 @@ $ git push origin src
 
 
         </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2022         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>

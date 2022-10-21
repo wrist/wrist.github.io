@@ -99,6 +99,9 @@ cookiecutterを使って雛形を生成します。
 <a href="../../pages/slides/index.html" class="nav-link">slides</a>
                 </li>
 <li class="nav-item">
+<a href="../../../jupyterlite/lab/" class="nav-link">my jupyterlite</a>
+                </li>
+<li class="nav-item">
 <a href="../../rss.xml" class="nav-link">RSS feed</a>
 
                 
@@ -126,7 +129,7 @@ cookiecutterを使って雛形を生成します。
             <time class="published dt-published" datetime="2020-07-07T00:00:00+09:00" itemprop="datePublished" title="2020-07-07 00:00">2020-07-07 00:00</time></a>
             </p>
                 <p class="commentline">
-        
+    
     <a href="#disqus_thread" data-disqus-identifier="cache/posts/20.html">Comments</a>
 
 
@@ -138,13 +141,12 @@ cookiecutterを使って雛形を生成します。
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<h3>概要</h3>
+    <h3>概要</h3>
 <p>jupyterlab内でwavファイルが開けなかったので<a href="https://github.com/jupyterlab/jupyterlab-mp4/blob/master/tutorial.md">チュートリアル</a>を参考にMIMEレンダラーを作成しました。
 正直wavファイルの場合は上記チュートリアルと全く同じ操作で作成できてしまいました。</p>
 <h3>プロジェクトの初期化</h3>
 <p><code>cookiecutter</code>を使って雛形を生成します。</p>
-<pre class="code literal-block"><span></span><code>❯ cookiecutter https://github.com/jupyterlab/mimerender-cookiecutter-ts.git
+<div class="code"><pre class="code literal-block">❯ cookiecutter https://github.com/jupyterlab/mimerender-cookiecutter-ts.git
 author_name <span class="o">[]</span>: wrist
 author_email <span class="o">[]</span>: stoicheia1986@gmail.com
 extension_name <span class="o">[</span>myextension<span class="o">]</span>: jupyterlab-wav
@@ -156,15 +158,15 @@ Select data_format:
 <span class="m">1</span> - string
 <span class="m">2</span> - json
 Choose from <span class="m">1</span>, <span class="m">2</span> <span class="o">(</span><span class="m">1</span>, <span class="m">2</span><span class="o">)</span> <span class="o">[</span><span class="m">1</span><span class="o">]</span>: <span class="m">1</span>
-</code></pre>
+</pre></div>
 
 <h3>Extensionのビルドとインストール</h3>
 <p>Extensionの作成には<code>yarn</code>のバージョンが固定された<code>jlpm</code>というjupyterlab付属のツールを用いて行います。
 依存パッケージをインストールし、Extensionをビルドし、jupyterlabのextensionとしてインストールするためには下記を実行します。</p>
-<pre class="code literal-block"><span></span><code>jlpm install
+<div class="code"><pre class="code literal-block">jlpm install
 jlpm run build
 jupyter labextension install . --no-build
-</code></pre>
+</pre></div>
 
 <p>ここで上記をローカル環境で試したところ、jupyterlabのバージョンが1.2.1の場合は現在のJupyterlabとはバージョンの互換性がないというエラーがでてしまいました(既に2.0.0以上を想定している模様です)。</p>
 <p>このためjupyterlabを動作させるために使用しているdocker imageである<a href="https://hub.docker.com/repository/docker/wrist/jupyterlab-custom">wrist/jupyterlab-custom</a>を更新したのですが、
@@ -229,91 +231,91 @@ osx上でDockerが使用するメモリを4096MBにしたところエラーが�
 </li>
 </ul>
 <p>大した量ではないためコード全体を下記に記します。</p>
-<pre class="code literal-block"><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">IRenderMime</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@jupyterlab/rendermime-interfaces'</span><span class="p">;</span>
+<div class="code"><pre class="code literal-block"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">IRenderMime</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@jupyterlab/rendermime-interfaces'</span><span class="p">;</span><span class="w"></span>
 
 
 
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Widget</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@lumino/widgets'</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Widget</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@lumino/widgets'</span><span class="p">;</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * The default mime type for the extension.</span>
-<span class="cm"> */</span>
-<span class="kd">const</span> <span class="nx">MIME_TYPE</span> <span class="o">=</span> <span class="s1">'audio/wav'</span><span class="p">;</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">MIME_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'audio/wav'</span><span class="p">;</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * The class name added to the extension.</span>
-<span class="cm"> */</span>
-<span class="kd">const</span> <span class="nx">CLASS_NAME</span> <span class="o">=</span> <span class="s1">'mimerenderer-wav'</span><span class="p">;</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">CLASS_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'mimerenderer-wav'</span><span class="p">;</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * A widget for rendering wav.</span>
-<span class="cm"> */</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">WavWidget</span> <span class="k">extends</span> <span class="nx">Widget</span> <span class="k">implements</span> <span class="nx">IRenderMime</span><span class="p">.</span><span class="nx">IRenderer</span> <span class="p">{</span>
-  <span class="cm">/**</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">WavWidget</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Widget</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IRenderMime</span><span class="p">.</span><span class="nx">IRenderer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="cm">/**</span>
 <span class="cm">   * Construct a new output widget.</span>
-<span class="cm">   */</span>
-  <span class="kr">constructor</span><span class="p">(</span><span class="nx">options</span>: <span class="kt">IRenderMime.IRendererOptions</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">super</span><span class="p">();</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">mimeType</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">CLASS_NAME</span><span class="p">);</span>
-    <span class="cm">/* 追加 */</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_audio</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'audio'</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_audio</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">'controls'</span><span class="p">,</span> <span class="s1">''</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_audio</span><span class="p">);</span>
-  <span class="p">}</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="kt">IRenderMime.IRendererOptions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">options</span><span class="p">.</span><span class="nx">mimeType</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">CLASS_NAME</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* 追加 */</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_audio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'audio'</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_audio</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">'controls'</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_audio</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="cm">/**</span>
+<span class="w">  </span><span class="cm">/**</span>
 <span class="cm">   * Render wav into this widget's node.</span>
-<span class="cm">   */</span>
-  <span class="nx">renderModel</span><span class="p">(</span><span class="nx">model</span>: <span class="kt">IRenderMime.IMimeModel</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="nx">renderModel</span><span class="p">(</span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="kt">IRenderMime.IMimeModel</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span><span class="p">]</span> <span class="kr">as</span> <span class="kt">string</span><span class="p">;</span>
-    <span class="cm">/* 元コードを削除し下記を追加 */</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_audio</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="sb">`data:</span><span class="si">${</span><span class="nx">MIME_TYPE</span><span class="si">}</span><span class="sb">;base64,</span><span class="si">${</span><span class="nx">data</span><span class="si">}</span><span class="sb">`</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">model</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span><span class="p">]</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* 元コードを削除し下記を追加 */</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_audio</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`data:</span><span class="si">${</span><span class="nx">MIME_TYPE</span><span class="si">}</span><span class="sb">;base64,</span><span class="si">${</span><span class="nx">data</span><span class="si">}</span><span class="sb">`</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span>
-  <span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="k">private</span> <span class="nx">_audio</span>: <span class="kt">HTMLAudioElement</span><span class="p">;</span>
-  <span class="k">private</span> <span class="nx">_mimeType</span>: <span class="kt">string</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">_audio</span><span class="o">:</span><span class="w"> </span><span class="kt">HTMLAudioElement</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">_mimeType</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * A mime renderer factory for wav data.</span>
-<span class="cm"> */</span>
-<span class="k">export</span> <span class="kd">const</span> <span class="nx">rendererFactory</span>: <span class="kt">IRenderMime.IRendererFactory</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">safe</span>: <span class="kt">true</span><span class="p">,</span>
-  <span class="nx">mimeTypes</span><span class="o">:</span> <span class="p">[</span><span class="nx">MIME_TYPE</span><span class="p">],</span>
-  <span class="nx">createRenderer</span>: <span class="kt">options</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">WavWidget</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
-<span class="p">};</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">rendererFactory</span><span class="o">:</span><span class="w"> </span><span class="kt">IRenderMime.IRendererFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">safe</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">mimeTypes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">MIME_TYPE</span><span class="p">],</span><span class="w"></span>
+<span class="w">  </span><span class="nx">createRenderer</span><span class="o">:</span><span class="w"> </span><span class="kt">options</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WavWidget</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Extension definition.</span>
-<span class="cm"> */</span>
-<span class="kd">const</span> <span class="nx">extension</span>: <span class="kt">IRenderMime.IExtension</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">id</span><span class="o">:</span> <span class="s1">'jupyterlab-wav:plugin'</span><span class="p">,</span>
-  <span class="nx">rendererFactory</span><span class="p">,</span>
-  <span class="nx">rank</span>: <span class="kt">0</span><span class="p">,</span>
-  <span class="nx">dataType</span><span class="o">:</span> <span class="s1">'string'</span><span class="p">,</span>
-  <span class="nx">fileTypes</span><span class="o">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nx">name</span><span class="o">:</span> <span class="s1">'wav'</span><span class="p">,</span>
-      <span class="nx">fileFormat</span><span class="o">:</span> <span class="s1">'base64'</span><span class="p">,</span>  <span class="c1">// 追加</span>
-      <span class="nx">mimeTypes</span><span class="o">:</span> <span class="p">[</span><span class="nx">MIME_TYPE</span><span class="p">],</span>
-      <span class="nx">extensions</span><span class="o">:</span> <span class="p">[</span><span class="s1">'.wav'</span><span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="nx">documentWidgetFactoryOptions</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">'JupyterLab wav viewer'</span><span class="p">,</span>
-    <span class="nx">primaryFileType</span><span class="o">:</span> <span class="s1">'wav'</span><span class="p">,</span>
-    <span class="nx">modelName</span><span class="o">:</span> <span class="s1">'base64'</span><span class="p">,</span>  <span class="c1">// 追加</span>
-    <span class="nx">fileTypes</span><span class="o">:</span> <span class="p">[</span><span class="s1">'wav'</span><span class="p">],</span>
-    <span class="nx">defaultFor</span><span class="o">:</span> <span class="p">[</span><span class="s1">'wav'</span><span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">extension</span><span class="o">:</span><span class="w"> </span><span class="kt">IRenderMime.IExtension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'jupyterlab-wav:plugin'</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">rendererFactory</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">rank</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">dataType</span><span class="o">:</span><span class="w"> </span><span class="s1">'string'</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">fileTypes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'wav'</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fileFormat</span><span class="o">:</span><span class="w"> </span><span class="s1">'base64'</span><span class="p">,</span><span class="w">  </span><span class="c1">// 追加</span><span class="w"></span>
+<span class="w">      </span><span class="nx">mimeTypes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">MIME_TYPE</span><span class="p">],</span><span class="w"></span>
+<span class="w">      </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'.wav'</span><span class="p">]</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">],</span><span class="w"></span>
+<span class="w">  </span><span class="nx">documentWidgetFactoryOptions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'JupyterLab wav viewer'</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">primaryFileType</span><span class="o">:</span><span class="w"> </span><span class="s1">'wav'</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">modelName</span><span class="o">:</span><span class="w"> </span><span class="s1">'base64'</span><span class="p">,</span><span class="w">  </span><span class="c1">// 追加</span><span class="w"></span>
+<span class="w">    </span><span class="nx">fileTypes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'wav'</span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="nx">defaultFor</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'wav'</span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="nx">extension</span><span class="p">;</span>
-</code></pre>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">extension</span><span class="p">;</span><span class="w"></span>
+</pre></div>
 
 <p>上記コードを再度ビルドしてjupyterlabを再読み込みすれば完了です。</p>
 <h3>実際の表示の例</h3>
@@ -327,20 +329,20 @@ extensionは単一のJavascriptパッケージであり、npmjs.orgから配布�
 このキーワードはcookiecutterで自動生成された場合既に含まれているため、自ら追加する必要はありません。</p>
 <p>よってnpmjs.orgへと登録することを考えます。
 まずコマンドラインからnpmjsにログインしておきます。</p>
-<pre class="code literal-block"><span></span><code>$ npm adduser  <span class="c1"># ユーザをnpmjs上に作成していない場合</span>
+<div class="code"><pre class="code literal-block">$ npm adduser  <span class="c1"># ユーザをnpmjs上に作成していない場合</span>
 $ npm login
-</code></pre>
+</pre></div>
 
 <p>次に<code>package.json</code>を編集し、<code>name</code>の値を<code>jupyterlab-wav</code>から<code>@wrist/jupyterlab-wav</code>というように<code>@username/extension-name</code>へと変えます。
 更に必要に応じて<code>homepage</code>、<code>license</code>、<code>repository</code>などのフィールドを追加します。</p>
 <p>最後に、<code>README.md</code>を編集して<code>jupyter labextension install</code>の部分を<code>@wrist/jupyterlab-wav</code>のように変更します。</p>
 <p>上記を終えたら下記でnpmjsへとアップロードして終了です。</p>
-<pre class="code literal-block"><span></span><code>$ npm publish --access<span class="o">=</span>public
-</code></pre>
+<div class="code"><pre class="code literal-block">$ npm publish --access<span class="o">=</span>public
+</pre></div>
 
 <p>無事に<a href="https://www.npmjs.com/package/@wrist/jupyterlab-wav">https://www.npmjs.com/package/@wrist/jupyterlab-wav</a>へとアップロードされていれば、以後</p>
-<pre class="code literal-block"><span></span><code>$ jupyter labextension install @wrist/jupyterlab-wav
-</code></pre>
+<div class="code"><pre class="code literal-block">$ jupyter labextension install @wrist/jupyterlab-wav
+</pre></div>
 
 <p>と打つことでインストールできるようになります。
 実際に新規にコンテナを生成し直して上記を試したところ使えるようになりました。</p>
@@ -353,7 +355,6 @@ $ npm login
 <li>Web Audio APIを用いて波形描画やスペクトログラムを描画する</li>
 </ul>
 </div>
-    </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/jupyterlab/" rel="tag">jupyterlab</a></li>
             <li><a class="tag p-category" href="../../categories/typescript/" rel="tag">typescript</a></li>
@@ -367,7 +368,7 @@ $ npm login
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
         
-        
+    
         <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="hiromasa-info",
@@ -388,7 +389,7 @@ $ npm login
 
 
         </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2022         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>

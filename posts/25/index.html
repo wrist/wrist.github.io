@@ -96,6 +96,9 @@ Jupyter blogでも紹介されて">
 <a href="../../pages/slides/index.html" class="nav-link">slide一覧</a>
                 </li>
 <li class="nav-item">
+<a href="../../jupyterlite/lab/" class="nav-link">my jupyterlite</a>
+                </li>
+<li class="nav-item">
 <a href="../../rss.xml" class="nav-link">RSSフィード</a>
 
                 
@@ -123,7 +126,7 @@ Jupyter blogでも紹介されて">
             <time class="published dt-published" datetime="2021-06-18T00:00:00+09:00" itemprop="datePublished" title="2021-06-18 00:00">2021-06-18 00:00</time></a>
             </p>
                 <p class="commentline">
-        
+    
     <a href="#disqus_thread" data-disqus-identifier="cache/posts/25.html">コメント</a>
 
 
@@ -135,8 +138,7 @@ Jupyter blogでも紹介されて">
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<p>この記事では以前に<a href="https://www.hiromasa.info/posts/20/">このポスト</a>で作成した<code>jupyterlab-wav</code>のExtensionを
+    <p>この記事では以前に<a href="https://www.hiromasa.info/posts/20/">このポスト</a>で作成した<code>jupyterlab-wav</code>のExtensionを
 <a href="https://wavesurfer-js.org/">WaveSurfer.js</a>を用いて波形+スペクトログラムが描画できるように今年の2月ごろに改良したのでその過程について説明します。
 (この文章自体3月に書いたまま放置していたため内容として古くなっている部分があるかもしれません)。</p>
 <h3>jupyterlab 3.x系への対応</h3>
@@ -146,8 +148,8 @@ extension開発者にとって大きな変更点として<code>JupyterLab extens
 とあるように、prebuilt extensionをPyPIなどに登録することによってpipやcondaでextensionをインストールできるようになったことが挙げられます。
 これにより、npmやjupyterによるローカルでのビルドなどが不要となったためユーザーはより気軽にExtensionを導入できるようになりました (後述のように従来通りnpmjsからインストールすることも可能です)。</p>
 <p>そんな訳で<code>jupyterlab-wav</code>もpipでインストールできるようになりました。</p>
-<pre class="code literal-block"><span></span><code>$ pip install jupyterlab-wav
-</code></pre>
+<div class="code"><pre class="code literal-block">$ pip install jupyterlab-wav
+</pre></div>
 
 <p>で簡単に導入できます。</p>
 <h3>
@@ -162,22 +164,22 @@ extension開発者にとって大きな変更点として<code>JupyterLab extens
 <a href="https://jupyterlab.readthedocs.io/en/latest/extension/extension_migration.html">Extension Migration Guide</a>を見ながら作業を行いました。</p>
 <h4>手動で<code>package.json</code>のバージョンを上げる場合</h4>
 <p>下記の<code>@jupyterlab/application</code>のバージョンを^3.0.0へと変更すれば良いとのこと。</p>
-<pre class="code literal-block"><span></span><code>  <span class="nt">"dependencies"</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">"@jupyterlab/application"</span><span class="p">:</span> <span class="s2">"^3.0.0"</span><span class="p">,</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="w">  </span><span class="nt">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nt">"@jupyterlab/application"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^3.0.0"</span><span class="p">,</span><span class="w"></span>
+</pre></div>
 
 <p>しかしjupyterlab 3.0には前述のようにextensionを<code>PyPI</code>や<code>conda-forge</code>にアップロードすることで<code>pip</code>や<code>conda</code>でextensionがインストールできるようになり、
 そのためのパッケージングの仕組みが提供されているため、下記手順に沿って対応した方が良いと思われます。</p>
 <h4>upgradeスクリプトを用いた更新</h4>
 <p>Jupyterlab 3.0はupgrade用のスクリプトを公開しているのでこれを用いてバージョンを上げたいと思います。
 まずpipで<code>jupyter-packaging</code>と<code>cookiecutter</code>をインストールします。</p>
-<pre class="code literal-block"><span></span><code>$ pip install jupyterlab -U
+<div class="code"><pre class="code literal-block">$ pip install jupyterlab -U
 $ pip install jupyter-packaging cookiecutter
-</code></pre>
+</pre></div>
 
 <p>上記を実行した上でextensionのルートディレクトリで下記コマンドを実行すると対話的に各種項目を設定することができます。
 <code>python_name [wrist_jupyterlab_wav]:</code>の部分はpythonパッケージ名となり、ここではデフォルトのまま実行していましたが、最終的には各種設定を手動で<code>jupyterlab_wav</code>に書き直しています。</p>
-<pre class="code literal-block"><span></span><code>$ python -m jupyterlab.upgrade_extension .
+<div class="code"><pre class="code literal-block">$ python -m jupyterlab.upgrade_extension .
 author_name <span class="o">[</span>wrist &lt;stoicheia1986@gmail.com&gt;<span class="o">]</span>:
 python_name <span class="o">[</span>wrist_jupyterlab_wav<span class="o">]</span>:
 labextension_name <span class="o">[</span>@wrist/jupyterlab-wav<span class="o">]</span>:
@@ -199,81 +201,81 @@ overwrite <span class="s2">"style/index.css"</span>? <span class="o">[</span>n<s
 ** skipped _temp_extension/style/index.css
 ** Remove _temp_extensions directory when finished
 <span class="o">(</span>
-</code></pre>
+</pre></div>
 
 <p>上記を実行すると、<code>package.json</code>が下記のように上書きされます。</p>
-<pre class="code literal-block"><span></span><code>(base) jovyan@188a4999b58c:/mnt/work/python/tmp/jupyterlab-wav$ git diff
-<span class="gh">diff --git a/package.json b/package.json</span>
-<span class="gh">index 0feeaed..cf1620b 100644</span>
-<span class="gd">--- a/package.json</span>
-<span class="gi">+++ b/package.json</span>
-<span class="gu">@@ -4,8 +4,11 @@</span>
-   "description": "A JupyterLab extension for rendering wav files.",
-   "author": "wrist &lt;stoicheia1986@gmail.com&gt;",
-   "homepage": "https://github.com/wrist/jupyterlab-wav",
-<span class="gd">-  "repository": {"type": "git", "url": "https://github.com/wrist/jupyterlab-wav"},</span>
-<span class="gd">-  "license" : "MIT",</span>
-<span class="gi">+  "repository": {</span>
-<span class="gi">+    "type": "git",</span>
-<span class="gi">+    "url": "https://github.com/wrist/jupyterlab-wav"</span>
-<span class="gi">+  },</span>
-<span class="gi">+  "license": "MIT",</span>
-   "main": "lib/index.js",
-   "types": "lib/index.d.ts",
-   "style": "style/index.css",
-<span class="gu">@@ -16,27 +19,38 @@</span>
-   ],
-   "files": [
-     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
-<span class="gd">-    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}"</span>
-<span class="gi">+    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}",</span>
-<span class="gi">+    "style/index.js"</span>
-   ],
-   "jupyterlab": {
-<span class="gd">-    "mimeExtension": true</span>
-<span class="gi">+    "mimeExtension": true,</span>
-<span class="gi">+    "outputDir": "wrist_jupyterlab_wav/labextension"</span>
-   },
-   "scripts": {
-<span class="gd">-    "clean": "rimraf lib &amp;&amp; rimraf tsconfig.tsbuildinfo",</span>
-     "build": "tsc",
-<span class="gd">-    "prepare": "npm run clean &amp;&amp; npm run build",</span>
-<span class="gd">-    "watch": "tsc -w",</span>
-<span class="gi">+    "clean": "rimraf lib &amp;&amp; rimraf tsconfig.tsbuildinfo",</span>
-<span class="gi">+    "extension:disable": "jupyter labextension disable jupyterlab-wav",</span>
-<span class="gi">+    "extension:enable": "jupyter labextension enable jupyterlab-wav",</span>
-     "extension:install": "jupyter labextension install jupyterlab-wav",
-     "extension:uninstall": "jupyter labextension uninstall  jupyterlab-wav",
-<span class="gd">-    "extension:enable": "jupyter labextension enable jupyterlab-wav",</span>
-<span class="gd">-    "extension:disable": "jupyter labextension disable jupyterlab-wav"</span>
-<span class="gi">+    "prepare": "npm run clean &amp;&amp; npm run build",</span>
-<span class="gi">+    "watch": "tsc -w"</span>
-   },
-   "dependencies": {
-<span class="gd">-    "@jupyterlab/rendermime-interfaces": "^2.0.0",</span>
-<span class="gd">-    "@lumino/widgets": "^1.5.0"</span>
-<span class="gi">+    "@jupyterlab/rendermime-interfaces": "^3.0.2",</span>
-<span class="gi">+    "@lumino/widgets": "^1.16.1"</span>
-   },
-   "devDependencies": {
-<span class="gd">-    "rimraf": "^2.6.3",</span>
-<span class="gd">-    "typescript": "~3.7.0"</span>
-<span class="gd">-  }</span>
-<span class="gd">-}</span>
-<span class="gi">+    "@jupyterlab/builder": "^3.0.0",</span>
-<span class="gi">+    "@typescript-eslint/eslint-plugin": "^4.8.1",</span>
-<span class="gi">+    "@typescript-eslint/parser": "^4.8.1",</span>
-<span class="gi">+    "eslint": "^7.14.0",</span>
-<span class="gi">+    "eslint-config-prettier": "^6.15.0",</span>
-<span class="gi">+    "eslint-plugin-prettier": "^3.1.4",</span>
-<span class="gi">+    "npm-run-all": "^4.1.5",</span>
-<span class="gi">+    "prettier": "^2.1.1",</span>
-<span class="gi">+    "rimraf": "^3.0.2",</span>
-<span class="gi">+    "typescript": "~4.1.3"</span>
-<span class="gi">+  },</span>
-<span class="gi">+  "styleModule": "style/index.js"</span>
-<span class="gi">+}</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="w">(base) jovyan@188a4999b58c:/mnt/work/python/tmp/jupyterlab-wav$ git diff</span>
+<span class="gh">diff --git a/package.json b/package.json</span><span class="w"></span>
+<span class="gh">index 0feeaed..cf1620b 100644</span><span class="w"></span>
+<span class="gd">--- a/package.json</span><span class="w"></span>
+<span class="gi">+++ b/package.json</span><span class="w"></span>
+<span class="gu">@@ -4,8 +4,11 @@</span><span class="w"></span>
+<span class="w"> </span>  "description": "A JupyterLab extension for rendering wav files.",<span class="w"></span>
+<span class="w"> </span>  "author": "wrist &lt;stoicheia1986@gmail.com&gt;",<span class="w"></span>
+<span class="w"> </span>  "homepage": "https://github.com/wrist/jupyterlab-wav",<span class="w"></span>
+<span class="gd">-  "repository": {"type": "git", "url": "https://github.com/wrist/jupyterlab-wav"},</span><span class="w"></span>
+<span class="gd">-  "license" : "MIT",</span><span class="w"></span>
+<span class="gi">+  "repository": {</span><span class="w"></span>
+<span class="gi">+    "type": "git",</span><span class="w"></span>
+<span class="gi">+    "url": "https://github.com/wrist/jupyterlab-wav"</span><span class="w"></span>
+<span class="gi">+  },</span><span class="w"></span>
+<span class="gi">+  "license": "MIT",</span><span class="w"></span>
+<span class="w"> </span>  "main": "lib/index.js",<span class="w"></span>
+<span class="w"> </span>  "types": "lib/index.d.ts",<span class="w"></span>
+<span class="w"> </span>  "style": "style/index.css",<span class="w"></span>
+<span class="gu">@@ -16,27 +19,38 @@</span><span class="w"></span>
+<span class="w"> </span>  ],<span class="w"></span>
+<span class="w"> </span>  "files": [<span class="w"></span>
+<span class="w"> </span>    "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",<span class="w"></span>
+<span class="gd">-    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}"</span><span class="w"></span>
+<span class="gi">+    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}",</span><span class="w"></span>
+<span class="gi">+    "style/index.js"</span><span class="w"></span>
+<span class="w"> </span>  ],<span class="w"></span>
+<span class="w"> </span>  "jupyterlab": {<span class="w"></span>
+<span class="gd">-    "mimeExtension": true</span><span class="w"></span>
+<span class="gi">+    "mimeExtension": true,</span><span class="w"></span>
+<span class="gi">+    "outputDir": "wrist_jupyterlab_wav/labextension"</span><span class="w"></span>
+<span class="w"> </span>  },<span class="w"></span>
+<span class="w"> </span>  "scripts": {<span class="w"></span>
+<span class="gd">-    "clean": "rimraf lib &amp;&amp; rimraf tsconfig.tsbuildinfo",</span><span class="w"></span>
+<span class="w"> </span>    "build": "tsc",<span class="w"></span>
+<span class="gd">-    "prepare": "npm run clean &amp;&amp; npm run build",</span><span class="w"></span>
+<span class="gd">-    "watch": "tsc -w",</span><span class="w"></span>
+<span class="gi">+    "clean": "rimraf lib &amp;&amp; rimraf tsconfig.tsbuildinfo",</span><span class="w"></span>
+<span class="gi">+    "extension:disable": "jupyter labextension disable jupyterlab-wav",</span><span class="w"></span>
+<span class="gi">+    "extension:enable": "jupyter labextension enable jupyterlab-wav",</span><span class="w"></span>
+<span class="w"> </span>    "extension:install": "jupyter labextension install jupyterlab-wav",<span class="w"></span>
+<span class="w"> </span>    "extension:uninstall": "jupyter labextension uninstall  jupyterlab-wav",<span class="w"></span>
+<span class="gd">-    "extension:enable": "jupyter labextension enable jupyterlab-wav",</span><span class="w"></span>
+<span class="gd">-    "extension:disable": "jupyter labextension disable jupyterlab-wav"</span><span class="w"></span>
+<span class="gi">+    "prepare": "npm run clean &amp;&amp; npm run build",</span><span class="w"></span>
+<span class="gi">+    "watch": "tsc -w"</span><span class="w"></span>
+<span class="w"> </span>  },<span class="w"></span>
+<span class="w"> </span>  "dependencies": {<span class="w"></span>
+<span class="gd">-    "@jupyterlab/rendermime-interfaces": "^2.0.0",</span><span class="w"></span>
+<span class="gd">-    "@lumino/widgets": "^1.5.0"</span><span class="w"></span>
+<span class="gi">+    "@jupyterlab/rendermime-interfaces": "^3.0.2",</span><span class="w"></span>
+<span class="gi">+    "@lumino/widgets": "^1.16.1"</span><span class="w"></span>
+<span class="w"> </span>  },<span class="w"></span>
+<span class="w"> </span>  "devDependencies": {<span class="w"></span>
+<span class="gd">-    "rimraf": "^2.6.3",</span><span class="w"></span>
+<span class="gd">-    "typescript": "~3.7.0"</span><span class="w"></span>
+<span class="gd">-  }</span><span class="w"></span>
+<span class="gd">-}</span><span class="w"></span>
+<span class="gi">+    "@jupyterlab/builder": "^3.0.0",</span><span class="w"></span>
+<span class="gi">+    "@typescript-eslint/eslint-plugin": "^4.8.1",</span><span class="w"></span>
+<span class="gi">+    "@typescript-eslint/parser": "^4.8.1",</span><span class="w"></span>
+<span class="gi">+    "eslint": "^7.14.0",</span><span class="w"></span>
+<span class="gi">+    "eslint-config-prettier": "^6.15.0",</span><span class="w"></span>
+<span class="gi">+    "eslint-plugin-prettier": "^3.1.4",</span><span class="w"></span>
+<span class="gi">+    "npm-run-all": "^4.1.5",</span><span class="w"></span>
+<span class="gi">+    "prettier": "^2.1.1",</span><span class="w"></span>
+<span class="gi">+    "rimraf": "^3.0.2",</span><span class="w"></span>
+<span class="gi">+    "typescript": "~4.1.3"</span><span class="w"></span>
+<span class="gi">+  },</span><span class="w"></span>
+<span class="gi">+  "styleModule": "style/index.js"</span><span class="w"></span>
+<span class="gi">+}</span><span class="w"></span>
+</pre></div>
 
 <p>各種依存ライブラリのバージョンが更新されていることが分かります。
 <code>@jupyterlab/builder</code>が<code>devDependency</code>に追加されているが、これは<code>federated extension</code>としてextensionをビルドするために必要となるものです。
@@ -282,7 +284,7 @@ extension開発においては直接<code>@jupyterlab/builder</code>を対話的
 このコマンドはビルドスクリプト<code>jlpm run build</code>の一部として自動的に実行されます。</p>
 <p>また、<code>python -m jupyterlab.upgrade_extension .</code>の実行によりパッケージングに必要となる<code>setup.py</code>や<code>pyproject.toml</code>などが生成されています。
 実際に実行したところ、下記のファイル/ディレクトリ群が追加されていました。</p>
-<pre class="code literal-block"><span></span><code>.eslintignore
+<div class="code"><pre class="code literal-block">.eslintignore
 .eslintrc.js
 .github/
 .prettierignore
@@ -296,83 +298,83 @@ setup.py
 style/base.css
 style/index.js
 wrist_jupyterlab_wav/
-</code></pre>
+</pre></div>
 
 <p><code>eslint</code>は構文チェック、<code>prettier</code>はフォーマッタであり、それらの設定ファイルが追加されています。
 <code>LICENSE</code>は自動的に追加されていたが中身は3条項BSDライセンスでした。元々存在していたpackage.jsonにはLicenseをMITと記載していましたが、これを受けてBSD3-clauseに修正しています。</p>
 <p><code>.github</code>以下にはgithub actionsで使用するworkflow定義のymlファイルが格納されています。<code>main</code>ブランチに対して動作するため、今回はmasterに対して発動するように修正しています。</p>
 <p>また、実際にgithubにpushしてactionsのタブを見るとbuild時にエラーが出ていました、これは<code>package.json</code>の<code>scripts</code>に<code>eslint:check</code>が存在していないためでした。
 ここでは下記のscirptsを追加した上で、実際にeslintを実行して指摘箇所の修正を行いました。</p>
-<pre class="code literal-block"><span></span><code>   <span class="nt">"eslint"</span><span class="p">:</span> <span class="s2">"eslint . --ext .ts,.tsx --fix"</span><span class="p">,</span>
-   <span class="nt">"eslint:check"</span><span class="p">:</span> <span class="s2">"eslint . --ext .ts,.tsx"</span><span class="p">,</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="w">   </span><span class="nt">"eslint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eslint . --ext .ts,.tsx --fix"</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="nt">"eslint:check"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eslint . --ext .ts,.tsx"</span><span class="p">,</span><span class="w"></span>
+</pre></div>
 
 <p>ここに限らずmigrateの過程でpackage.jsonにscriptが全て追加されておらず、<code>build:prod</code>のscriptがないために生じたエラーなどにも遭遇しましたが、
 最終的には<code>https://github.com/jupyterlab/extension-cookiecutter-ts</code>のリポジトリのpackage.jsonに記載のscriptを追加することで解決しています。</p>
 <h4>extensionのローカルインストール</h4>
 <p><a href="https://www.hiromasa.info/posts/20/">過去に書いた記事</a>では下記のようにビルドを実行していましたが、</p>
-<pre class="code literal-block"><span></span><code>$ jlpm install
+<div class="code"><pre class="code literal-block">$ jlpm install
 $ jlpm run build
 $ jupyter labextension install . --no-build
 $ jupyter lab
-</code></pre>
+</pre></div>
 
 <p>テンプレートディレクトリのREADME.mdに記載されている下記手順のように実行することでローカルでのテスト用にextensionをjupyterlabにリンクできます。</p>
-<pre class="code literal-block"><span></span><code>$ pip install -e .
+<div class="code"><pre class="code literal-block">$ pip install -e .
 $ jupyter labextension develop . --overwrite
 $ jlpm run build
-</code></pre>
+</pre></div>
 
 <p>jlpmによるビルドが終了した後にjupyterlabを立ち上げるとextensionが有効化されているはずです。</p>
 <h3>jupyterlab-wavの修正</h3>
 <p>今回の作業のついでに<code>jupyterlab-wav</code>を改良しています。
 前述のように波形可視化ライブラリである<code>wavesurfer.js</code>を追加し、これを用いて描画を試みていますが、
 下記のように最初にjlpmでパッケージをいくつか追加しています。</p>
-<pre class="code literal-block"><span></span><code>$ jlpm add wavesurfer.js
+<div class="code"><pre class="code literal-block">$ jlpm add wavesurfer.js
 $ jlpm add @types/wavesurfer.js
 $ jlpm add colormap
-</code></pre>
+</pre></div>
 
 <h3>react-widgetの導入</h3>
 <p>以前のMIME Extensionのテンプレートを改造しただけのプロジェクトでは<code>IRenderMime.IRenderer</code>を実装するためのクラスを作り、
 ファイルをjupyterlabで開いた際に呼ばれる<code>renderModel</code>メソッドを定義して<code>audio</code>要素に<code>src</code>属性を設定していただけでしたが、
 今回の修正では<code>react-widget</code>を下記コードのように導入しています。</p>
-<pre class="code literal-block"><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">ReactWidget</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@jupyterlab/apputils'</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">IRenderMime</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@jupyterlab/rendermime-interfaces'</span><span class="p">;</span>
+<div class="code"><pre class="code literal-block"><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ReactWidget</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@jupyterlab/apputils'</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">IRenderMime</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'@jupyterlab/rendermime-interfaces'</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="s1">'react'</span><span class="p">;</span>
-<span class="k">import</span> <span class="nx">AudioComponent</span> <span class="k">from</span> <span class="s1">'./AudioComponent'</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">React</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'react'</span><span class="p">;</span><span class="w"></span>
+<span class="k">import</span><span class="w"> </span><span class="nx">AudioComponent</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./AudioComponent'</span><span class="p">;</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">CLASS_NAME</span> <span class="o">=</span> <span class="s1">'mimerenderer-wav'</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">CLASS_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'mimerenderer-wav'</span><span class="p">;</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * A widget for rendering wav.</span>
-<span class="cm"> */</span>
-<span class="k">export</span> <span class="kd">class</span> <span class="nx">WavWidget</span> <span class="k">extends</span> <span class="nx">ReactWidget</span> <span class="k">implements</span> <span class="nx">IRenderMime</span><span class="p">.</span><span class="nx">IRenderer</span> <span class="p">{</span>
-  <span class="kr">constructor</span><span class="p">(</span><span class="nx">options</span>: <span class="kt">IRenderMime.IRendererOptions</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">super</span><span class="p">();</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">mimeType</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_src</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">CLASS_NAME</span><span class="p">);</span>
-  <span class="p">}</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">WavWidget</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">ReactWidget</span><span class="w"> </span><span class="k">implements</span><span class="w"> </span><span class="nx">IRenderMime</span><span class="p">.</span><span class="nx">IRenderer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="kt">IRenderMime.IRendererOptions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">options</span><span class="p">.</span><span class="nx">mimeType</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">CLASS_NAME</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="nx">renderModel</span><span class="p">(</span><span class="nx">model</span>: <span class="kt">IRenderMime.IMimeModel</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span><span class="p">]</span> <span class="kr">as</span> <span class="kt">string</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">_src</span> <span class="o">=</span> <span class="sb">`data:</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span><span class="si">}</span><span class="sb">;base64,</span><span class="si">${</span><span class="nx">data</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">renderModel</span><span class="p">(</span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="kt">IRenderMime.IMimeModel</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">model</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span><span class="p">]</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`data:</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">_mimeType</span><span class="si">}</span><span class="sb">;base64,</span><span class="si">${</span><span class="nx">data</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span><span class="w"></span>
 
-    <span class="k">this</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span>
-  <span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">AudioComponent</span> <span class="nx">src</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_src</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="nx">render</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">AudioComponent</span><span class="w"> </span><span class="nx">src</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">_src</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="k">private</span> <span class="nx">_src</span>: <span class="kt">string</span><span class="p">;</span>
-  <span class="k">private</span> <span class="nx">_mimeType</span>: <span class="kt">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">_src</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">_mimeType</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
 
 <p>jupyterlab上でファイルを開いた際に<code>renderModel</code>メソッドが呼ばれる点は同じですが、
 この際に<code>this.update()</code>を実行することで<code>ReactWidget</code>をextendsする際に必須となる<code>render</code>メソッドを明示的に呼び出しています。
@@ -384,25 +386,25 @@ Reactコンポーネント自体はjupyterlabと独立にReact単体のエコシ
 アップロードの方法については<a href="https://jupyterlab.readthedocs.io/en/latest/extension/extension_tutorial.html#extension-tutorial-publish">extension tutorialのpublishに関する部分</a>に説明があります。</p>
 <h4>PyPIへのアップロード</h4>
 <p>自動生成された<code>setup.py</code>を用いてパッケージのビルドを行います。</p>
-<pre class="code literal-block"><span></span><code>$ python setup.py build sdist
+<div class="code"><pre class="code literal-block">$ python setup.py build sdist
 $ python setup.py build bdist_wheel
-</code></pre>
+</pre></div>
 
 <p>ビルドの成果物がdist以下に保存されるので、これらをPyPIへとアップロードします。
 ここではtwineを使ってアップロードを行います。
 予めTestPyPIにアップロードし問題ないことを確認した上でPyPIへとアップロードします。</p>
-<pre class="code literal-block"><span></span><code>$ pip install twine
+<div class="code"><pre class="code literal-block">$ pip install twine
 $ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 $ twine upload dist/*
-</code></pre>
+</pre></div>
 
 <h4>npmjsへのアップロード</h4>
 <p>extensionはPyPIやconda-forgeにアップロードするだけでなく、従来のようにnpmへとアップロードすることもできます。
 これはnpmパッケージとして配布することでユーザーがJupyterLab 1.xや2.xと同様にextensionを明示的にコンパイルして追加することが可能となるためであったり、
 他のextensionからサービスとして利用されるextensionを公開したい場合はJavaScriptパッケージをpublishする必要があるためとのことです。</p>
 <p>以前の記事では<code>npm</code>を使ってアップロードしていましたが、ここではjlpmを使ってアップロードを試みました。</p>
-<pre class="code literal-block"><span></span><code>$ jlpm publish --access<span class="o">=</span>public
-</code></pre>
+<div class="code"><pre class="code literal-block">$ jlpm publish --access<span class="o">=</span>public
+</pre></div>
 
 <h4>作成中に遭遇した問題</h4>
 <ul>
@@ -442,7 +444,6 @@ $ twine upload dist/*
 <li>colormapの制御</li>
 </ul>
 </div>
-    </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/jupyterlab/" rel="tag">jupyterlab</a></li>
         </ul>
@@ -452,7 +453,7 @@ $ twine upload dist/*
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>コメント</h2>
         
-        
+    
         <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="hiromasa-info",
@@ -473,7 +474,7 @@ $ twine upload dist/*
 
 
         </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2022         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>

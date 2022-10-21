@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (MacOSについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/macos.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2021 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 18 Jun 2021 01:43:18 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築</title><link>http://www.hiromasa.info/posts/23/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;p&gt;普段使用しているMacBook Proのバタフライキーボードにおいて特定のキーが繰り返し入力されたりバッテリーが膨張しつつある問題が発生したため修理に出す前にTimeMachineを用いてバックアップを取ろうと思ったが、調べたところ最近のSambaでは特定の条件が揃えばネットワーク越しにTimeMachineを用いてバックアップを取ることが可能であることが分かったため、その際に設定した環境構築のメモを下記に記す。&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (MacOSについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/macos.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 21 Oct 2022 16:46:43 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Ubuntu 18.04のSambaサーバー上にTimeMachineのバックアップ環境を構築</title><link>http://www.hiromasa.info/posts/23/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;p&gt;普段使用しているMacBook Proのバタフライキーボードにおいて特定のキーが繰り返し入力されたりバッテリーが膨張しつつある問題が発生したため修理に出す前にTimeMachineを用いてバックアップを取ろうと思ったが、調べたところ最近のSambaでは特定の条件が揃えばネットワーク越しにTimeMachineを用いてバックアップを取ることが可能であることが分かったため、その際に設定した環境構築のメモを下記に記す。&lt;/p&gt;
 &lt;h3&gt;手順&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;ppaを追加し新しめのバージョンのsambaを入れる&lt;/li&gt;
@@ -11,47 +11,47 @@
 &lt;p&gt;2020/10/31現在、aptでインストールされるsambaはバージョン4.7.6であるが、
 バージョン4.8以降でなければTimeMachineバックアップ用の設定ができないのでリポジトリを追加した上で新しいバージョンのsambaをインストールする。
 &lt;a href="https://askubuntu.com/questions/1166875/unable-to-built-samba-4-10-6-from-source"&gt;このQA&lt;/a&gt;のAnswerを参考に下記のようにppaを追加する。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo add-apt-repository ppa:linux-schools/samba-latest
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ sudo add-apt-repository ppa:linux-schools/samba-latest
 $ sudo apt-get dist-upgrade
 $ sudo apt-get install samba
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;バージョンは下記のように確認可能である。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ smbd -V
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ smbd -V
 &amp;gt; Version &lt;span class="m"&gt;4&lt;/span&gt;.10.18
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;2. &lt;code&gt;/etc/samba/smbd.conf&lt;/code&gt;を編集する&lt;/h3&gt;
 &lt;p&gt;様々なサイトを参考に下記のような項目を追加した(が不要な設定もあるかもしれない)。
 pathは適宜共有したいディレクトリに書き換えること。また&lt;code&gt;fruit:time machine max size&lt;/code&gt;の項目は適切なサイズを設定しておかないとTimeMachineはディスクをフルに使おうとしてしまうので注意が必要である。
 正確な設定項目については&lt;a href="https://www.samba.org/samba/docs/current/man-html/vfs_fruit.8.html"&gt;マニュアル&lt;/a&gt;を見たほうが良い。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;[global]&lt;/span&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="k"&gt;[global]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="c1"&gt;# Special configuration for Apple's Time Machine&lt;/span&gt;
-&lt;span class="na"&gt;vfs objects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;catia fruit streams_xattr &lt;/span&gt;
-&lt;span class="na"&gt;fruit:model&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;MacPro&lt;/span&gt;
-&lt;span class="na"&gt;fruit:advertise_fullsync&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;true&lt;/span&gt;
-&lt;span class="na"&gt;fruit:aapl&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;yes&lt;/span&gt;
+&lt;span class="c1"&gt;# Special configuration for Apple's Time Machine&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="na"&gt;vfs objects&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;catia fruit streams_xattr &lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="na"&gt;fruit:model&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;MacPro&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="na"&gt;fruit:advertise_fullsync&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;true&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="na"&gt;fruit:aapl&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;yes&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="k"&gt;[TimeMachine]&lt;/span&gt;
-  &lt;span class="na"&gt;comment&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;Backup for Mac Computers&lt;/span&gt;
-  &lt;span class="na"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/path/to/share&lt;/span&gt;
-  &lt;span class="na"&gt;writable&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;yes&lt;/span&gt;
-  &lt;span class="na"&gt;browsable&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;yes&lt;/span&gt;
-  &lt;span class="na"&gt;guest ok&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;yes&lt;/span&gt;
-  &lt;span class="na"&gt;fruit:time machine&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;yes&lt;/span&gt;
-  &lt;span class="na"&gt;fruit:time machine max size&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;600G&lt;/span&gt;
-  &lt;span class="na"&gt;durable handles&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;yes&lt;/span&gt;
-  &lt;span class="na"&gt;kernel oplocks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;no&lt;/span&gt;
-  &lt;span class="na"&gt;kernel share modes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;no&lt;/span&gt;
-  &lt;span class="na"&gt;posix locking&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;no&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;span class="k"&gt;[TimeMachine]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;comment&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;Backup for Mac Computers&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;path&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;/path/to/share&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;writable&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;yes&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;browsable&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;yes&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;guest ok&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;yes&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;fruit:time machine&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;yes&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;fruit:time machine max size&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;600G&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;durable handles&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;yes&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;kernel oplocks&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;no&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;kernel share modes&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;no&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;posix locking&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;no&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3&gt;3. &lt;code&gt;avahi-daemon&lt;/code&gt;の設定をする&lt;/h3&gt;
 &lt;p&gt;上記設定を施したのちにsambaのデーモンを再起動した時点で使えるかと思ったがどうやら別途&lt;code&gt;avahi-daemon&lt;/code&gt;(mDNS)の設定をしなければならなかったことが分かった。
 &lt;a href="https://www.samba.org/samba/docs/current/man-html/vfs_fruit.8.html"&gt;この記事&lt;/a&gt;を参考に下記のような設定を記述したファイルを&lt;code&gt;/etc/avahi/services/timemachine.service&lt;/code&gt;として作成した。
 なおここでは&lt;code&gt;avahi-daemon&lt;/code&gt;自体はaptで別途インストール済みであることを想定している。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="cp"&gt;&amp;lt;?xml version="1.0" standalone='no'?&amp;gt;&lt;/span&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="cp"&gt;&amp;lt;?xml version="1.0" standalone='no'?&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;&amp;lt;!DOCTYPE service-group SYSTEM "avahi-service.dtd"&amp;gt;&lt;/span&gt;
 &lt;span class="nt"&gt;&amp;lt;service-group&amp;gt;&lt;/span&gt;
  &lt;span class="nt"&gt;&amp;lt;name&lt;/span&gt; &lt;span class="na"&gt;replace-wildcards=&lt;/span&gt;&lt;span class="s"&gt;"yes"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;%h&lt;span class="nt"&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
@@ -64,7 +64,7 @@ pathは適宜共有したいディレクトリに書き換えること。また&
    &lt;span class="nt"&gt;&amp;lt;txt-record&amp;gt;&lt;/span&gt;dk0=adVN=TimeMachine,adVF=0x82&lt;span class="nt"&gt;&amp;lt;/txt-record&amp;gt;&lt;/span&gt;
  &lt;span class="nt"&gt;&amp;lt;/service&amp;gt;&lt;/span&gt;
 &lt;span class="nt"&gt;&amp;lt;/service-group&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;ここで&lt;code&gt;&amp;lt;txt-record&amp;gt;dk0=adVN=TimeMachine,adVF=0x82&amp;lt;/txt-record&amp;gt;&lt;/code&gt;の&lt;code&gt;TimeMachine&lt;/code&gt;となっている部分は&lt;code&gt;/etc/samba/smb.conf&lt;/code&gt;の共有名と共通にしておく必要がある。&lt;/p&gt;
 &lt;h3&gt;4. sambaのdaemonをrestartしMacOSからTimeMachineを実行&lt;/h3&gt;
@@ -85,4 +85,4 @@ MacOS(手元のマシンはCatalina 10.15.7)のシステム環境設定にある
 &lt;li&gt;&lt;code&gt;avahi&lt;/code&gt;の設定を参考にしました&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;/ul&gt;&lt;/div&gt;</description><category>avahi-daemon</category><category>MacOS</category><category>samba</category><category>TimeMachine</category><category>ubuntu</category><guid>http://www.hiromasa.info/posts/23/</guid><pubDate>Sat, 31 Oct 2020 14:00:00 GMT</pubDate></item></channel></rss>
+&lt;/ul&gt;</description><category>avahi-daemon</category><category>MacOS</category><category>samba</category><category>TimeMachine</category><category>ubuntu</category><guid>http://www.hiromasa.info/posts/23/</guid><pubDate>Sat, 31 Oct 2020 14:00:00 GMT</pubDate></item></channel></rss>

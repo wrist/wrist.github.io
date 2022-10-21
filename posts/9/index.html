@@ -99,6 +99,9 @@ ubuntu上のsambaサービスで提供している共有フォルダにアクセ
 <a href="../../pages/slides/index.html" class="nav-link">slide一覧</a>
                 </li>
 <li class="nav-item">
+<a href="../../jupyterlite/lab/" class="nav-link">my jupyterlite</a>
+                </li>
+<li class="nav-item">
 <a href="../../rss.xml" class="nav-link">RSSフィード</a>
 
                 
@@ -126,7 +129,7 @@ ubuntu上のsambaサービスで提供している共有フォルダにアクセ
             <time class="published dt-published" datetime="2018-09-02T11:01:00+09:00" itemprop="datePublished" title="2018-09-02 11:01">2018-09-02 11:01</time></a>
             </p>
                 <p class="commentline">
-        
+    
     <a href="#disqus_thread" data-disqus-identifier="cache/posts/9.html">コメント</a>
 
 
@@ -138,8 +141,7 @@ ubuntu上のsambaサービスで提供している共有フォルダにアクセ
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<h3>osx high sierraからSMBに接続できない問題の解決</h3>
+    <h3>osx high sierraからSMBに接続できない問題の解決</h3>
 <p>2018/8/26に突然自宅Ubuntuで立てているファイルサーバで動作しているSambaにアクセスできなくなったためその原因を調べた。</p>
 <h4>現象</h4>
 <ul>
@@ -159,18 +161,18 @@ ubuntu上のsambaサービスで提供している共有フォルダにアクセ
 <h4>解決方法</h4>
 <p><code>NetAuthSysAgent 1025</code>でググって出てきた<a href="https://apple.stackexchange.com/questions/257836/mac-mini-cant-connect-to-my-corporate-smb-server-was-working-some-days-ago">stackexchangeの回答</a>で解決した。
 上記の記事いわく、Android SDKを過去にインストールした際などに入るアクセラレータであるHAXMのカーネルエクステンションがインストールされていることが原因であるとのことであり、</p>
-<pre class="code literal-block"><span></span><code>$ kextstat <span class="p">|</span> grep -iv apple
-</code></pre>
+<div class="code"><pre class="code literal-block">$ kextstat <span class="p">|</span> grep -iv apple
+</pre></div>
 
 <p>の出力に<code>intelhaxm</code>が含まれている場合がそれに該当する。
 現時点でAndroid SDK自体をもはや使っていないため、下記を実行してアンインストールした。</p>
-<pre class="code literal-block"><span></span><code>$ sudo /Library/Extensions/intelhaxm.kext/Contents/Resources/uninstall.sh
-</code></pre>
+<div class="code"><pre class="code literal-block">$ sudo /Library/Extensions/intelhaxm.kext/Contents/Resources/uninstall.sh
+</pre></div>
 
 <p>アンインストール後、再起動すれば接続できるようになった。</p>
 <h4>具体的なコマンド実行履歴</h4>
 <p><code>192.168.XX.XX</code>はsambaが動いているホストのIPアドレスであり、<code>smbutil view</code>は指定した<code>smb</code>プロトコルによる接続先が見えているかの確認である。</p>
-<pre class="code literal-block"><span></span><code><span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:04:33<span class="o">]</span> &gt; smbutil view smb://192.168.XX.XX                      <span class="o">[</span>~<span class="o">]</span>
+<div class="code"><pre class="code literal-block"><span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:04:33<span class="o">]</span> &gt; smbutil view smb://192.168.XX.XX                      <span class="o">[</span>~<span class="o">]</span>
 smbutil: server connection failed: No such file or directory
 <span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:05:48<span class="o">]</span> &gt; kextstat                                              <span class="o">[</span>~<span class="o">]</span>
 <span class="o">[</span>wrist@wrist-pro <span class="m">16</span>:06:06<span class="o">]</span> &gt; kextstat <span class="p">|</span> grep -iv apple                             <span class="o">[</span>~<span class="o">]</span>
@@ -194,8 +196,7 @@ Do you wish to uninstall Intel HAXM <span class="o">(</span>y/n<span class="o">)
 Removing Intel HAXM files
 
 Intel HAXM has been successfully uninstalled
-</code></pre>
-</div>
+</pre></div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/osx/" rel="tag">osx</a></li>
@@ -210,7 +211,7 @@ Intel HAXM has been successfully uninstalled
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>コメント</h2>
         
-        
+    
         <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="hiromasa-info",
@@ -231,7 +232,7 @@ Intel HAXM has been successfully uninstalled
 
 
         </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2022         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>

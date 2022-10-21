@@ -98,6 +98,9 @@
 <a href="../../pages/slides/index.html" class="nav-link">slides</a>
                 </li>
 <li class="nav-item">
+<a href="../../../jupyterlite/lab/" class="nav-link">my jupyterlite</a>
+                </li>
+<li class="nav-item">
 <a href="../../rss.xml" class="nav-link">RSS feed</a>
 
                 
@@ -125,7 +128,7 @@
             <time class="published dt-published" datetime="2020-11-22T00:00:00+09:00" itemprop="datePublished" title="2020-11-22 00:00">2020-11-22 00:00</time></a>
             </p>
                 <p class="commentline">
-        
+    
     <a href="#disqus_thread" data-disqus-identifier="cache/posts/24.html">Comments</a>
 
 
@@ -137,8 +140,7 @@
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<h3>経緯</h3>
+    <h3>経緯</h3>
 <p><a href="https://www.hiromasa.info/posts/23/">前回の記事</a>を書いた後にUbuntu 18.04がインストールされていたMacBook Pro 2009のトラックパッドがバッテリー膨張による圧力によって割れるという惨事が発生してしまった。
 このMacBook Proは以前に一度ファンとバッテリーを自力で換装したことがあるものであり、もう限界と判断して押入れに眠っていたMac mini 2006(大学の先輩から2万円で譲ってもらったもの)を復活させることを決意したのであった。</p>
 <p><img alt="白昼夢の惨劇" src="../../../images/24/broken_mbp.jpg"></p>
@@ -179,10 +181,10 @@
 <h4>DebianのISOをUSBに焼く</h4>
 <p>ここでは<code>debian-10.6.0-i386-netinst.iso</code>を公式から落としてきてUSBメモリに書き込んだ。
 この作業は今回使用するMac miniではない別のマシンで行っている。</p>
-<pre class="code literal-block"><span></span><code>$ df -hか何かでUSBメモリのデバイスのパスを確認する<span class="o">(</span>ここでは<span class="sb">`</span>/dev/disk4<span class="sb">`</span><span class="o">)</span>
+<div class="code"><pre class="code literal-block">$ df -hか何かでUSBメモリのデバイスのパスを確認する<span class="o">(</span>ここでは<span class="sb">`</span>/dev/disk4<span class="sb">`</span><span class="o">)</span>
 $ diskutil umountDisk /dev/disk4
 $ sudo dd <span class="k">if</span><span class="o">=</span>debian-10.6.0-i386-netinst.iso <span class="nv">of</span><span class="o">=</span>/dev/rdisk4  <span class="c1"># /dev/rdisk4, とrを付けると早く書き込まれるらしい</span>
-</code></pre>
+</pre></div>
 
 <hr>
 <h4>Mac mini上での作業</h4>
@@ -209,32 +211,32 @@ Debian上で<code>ip addr</code>でMACアドレスを表示させ、有線LANの
 <h5>sudoグループへの所属</h5>
 <p>インストール時に登録したユーザーがデフォルトではsudoを使えないため、一度suでrootユーザになった上でsudoグループに所属させる。
 <code>$</code>は一般ユーザ、<code>#</code>はrootユーザでの実行を意味する。</p>
-<pre class="code literal-block"><span></span><code>$ su
+<div class="code"><pre class="code literal-block">$ su
 <span class="c1"># gpasswd -a ${username} sudo</span>
 <span class="c1"># exit</span>
-</code></pre>
+</pre></div>
 
 <h5>SSHの設定</h5>
 <p>鍵認証による接続を行うために公開鍵の登録をした後に<code>/etc/ssh/sshd_config</code>を編集する。
 公開鍵はクライアント側から<code>ssh-copy-id -i id_rsa.pub ${ipaddr}</code>で転送しても良いが、GitHubに登録してある公開鍵を使う場合は<code>wget https://github.com/${username}.keys -qO - &gt;&gt; ~/.ssh/authorized_keys</code>で<code>authorized_keys</code>に追記しても良い。</p>
 <p>次に<code>sudo vi /etc/ssh/sshd_config</code>に下記項目を設定する。</p>
-<pre class="code literal-block"><span></span><code>Port ポート番号  # 変更したい場合
+<div class="code"><pre class="code literal-block">Port ポート番号  # 変更したい場合
 PubkeyAuthentication yes
 PermitRootLogin no
 PermitEmptyPasswords no
 PasswordAuthentication no
-</code></pre>
+</pre></div>
 
 <p>設定後、<code>sudo systemctl restart sshd</code>でsshdを再起動する。</p>
 <p>このタイミングで他のターミナルからsshしてパスワードログインができなくなっていることを確認する。
 (元々接続していたターミナルでexitしてしまうと再度接続できなくなってしまったときに困る)。</p>
 <p>その後に、クライアント側で<code>~/.ssh/config</code>を下記のように編集しておくと<code>ssh hostname</code>で接続できるようになるため便利である。</p>
-<pre class="code literal-block"><span></span><code>Host hostname
+<div class="code"><pre class="code literal-block">Host hostname
     HostName <span class="cp">${</span><span class="n">ipaddr</span><span class="cp">}</span>
     Port ポート番号
     preferredauthentications publickey
     IdentityFile "/path/to/id_rsa"
-</code></pre>
+</pre></div>
 
 <h5>ホームディレクトリ配下の日本語ディレクトリの英語化</h5>
 <p>セットアップ時に日本語を選択するとホームディレクトリ配下の各種ディレクトリが日本語になってしまっている場合がある。
@@ -243,7 +245,7 @@ PasswordAuthentication no
 <h5>aptで色々入れる</h5>
 <p>とりあえず最低限のパッケージと<a href="https://www.hiromasa.info/posts/23/">前回の記事</a>で書いたように最新版のsambaを使うためのppaを追加する。
 最初にインストールする<code>software-properties-common</code>はdebianで<code>add-apt-repository</code>を使うために必要である。</p>
-<pre class="code literal-block"><span></span><code>$ sudo apt update
+<div class="code"><pre class="code literal-block">$ sudo apt update
 $ sudo apt upgrade
 $ sudo apt install -y software-properties-common
 $ sudo add-apt-repository ppa:linux-schools/samba-latest
@@ -251,106 +253,106 @@ $ sudo apt dist-upgrade
 $ sudo apt install -y git vim zsh tmux curl htop
 $ sudo apt install -y samba
 $ sudo apt install -y build-essential autotools-dev libtool automake autoconf autogen
-</code></pre>
+</pre></div>
 
 <p>しかしリポジトリにppaを追加した後にupdateを掛けたところ無効である旨が表示されたためDebianでは使用不可能であった。</p>
 <hr>
 <h4>シェル環境周りの設定</h4>
 <h5>tmuxの設定</h5>
 <p><code>.tmux.conf</code>を作成し<code>C-t</code>をprefixキーとするために下記のような<code>.tmux.conf</code>を<code>~</code>以下に配置した。</p>
-<pre class="code literal-block"><span></span><code><span class="nv">unbind</span> <span class="nv">C</span><span class="o">-</span><span class="nv">b</span>
-<span class="nv">set</span><span class="o">-</span><span class="nv">option</span> <span class="o">-</span><span class="nv">g</span> <span class="nv">prefix</span> <span class="nv">C</span><span class="o">-</span><span class="nv">t</span>
-<span class="nv">set</span><span class="o">-</span><span class="nv">window</span><span class="o">-</span><span class="nv">option</span> <span class="o">-</span><span class="nv">g</span> <span class="nv">mode</span><span class="o">-</span><span class="nv">keys</span> <span class="nv">vi</span>
-<span class="nv">bind</span> <span class="nv">C</span><span class="o">-</span><span class="nv">t</span> <span class="k">send</span><span class="o">-</span><span class="nv">prefix</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="nv">unbind</span><span class="w"> </span><span class="nv">C</span><span class="o">-</span><span class="nv">b</span><span class="w"></span>
+<span class="nv">set</span><span class="o">-</span><span class="nv">option</span><span class="w"> </span><span class="o">-</span><span class="nv">g</span><span class="w"> </span><span class="nv">prefix</span><span class="w"> </span><span class="nv">C</span><span class="o">-</span><span class="nv">t</span><span class="w"></span>
+<span class="nv">set</span><span class="o">-</span><span class="nv">window</span><span class="o">-</span><span class="nv">option</span><span class="w"> </span><span class="o">-</span><span class="nv">g</span><span class="w"> </span><span class="nv">mode</span><span class="o">-</span><span class="nv">keys</span><span class="w"> </span><span class="nv">vi</span><span class="w"></span>
+<span class="nv">bind</span><span class="w"> </span><span class="nv">C</span><span class="o">-</span><span class="nv">t</span><span class="w"> </span><span class="k">send</span><span class="o">-</span><span class="nv">prefix</span><span class="w"></span>
+</pre></div>
 
 <h5>シェルをzshに変える</h5>
-<pre class="code literal-block"><span></span><code>$ chsh  <span class="c1"># /bin/zshを指定</span>
-</code></pre>
+<div class="code"><pre class="code literal-block">$ chsh  <span class="c1"># /bin/zshを指定</span>
+</pre></div>
 
 <p>再ログインすると色々zshの設定に関する対話スクリプトが走るが、blankファイルだけ生成して脱出した。
 その上で下記のような設定を<code>.zshrc</code>に記述した。
 内容自体は他マシンにおける設定の使い回しであるため各自好きに変更すると良いと思う。</p>
-<pre class="code literal-block"><span></span><code><span class="n">setopt</span> <span class="n">autopushd</span>
-<span class="n">setopt</span> <span class="n">auto_cd</span>
+<div class="code"><pre class="code literal-block"><span class="n">setopt</span><span class="w"> </span><span class="n">autopushd</span><span class="w"></span>
+<span class="n">setopt</span><span class="w"> </span><span class="n">auto_cd</span><span class="w"></span>
 
-<span class="n">WORDCHARS</span><span class="o">=</span><span class="s1">'*?_-.[]~=&amp;;!#$%^(){}&lt;&gt;'</span>
+<span class="n">WORDCHARS</span><span class="o">=</span><span class="s1">'*?_-.[]~=&amp;;!#$%^(){}&lt;&gt;'</span><span class="w"></span>
 
-<span class="n">compctl</span> <span class="o">-</span><span class="n">M</span> <span class="s1">'m:{a-z}={A-Z}'</span>
+<span class="n">compctl</span><span class="w"> </span><span class="o">-</span><span class="n">M</span><span class="w"> </span><span class="s1">'m:{a-z}={A-Z}'</span><span class="w"></span>
 
-<span class="n">setopt</span> <span class="n">IGNOREEOF</span>
+<span class="n">setopt</span><span class="w"> </span><span class="n">IGNOREEOF</span><span class="w"></span>
 
-<span class="n">umask</span> <span class="mi">002</span>
+<span class="n">umask</span><span class="w"> </span><span class="mi">002</span><span class="w"></span>
 
-<span class="n">HISTFILE</span><span class="o">=$</span><span class="n">HOME</span><span class="o">/.</span><span class="n">zsh</span><span class="o">-</span><span class="n">history</span>
-<span class="n">HISTSIZE</span><span class="o">=</span><span class="mi">10000</span>
-<span class="n">SAVEHIST</span><span class="o">=</span><span class="mi">10000</span>
+<span class="n">HISTFILE</span><span class="o">=$</span><span class="n">HOME</span><span class="o">/.</span><span class="n">zsh</span><span class="o">-</span><span class="n">history</span><span class="w"></span>
+<span class="n">HISTSIZE</span><span class="o">=</span><span class="mi">10000</span><span class="w"></span>
+<span class="n">SAVEHIST</span><span class="o">=</span><span class="mi">10000</span><span class="w"></span>
 
-<span class="n">setopt</span> <span class="n">hist_ignore_dups</span> <span class="c1"># ignore duplication command history</span>
-<span class="n">setopt</span> <span class="n">extended_history</span>
-<span class="n">setopt</span> <span class="n">share_history</span>
-<span class="n">function</span> <span class="n">history</span><span class="o">-</span><span class="n">all</span> <span class="p">{</span> <span class="n">history</span> <span class="o">-</span><span class="n">E</span> <span class="mi">1</span> <span class="p">}</span>
+<span class="n">setopt</span><span class="w"> </span><span class="n">hist_ignore_dups</span><span class="w"> </span><span class="c1"># ignore duplication command history</span><span class="w"></span>
+<span class="n">setopt</span><span class="w"> </span><span class="n">extended_history</span><span class="w"></span>
+<span class="n">setopt</span><span class="w"> </span><span class="n">share_history</span><span class="w"></span>
+<span class="n">function</span><span class="w"> </span><span class="n">history</span><span class="o">-</span><span class="n">all</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">history</span><span class="w"> </span><span class="o">-</span><span class="n">E</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 
-<span class="c1"># bind</span>
-<span class="n">bindkey</span> <span class="o">-</span><span class="n">e</span>
-<span class="n">bindkey</span> <span class="s1">'^P'</span> <span class="n">history</span><span class="o">-</span><span class="n">beginning</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">backward</span>
-<span class="n">bindkey</span> <span class="s1">'^N'</span> <span class="n">history</span><span class="o">-</span><span class="n">beginning</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">forward</span>
+<span class="c1"># bind</span><span class="w"></span>
+<span class="n">bindkey</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"></span>
+<span class="n">bindkey</span><span class="w"> </span><span class="s1">'^P'</span><span class="w"> </span><span class="n">history</span><span class="o">-</span><span class="n">beginning</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">backward</span><span class="w"></span>
+<span class="n">bindkey</span><span class="w"> </span><span class="s1">'^N'</span><span class="w"> </span><span class="n">history</span><span class="o">-</span><span class="n">beginning</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">forward</span><span class="w"></span>
 
-<span class="n">setopt</span> <span class="n">no_check_jobs</span>
-<span class="n">setopt</span> <span class="n">no_hup</span>
+<span class="n">setopt</span><span class="w"> </span><span class="n">no_check_jobs</span><span class="w"></span>
+<span class="n">setopt</span><span class="w"> </span><span class="n">no_hup</span><span class="w"></span>
 
-<span class="n">setopt</span> <span class="n">print_eight_bit</span>
+<span class="n">setopt</span><span class="w"> </span><span class="n">print_eight_bit</span><span class="w"></span>
 
-<span class="k">export</span> <span class="n">LSCOLORS</span><span class="o">=</span><span class="n">gxfxcxdxbxegedadagacad</span>
-<span class="n">zstyle</span> <span class="s1">':completion:*:default'</span> <span class="n">list</span><span class="o">-</span><span class="n">colors</span> <span class="o">$</span><span class="n">LSCOLORS</span>
+<span class="k">export</span><span class="w"> </span><span class="n">LSCOLORS</span><span class="o">=</span><span class="n">gxfxcxdxbxegedadagacad</span><span class="w"></span>
+<span class="n">zstyle</span><span class="w"> </span><span class="s1">':completion:*:default'</span><span class="w"> </span><span class="n">list</span><span class="o">-</span><span class="n">colors</span><span class="w"> </span><span class="o">$</span><span class="n">LSCOLORS</span><span class="w"></span>
 
-<span class="n">alias</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"ls -vG"</span>
-<span class="n">alias</span> <span class="n">la</span><span class="o">=</span><span class="s1">'ls -aF'</span>
-<span class="n">alias</span> <span class="n">ll</span><span class="o">=</span><span class="s1">'ls -h -laF'</span>
+<span class="n">alias</span><span class="w"> </span><span class="n">ls</span><span class="o">=</span><span class="s2">"ls -vG"</span><span class="w"></span>
+<span class="n">alias</span><span class="w"> </span><span class="n">la</span><span class="o">=</span><span class="s1">'ls -aF'</span><span class="w"></span>
+<span class="n">alias</span><span class="w"> </span><span class="n">ll</span><span class="o">=</span><span class="s1">'ls -h -laF'</span><span class="w"></span>
 
-<span class="n">alias</span> <span class="n">mv</span><span class="o">=</span><span class="s1">'mv -v'</span>
-<span class="n">alias</span> <span class="n">cp</span><span class="o">=</span><span class="s1">'cp -v'</span>
-<span class="n">alias</span> <span class="n">rm</span><span class="o">=</span><span class="s1">'rm -vi'</span>
-<span class="n">alias</span> <span class="n">grep</span><span class="o">=</span><span class="s1">'grep --color'</span>
+<span class="n">alias</span><span class="w"> </span><span class="n">mv</span><span class="o">=</span><span class="s1">'mv -v'</span><span class="w"></span>
+<span class="n">alias</span><span class="w"> </span><span class="n">cp</span><span class="o">=</span><span class="s1">'cp -v'</span><span class="w"></span>
+<span class="n">alias</span><span class="w"> </span><span class="n">rm</span><span class="o">=</span><span class="s1">'rm -vi'</span><span class="w"></span>
+<span class="n">alias</span><span class="w"> </span><span class="n">grep</span><span class="o">=</span><span class="s1">'grep --color'</span><span class="w"></span>
 
-<span class="n">alias</span> <span class="n">du</span><span class="o">=</span><span class="s1">'du -h'</span>
-<span class="n">alias</span> <span class="n">df</span><span class="o">=</span><span class="s1">'df -h'</span>
+<span class="n">alias</span><span class="w"> </span><span class="n">du</span><span class="o">=</span><span class="s1">'du -h'</span><span class="w"></span>
+<span class="n">alias</span><span class="w"> </span><span class="n">df</span><span class="o">=</span><span class="s1">'df -h'</span><span class="w"></span>
 
-<span class="n">autoload</span> <span class="o">-</span><span class="n">U</span> <span class="n">compinit</span>
-<span class="n">compinit</span> <span class="o">-</span><span class="n">u</span>
+<span class="n">autoload</span><span class="w"> </span><span class="o">-</span><span class="n">U</span><span class="w"> </span><span class="n">compinit</span><span class="w"></span>
+<span class="n">compinit</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"></span>
 
-<span class="n">autoload</span> <span class="n">colors</span>
-<span class="n">colors</span>
+<span class="n">autoload</span><span class="w"> </span><span class="n">colors</span><span class="w"></span>
+<span class="n">colors</span><span class="w"></span>
 
-<span class="c1"># VCS settings</span>
-<span class="c1"># http://liosk.blog103.fc2.com/blog-entry-209.html</span>
-<span class="n">autoload</span> <span class="o">-</span><span class="n">Uz</span> <span class="n">vcs_info</span>
-<span class="n">precmd</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">psvar</span><span class="o">=</span><span class="p">()</span>
-    <span class="n">LANG</span><span class="o">=</span><span class="n">en_US</span><span class="o">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> <span class="n">vcs_info</span>
-    <span class="n">psvar</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=$</span><span class="n">vcs_info_msg_0_</span>
-<span class="p">}</span>
+<span class="c1"># VCS settings</span><span class="w"></span>
+<span class="c1"># http://liosk.blog103.fc2.com/blog-entry-209.html</span><span class="w"></span>
+<span class="n">autoload</span><span class="w"> </span><span class="o">-</span><span class="n">Uz</span><span class="w"> </span><span class="n">vcs_info</span><span class="w"></span>
+<span class="n">precmd</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">psvar</span><span class="o">=</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">LANG</span><span class="o">=</span><span class="n">en_US</span><span class="o">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="n">vcs_info</span><span class="w"></span>
+<span class="w">    </span><span class="n">psvar</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=$</span><span class="n">vcs_info_msg_0_</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="n">PROMPT</span><span class="o">=</span><span class="s2">"%{${fg[green]}%}[%n@%m %*] %{${fg[magenta]}%}%(!.#.&gt;) %{${reset_color}%}"</span>
-<span class="n">PROMPT2</span><span class="o">=</span><span class="s2">"%{${fg[cyan]}%}%_&gt; %{${reset_color}%}"</span>
-<span class="n">SPROMPT</span><span class="o">=</span><span class="s2">"%{${fg[red]}%}correct: %R -&gt; </span><span class="si">%r</span><span class="s2"> %{${reset_color}%}"</span>
-<span class="n">RPROMPT</span><span class="o">=</span><span class="s2">"%{${fg[green]}%}[%{${fg[red]}%}%~%{${fg[white]}%}%1v%{${fg[green]}%}]%{${reset_color}%}"</span>
-</code></pre>
+<span class="n">PROMPT</span><span class="o">=</span><span class="s2">"%{${fg[green]}%}[%n@%m %*] %{${fg[magenta]}%}%(!.#.&gt;) %{${reset_color}%}"</span><span class="w"></span>
+<span class="n">PROMPT2</span><span class="o">=</span><span class="s2">"%{${fg[cyan]}%}%_&gt; %{${reset_color}%}"</span><span class="w"></span>
+<span class="n">SPROMPT</span><span class="o">=</span><span class="s2">"%{${fg[red]}%}correct: %R -&gt; </span><span class="si">%r</span><span class="s2"> %{${reset_color}%}"</span><span class="w"></span>
+<span class="n">RPROMPT</span><span class="o">=</span><span class="s2">"%{${fg[green]}%}[%{${fg[red]}%}%~%{${fg[white]}%}%1v%{${fg[green]}%}]%{${reset_color}%}"</span><span class="w"></span>
+</pre></div>
 
 <p>ちなみに最近はプロンプトに<code>starship</code>を使っているが、このマシンでインストールしようとしても失敗したので独自に設定している。</p>
 <hr>
 <h4>ファイルサーバ(samba)関連の設定</h4>
 <h5>fstabの設定</h5>
 <p>外付けHDDのUUIDを調べてシステム起動時に自動的にマウントされるように設定する。</p>
-<pre class="code literal-block"><span></span><code>$ sudo blkid -o list  <span class="c1"># UUIDを調べる</span>
+<div class="code"><pre class="code literal-block">$ sudo blkid -o list  <span class="c1"># UUIDを調べる</span>
 $ sudo mkdir /mnt/hdd /mnt/hdd2  <span class="c1"># マウントポイントを作成</span>
 $ sudo vim /etc/fstab
-</code></pre>
+</pre></div>
 
 <p>fstabには下記のような感じで書く。<code>${uuidN}</code>の部分は上記で調べたものに置き換えること。</p>
-<pre class="code literal-block"><span></span><code>UUID="<span class="cp">${</span><span class="n">uuid1</span><span class="cp">}</span>" /mnt/hdd hfsplus nofail,defaults,force 0 0
+<div class="code"><pre class="code literal-block">UUID="<span class="cp">${</span><span class="n">uuid1</span><span class="cp">}</span>" /mnt/hdd hfsplus nofail,defaults,force 0 0
 UUID="<span class="cp">${</span><span class="n">uuid2</span><span class="cp">}</span>" /mnt/hdd2 ext4 nofail,defaults 0 0
-</code></pre>
+</pre></div>
 
 <p>記述後、再起動して無事にマウントされているかを確認する。
 nofailの記述は仮にマウントできなかった場合であってもエラーとして扱わないための指定である。
@@ -368,33 +370,33 @@ nofailの記述は仮にマウントできなかった場合であってもエ�
 <h5>SoftEtherの32bit対応版をダウンロードしてビルドする</h5>
 <p><a href="http://www.softether-download.com/ja.aspx?product=softether">ここ</a>から条件に合うものを落としてきてmakeする。makeの際にライセンスの同意などを求められる。
 ビルドした後は<code>/usr/local</code>に移動しておく。</p>
-<pre class="code literal-block"><span></span><code>$ wget https://jp.softether-download.com/files/softether/v4.34-9745-rtm-2020.04.05-tree/Linux/SoftEther_VPN_Server/32bit_-_Intel_x86/softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
+<div class="code"><pre class="code literal-block">$ wget https://jp.softether-download.com/files/softether/v4.34-9745-rtm-2020.04.05-tree/Linux/SoftEther_VPN_Server/32bit_-_Intel_x86/softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
 $ tar zxvf softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
 $ <span class="nb">cd</span> vpnserver
 $ make
 $ <span class="nb">cd</span> ..
 $ mv vpnserver /usr/local/
-</code></pre>
+</pre></div>
 
 <h5>systemdの設定</h5>
 <p><code>/etc/systemd/system/vpnserver.service</code>として下記ファイルを作成する。</p>
-<pre class="code literal-block"><span></span><code><span class="k">[Unit]</span>
-<span class="na">Description</span><span class="o">=</span><span class="s">SoftEther VPN Server</span>
-<span class="na">After</span><span class="o">=</span><span class="s">network.target network-online.target</span>
+<div class="code"><pre class="code literal-block"><span class="k">[Unit]</span><span class="w"></span>
+<span class="na">Description</span><span class="o">=</span><span class="s">SoftEther VPN Server</span><span class="w"></span>
+<span class="na">After</span><span class="o">=</span><span class="s">network.target network-online.target</span><span class="w"></span>
 
-<span class="k">[Service]</span>
-<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver start</span>
-<span class="na">ExecStop</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver stop</span>
-<span class="na">Type</span><span class="o">=</span><span class="s">forking</span>
-<span class="na">RestartSec</span><span class="o">=</span><span class="s">3s</span>
+<span class="k">[Service]</span><span class="w"></span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver start</span><span class="w"></span>
+<span class="na">ExecStop</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver stop</span><span class="w"></span>
+<span class="na">Type</span><span class="o">=</span><span class="s">forking</span><span class="w"></span>
+<span class="na">RestartSec</span><span class="o">=</span><span class="s">3s</span><span class="w"></span>
 
-<span class="k">[Install]</span>
-<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
-</code></pre>
+<span class="k">[Install]</span><span class="w"></span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span><span class="w"></span>
+</pre></div>
 
 <h5>bridgeとtapデバイスの作成</h5>
 <p>下記のようなスクリプトを作成しsudoで実行する。</p>
-<pre class="code literal-block"><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="code"><pre class="code literal-block"><span class="ch">#!/bin/bash</span>
 <span class="c1"># vim:fileencoding=utf-8</span>
 
 <span class="nv">ip_addr</span><span class="o">=</span><span class="s2">"192.168.xxx.xxx/xx"</span>
@@ -416,20 +418,20 @@ $ mv vpnserver /usr/local/
 /usr/bin/nmcli connection add <span class="nb">type</span> bridge-slave ifname <span class="si">${</span><span class="nv">tap_device_name</span><span class="si">}</span> master bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
 <span class="nb">echo</span> <span class="s2">"up tap device"</span>
 /usr/bin/nmcli connection up bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
-</code></pre>
+</pre></div>
 
 <p>上記を実行すると下記のような出力が出る。</p>
-<pre class="code literal-block"><span></span><code><span class="nv">create</span> <span class="nv">bridge</span> <span class="nv">interface</span>
-接続 <span class="s1">'</span><span class="s">bridge-br0</span><span class="s1">'</span> <span class="ss">(</span><span class="mi">0</span><span class="nv">aa0ae96</span><span class="o">-</span><span class="mi">6428</span><span class="o">-</span><span class="mi">4</span><span class="nv">f7e</span><span class="o">-</span><span class="nv">bc1c</span><span class="o">-</span><span class="nv">fa6f22f98cea</span><span class="ss">)</span> が正常に追加されました。
-<span class="nv">disable</span> <span class="nv">STP</span>
-<span class="nv">modify</span> <span class="nv">bridge</span>
-<span class="k">connect</span> <span class="nv">enp1s0</span> <span class="nv">to</span> <span class="nv">bridge</span>
-接続 <span class="s1">'</span><span class="s">bridge-slave-enp1s0</span><span class="s1">'</span> <span class="ss">(</span><span class="nv">ec87d050</span><span class="o">-</span><span class="nv">f6ae</span><span class="o">-</span><span class="mi">4</span><span class="nv">ca8</span><span class="o">-</span><span class="nv">adbf</span><span class="o">-</span><span class="mi">7</span><span class="nv">b1f0e4eb1b6</span><span class="ss">)</span> が正常に追加されました。
-<span class="k">connect</span> <span class="nv">tap</span> <span class="nv">to</span> <span class="nv">bridge</span>
-接続 <span class="s1">'</span><span class="s">bridge-slave-tap_softether</span><span class="s1">'</span> <span class="ss">(</span><span class="nv">f262c26c</span><span class="o">-</span><span class="mi">2799</span><span class="o">-</span><span class="mi">4</span><span class="nv">c9b</span><span class="o">-</span><span class="nv">b149</span><span class="o">-</span><span class="mi">9</span><span class="nv">d1b3c44f8ce</span><span class="ss">)</span> が正常に追加されました。
-<span class="nv">up</span> <span class="nv">tap</span> <span class="nv">device</span>
-接続が正常にアクティベートされました <span class="ss">(</span><span class="nv">master</span> <span class="nv">waiting</span> <span class="k">for</span> <span class="nv">slaves</span><span class="ss">)</span> <span class="ss">(</span><span class="nv">D</span><span class="o">-</span><span class="nv">Bus</span> アクティブパス: <span class="o">/</span><span class="nv">org</span><span class="o">/</span><span class="nv">freedesktop</span><span class="o">/</span><span class="nv">NetworkManager</span><span class="o">/</span><span class="nv">ActiveConnection</span><span class="o">/</span><span class="mi">3</span><span class="ss">)</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="nv">create</span><span class="w"> </span><span class="nv">bridge</span><span class="w"> </span><span class="nv">interface</span><span class="w"></span>
+接続<span class="w"> </span><span class="s1">'bridge-br0'</span><span class="w"> </span><span class="ss">(</span><span class="mi">0</span><span class="nv">aa0ae96</span><span class="o">-</span><span class="mi">6428</span><span class="o">-</span><span class="mi">4</span><span class="nv">f7e</span><span class="o">-</span><span class="nv">bc1c</span><span class="o">-</span><span class="nv">fa6f22f98cea</span><span class="ss">)</span><span class="w"> </span>が正常に追加されました。<span class="w"></span>
+<span class="nv">disable</span><span class="w"> </span><span class="nv">STP</span><span class="w"></span>
+<span class="nv">modify</span><span class="w"> </span><span class="nv">bridge</span><span class="w"></span>
+<span class="k">connect</span><span class="w"> </span><span class="nv">enp1s0</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">bridge</span><span class="w"></span>
+接続<span class="w"> </span><span class="s1">'bridge-slave-enp1s0'</span><span class="w"> </span><span class="ss">(</span><span class="nv">ec87d050</span><span class="o">-</span><span class="nv">f6ae</span><span class="o">-</span><span class="mi">4</span><span class="nv">ca8</span><span class="o">-</span><span class="nv">adbf</span><span class="o">-</span><span class="mi">7</span><span class="nv">b1f0e4eb1b6</span><span class="ss">)</span><span class="w"> </span>が正常に追加されました。<span class="w"></span>
+<span class="k">connect</span><span class="w"> </span><span class="nv">tap</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">bridge</span><span class="w"></span>
+接続<span class="w"> </span><span class="s1">'bridge-slave-tap_softether'</span><span class="w"> </span><span class="ss">(</span><span class="nv">f262c26c</span><span class="o">-</span><span class="mi">2799</span><span class="o">-</span><span class="mi">4</span><span class="nv">c9b</span><span class="o">-</span><span class="nv">b149</span><span class="o">-</span><span class="mi">9</span><span class="nv">d1b3c44f8ce</span><span class="ss">)</span><span class="w"> </span>が正常に追加されました。<span class="w"></span>
+<span class="nv">up</span><span class="w"> </span><span class="nv">tap</span><span class="w"> </span><span class="nv">device</span><span class="w"></span>
+接続が正常にアクティベートされました<span class="w"> </span><span class="ss">(</span><span class="nv">master</span><span class="w"> </span><span class="nv">waiting</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">slaves</span><span class="ss">)</span><span class="w"> </span><span class="ss">(</span><span class="nv">D</span><span class="o">-</span><span class="nv">Bus</span><span class="w"> </span>アクティブパス:<span class="w"> </span><span class="o">/</span><span class="nv">org</span><span class="o">/</span><span class="nv">freedesktop</span><span class="o">/</span><span class="nv">NetworkManager</span><span class="o">/</span><span class="nv">ActiveConnection</span><span class="o">/</span><span class="mi">3</span><span class="ss">)</span><span class="w"></span>
+</pre></div>
 
 <p>この後に再起動を行い、<code>ip addr</code>でIPアドレスが割り振られていたり、<code>ip link show</code>でbr0のSTATEがUpになっていれば問題ないと思われる。</p>
 <p>なお<code>sudo apt install bridge-utils</code>を実行すると <code>/sbin/brctl</code>が使えるようになるが、今回は直接は不要であった。
@@ -437,13 +439,13 @@ $ mv vpnserver /usr/local/
 <h5>VPNサーバーの設定の読み込み</h5>
 <p>移行元で予め<code>vpncmd</code>のConfigGetを実行し保存しておく。
 これは</p>
-<pre class="code literal-block"><span></span><code>$ /usr/local/vpnserver/vpncmd
+<div class="code"><pre class="code literal-block">$ /usr/local/vpnserver/vpncmd
   &gt; * <span class="m">1</span>. VPN Server または VPN Bridgeの管理 を実行
   &gt; * 何も指定せずにEnterを押すことでローカルのサーバーに接続
   &gt; * 更に何も指定せずにEnterを押すことでサーバー管理モードに入る
   &gt; * 管理パスワードを入力
   VPN Server&gt; ConfigGet 保存先パス
-</code></pre>
+</pre></div>
 
 <p>と実行することで保存が可能である。この設定ファイルを引き継ぎ先のマシンで読み込ませることを考える。</p>
 <p>まず、<code>sudo systemctl enable vpnserver</code>を実行し前述のsystemd用の設定によるサービスを有効化する。
@@ -457,18 +459,18 @@ $ mv vpnserver /usr/local/
 <p>元マシンでの設定が正しければ上記までの設定で接続できるようになるはずだが案の定接続できない。
 そこで<code>/usr/local/vpnserver</code>以下に存在する<code>secure_log</code>や<code>server_log</code>といったログ見て原因を推察する。
 ここでは<code>server_log</code>以下に存在するlogにおける</p>
-<pre class="code literal-block"><span></span><code><span class="mf">2020</span><span class="o">-</span><span class="mf">11</span><span class="o">-</span><span class="mf">21</span> <span class="n">xx</span><span class="p">:</span><span class="n">xx</span><span class="p">:</span><span class="n">xx</span><span class="mf">.</span><span class="n">xxx</span> <span class="n">L2TP</span> <span class="n">PPP</span> <span class="n">セッション</span> <span class="err">[</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="p">:</span><span class="n">xxxx</span><span class="err">]</span><span class="p">:</span>
-  <span class="n">DHCP</span> <span class="n">サーバーからの</span> <span class="n">IP</span> <span class="n">アドレスの取得に失敗しました</span><span class="err">。</span>
-  <span class="n">PPP</span> <span class="n">の通信を受諾するためには</span> <span class="n">DHCP</span> <span class="n">サーバーが必要です</span><span class="err">。</span>
-  <span class="n">仮想</span> <span class="n">HUB</span> <span class="n">の</span> <span class="n">Ethernet</span> <span class="n">セグメント上で</span> <span class="n">DHCP</span> <span class="n">サーバーが正しく動作しているかどうか確認してください</span><span class="err">。</span>
-  <span class="n">DHCP</span> <span class="n">サーバーを用意することができない場合は</span><span class="err">、</span><span class="n">仮想</span> <span class="n">HUB</span> <span class="n">の</span> <span class="n">SecureNAT</span> <span class="n">機能を用いることもできます</span><span class="err">。</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="mf">2020</span><span class="o">-</span><span class="mf">11</span><span class="o">-</span><span class="mf">21</span><span class="w"> </span><span class="n">xx</span><span class="p">:</span><span class="n">xx</span><span class="p">:</span><span class="n">xx</span><span class="mf">.</span><span class="n">xxx</span><span class="w"> </span><span class="n">L2TP</span><span class="w"> </span><span class="n">PPP</span><span class="w"> </span><span class="n">セッション</span><span class="w"> </span><span class="err">[</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="p">:</span><span class="n">xxxx</span><span class="err">]</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="n">DHCP</span><span class="w"> </span><span class="n">サーバーからの</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">アドレスの取得に失敗しました</span><span class="err">。</span><span class="w"></span>
+<span class="w">  </span><span class="n">PPP</span><span class="w"> </span><span class="n">の通信を受諾するためには</span><span class="w"> </span><span class="n">DHCP</span><span class="w"> </span><span class="n">サーバーが必要です</span><span class="err">。</span><span class="w"></span>
+<span class="w">  </span><span class="n">仮想</span><span class="w"> </span><span class="n">HUB</span><span class="w"> </span><span class="n">の</span><span class="w"> </span><span class="n">Ethernet</span><span class="w"> </span><span class="n">セグメント上で</span><span class="w"> </span><span class="n">DHCP</span><span class="w"> </span><span class="n">サーバーが正しく動作しているかどうか確認してください</span><span class="err">。</span><span class="w"></span>
+<span class="w">  </span><span class="n">DHCP</span><span class="w"> </span><span class="n">サーバーを用意することができない場合は</span><span class="err">、</span><span class="n">仮想</span><span class="w"> </span><span class="n">HUB</span><span class="w"> </span><span class="n">の</span><span class="w"> </span><span class="n">SecureNAT</span><span class="w"> </span><span class="n">機能を用いることもできます</span><span class="err">。</span><span class="w"></span>
+</pre></div>
 
 <p>という記述から<code>SecureNat</code>が有効化されていないことが分かったため、<code>vpncmd</code>を実行し仮想ハブの管理から<code>SecureNatEnable</code>を実行したところ、無事に接続されるようになった。</p>
 <h5>SecureNATの利用を使用しない設定への変更</h5>
 <p>前節の設定のままだとVPNでSecureNAT機能によりIPアドレスが割り振られるが、このままだとホストマシンにSSHアクセスできなかったため元マシンの設定を見返したところ<code>/etc/network/interfaces</code>を明示的に指定していたことが分かった。
 よって<code>vpncmd</code>で<code>SecureNATDisable</code>を実行した上で再度<code>SecureNat</code>を停止した上で下記のような設定を<code>/etc/network/interfaces</code>に追記した。</p>
-<pre class="code literal-block"><span></span><code>auto enp1s0
+<div class="code"><pre class="code literal-block">auto enp1s0
 iface enp1s0 inet manual
 
 auto br0
@@ -478,37 +480,37 @@ iface br0 inet static
   gateway 192.168.xxx.xxx
   bridge_ports enp1s0 tap_softether
   dns-nameservers 192.168.xxx.xxx
-</code></pre>
+</pre></div>
 
 <p>NetworkManagerは<code>/etc/NetworkManager/NetworkManager.conf</code>において下記のような設定</p>
-<pre class="code literal-block"><span></span><code><span class="k">[ifupdown]</span>
-<span class="na">managed</span><span class="o">=</span><span class="s">false</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="k">[ifupdown]</span><span class="w"></span>
+<span class="na">managed</span><span class="o">=</span><span class="s">false</span><span class="w"></span>
+</pre></div>
 
 <p>となっている場合、<code>/etc/network/interface</code>によって管理されているデバイスはNetworkManagerで制御を行わないとのことである。
 この上で<code>sudo systemctl restart networking</code>を行うと<code>SecureNAT</code>がdisableとなっている場合でも接続が可能となった。</p>
 <p>しかし、この状態で再起動を行うとやはり接続できない状態に戻ってしまう。
 調べたところ<code>sudo systemctl restart networking</code>を行った後は下記状態</p>
-<pre class="code literal-block"><span></span><code>$ /sbin/brctl show
+<div class="code"><pre class="code literal-block">$ /sbin/brctl show
 bridge name     bridge id               STP enabled     interfaces
 br0             <span class="m">8000</span>.0016cba5df15       no              enp1s0
                                                         tap_softether
-</code></pre>
+</pre></div>
 
 <p>となっているが、マシンの再起動直後は</p>
-<pre class="code literal-block"><span></span><code>$ /sbin/brctl show
+<div class="code"><pre class="code literal-block">$ /sbin/brctl show
 bridge name     bridge id               STP enabled     interfaces
 br0             <span class="m">8000</span>.0016cba5df15       no              enp1s0
-</code></pre>
+</pre></div>
 
 <p>という状態になっていることが分かった。
 つまりbr0に対して起動直後は何らかの理由で<code>tap_softether</code>のtapデバイスがbr0に接続されていないことが原因となっていることが考えられ、
 実際に<code>/sbin/brctl addif br0 tap_softether</code>を実行することで明示的に追加を行った場合はVPN接続が可能となった。</p>
 <p>これを受けて<code>/etc/systemd/system/vpnserver.service</code>に下記のように<code>ExecStartPost</code>を追加した。</p>
-<pre class="code literal-block"><span></span><code><span class="k">[Service]</span>
-<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver start</span>
-<span class="na">ExecStartPost</span><span class="o">=</span><span class="s">/bin/sleep 10 ; /sbin/brctl addif br0 tap_softether</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="k">[Service]</span><span class="w"></span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver start</span><span class="w"></span>
+<span class="na">ExecStartPost</span><span class="o">=</span><span class="s">/bin/sleep 10 ; /sbin/brctl addif br0 tap_softether</span><span class="w"></span>
+</pre></div>
 
 <p>sleepの秒数の後のセミコロンは10とセミコロンの間にスペースを空けないとエラーが生じるため注意が必要である。
 これによりマシン再起動後も手動での操作なしにVPN接続が可能な状態となった。</p>
@@ -516,7 +518,6 @@ br0             <span class="m">8000</span>.0016cba5df15       no              e
 <h3>まとめ</h3>
 <p>古いMac miniにDebianを入れてファイルサーバ・VPNサーバとして復活させる手順のメモを記した。
 稼働させたばかりであり、そもそも古いマシンであるため、いつまで持つか不明であるがこのまましばらく運用してみようと思う。</p>
-</div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/debian/" rel="tag">debian</a></li>
@@ -533,7 +534,7 @@ br0             <span class="m">8000</span>.0016cba5df15       no              e
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
         
-        
+    
         <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="hiromasa-info",
@@ -554,7 +555,7 @@ br0             <span class="m">8000</span>.0016cba5df15       no              e
 
 
         </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2022         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>

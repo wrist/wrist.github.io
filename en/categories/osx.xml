@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about osx)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/osx.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 18 Jun 2021 01:43:24 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>osx high sierraからSMBに接続できない問題の解決</title><link>http://www.hiromasa.info/en/posts/9/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;h3&gt;osx high sierraからSMBに接続できない問題の解決&lt;/h3&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about osx)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/osx.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 21 Oct 2022 16:46:43 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>osx high sierraからSMBに接続できない問題の解決</title><link>http://www.hiromasa.info/en/posts/9/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;h3&gt;osx high sierraからSMBに接続できない問題の解決&lt;/h3&gt;
 &lt;p&gt;2018/8/26に突然自宅Ubuntuで立てているファイルサーバで動作しているSambaにアクセスできなくなったためその原因を調べた。&lt;/p&gt;
 &lt;h4&gt;現象&lt;/h4&gt;
 &lt;ul&gt;
@@ -18,18 +18,18 @@
 &lt;h4&gt;解決方法&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;NetAuthSysAgent 1025&lt;/code&gt;でググって出てきた&lt;a href="https://apple.stackexchange.com/questions/257836/mac-mini-cant-connect-to-my-corporate-smb-server-was-working-some-days-ago"&gt;stackexchangeの回答&lt;/a&gt;で解決した。
 上記の記事いわく、Android SDKを過去にインストールした際などに入るアクセラレータであるHAXMのカーネルエクステンションがインストールされていることが原因であるとのことであり、&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ kextstat &lt;span class="p"&gt;|&lt;/span&gt; grep -iv apple
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ kextstat &lt;span class="p"&gt;|&lt;/span&gt; grep -iv apple
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;の出力に&lt;code&gt;intelhaxm&lt;/code&gt;が含まれている場合がそれに該当する。
 現時点でAndroid SDK自体をもはや使っていないため、下記を実行してアンインストールした。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ sudo /Library/Extensions/intelhaxm.kext/Contents/Resources/uninstall.sh
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ sudo /Library/Extensions/intelhaxm.kext/Contents/Resources/uninstall.sh
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;アンインストール後、再起動すれば接続できるようになった。&lt;/p&gt;
 &lt;h4&gt;具体的なコマンド実行履歴&lt;/h4&gt;
 &lt;p&gt;&lt;code&gt;192.168.XX.XX&lt;/code&gt;はsambaが動いているホストのIPアドレスであり、&lt;code&gt;smbutil view&lt;/code&gt;は指定した&lt;code&gt;smb&lt;/code&gt;プロトコルによる接続先が見えているかの確認である。&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;16&lt;/span&gt;:04:33&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; smbutil view smb://192.168.XX.XX                      &lt;span class="o"&gt;[&lt;/span&gt;~&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;16&lt;/span&gt;:04:33&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; smbutil view smb://192.168.XX.XX                      &lt;span class="o"&gt;[&lt;/span&gt;~&lt;span class="o"&gt;]&lt;/span&gt;
 smbutil: server connection failed: No such file or directory
 &lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;16&lt;/span&gt;:05:48&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; kextstat                                              &lt;span class="o"&gt;[&lt;/span&gt;~&lt;span class="o"&gt;]&lt;/span&gt;
 &lt;span class="o"&gt;[&lt;/span&gt;wrist@wrist-pro &lt;span class="m"&gt;16&lt;/span&gt;:06:06&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; kextstat &lt;span class="p"&gt;|&lt;/span&gt; grep -iv apple                             &lt;span class="o"&gt;[&lt;/span&gt;~&lt;span class="o"&gt;]&lt;/span&gt;
@@ -53,4 +53,4 @@ Do you wish to uninstall Intel HAXM &lt;span class="o"&gt;(&lt;/span&gt;y/n&lt;s
 Removing Intel HAXM files
 
 Intel HAXM has been successfully uninstalled
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><guid>http://www.hiromasa.info/en/posts/9/</guid><pubDate>Sun, 02 Sep 2018 02:01:00 GMT</pubDate></item></channel></rss>
+&lt;/pre&gt;&lt;/div&gt;</description><guid>http://www.hiromasa.info/en/posts/9/</guid><pubDate>Sun, 02 Sep 2018 02:01:00 GMT</pubDate></item></channel></rss>

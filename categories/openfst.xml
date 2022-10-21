@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (openfstについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/openfst.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2021 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 18 Jun 2021 01:43:23 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>openfst quick tourをjupyterlab上で実行</title><link>http://www.hiromasa.info/posts/18/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (openfstについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/openfst.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 21 Oct 2022 16:46:46 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>openfst quick tourをjupyterlab上で実行</title><link>http://www.hiromasa.info/posts/18/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2 id="openfst-quick-tourをjupyterlab上で実行"&gt;openfst quick tourをjupyterlab上で実行&lt;a class="anchor-link" href="http://www.hiromasa.info/posts/18/#openfst-quick-tour%E3%82%92jupyterlab%E4%B8%8A%E3%81%A7%E5%AE%9F%E8%A1%8C"&gt;¶&lt;/a&gt;&lt;/h2&gt;
@@ -62,9 +62,9 @@ $ pip install openfst-python
 
 
 
-&lt;div id="509e575d-8242-43fd-9e66-fd9459f150f7" class="output_subarea output_javascript "&gt;
+&lt;div id="b54981d9-a8f6-4b52-84dc-f6ec9ccb4c24" class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#509e575d-8242-43fd-9e66-fd9459f150f7');
+var element = $('#b54981d9-a8f6-4b52-84dc-f6ec9ccb4c24');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
@@ -1121,7 +1121,7 @@ ERROR: FstHeader::Read: Bad FST header: standard input. Magic number not matched
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;一度バイナリ形式のFSTが作成されると、(同じアーキテクチャのマシン上であれば)他のシェルレベルのプログラムと組み合わせて使うことも可能である。
 またC++コードでは下記コードでコード中でロードすることも可能である。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;StdFst&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;fst&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;StdFst&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"binary.fst"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;StdFst&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;fst&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;StdFst&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Read&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"binary.fst"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;/div&gt;
@@ -1575,4 +1575,4 @@ nodesep = "0.25";
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;/div&gt;&lt;/div&gt;</description><category>jupyterlab</category><category>openfst</category><guid>http://www.hiromasa.info/posts/18/</guid><pubDate>Sat, 27 Jun 2020 05:00:00 GMT</pubDate></item></channel></rss>
+&lt;/div&gt;</description><category>jupyterlab</category><category>openfst</category><guid>http://www.hiromasa.info/posts/18/</guid><pubDate>Sat, 27 Jun 2020 05:00:00 GMT</pubDate></item></channel></rss>

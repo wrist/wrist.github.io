@@ -98,6 +98,9 @@ conf.pyのPOSTSとPAGESにipynb用のエント">
 <a href="../../pages/slides/index.html" class="nav-link">slide一覧</a>
                 </li>
 <li class="nav-item">
+<a href="../../jupyterlite/lab/" class="nav-link">my jupyterlite</a>
+                </li>
+<li class="nav-item">
 <a href="../../rss.xml" class="nav-link">RSSフィード</a>
 
                 
@@ -125,7 +128,7 @@ conf.pyのPOSTSとPAGESにipynb用のエント">
             <time class="published dt-published" datetime="2018-06-16T14:00:00+09:00" itemprop="datePublished" title="2018-06-16 14:00">2018-06-16 14:00</time></a>
             </p>
                 <p class="commentline">
-        
+    
     <a href="#disqus_thread" data-disqus-identifier="cache/posts/3.html">コメント</a>
 
 
@@ -137,16 +140,15 @@ conf.pyのPOSTSとPAGESにipynb用のエント">
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<h3>Nikolaでipynbファイルを使用する方法</h3>
+    <h3>Nikolaでipynbファイルを使用する方法</h3>
 <p>Nikolaでipynbファイルを使用する方法ですが、過去にdrillerさんが<a href="https://qiita.com/driller/items/2f8a0dd66d4d8e59e05c">Qiitaに書かれた記事</a>を参考に追加することが可能です。</p>
 <p>しかし、このままだとMathJaxが有効化されない、プロットした画像が描画されないなどの問題があったため、下記に簡単に対策を記載しておきます。</p>
 <h4>事前準備</h4>
 <p><code>conf.py</code>の<code>POSTS</code>と<code>PAGES</code>に<code>ipynb</code>用のエントリを追加しておきます。</p>
 <h4>ipynbファイルでのブログ記事新規作成</h4>
 <p>mdファイルでの作成と同じように<code>nikola new_post -f 形式</code>で形式にipynbを指定すれば良いです。</p>
-<pre class="code literal-block"><span></span><code>$ nikola new_post -f ipynb
-</code></pre>
+<div class="code"><pre class="code literal-block">$ nikola new_post -f ipynb
+</pre></div>
 
 <p>記事タイトルを聞かれるので入力すると<code>posts</code>ディレクトリ下にipynbファイルが生成されます。</p>
 <h4>既存ipynbファイルの使用</h4>
@@ -156,26 +158,26 @@ conf.pyのPOSTSとPAGESにipynb用のエント">
 <li>Jupyter Notebookで<code>Menu -&gt; Edit -&gt; Edit Notebook Metadata</code>を選択</li>
 <li>下記のようなエントリを追加(最初の{...}は元々metadataに書かれていたエントリを省略したものです)</li>
 </ul>
-<pre class="code literal-block"><span></span><code><span class="p">{</span> <span class="p">{</span><span class="err">...</span><span class="p">},</span>
-  <span class="nt">"nikola"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">"tags"</span><span class="p">:</span> <span class="s2">"python,pydata,numpy,scipy,librosa,scikit-learn"</span><span class="p">,</span>
-    <span class="nt">"title"</span><span class="p">:</span> <span class="s2">"2018/2/28にPydata Osakaで'SciPyの概要と各モジュールの紹介'というタイトルで発表しました"</span><span class="p">,</span>
-    <span class="nt">"date"</span><span class="p">:</span> <span class="s2">"2018-06-16 14:3:00 UTC+09:00"</span><span class="p">,</span>
-    <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"text"</span><span class="p">,</span>
-    <span class="nt">"slug"</span><span class="p">:</span> <span class="s2">"4"</span><span class="p">,</span>
-    <span class="nt">"category"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
-    <span class="nt">"link"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
-    <span class="nt">"description"</span><span class="p">:</span> <span class="s2">""</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">"nikola"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python,pydata,numpy,scipy,librosa,scikit-learn"</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018/2/28にPydata Osakaで'SciPyの概要と各モジュールの紹介'というタイトルで発表しました"</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-06-16 14:3:00 UTC+09:00"</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
 
 <h4>ブログポストの構築</h4>
 <p>markdownのときと同じように<code>nikola build</code>でブログを構築します。
 <code>nikola serve</code>でローカルでの確認を取ります。</p>
-<pre class="code literal-block"><span></span><code>$ nikola build
+<div class="code"><pre class="code literal-block">$ nikola build
 $ nikola serve -b
-</code></pre>
+</pre></div>
 
 <h4>MathJaxの描画</h4>
 <p>上記までで記事の追加は可能なのですが、このままだとMathJaxによる数式が描画されません。
@@ -197,7 +199,6 @@ $ nikola serve -b
 <li><a href="https://qiita.com/driller/items/2f8a0dd66d4d8e59e05c">drillerさんのQiitaの記事</a></li>
 </ul>
 </div>
-    </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/nikola/" rel="tag">nikola</a></li>
             <li><a class="tag p-category" href="../../categories/python/" rel="tag">python</a></li>
@@ -211,7 +212,7 @@ $ nikola serve -b
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>コメント</h2>
         
-        
+    
         <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="hiromasa-info",
@@ -232,7 +233,7 @@ $ nikola serve -b
 
 
         </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2022         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>

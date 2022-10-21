@@ -103,6 +103,9 @@ $ pip install webassets
 <a href="../../pages/slides/index.html" class="nav-link">slides</a>
                 </li>
 <li class="nav-item">
+<a href="../../../jupyterlite/lab/" class="nav-link">my jupyterlite</a>
+                </li>
+<li class="nav-item">
 <a href="../../rss.xml" class="nav-link">RSS feed</a>
 
                 
@@ -130,7 +133,7 @@ $ pip install webassets
             <time class="published dt-published" datetime="2018-01-07T23:35:28+09:00" itemprop="datePublished" title="2018-01-07 23:35">2018-01-07 23:35</time></a>
             </p>
                 <p class="commentline">
-        
+    
     <a href="#disqus_thread" data-disqus-identifier="cache/posts/1.html">Comments</a>
 
 
@@ -142,26 +145,25 @@ $ pip install webassets
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<h3>Nikolaとは</h3>
+    <h3>Nikolaとは</h3>
 <p>Python製のstatic site generator。python製だとpelicanの方が有名だがipynbが使えると聞いたのでこちらを使うことにした。</p>
 <h3>Nikolaでブログを生成</h3>
 <h4>インストール</h4>
 <p>pipでインストールできる。</p>
-<pre class="code literal-block"><span></span><code>$ pip install nikola
+<div class="code"><pre class="code literal-block">$ pip install nikola
 $ pip install webassets
-</code></pre>
+</pre></div>
 
 <p>後述するbuildの際などに下記のようなメッセージが出るので合わせてwebassetsもインストールしておくと良い。</p>
-<pre class="code literal-block"><span></span><code>[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.
+<div class="code"><pre class="code literal-block">[2018-01-08T01:42:01Z] WARNING: Nikola: In order to USE_BUNDLES, you must install the "webassets" Python package.
 [2018-01-08T01:42:01Z] WARNING: bundles: Setting USE_BUNDLES to False.
-</code></pre>
+</pre></div>
 
 <h4>ブログの雛形生成</h4>
 <p>nikolaはgitのように<code>nikola サブコマンド</code>の形式で様々なコマンドを実行できる。
 雛形の生成のためには<code>nikola init</code>を実行する。</p>
-<pre class="code literal-block"><span></span><code>nikola init blog_name
-</code></pre>
+<div class="code"><pre class="code literal-block">nikola init blog_name
+</pre></div>
 
 <p>これを実行するとCUIベースで対話的に様々な設定が可能。
 commentシステムとして何を使うかを聞かれるが、後でconf.pyを書き換えれば設定が可能な模様であるため一旦は空白で良い。</p>
@@ -169,33 +171,33 @@ commentシステムとして何を使うかを聞かれるが、後でconf.pyを
 この引数を付けるとデモ用コンテンツが生成されてしまうので普通に真っさらな状態で始めたいならば付けない方が良い。</p>
 <h4>新記事生成</h4>
 <p>新記事生成は下記の通り。</p>
-<pre class="code literal-block"><span></span><code>$ nikola new_post -f markdown  <span class="c1"># formatを-fで指定(デフォルトはReStructuredText形式)</span>
-</code></pre>
+<div class="code"><pre class="code literal-block">$ nikola new_post -f markdown  <span class="c1"># formatを-fで指定(デフォルトはReStructuredText形式)</span>
+</pre></div>
 
 <p>実行すると記事タイトルを聞かれるので打ち込むと<code>-f</code>で指定した形式のファイルがposts以下に生成される。
 また、引数に<code>-e</code>を付けるとそのままエディタでの編集画面となる。</p>
 <p>生成されたファイルの冒頭には下記のような形のヘッダーが付いている。</p>
-<pre class="code literal-block"><span></span><code><span class="o">&lt;!--</span>
-<span class="p">..</span> <span class="n">title</span><span class="o">:</span> <span class="n">Nikolaでブログ構築してGithub</span> <span class="n">Pagesに設置</span>
-<span class="p">..</span> <span class="n">slug</span><span class="o">:</span> <span class="mi">1</span>
-<span class="p">..</span> <span class="n">date</span><span class="o">:</span> <span class="mi">2018</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mo">07</span> <span class="mi">23</span><span class="o">:</span><span class="mi">35</span><span class="o">:</span><span class="mi">28</span> <span class="n">UTC</span><span class="o">+</span><span class="mi">09</span><span class="o">:</span><span class="mo">00</span>
-<span class="p">..</span> <span class="n">tags</span><span class="o">:</span> <span class="n">nikola</span><span class="p">,</span> <span class="n">python</span><span class="p">,</span> <span class="n">github</span>
-<span class="p">..</span> <span class="n">category</span><span class="o">:</span> 
-<span class="p">..</span> <span class="n">link</span><span class="o">:</span> 
-<span class="p">..</span> <span class="n">description</span><span class="o">:</span> 
-<span class="p">..</span> <span class="kr">type</span><span class="o">:</span> <span class="n">text</span>
-<span class="o">--&gt;</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="o">&lt;!--</span><span class="w"></span>
+<span class="p">..</span><span class="w"> </span><span class="n">title</span><span class="o">:</span><span class="w"> </span><span class="n">Nikolaでブログ構築してGithub</span><span class="w"> </span><span class="n">Pagesに設置</span><span class="w"></span>
+<span class="p">..</span><span class="w"> </span><span class="n">slug</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="p">..</span><span class="w"> </span><span class="n">date</span><span class="o">:</span><span class="w"> </span><span class="mi">2018</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mo">07</span><span class="w"> </span><span class="mi">23</span><span class="o">:</span><span class="mi">35</span><span class="o">:</span><span class="mi">28</span><span class="w"> </span><span class="n">UTC</span><span class="o">+</span><span class="mi">09</span><span class="o">:</span><span class="mo">00</span><span class="w"></span>
+<span class="p">..</span><span class="w"> </span><span class="n">tags</span><span class="o">:</span><span class="w"> </span><span class="n">nikola</span><span class="p">,</span><span class="w"> </span><span class="n">python</span><span class="p">,</span><span class="w"> </span><span class="n">github</span><span class="w"></span>
+<span class="p">..</span><span class="w"> </span><span class="n">category</span><span class="o">:</span><span class="w"> </span>
+<span class="p">..</span><span class="w"> </span><span class="n">link</span><span class="o">:</span><span class="w"> </span>
+<span class="p">..</span><span class="w"> </span><span class="n">description</span><span class="o">:</span><span class="w"> </span>
+<span class="p">..</span><span class="w"> </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="n">text</span><span class="w"></span>
+<span class="o">--&gt;</span><span class="w"></span>
+</pre></div>
 
 <p>titleは記事タイトルである。
 slugはurlの一部となる文字列である。記事タイトルをアルファベットに直したものが記載されているが、適当に修正すると良い。1にしておくと<code>http://www.hiromasa.info/1/</code>のようなURLとなる。</p>
 <h4>固定ページ生成</h4>
 <p>固定ページはpostではなくpageとして生成する。</p>
-<pre class="code literal-block"><span></span><code>$ nikola new_page -f markdown pages/about
-</code></pre>
+<div class="code"><pre class="code literal-block">$ nikola new_page -f markdown pages/about
+</pre></div>
 
 <p>生成した固定ページを上部ナビゲーションに配置する方法は下記のように<code>conf.py</code>の<code>NAVIGATION_LINKS</code>に書けば良い。</p>
-<pre class="code literal-block"><span></span><code><span class="n">NAVIGATION_LINKS</span> <span class="o">=</span> <span class="p">{</span>
+<div class="code"><pre class="code literal-block"><span class="n">NAVIGATION_LINKS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">DEFAULT_LANG</span><span class="p">:</span> <span class="p">(</span>
         <span class="p">(</span><span class="s2">"/archive.html"</span><span class="p">,</span> <span class="s2">"文書一覧"</span><span class="p">),</span>
         <span class="p">(</span><span class="s2">"/categories/"</span><span class="p">,</span> <span class="s2">"タグ"</span><span class="p">),</span>
@@ -203,32 +205,32 @@ slugはurlの一部となる文字列である。記事タイトルをアルフ�
         <span class="p">(</span><span class="s2">"/rss.xml"</span><span class="p">,</span> <span class="s2">"RSSフィード"</span><span class="p">),</span>
     <span class="p">),</span>
 <span class="p">}</span>
-</code></pre>
+</pre></div>
 
 <h4>ブログ構築</h4>
 <p>postやpageを上記のように生成しただけでは単なるテキストが生成されているだけなので、これらを元にブログを構築する。</p>
-<pre class="code literal-block"><span></span><code>$ nikola build
-</code></pre>
+<div class="code"><pre class="code literal-block">$ nikola build
+</pre></div>
 
 <p>これでブログが構築される。
 ローカルで確認するためには下記を実行する。</p>
-<pre class="code literal-block"><span></span><code>$ nikola serve -b  <span class="c1"># --browserでも良い</span>
-</code></pre>
+<div class="code"><pre class="code literal-block">$ nikola serve -b  <span class="c1"># --browserでも良い</span>
+</pre></div>
 
 <h4>ブログテーマ設定</h4>
 <p>デフォルトはbootstrap3になるようであるが、他のものに変えたい場合は<a href="https://themes.getnikola.com/">themes</a>のページから好きなものを選ぶ。
 ここでは<a href="https://themes.getnikola.com/v7/libretto/">libretto</a>のテーマを選んだ。
 wordpressの同名テーマをベースにしたものらしい。</p>
 <p>テーマのインストールは下記の通り。</p>
-<pre class="code literal-block"><span></span><code>$ nikola theme -i libretto
-</code></pre>
+<div class="code"><pre class="code literal-block">$ nikola theme -i libretto
+</pre></div>
 
 <p>実行するとthemesディレクトリ以下にlibrettoのテーマがダウンロードされる。</p>
 <p>このテーマを使用するためには更にconf.pyを編集する必要がある。</p>
-<pre class="code literal-block"><span></span><code><span class="c1"># Name of the theme to use.</span>
+<div class="code"><pre class="code literal-block"><span class="c1"># Name of the theme to use.</span>
 <span class="c1"># THEME = "bootstrap3"</span>
 <span class="n">THEME</span> <span class="o">=</span> <span class="s2">"libretto"</span>
-</code></pre>
+</pre></div>
 
 <p>この上で<code>nikola build</code>を実行すれば更新後のテーマに変わっている。
 記事の一文字目だけ大きく表示されるのが若干気に入らないがとりあえずこれで行く。</p>
@@ -237,13 +239,13 @@ wordpressの同名テーマをベースにしたものらしい。</p>
 <p><a href="https://getnikola.com/handbook.html#deployment">HandbookのDeployment</a>の項を見るとGithubでホスティングする方法が記載されている。ここではGitHubのuser page(wrist.github.io)に配置することを考える。</p>
 <h4>1. gitリポジトリの設定を行う</h4>
 <p>過去にwrist.github.ioリポジトリを作成しているため、ブログのルートで<code>git init</code>してからremoteを設定する。</p>
-<pre class="code literal-block"><span></span><code>$ git init
+<div class="code"><pre class="code literal-block">$ git init
 $ git remote add origin git@github.com:wrist/wrist.github.io
-</code></pre>
+</pre></div>
 
 <h4>2. (必要であれば)conf.pyを編集する</h4>
 <p>必要であれば下記を編集する。今回は不要であるため特に変更していない。</p>
-<pre class="code literal-block"><span></span><code><span class="c1"># siteのソースがdeployされるブランチ名、srcが推奨とのこと</span>
+<div class="code"><pre class="code literal-block"><span class="c1"># siteのソースがdeployされるブランチ名、srcが推奨とのこと</span>
 <span class="n">GITHUB_SOURCE_BRANCH</span> <span class="o">=</span> <span class="s1">'src'</span>
 <span class="c1"># HTMLファイルがdeployされるブランチ、user pageの場合はmaster</span>
 <span class="n">GITHUB_DEPLOY_BRANCH</span> <span class="o">=</span> <span class="s1">'master'</span>
@@ -251,29 +253,29 @@ $ git remote add origin git@github.com:wrist/wrist.github.io
 <span class="n">GITHUB_REMOTE_NAME</span> <span class="o">=</span> <span class="s1">'origin'</span>
 <span class="c1"># ソースブランチを自動的にコミットしプッシュするかの設定</span>
 <span class="n">GITHUB_COMMIT_SOURCE</span> <span class="o">=</span> <span class="kc">True</span>
-</code></pre>
+</pre></div>
 
 <h4>3. .gitignoreを追加</h4>
 <p>下記内容を.gitignoreに追加する。</p>
-<pre class="code literal-block"><span></span><code><span class="nf">cache</span>
-<span class="na">.doit.db</span>
-<span class="nf">__pycache__</span>
-<span class="nf">output</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="nf">cache</span><span class="w"></span>
+<span class="na">.doit.db</span><span class="w"></span>
+<span class="nf">__pycache__</span><span class="w"></span>
+<span class="nf">output</span><span class="w"></span>
+</pre></div>
 
 <h4>4. deploy用のコマンドを実行</h4>
 <p>下記コマンドを実行することでdeployが可能。</p>
-<pre class="code literal-block"><span></span><code>$ nikola github_deploy
-</code></pre>
+<div class="code"><pre class="code literal-block">$ nikola github_deploy
+</pre></div>
 
 <p>下記のように表示された場合は<code>pip install ghp-import2</code>でghp-import2をインストールする。</p>
-<pre class="code literal-block"><span></span><code>[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.
+<div class="code"><pre class="code literal-block">[2018-01-08T04:16:04Z] ERROR: Nikola: In order to deploy the site to GitHub Pages, you must install the "ghp-import2" Python package.
 [2018-01-08T04:16:04Z] ERROR: Nikola: Exiting due to missing dependencies.
-</code></pre>
+</pre></div>
 
 <p>通常はこれで改めて<code>nikola github_deploy</code>を実行すれば終わりのはずである。
 しかし、今回は過去に作成済の既にmasterが存在しているリポジトリにpushしようとしているため、当然先にfetchしろと警告が出て失敗する。</p>
-<pre class="code literal-block"><span></span><code><span class="o">[</span><span class="m">2018</span>-01-08T04:17:10Z<span class="o">]</span> INFO: github_deploy: <span class="o">==</span>&gt; <span class="o">[</span><span class="s1">'ghp-import'</span>, <span class="s1">'-n'</span>, <span class="s1">'-m'</span>, <span class="s1">'Nikola auto commit.\n\nSource commit: a37690e35a31dc4a108f53c62b8ee17e783aa28f\nNikola version: 7.8.11'</span>, <span class="s1">'-p'</span>, <span class="s1">'-r'</span>, <span class="s1">'origin'</span>, <span class="s1">'-b'</span>, <span class="s1">'master'</span>, <span class="s1">'output'</span><span class="o">]</span>
+<div class="code"><pre class="code literal-block"><span class="o">[</span><span class="m">2018</span>-01-08T04:17:10Z<span class="o">]</span> INFO: github_deploy: <span class="o">==</span>&gt; <span class="o">[</span><span class="s1">'ghp-import'</span>, <span class="s1">'-n'</span>, <span class="s1">'-m'</span>, <span class="s1">'Nikola auto commit.\n\nSource commit: a37690e35a31dc4a108f53c62b8ee17e783aa28f\nNikola version: 7.8.11'</span>, <span class="s1">'-p'</span>, <span class="s1">'-r'</span>, <span class="s1">'origin'</span>, <span class="s1">'-b'</span>, <span class="s1">'master'</span>, <span class="s1">'output'</span><span class="o">]</span>
 To github.com:wrist/wrist.github.io
  ! <span class="o">[</span>rejected<span class="o">]</span>        master -&gt; master <span class="o">(</span>fetch first<span class="o">)</span>
 error: failed to push some refs to <span class="s1">'git@github.com:wrist/wrist.github.io'</span>
@@ -282,12 +284,12 @@ hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
 hint: <span class="o">(</span>e.g., <span class="s1">'git pull ...'</span><span class="o">)</span> before pushing again.
 hint: See the <span class="s1">'Note about fast-forwards'</span> <span class="k">in</span> <span class="s1">'git push --help'</span> <span class="k">for</span> details.
-</code></pre>
+</pre></div>
 
 <p>仕方ないので<a href="https://rcmdnk.com/blog/2013/11/01/computer-git/">この記事</a>に倣い、先にmasterを強制pushする。</p>
-<pre class="code literal-block"><span></span><code>$ git push -f origin master
+<div class="code"><pre class="code literal-block">$ git push -f origin master
 $ nikola github_deploy
-</code></pre>
+</pre></div>
 
 <p>これにて無事に<code>http://wrist.github.io</code>で閲覧できるようになった。</p>
 <h4>5. 独自ドメインでの使用</h4>
@@ -295,9 +297,9 @@ $ nikola github_deploy
 <h3>コメントシステムの設置</h3>
 <p>init時には空白にしておいたコメントシステムを有効化する。
 ここではdisqusを用いることにする。<code>conf.py</code>に下記を追記する。</p>
-<pre class="code literal-block"><span></span><code><span class="n">COMMENT_SYSTEM</span> <span class="o">=</span> <span class="s2">"disqus"</span>
+<div class="code"><pre class="code literal-block"><span class="n">COMMENT_SYSTEM</span> <span class="o">=</span> <span class="s2">"disqus"</span>
 <span class="n">COMMENT_SYSTEM_ID</span> <span class="o">=</span> <span class="s2">"hiromasa-info"</span>
-</code></pre>
+</pre></div>
 
 <p><code>COMMENT_SYSTEM_ID</code>はdisqusの場合はshortnameを設定する。
 shortnameはdisqusのsiteのsettingsから確認できる。</p>
@@ -312,7 +314,6 @@ ReStructuredTextで書くとExtensionとして<a href="https://getnikola.com/han
 <li><a href="http://iuk.hateblo.jp/entry/2016/10/27/024802">markdown周りの設定</a></li>
 </ul>
 </div>
-    </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/github/" rel="tag">github</a></li>
             <li><a class="tag p-category" href="../../categories/nikola/" rel="tag">nikola</a></li>
@@ -324,7 +325,7 @@ ReStructuredTextで書くとExtensionとして<a href="https://getnikola.com/han
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
         
-        
+    
         <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="hiromasa-info",
@@ -345,7 +346,7 @@ ReStructuredTextで書くとExtensionとして<a href="https://getnikola.com/han
 
 
         </section></article><script>var disqus_shortname="hiromasa-info";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2021         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2022         <a href="mailto:stoicheia1986@gmail.com">Hiromasa OHASHI</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
 <!-- twitter -->
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><!-- facebook --><div id="fb-root"></div>
