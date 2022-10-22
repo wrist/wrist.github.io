@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlite)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlite.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 21 Oct 2022 17:58:02 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>2022/10/22 PyData Osaka #026における JupyterLite関連の紹介記事</title><link>http://www.hiromasa.info/en/posts/26/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;h2&gt;2022/10/22 PyData Osaka Meetup #026におけるJupyterLite関連の紹介記事&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlite)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlite.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Sat, 22 Oct 2022 04:03:12 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>2022/10/22 PyData Osaka #026における JupyterLite関連の紹介記事</title><link>http://www.hiromasa.info/en/posts/26/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;h2&gt;2022/10/22 PyData Osaka Meetup #026におけるJupyterLite関連の紹介記事&lt;/h2&gt;
 &lt;p&gt;本記事はタイトルの通り&lt;a href="https://pydataosaka.connpass.com/event/261492/"&gt;PyData Osaka Meetup #026&lt;/a&gt;で使用する、主にJupyterLiteについて紹介するための記事となります。&lt;/p&gt;
 &lt;h3&gt;Jupyterliteに関する翻訳記事の紹介(前半)&lt;/h3&gt;
 &lt;p&gt;&lt;a href="https://github.com/PyDataOsaka/jupyterblog-translation"&gt;このリポジトリ&lt;/a&gt;で翻訳した内容を&lt;a href="https://medium.com/pydata-osaka"&gt;Medium&lt;/a&gt;へと転記しています。
@@ -25,10 +25,14 @@ StarやMediumでのフォローをよろしくお願いします。
 &lt;p&gt;本ブログはmarkdownとipynbで書かれていますが、これらの記事を追加した状態でjupyterliteの静的サイトをGitHub actionsで生成し、公開する例を紹介します。&lt;/p&gt;
 &lt;h4&gt;仕組みの概要&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="https://github.com/wrist/wrist.github.io/tree/src"&gt;ブログのsrcブランチ&lt;/a&gt;の内容を元に静的ブログをビルド&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/wrist/wrist.github.io/blob/src/.github/workflows/build.yml"&gt;このワークフロー&lt;/a&gt;でjupyterliteを静的アセットとして動的に生成した上で、nikolaブログのビルドを行い、デプロイを実行&lt;ul&gt;
-&lt;li&gt;GitHub actionsは&lt;a href="https://github.com/wrist/docker-jupyterlab-custom"&gt;このリポジトリに従って作成されたDockerイメージ&lt;/a&gt;を用いて実行&lt;/li&gt;
-&lt;li&gt;jupyterliteの生成のためには&lt;a href="https://github.com/wrist/wrist.github.io/blob/src/generate_jupyterlite.sh"&gt;このスクリプト&lt;/a&gt;を実行&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/wrist/wrist.github.io/tree/src"&gt;ブログのsrcブランチ&lt;/a&gt;の内容を元に静的ブログをビルド(static site generatorのnikolaを使用)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/wrist/wrist.github.io/blob/src/.github/workflows/build.yml"&gt;このワークフロー&lt;/a&gt;でブログ構築およびjupyterlite生成を自動化&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/wrist/docker-jupyterlab-custom"&gt;このリポジトリに従って作成されたDockerイメージ&lt;/a&gt;を用いてワークフローを実行&lt;/li&gt;
+&lt;li&gt;jupyterliteを静的アセットとして動的に生成した上で、nikolaブログのビルドを行い、デプロイを実行&lt;/li&gt;
+&lt;li&gt;jupyterliteの生成のためには&lt;a href="https://github.com/wrist/wrist.github.io/blob/src/generate_jupyterlite.sh"&gt;このスクリプト&lt;/a&gt;を実行&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;jupyter lite&lt;/code&gt;コマンドのオプションは&lt;a href="https://jupyterlite.readthedocs.io/en/latest/reference/cli.html"&gt;ここ&lt;/a&gt;を参照&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;

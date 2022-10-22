@@ -167,11 +167,17 @@ StarやMediumでのフォローをよろしくお願いします。
 <h4>仕組みの概要</h4>
 <ul>
 <li>
-<a href="https://github.com/wrist/wrist.github.io/tree/src">ブログのsrcブランチ</a>の内容を元に静的ブログをビルド</li>
+<a href="https://github.com/wrist/wrist.github.io/tree/src">ブログのsrcブランチ</a>の内容を元に静的ブログをビルド(static site generatorのnikolaを使用)</li>
 <li>
-<a href="https://github.com/wrist/wrist.github.io/blob/src/.github/workflows/build.yml">このワークフロー</a>でjupyterliteを静的アセットとして動的に生成した上で、nikolaブログのビルドを行い、デプロイを実行<ul>
-<li>GitHub actionsは<a href="https://github.com/wrist/docker-jupyterlab-custom">このリポジトリに従って作成されたDockerイメージ</a>を用いて実行</li>
-<li>jupyterliteの生成のためには<a href="https://github.com/wrist/wrist.github.io/blob/src/generate_jupyterlite.sh">このスクリプト</a>を実行</li>
+<a href="https://github.com/wrist/wrist.github.io/blob/src/.github/workflows/build.yml">このワークフロー</a>でブログ構築およびjupyterlite生成を自動化<ul>
+<li>
+<a href="https://github.com/wrist/docker-jupyterlab-custom">このリポジトリに従って作成されたDockerイメージ</a>を用いてワークフローを実行</li>
+<li>jupyterliteを静的アセットとして動的に生成した上で、nikolaブログのビルドを行い、デプロイを実行</li>
+<li>jupyterliteの生成のためには<a href="https://github.com/wrist/wrist.github.io/blob/src/generate_jupyterlite.sh">このスクリプト</a>を実行<ul>
+<li>
+<code>jupyter lite</code>コマンドのオプションは<a href="https://jupyterlite.readthedocs.io/en/latest/reference/cli.html">ここ</a>を参照</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

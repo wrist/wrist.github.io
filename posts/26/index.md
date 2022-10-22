@@ -37,10 +37,12 @@ StarやMediumでのフォローをよろしくお願いします。
 
 ### 仕組みの概要
 
-* [ブログのsrcブランチ](https://github.com/wrist/wrist.github.io/tree/src)の内容を元に静的ブログをビルド
-* [このワークフロー](https://github.com/wrist/wrist.github.io/blob/src/.github/workflows/build.yml)でjupyterliteを静的アセットとして動的に生成した上で、nikolaブログのビルドを行い、デプロイを実行
-    * GitHub actionsは[このリポジトリに従って作成されたDockerイメージ](https://github.com/wrist/docker-jupyterlab-custom)を用いて実行
+* [ブログのsrcブランチ](https://github.com/wrist/wrist.github.io/tree/src)の内容を元に静的ブログをビルド(static site generatorのnikolaを使用)
+* [このワークフロー](https://github.com/wrist/wrist.github.io/blob/src/.github/workflows/build.yml)でブログ構築およびjupyterlite生成を自動化
+    * [このリポジトリに従って作成されたDockerイメージ](https://github.com/wrist/docker-jupyterlab-custom)を用いてワークフローを実行
+    * jupyterliteを静的アセットとして動的に生成した上で、nikolaブログのビルドを行い、デプロイを実行
     * jupyterliteの生成のためには[このスクリプト](https://github.com/wrist/wrist.github.io/blob/src/generate_jupyterlite.sh)を実行
+        * `jupyter lite`コマンドのオプションは[ここ](https://jupyterlite.readthedocs.io/en/latest/reference/cli.html)を参照
 
 ### jupyterlab-wav
 
