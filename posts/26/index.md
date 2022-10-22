@@ -17,6 +17,9 @@
 
 [このリポジトリ](https://github.com/PyDataOsaka/jupyterblog-translation)で翻訳した内容を[Medium](https://medium.com/pydata-osaka)へと転記しています。
 StarやMediumでのフォローをよろしくお願いします。
+
+まずは[ここ](https://jupyter.org/try-jupyter/lab/)をクリックしてJupyterliteを体験していただければと思います。
+
 本日のイベントでは下記ブログ記事を読んでいきます。
 
 * [jupyterlite loves webassembly](https://github.com/PyDataOsaka/jupyterblog-translation/blob/main/posts/2021-07-13-jupyterlite-loves-webassembly.md)
