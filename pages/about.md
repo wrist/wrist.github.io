@@ -30,27 +30,27 @@ C, C++, Python, matlab, octave, rubyあたりの言語を日常的に書き、�
 
 ### 定期的に更新するもの ###
 
-* [github](https://github.com/wrist")
-* [Qiita](http://qiita.com/wrist")
-* [Twitter](https://twitter.com/wrist")
-* [twilog](http://twilog.org/wrist")
-* [Facebook](https://www.facebook.com/hiromasa.ohashi")
-* [Instagram](http://instagram.com/wrist")
-* [Linked In](http://www.linkedin.com/pub/hiromasa-ohashi/36/411/432")
-* [Hatena](http://profile.hatena.ne.jp/wristed/")
-* [Hatena Blog](http://wrist.hatenablog.com/")
-* [slideshare](http://www.slideshare.net/hiromasaohashi")
-* [youtube](http://www.youtube.com/user/wrist1986")
+* [github](https://github.com/wrist)
+* [Qiita](http://qiita.com/wrist)
+* [Twitter](https://twitter.com/wrist)
+* [twilog](http://twilog.org/wrist)
+* [Facebook](https://www.facebook.com/hiromasa.ohashi)
+* [Instagram](http://instagram.com/wrist)
+* [Linked In](http://www.linkedin.com/pub/hiromasa-ohashi/36/411/432)
+* [Hatena](http://profile.hatena.ne.jp/wristed/)
+* [Hatena Blog](http://wrist.hatenablog.com/)
+* [slideshare](http://www.slideshare.net/hiromasaohashi)
+* [youtube](http://www.youtube.com/user/wrist1986)
 
 ### ほぼ更新していないもの ###
 
-* [foursquare](https://ja.foursquare.com/wrist")
-* [Last.fm](http://www.lastfm.jp/user/wristed")
-* [携帯百景](http://movapic.com/wrist")
-* [booklog](http://booklog.jp/users/wrist")
-* [mixi](http://mixi.jp/show_profile.pl?id=3453935")
-* [Google+](http://google.com/+HiromasaOhashi")
-* [tumblr](http://wrist.tumblr.com/")
+* [foursquare](https://ja.foursquare.com/wrist)
+* [Last.fm](http://www.lastfm.jp/user/wristed)
+* [携帯百景](http://movapic.com/wrist)
+* [booklog](http://booklog.jp/users/wrist)
+* [mixi](http://mixi.jp/show_profile.pl?id=3453935)
+* [Google+](http://google.com/+HiromasaOhashi)
+* [tumblr](http://wrist.tumblr.com/)
 
 ## オーガナイザ ##
 
