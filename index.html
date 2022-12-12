@@ -234,15 +234,15 @@ xsimd &gt;=7.4
 <a href="https://boa-build.readthedocs.io/en/latest/recipe_spec.html">このドキュメント</a>に詳細な記述があります。
 parseを簡単にしたり、複数箇所への出力に関する一貫性のなさを解消したり、再起的なパースや依存性解決を防ぐために開発されたとの説明があります。</p>
 <p><code>boa</code>のレシピは次の項目を備えています。</p>
-<div class="code"><pre class="code literal-block"><span class="n">context</span><span class="o">:</span><span class="w"> </span><span class="n">Jinjaの文字列置換で後続の箇所で使用可能な変数の設定を行う</span><span class="w"></span>
-<span class="kd">package</span><span class="o">:</span><span class="w"> </span><span class="err">パッケージのトップレベルとなる</span><span class="w"> </span><span class="err">名前、バージョン、その他の情報を定義する</span><span class="w"></span>
-<span class="n">source</span><span class="o">:</span><span class="w"> </span><span class="err">：</span><span class="w"> </span><span class="err">レシピのビルドのためにダウンロードが必要となるソースへのポインタ</span><span class="w"></span>
-<span class="n">build</span><span class="o">:</span><span class="w"> </span><span class="err">レシピをどのようにビルドするかと、使用するビルド番号を定義する</span><span class="w"></span>
-<span class="n">requirements</span><span class="o">:</span><span class="w"> </span><span class="err">パッケージのトップレベルにおける依存ライブラリを定義する</span><span class="w"></span>
-<span class="n">test</span><span class="o">:</span><span class="w"> </span><span class="err">パッケージのトップレベルにおけるテストを定義する</span><span class="w"></span>
-<span class="n">outputs</span><span class="o">:</span><span class="w"> </span><span class="err">レシピは複数の出力行うことができる。各々の</span><span class="n">outputはパッケージと依存関係</span><span class="err">、テストのセクションを持ちことが可能であり持つべきである</span><span class="w"></span>
-</pre></div>
-
+<ul>
+<li>context: Jinjaの文字列置換で後続の箇所で使用可能な変数の設定を行う</li>
+<li>package: パッケージのトップレベルとなる 名前、バージョン、その他の情報を定義する</li>
+<li>source: ： レシピのビルドのためにダウンロードが必要となるソースへのポインタ</li>
+<li>build: レシピをどのようにビルドするかと、使用するビルド番号を定義する</li>
+<li>requirements: パッケージのトップレベルにおける依存ライブラリを定義する</li>
+<li>test: パッケージのトップレベルにおけるテストを定義する</li>
+<li>outputs: レシピは複数の出力行うことができる。各々のoutputはパッケージと依存関係、テストのセクションを持ちことが可能であり持つべきである</li>
+</ul>
 <p>ドキュメント記載の例を下記に転記します。</p>
 <div class="code"><pre class="code literal-block"><span class="c1"># "context variables"を設定(後でJinjaのexpressionとして使用可能)</span><span class="w"></span>
 <span class="nt">context</span><span class="p">:</span><span class="w"></span>
@@ -313,9 +313,8 @@ parseを簡単にしたり、複数箇所への出力に関する一貫性のな
 <p>ここで実際に既存recipeを変換して...というところまで行きつきたかったのですが、時間切れに伴いここで一旦終了とさせていただきます。
 追記する場合はその旨を記載いたします。</p>
 <h3>PyData Osaka meetup #27</h3>
-<p>以上に記載した内容+αを12/17(土) 13:00より開催予定のPyData Osakaのミートアップで紹介する予定です。
-この記事で触れたmambaやboaについての紹介を行いたいと考えています。よろしければご参加ください。
-https://pydataosaka.connpass.com/event/267542/</p>
+<p>以上に記載した内容+αを12/17(土) 13:00より開催予定の<a href="https://www.hiromasa.info/posts/27/">PyData Osakaのミートアップ</a>で紹介する予定です。
+この記事で触れたmambaやboaについての紹介を行いたいと考えています。よろしければご参加ください。</p>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/26/" class="u-url">2022/10/22 PyData Osaka #026における JupyterLite関連の紹介記事</a></h1>
                 <div class="metadata">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about openfst)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/openfst.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 12 Dec 2022 18:07:30 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>openfst quick tourをjupyterlab上で実行</title><link>http://www.hiromasa.info/en/posts/18/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about openfst)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/openfst.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 12 Dec 2022 23:18:17 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>openfst quick tourをjupyterlab上で実行</title><link>http://www.hiromasa.info/en/posts/18/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2 id="openfst-quick-tourをjupyterlab上で実行"&gt;openfst quick tourをjupyterlab上で実行&lt;a class="anchor-link" href="http://www.hiromasa.info/en/posts/18/#openfst-quick-tour%E3%82%92jupyterlab%E4%B8%8A%E3%81%A7%E5%AE%9F%E8%A1%8C"&gt;¶&lt;/a&gt;&lt;/h2&gt;
@@ -62,9 +62,9 @@ $ pip install openfst-python
 
 
 
-&lt;div id="7e40a9c9-68d5-4be7-b6ac-b5e69c7dc963" class="output_subarea output_javascript "&gt;
+&lt;div id="37b1c922-0299-4816-bbf3-07b2562b87fc" class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#7e40a9c9-68d5-4be7-b6ac-b5e69c7dc963');
+var element = $('#37b1c922-0299-4816-bbf3-07b2562b87fc');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about mamba)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/mamba.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 12 Dec 2022 18:07:27 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>高速なconda代替コマンド mambaとビルドツールboa</title><link>http://www.hiromasa.info/en/posts/27/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;p&gt;この記事は&lt;a href="https://qiita.com/advent-calendar/2022/python"&gt;Qiitaアドベントカレンダー 2022 Python&lt;/a&gt; 13日目の記事です。&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about mamba)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/mamba.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 12 Dec 2022 23:18:25 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>高速なconda代替コマンド mambaとビルドツールboa</title><link>http://www.hiromasa.info/en/posts/27/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;p&gt;この記事は&lt;a href="https://qiita.com/advent-calendar/2022/python"&gt;Qiitaアドベントカレンダー 2022 Python&lt;/a&gt; 13日目の記事です。&lt;/p&gt;
 &lt;h3&gt;高速な&lt;code&gt;conda&lt;/code&gt;代替コマンド&lt;code&gt;mamba&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;mamba&lt;/code&gt;は&lt;code&gt;conda&lt;/code&gt;コマンドの代わりに使用することができるPythonライブラリやパッケージ管理に用いることが可能なコマンドラインツールです。 &lt;code&gt;C++&lt;/code&gt;による記述や&lt;code&gt;libsolv&lt;/code&gt;などのライブラリを活用することによって高速に動作することを特徴としており、最近バージョン1.0が公開されました。
 当方で&lt;a href="https://medium.com/pydata-osaka/releasing-mamba-1-0-%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%A8%B3-9f71af3a7dd7"&gt;関連する記事の翻訳&lt;/a&gt;をPyData OsakaのMedium上で公開したため、詳細についてはこちらをご覧いただければと思います。
@@ -104,15 +104,15 @@ xsimd &amp;gt;=7.4
 &lt;a href="https://boa-build.readthedocs.io/en/latest/recipe_spec.html"&gt;このドキュメント&lt;/a&gt;に詳細な記述があります。
 parseを簡単にしたり、複数箇所への出力に関する一貫性のなさを解消したり、再起的なパースや依存性解決を防ぐために開発されたとの説明があります。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;boa&lt;/code&gt;のレシピは次の項目を備えています。&lt;/p&gt;
-&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Jinjaの文字列置換で後続の箇所で使用可能な変数の設定を行う&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="kd"&gt;package&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;パッケージのトップレベルとなる&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;名前、バージョン、その他の情報を定義する&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;：&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;レシピのビルドのためにダウンロードが必要となるソースへのポインタ&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;レシピをどのようにビルドするかと、使用するビルド番号を定義する&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="n"&gt;requirements&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;パッケージのトップレベルにおける依存ライブラリを定義する&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;パッケージのトップレベルにおけるテストを定義する&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="n"&gt;outputs&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;レシピは複数の出力行うことができる。各々の&lt;/span&gt;&lt;span class="n"&gt;outputはパッケージと依存関係&lt;/span&gt;&lt;span class="err"&gt;、テストのセクションを持ちことが可能であり持つべきである&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
+&lt;ul&gt;
+&lt;li&gt;context: Jinjaの文字列置換で後続の箇所で使用可能な変数の設定を行う&lt;/li&gt;
+&lt;li&gt;package: パッケージのトップレベルとなる 名前、バージョン、その他の情報を定義する&lt;/li&gt;
+&lt;li&gt;source: ： レシピのビルドのためにダウンロードが必要となるソースへのポインタ&lt;/li&gt;
+&lt;li&gt;build: レシピをどのようにビルドするかと、使用するビルド番号を定義する&lt;/li&gt;
+&lt;li&gt;requirements: パッケージのトップレベルにおける依存ライブラリを定義する&lt;/li&gt;
+&lt;li&gt;test: パッケージのトップレベルにおけるテストを定義する&lt;/li&gt;
+&lt;li&gt;outputs: レシピは複数の出力行うことができる。各々のoutputはパッケージと依存関係、テストのセクションを持ちことが可能であり持つべきである&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;ドキュメント記載の例を下記に転記します。&lt;/p&gt;
 &lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="c1"&gt;# "context variables"を設定(後でJinjaのexpressionとして使用可能)&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
 &lt;span class="nt"&gt;context&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
@@ -182,6 +182,5 @@ parseを簡単にしたり、複数箇所への出力に関する一貫性のな
 &lt;p&gt;ここで実際に既存recipeを変換して...というところまで行きつきたかったのですが、時間切れに伴いここで一旦終了とさせていただきます。
 追記する場合はその旨を記載いたします。&lt;/p&gt;
 &lt;h3&gt;PyData Osaka meetup #27&lt;/h3&gt;
-&lt;p&gt;以上に記載した内容+αを12/17(土) 13:00より開催予定のPyData Osakaのミートアップで紹介する予定です。
-この記事で触れたmambaやboaについての紹介を行いたいと考えています。よろしければご参加ください。
-https://pydataosaka.connpass.com/event/267542/&lt;/p&gt;</description><guid>http://www.hiromasa.info/en/posts/27/</guid><pubDate>Mon, 12 Dec 2022 15:00:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;以上に記載した内容+αを12/17(土) 13:00より開催予定の&lt;a href="https://www.hiromasa.info/posts/27/"&gt;PyData Osakaのミートアップ&lt;/a&gt;で紹介する予定です。
+この記事で触れたmambaやboaについての紹介を行いたいと考えています。よろしければご参加ください。&lt;/p&gt;</description><guid>http://www.hiromasa.info/en/posts/27/</guid><pubDate>Mon, 12 Dec 2022 15:00:00 GMT</pubDate></item></channel></rss>
