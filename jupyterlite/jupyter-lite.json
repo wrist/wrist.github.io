@@ -2,7 +2,7 @@
   "jupyter-config-data": {
     "appName": "JupyterLite",
     "appUrl": "./lab",
-    "appVersion": "0.1.0-beta.12",
+    "appVersion": "0.1.0-beta.15",
     "baseUrl": "./",
     "defaultKernelName": "python",
     "faviconUrl": "./lab/favicon.ico",
@@ -16,13 +16,13 @@
       {
         "extension": "./extension",
         "liteExtension": false,
-        "load": "static/remoteEntry.3421943a0ce73f10909d.js",
+        "load": "static/remoteEntry.1116b848a6f7126bf3e9.js",
         "name": "@jupyter-widgets/jupyterlab-manager"
       },
       {
         "extension": "./extension",
         "liteExtension": false,
-        "load": "static/remoteEntry.1b032a68f40ad5f81eee.js",
+        "load": "static/remoteEntry.8b0313058c694f076f66.js",
         "name": "@jupyterlab/git",
         "style": "./style"
       },
@@ -41,7 +41,7 @@
       {
         "extension": "./extension",
         "liteExtension": false,
-        "load": "static/remoteEntry.65014cb58c79e1651a0a.js",
+        "load": "static/remoteEntry.42a1c55007d8b1652540.js",
         "name": "@voila-dashboards/jupyterlab-preview",
         "style": "./style"
       },
@@ -55,7 +55,7 @@
       {
         "extension": "./extension",
         "liteExtension": false,
-        "load": "static/remoteEntry.6a761b1842f6f2e31f74.js",
+        "load": "static/remoteEntry.cec326f8f2959bfbc636.js",
         "name": "jupyter-matplotlib"
       },
       {

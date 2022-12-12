@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about mamba)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/mamba.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 12 Dec 2022 18:07:27 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>高速なconda代替コマンド mambaとビルドツールboa</title><link>http://www.hiromasa.info/en/posts/27/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;p&gt;この記事は&lt;a href="https://qiita.com/advent-calendar/2022/python"&gt;Qiitaアドベントカレンダー 2022 Python&lt;/a&gt; 13日目の記事です。&lt;/p&gt;
+&lt;h3&gt;高速な&lt;code&gt;conda&lt;/code&gt;代替コマンド&lt;code&gt;mamba&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;mamba&lt;/code&gt;は&lt;code&gt;conda&lt;/code&gt;コマンドの代わりに使用することができるPythonライブラリやパッケージ管理に用いることが可能なコマンドラインツールです。 &lt;code&gt;C++&lt;/code&gt;による記述や&lt;code&gt;libsolv&lt;/code&gt;などのライブラリを活用することによって高速に動作することを特徴としており、最近バージョン1.0が公開されました。
+当方で&lt;a href="https://medium.com/pydata-osaka/releasing-mamba-1-0-%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%A8%B3-9f71af3a7dd7"&gt;関連する記事の翻訳&lt;/a&gt;をPyData OsakaのMedium上で公開したため、詳細についてはこちらをご覧いただければと思います。
+上記記事でも触れられていますが、&lt;code&gt;mamba&lt;/code&gt;は&lt;code&gt;conda&lt;/code&gt;とほぼ互換性のあるCLIインタフェースを持っているため、もし既にパッケージ管理に&lt;code&gt;conda&lt;/code&gt;を使っている場合はそのコマンドを&lt;code&gt;mamba&lt;/code&gt;に置き換えるだけで使用することが可能となります。&lt;/p&gt;
+&lt;h4&gt;&lt;code&gt;mamba&lt;/code&gt;の導入&lt;/h4&gt;
+&lt;p&gt;詳細は&lt;a href="https://mamba.readthedocs.io/en/latest/installation.html"&gt;こちら&lt;/a&gt;を参照いただければと思いますが、既にcondaが導入されている場合は&lt;code&gt;conda install mamba -n base -c conda-forge&lt;/code&gt;でインストールを行うことができます。
+mambaの使用方法についてはcondaと同一であるためここでは割愛させていただきます。&lt;/p&gt;
+&lt;h4&gt;&lt;code&gt;micromamba&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;前述の翻訳記事にも記載がありますが、更に最近は完全にC++のみで書かれた&lt;code&gt;micromamba&lt;/code&gt;の開発が進んでいます。シングルバイナリで提供され、非常に小さく、更にベースとなる環境を必要としないことを特徴としています。依存関係についても完全に静的リンクされた状態で配布されているため、適当なところに配置して実行することが可能となります。&lt;a href="https://mamba.readthedocs.io/en/latest/installation.html"&gt;ドキュメント&lt;/a&gt;にはminicondaの代わりとして環境構築をゼロから行う場合に使用可能であるような旨が書かれています。&lt;/p&gt;
+&lt;h4&gt;&lt;code&gt;micromamba&lt;/code&gt;の導入&lt;/h4&gt;
+&lt;p&gt;macosであればhomebrewを入れた状態で&lt;code&gt;brew install --cask micromamba&lt;/code&gt;のように導入が可能です。
+また、homebrewがない環境では&lt;code&gt;curl micro.mamba.pm/install.sh | zsh&lt;/code&gt;としても導入が可能です。
+linuxの場合は&lt;code&gt;curl micro.mamba.pm/install.sh | bash&lt;/code&gt;とzshをbashに置き換えてください。
+windowsの場合は&lt;a href="https://mamba.readthedocs.io/en/latest/installation.html"&gt;ドキュメント&lt;/a&gt;を参照ください。&lt;/p&gt;
+&lt;h4&gt;&lt;code&gt;micromamba&lt;/code&gt;の使用方法&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;micromamba&lt;/code&gt;は&lt;code&gt;conda&lt;/code&gt;や&lt;code&gt;mamba&lt;/code&gt;のCLIのサブセットを持っているためほとんど同じ様な感じで使うことができます。
+詳細は&lt;a href="https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html"&gt;ドキュメント&lt;/a&gt;を参照いただければと思いますが、&lt;code&gt;--help&lt;/code&gt;でサブコマンドの一覧が表示でき、&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ micromamba --help
+
+Subcommands:
+  shell                       Generate shell init scripts
+  create                      Create new environment
+  install                     Install packages &lt;span class="k"&gt;in&lt;/span&gt; active environment
+  update                      Update packages &lt;span class="k"&gt;in&lt;/span&gt; active environment
+  repoquery                   Find and analyze packages &lt;span class="k"&gt;in&lt;/span&gt; active environment or channels
+  remove                      Remove packages from active environment
+  list                        List packages &lt;span class="k"&gt;in&lt;/span&gt; active environment
+  package                     Extract a package or bundle files into an archive
+  clean                       Clean package cache
+  config                      Configuration of micromamba
+  info                        Information about micromamba
+  constructor                 Commands to support using micromamba &lt;span class="k"&gt;in&lt;/span&gt; constructor
+  env                         List environments
+  activate                    Activate an environment
+  run                         Run an executable &lt;span class="k"&gt;in&lt;/span&gt; an environment
+  ps                          Show, inspect or &lt;span class="nb"&gt;kill&lt;/span&gt; running processes
+  auth                        Login or &lt;span class="nb"&gt;logout&lt;/span&gt; of a given host
+  search                      Find packages &lt;span class="k"&gt;in&lt;/span&gt; active environment or channels
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;ライブラリの個別インストールは&lt;code&gt;micromamba install xtensor -c conda-forge&lt;/code&gt;で可能です。&lt;code&gt;-c&lt;/code&gt;はインストール元のchannelを&lt;code&gt;conda-forge&lt;/code&gt;に指定していることを表ます。
+また、仮想環境作成も&lt;code&gt;conda&lt;/code&gt;や&lt;code&gt;mamba&lt;/code&gt;と同様に&lt;code&gt;micromamba create -n xtensor_env xtensor xsimd -c conda-forge&lt;/code&gt;ののちに&lt;code&gt;micromamba activate xtensor_env&lt;/code&gt;などでアクティベーションが可能です。&lt;/p&gt;
+&lt;p&gt;ライブラリはライブラリを列挙したテキストファイルか、または&lt;code&gt;env.yal&lt;/code&gt;からインストールすることもできます。
+テキストファイルの場合は、&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;xtensor
+numpy 1.19
+xsimd &amp;gt;=7.4
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;という内容のファイルを&lt;code&gt;spec_file.txt&lt;/code&gt;として保存した上で、&lt;code&gt;micromamba create -n from_file -f spec_file.txt -c conda-forge&lt;/code&gt;で実行することが可能です。&lt;/p&gt;
+&lt;p&gt;また、&lt;code&gt;env.yml&lt;/code&gt;は下記のようなyamlファイルです。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;testenv&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;channels&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;conda-forge&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;dependencies&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;python &amp;gt;=3.6,&amp;lt;3.7&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;ipykernel &amp;gt;=5.1&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;ipywidgets&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;これを元にする場合は&lt;code&gt;micromamba create -f env.yml&lt;/code&gt;として環境構築が可能です。&lt;code&gt;-c conda-forge&lt;/code&gt;を指定しなくて済む様になるので便利ですね。&lt;/p&gt;
+&lt;h4&gt;&lt;code&gt;micromamba&lt;/code&gt;の活用方法&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;micromamba&lt;/code&gt;はシングルバイナリで提供できインストールも容易であることから、CI/CDなどで使用することも想定されています。
+冒頭の翻訳記事にも出てきますが、GitHub Actionsで利用可能な&lt;a href="https://github.com/mamba-org/provision-with-micromamba"&gt;provision-with-micromamba&lt;/a&gt;、micromambaが使用可能な軽量Dockerイメージである&lt;a href="https://github.com/mamba-org/micromamba-docker"&gt;micromamba-docker&lt;/a&gt;、VSCodeでの開発で活用できる&lt;a href="https://github.com/mamba-org/micromamba-devcontainer"&gt;micromamba-devcontainer&lt;/a&gt;などが公開されています。&lt;/p&gt;
+&lt;p&gt;実際にWebAssembly向けのパッケージを格納している&lt;a href="https://github.com/emscripten-forge/recipes/blob/main/.github/workflows/build_recipes.yaml"&gt;Emscripten-forgeのActions&lt;/a&gt;では、この様な目的でMicromambaを使用しています。&lt;/p&gt;
+&lt;h3&gt;Mamba meets Jupyterlite&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Emscripten-forge&lt;/code&gt;の話題を出したので、また別の翻訳記事である&lt;a href="https://medium.com/pydata-osaka/mamba-meets-jupyterlite%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%A8%B3-68d0823d767d"&gt;mamba meets jupyterlite&lt;/a&gt;についてもここで貼っておきたいと思います。この記事は更に別の翻訳記事である&lt;a href="https://medium.com/pydata-osaka/jupyterlite-jupyter-%EF%B8%8Fwebassembly-%EF%B8%8Fpython%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%A8%B3-1f228a9d97d1"&gt;JupyterLite:Jupyter❤️WebAssembly❤️Python&lt;/a&gt;の翻訳記事を前提にしているため、合わせて読んでいただけると幸いです。&lt;/p&gt;
+&lt;p&gt;ざっくり書きますと、WebAssemblyを活用することによりPythonインタプリタをブラウザ上で動作することを可能にした&lt;code&gt;pyodide&lt;/code&gt;というものが存在し、更にこれを活用することでサーバーを必要としないブラウザのみで動作するJupyter環境である&lt;code&gt;Jupyterlite&lt;/code&gt;というものが存在しています。
+このJupyterlite上ではピュアPythonのみで書かれたライブラリに関しては&lt;code&gt;pyodide&lt;/code&gt;の&lt;a href="https://pyodide.org/en/stable/usage/api/micropip-api.html"&gt;micropip&lt;/a&gt;を用いることでJupyterliteへの導入が可能となっていますが 、 一方で C拡張を伴うようなライブラリについては(WebAssemblyのコンパイルが必要となることなどから)単純な導入が困難となっておりました。
+これを解決するためには、WebAssemblyプラットフォーム向けにあらかじめビルドされた状態のcondaパッケージを配布することが必要となります。
+このために、&lt;a href="https://github.com/emscripten-forge/recipes"&gt;emscripten-forge/recipes&lt;/a&gt;のリポジトリにおいてパッケージのビルド方法を管理するためのレシピ群が管理され、 パッケージのホスティングには&lt;a href="https://github.com/mamba-org/quetz"&gt;Quetz&lt;/a&gt;というFastAPIを用いたcondaパッケージ用のサーバーが用いられています。&lt;/p&gt;
+&lt;p&gt;これらの機構を用いることで、&lt;code&gt;emscripten-32&lt;/code&gt;向けの環境を下記の様に構築できるようになりました。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ micromamba create -n my-env --platform&lt;span class="o"&gt;=&lt;/span&gt;emscripten-32 &lt;span class="se"&gt;\ &lt;/span&gt;
+    -c https://repo.mamba.pm/emscripten-forge &lt;span class="se"&gt;\ &lt;/span&gt;
+    -c https://repo.mamba.pm/conda-forge &lt;span class="se"&gt;\&lt;/span&gt;
+    python ipython numpy jedi
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;jupyterliteではこのWebAssembly向けにビルド・配布されたパッケージを使うために、&lt;a href="https://github.com/jupyter-xeus/xeus-python"&gt;xeus-python&lt;/a&gt;を用いているそうです。
+自分も完璧には理解しきれてはいませんが、jupyterliteを静的サイトとして構築する際に使用する&lt;code&gt;jupyter lite build&lt;/code&gt;コマンドにおいて、下記の様な指定を行うことでXeusPython環境に存在するパッケージをPythonランタイム内にプリインストールすることが可能となるとのことです。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ jupyter lite build --XeusPythonEnv.packages&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="se"&gt;\&lt;/span&gt;
+    numpy,&lt;span class="se"&gt;\&lt;/span&gt;
+    matplotlib,&lt;span class="se"&gt;\&lt;/span&gt;
+    ipyleaflet
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;ビルドツール&lt;code&gt;boa&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;上記のWebAssembly向けのパッケージのビルドは&lt;a href="https://github.com/emscripten-forge/recipes/blob/main/.github/workflows/build_recipes.yaml"&gt;Emscripten-forgeのActions&lt;/a&gt;内で呼ばれている&lt;a href="https://github.com/emscripten-forge/recipes/blob/main/builder.py"&gt;builder.py&lt;/a&gt;で行われていますが、ここでビルドツールの&lt;a href="https://github.com/mamba-org/boa"&gt;boa&lt;/a&gt;というものが使われています。
+&lt;code&gt;boa&lt;/code&gt;は&lt;code&gt;libmamba&lt;/code&gt;を用いることで&lt;code&gt;conda-build&lt;/code&gt;よりも高速なビルドを実現するためのツールであるとのことです。
+&lt;code&gt;boa&lt;/code&gt;は3種類のツールを含んでおり、&lt;code&gt;conda build&lt;/code&gt;をmambaをsolverとしたものに置き換える&lt;code&gt;conda mambabuild&lt;/code&gt;、新しい形式のレシピを用いたビルドにおける情報の表示を行う&lt;code&gt;boa render&lt;/code&gt;、そのレシピをもとにビルドを行う&lt;code&gt;boa build&lt;/code&gt;を含んでいます。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;boa&lt;/code&gt;のドキュメントは&lt;a href="https://boa-build.readthedocs.io/en/latest/"&gt;ここ&lt;/a&gt;に存在しており、&lt;a href="https://boa-build.readthedocs.io/en/latest/getting_started.html"&gt;Getting Started&lt;/a&gt;には、&lt;code&gt;mamba install boa -c conda-forge&lt;/code&gt;(mambaの代わりにcondaでも可能)で&lt;code&gt;boa&lt;/code&gt;のインストールを行うことができるとあります。&lt;/p&gt;
+&lt;h4&gt;&lt;code&gt;conda mambabuild&lt;/code&gt;のメリット&lt;/h4&gt;
+&lt;p&gt;メリットについては&lt;a href="https://boa-build.readthedocs.io/en/latest/mambabuild.html"&gt;ここ&lt;/a&gt;に3つ載っており、&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;より高速な依存解決速度: 複雑な環境に対しては、mambaはcondaよりもかなり高速なビルドが可能&lt;/li&gt;
+&lt;li&gt;より良いエラーメッセージ: 依存関係が解決できない環境において、解読が困難なcondaは大量のエラーメッセージを吐くが、Mambaはより理解しやすいメッセージを出力する&lt;/li&gt;
+&lt;li&gt;既存のレシピおよびconda-buildのCLIオプションとの完全な互換性がある(conda-buildに対してsolverの部分を置き換えるためのモンキーパッチを適用しているため)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;とのことです。&lt;/p&gt;
+&lt;h4&gt;&lt;code&gt;boa&lt;/code&gt;における新しいレシピフォーマット&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;boa&lt;/code&gt;は&lt;code&gt;conda build&lt;/code&gt;で用いられる&lt;code&gt;meta.yaml&lt;/code&gt;を置き換える新しいフォーマットである&lt;code&gt;recipe.yaml&lt;/code&gt;を用いたビルドを行うことが可能です。
+&lt;a href="https://boa-build.readthedocs.io/en/latest/recipe_spec.html"&gt;このドキュメント&lt;/a&gt;に詳細な記述があります。
+parseを簡単にしたり、複数箇所への出力に関する一貫性のなさを解消したり、再起的なパースや依存性解決を防ぐために開発されたとの説明があります。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;boa&lt;/code&gt;のレシピは次の項目を備えています。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Jinjaの文字列置換で後続の箇所で使用可能な変数の設定を行う&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="kd"&gt;package&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;パッケージのトップレベルとなる&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;名前、バージョン、その他の情報を定義する&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;：&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;レシピのビルドのためにダウンロードが必要となるソースへのポインタ&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;レシピをどのようにビルドするかと、使用するビルド番号を定義する&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;requirements&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;パッケージのトップレベルにおける依存ライブラリを定義する&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;パッケージのトップレベルにおけるテストを定義する&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;outputs&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;レシピは複数の出力行うことができる。各々の&lt;/span&gt;&lt;span class="n"&gt;outputはパッケージと依存関係&lt;/span&gt;&lt;span class="err"&gt;、テストのセクションを持ちことが可能であり持つべきである&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;ドキュメント記載の例を下記に転記します。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="c1"&gt;# "context variables"を設定(後でJinjaのexpressionとして使用可能)&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;context&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;1.1.0&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;imagesize&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# トップレベルのパッケージ情報(nameとversion)&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;package&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"{{&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;name&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;}}"&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"{{&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;version&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;}}"&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# ソースをどこから取得するかを定義&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;source&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;url&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;sha256&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;f3832918bc3c66617f92e35f5d70729187676313caa60c187eb0f28b8fe5e3b5&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# ビルド番号(バージョンは増加させないが、もし新しいビルドが生成されるのであれば増加させるべき)&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;build&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;number&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;1&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;python -m pip install --no-deps --ignore-installed .&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# ビルド時の実行時のrequirementsを記載&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;requirements&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;host&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;python&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;pip&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;python&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# パッケージが期待通りに動作するかをバリデーションするためのテスト&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;test&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;imports&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;imagesize&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# パッケージに関する情報&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;about&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;home&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;https://github.com/shibukawa/imagesize_py&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;license&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;MIT&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;summary&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;'Getting&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;image&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;size&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;from&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;png/jpeg/jpeg2000/gif&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="s"&gt;file'&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;description&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p p-Indicator"&gt;|&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="no"&gt;This module analyzes jpeg/jpeg2000/png/gif image header and&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="no"&gt;return image size.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;dev_url&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;https://github.com/shibukawa/imagesize_py&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;doc_url&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;https://pypi.python.org/pypi/imagesize&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;doc_source_url&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;https://github.com/shibukawa/imagesize_py/blob/master/README.rst&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# 下記はconda-forge特有の内容&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;extra&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;recipe-maintainers&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;somemaintainer&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;また、&lt;code&gt;conda-build&lt;/code&gt;との主な違いは下記の通りです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;レシピのファイル名がmeta.yamlではなくrecipe.yamlとなった&lt;/li&gt;
+&lt;li&gt;出力がより複雑ではないふるまいとなり、キー名は名前だけではなくpackage/nameと同じレシピにおけるトップレベル階層と同じ(例: 単なるscriptではなくbuild/script)となる&lt;/li&gt;
+&lt;li&gt;暗黙のメタパッケージが出力に生じない&lt;/li&gt;
+&lt;li&gt;完全なJinja2サポートを含まない: 条件節がない または &lt;code&gt;{%&lt;/code&gt; のサポートはなく, 文字列置換のみである. 変数は有効なYAMLファイルのトップレベルにおける"context"に記載できる&lt;/li&gt;
+&lt;li&gt;Jinjaの文字列補完は有効なYAMLとするためにクォーテーションが必要 e.g. - "{{ version }}"&lt;/li&gt;
+&lt;li&gt;セレクタはYAML辞書スタイルを用いる(conda-buildにおけるコメントの代わり). E.g. &lt;code&gt;- somepkg  # [osx]&lt;/code&gt;の代わりに&lt;code&gt;- sel(osx): somepkg&lt;/code&gt;と書く&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;conda-build&lt;/code&gt;からセレクタの文法を使わずにスキップ条件のリストを使う命令をスキップする(e.g. ["osx", "win and py37"]はスキップ)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;conda-buildからのレシピ構築&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;conda-build&lt;/code&gt;で用いていた既存のレシピ&lt;code&gt;meta.yaml&lt;/code&gt;を&lt;code&gt;boa&lt;/code&gt;の文法へとコンバートすることができます。そのコマンドは新しいレシピを標準出力に出力します。
+結果を速く保存するために、&lt;code&gt;boa convert meta.yaml &amp;gt; recipe.yaml&lt;/code&gt;を使うことができ、&lt;code&gt;boa build ..&lt;/code&gt;を実行してください。
+変換プロセスは"シンプル"なレシピに対してのみ動作し、複雑なレシピの変換には手作業が必要となるであろうことに注意してください。&lt;/p&gt;
+&lt;p&gt;ここで実際に既存recipeを変換して...というところまで行きつきたかったのですが、時間切れに伴いここで一旦終了とさせていただきます。
+追記する場合はその旨を記載いたします。&lt;/p&gt;
+&lt;h3&gt;PyData Osaka meetup #27&lt;/h3&gt;
+&lt;p&gt;以上に記載した内容+αを12/17(土) 13:00より開催予定のPyData Osakaのミートアップで紹介する予定です。
+この記事で触れたmambaやboaについての紹介を行いたいと考えています。よろしければご参加ください。
+https://pydataosaka.connpass.com/event/267542/&lt;/p&gt;</description><guid>http://www.hiromasa.info/en/posts/27/</guid><pubDate>Mon, 12 Dec 2022 15:00:00 GMT</pubDate></item></channel></rss>

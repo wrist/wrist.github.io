@@ -32,7 +32,7 @@
     vertical-align: baseline !important; 
 }
 </style>
-<link rel="prefetch" href="posts/26/" type="text/html">
+<link rel="prefetch" href="posts/27/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">本文を読み飛ばす</a>
@@ -104,7 +104,220 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/26/" class="u-url">2022/10/22 PyData Osaka #026における JupyterLite関連の紹介記事</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/27/" class="u-url">高速なconda代替コマンド mambaとビルドツールboa</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Hiromasa OHASHI
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/27/" rel="bookmark">
+            <time class="published dt-published" datetime="2022-12-13T00:00:00+09:00" itemprop="datePublished" title="2022-12-13 00:00">2022-12-13 00:00</time></a>
+            </p>
+                        <p class="commentline">
+    
+    <a href="posts/27/#disqus_thread" data-disqus-identifier="cache/posts/27.html">コメント</a>
+
+
+                </p>
+</div>
+            </header><div class="e-content entry-content">
+                    <p>この記事は<a href="https://qiita.com/advent-calendar/2022/python">Qiitaアドベントカレンダー 2022 Python</a> 13日目の記事です。</p>
+<h3>高速な<code>conda</code>代替コマンド<code>mamba</code>
+</h3>
+<p><code>mamba</code>は<code>conda</code>コマンドの代わりに使用することができるPythonライブラリやパッケージ管理に用いることが可能なコマンドラインツールです。 <code>C++</code>による記述や<code>libsolv</code>などのライブラリを活用することによって高速に動作することを特徴としており、最近バージョン1.0が公開されました。
+当方で<a href="https://medium.com/pydata-osaka/releasing-mamba-1-0-%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%A8%B3-9f71af3a7dd7">関連する記事の翻訳</a>をPyData OsakaのMedium上で公開したため、詳細についてはこちらをご覧いただければと思います。
+上記記事でも触れられていますが、<code>mamba</code>は<code>conda</code>とほぼ互換性のあるCLIインタフェースを持っているため、もし既にパッケージ管理に<code>conda</code>を使っている場合はそのコマンドを<code>mamba</code>に置き換えるだけで使用することが可能となります。</p>
+<h4>
+<code>mamba</code>の導入</h4>
+<p>詳細は<a href="https://mamba.readthedocs.io/en/latest/installation.html">こちら</a>を参照いただければと思いますが、既にcondaが導入されている場合は<code>conda install mamba -n base -c conda-forge</code>でインストールを行うことができます。
+mambaの使用方法についてはcondaと同一であるためここでは割愛させていただきます。</p>
+<h4><code>micromamba</code></h4>
+<p>前述の翻訳記事にも記載がありますが、更に最近は完全にC++のみで書かれた<code>micromamba</code>の開発が進んでいます。シングルバイナリで提供され、非常に小さく、更にベースとなる環境を必要としないことを特徴としています。依存関係についても完全に静的リンクされた状態で配布されているため、適当なところに配置して実行することが可能となります。<a href="https://mamba.readthedocs.io/en/latest/installation.html">ドキュメント</a>にはminicondaの代わりとして環境構築をゼロから行う場合に使用可能であるような旨が書かれています。</p>
+<h4>
+<code>micromamba</code>の導入</h4>
+<p>macosであればhomebrewを入れた状態で<code>brew install --cask micromamba</code>のように導入が可能です。
+また、homebrewがない環境では<code>curl micro.mamba.pm/install.sh | zsh</code>としても導入が可能です。
+linuxの場合は<code>curl micro.mamba.pm/install.sh | bash</code>とzshをbashに置き換えてください。
+windowsの場合は<a href="https://mamba.readthedocs.io/en/latest/installation.html">ドキュメント</a>を参照ください。</p>
+<h4>
+<code>micromamba</code>の使用方法</h4>
+<p><code>micromamba</code>は<code>conda</code>や<code>mamba</code>のCLIのサブセットを持っているためほとんど同じ様な感じで使うことができます。
+詳細は<a href="https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html">ドキュメント</a>を参照いただければと思いますが、<code>--help</code>でサブコマンドの一覧が表示でき、</p>
+<div class="code"><pre class="code literal-block">$ micromamba --help
+
+Subcommands:
+  shell                       Generate shell init scripts
+  create                      Create new environment
+  install                     Install packages <span class="k">in</span> active environment
+  update                      Update packages <span class="k">in</span> active environment
+  repoquery                   Find and analyze packages <span class="k">in</span> active environment or channels
+  remove                      Remove packages from active environment
+  list                        List packages <span class="k">in</span> active environment
+  package                     Extract a package or bundle files into an archive
+  clean                       Clean package cache
+  config                      Configuration of micromamba
+  info                        Information about micromamba
+  constructor                 Commands to support using micromamba <span class="k">in</span> constructor
+  env                         List environments
+  activate                    Activate an environment
+  run                         Run an executable <span class="k">in</span> an environment
+  ps                          Show, inspect or <span class="nb">kill</span> running processes
+  auth                        Login or <span class="nb">logout</span> of a given host
+  search                      Find packages <span class="k">in</span> active environment or channels
+</pre></div>
+
+<p>ライブラリの個別インストールは<code>micromamba install xtensor -c conda-forge</code>で可能です。<code>-c</code>はインストール元のchannelを<code>conda-forge</code>に指定していることを表ます。
+また、仮想環境作成も<code>conda</code>や<code>mamba</code>と同様に<code>micromamba create -n xtensor_env xtensor xsimd -c conda-forge</code>ののちに<code>micromamba activate xtensor_env</code>などでアクティベーションが可能です。</p>
+<p>ライブラリはライブラリを列挙したテキストファイルか、または<code>env.yal</code>からインストールすることもできます。
+テキストファイルの場合は、</p>
+<div class="code"><pre class="code literal-block">xtensor
+numpy 1.19
+xsimd &gt;=7.4
+</pre></div>
+
+<p>という内容のファイルを<code>spec_file.txt</code>として保存した上で、<code>micromamba create -n from_file -f spec_file.txt -c conda-forge</code>で実行することが可能です。</p>
+<p>また、<code>env.yml</code>は下記のようなyamlファイルです。</p>
+<div class="code"><pre class="code literal-block"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testenv</span><span class="w"></span>
+<span class="nt">channels</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span><span class="w"></span>
+<span class="nt">dependencies</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python &gt;=3.6,&lt;3.7</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ipykernel &gt;=5.1</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ipywidgets</span><span class="w"></span>
+</pre></div>
+
+<p>これを元にする場合は<code>micromamba create -f env.yml</code>として環境構築が可能です。<code>-c conda-forge</code>を指定しなくて済む様になるので便利ですね。</p>
+<h4>
+<code>micromamba</code>の活用方法</h4>
+<p><code>micromamba</code>はシングルバイナリで提供できインストールも容易であることから、CI/CDなどで使用することも想定されています。
+冒頭の翻訳記事にも出てきますが、GitHub Actionsで利用可能な<a href="https://github.com/mamba-org/provision-with-micromamba">provision-with-micromamba</a>、micromambaが使用可能な軽量Dockerイメージである<a href="https://github.com/mamba-org/micromamba-docker">micromamba-docker</a>、VSCodeでの開発で活用できる<a href="https://github.com/mamba-org/micromamba-devcontainer">micromamba-devcontainer</a>などが公開されています。</p>
+<p>実際にWebAssembly向けのパッケージを格納している<a href="https://github.com/emscripten-forge/recipes/blob/main/.github/workflows/build_recipes.yaml">Emscripten-forgeのActions</a>では、この様な目的でMicromambaを使用しています。</p>
+<h3>Mamba meets Jupyterlite</h3>
+<p><code>Emscripten-forge</code>の話題を出したので、また別の翻訳記事である<a href="https://medium.com/pydata-osaka/mamba-meets-jupyterlite%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%A8%B3-68d0823d767d">mamba meets jupyterlite</a>についてもここで貼っておきたいと思います。この記事は更に別の翻訳記事である<a href="https://medium.com/pydata-osaka/jupyterlite-jupyter-%EF%B8%8Fwebassembly-%EF%B8%8Fpython%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%A8%B3-1f228a9d97d1">JupyterLite:Jupyter❤️WebAssembly❤️Python</a>の翻訳記事を前提にしているため、合わせて読んでいただけると幸いです。</p>
+<p>ざっくり書きますと、WebAssemblyを活用することによりPythonインタプリタをブラウザ上で動作することを可能にした<code>pyodide</code>というものが存在し、更にこれを活用することでサーバーを必要としないブラウザのみで動作するJupyter環境である<code>Jupyterlite</code>というものが存在しています。
+このJupyterlite上ではピュアPythonのみで書かれたライブラリに関しては<code>pyodide</code>の<a href="https://pyodide.org/en/stable/usage/api/micropip-api.html">micropip</a>を用いることでJupyterliteへの導入が可能となっていますが 、 一方で C拡張を伴うようなライブラリについては(WebAssemblyのコンパイルが必要となることなどから)単純な導入が困難となっておりました。
+これを解決するためには、WebAssemblyプラットフォーム向けにあらかじめビルドされた状態のcondaパッケージを配布することが必要となります。
+このために、<a href="https://github.com/emscripten-forge/recipes">emscripten-forge/recipes</a>のリポジトリにおいてパッケージのビルド方法を管理するためのレシピ群が管理され、 パッケージのホスティングには<a href="https://github.com/mamba-org/quetz">Quetz</a>というFastAPIを用いたcondaパッケージ用のサーバーが用いられています。</p>
+<p>これらの機構を用いることで、<code>emscripten-32</code>向けの環境を下記の様に構築できるようになりました。</p>
+<div class="code"><pre class="code literal-block">$ micromamba create -n my-env --platform<span class="o">=</span>emscripten-32 <span class="se">\ </span>
+    -c https://repo.mamba.pm/emscripten-forge <span class="se">\ </span>
+    -c https://repo.mamba.pm/conda-forge <span class="se">\</span>
+    python ipython numpy jedi
+</pre></div>
+
+<p>jupyterliteではこのWebAssembly向けにビルド・配布されたパッケージを使うために、<a href="https://github.com/jupyter-xeus/xeus-python">xeus-python</a>を用いているそうです。
+自分も完璧には理解しきれてはいませんが、jupyterliteを静的サイトとして構築する際に使用する<code>jupyter lite build</code>コマンドにおいて、下記の様な指定を行うことでXeusPython環境に存在するパッケージをPythonランタイム内にプリインストールすることが可能となるとのことです。</p>
+<div class="code"><pre class="code literal-block">$ jupyter lite build --XeusPythonEnv.packages<span class="o">=</span><span class="se">\</span>
+    numpy,<span class="se">\</span>
+    matplotlib,<span class="se">\</span>
+    ipyleaflet
+</pre></div>
+
+<h3>ビルドツール<code>boa</code>
+</h3>
+<p>上記のWebAssembly向けのパッケージのビルドは<a href="https://github.com/emscripten-forge/recipes/blob/main/.github/workflows/build_recipes.yaml">Emscripten-forgeのActions</a>内で呼ばれている<a href="https://github.com/emscripten-forge/recipes/blob/main/builder.py">builder.py</a>で行われていますが、ここでビルドツールの<a href="https://github.com/mamba-org/boa">boa</a>というものが使われています。
+<code>boa</code>は<code>libmamba</code>を用いることで<code>conda-build</code>よりも高速なビルドを実現するためのツールであるとのことです。
+<code>boa</code>は3種類のツールを含んでおり、<code>conda build</code>をmambaをsolverとしたものに置き換える<code>conda mambabuild</code>、新しい形式のレシピを用いたビルドにおける情報の表示を行う<code>boa render</code>、そのレシピをもとにビルドを行う<code>boa build</code>を含んでいます。</p>
+<p><code>boa</code>のドキュメントは<a href="https://boa-build.readthedocs.io/en/latest/">ここ</a>に存在しており、<a href="https://boa-build.readthedocs.io/en/latest/getting_started.html">Getting Started</a>には、<code>mamba install boa -c conda-forge</code>(mambaの代わりにcondaでも可能)で<code>boa</code>のインストールを行うことができるとあります。</p>
+<h4>
+<code>conda mambabuild</code>のメリット</h4>
+<p>メリットについては<a href="https://boa-build.readthedocs.io/en/latest/mambabuild.html">ここ</a>に3つ載っており、</p>
+<ol>
+<li>より高速な依存解決速度: 複雑な環境に対しては、mambaはcondaよりもかなり高速なビルドが可能</li>
+<li>より良いエラーメッセージ: 依存関係が解決できない環境において、解読が困難なcondaは大量のエラーメッセージを吐くが、Mambaはより理解しやすいメッセージを出力する</li>
+<li>既存のレシピおよびconda-buildのCLIオプションとの完全な互換性がある(conda-buildに対してsolverの部分を置き換えるためのモンキーパッチを適用しているため)</li>
+</ol>
+<p>とのことです。</p>
+<h4>
+<code>boa</code>における新しいレシピフォーマット</h4>
+<p><code>boa</code>は<code>conda build</code>で用いられる<code>meta.yaml</code>を置き換える新しいフォーマットである<code>recipe.yaml</code>を用いたビルドを行うことが可能です。
+<a href="https://boa-build.readthedocs.io/en/latest/recipe_spec.html">このドキュメント</a>に詳細な記述があります。
+parseを簡単にしたり、複数箇所への出力に関する一貫性のなさを解消したり、再起的なパースや依存性解決を防ぐために開発されたとの説明があります。</p>
+<p><code>boa</code>のレシピは次の項目を備えています。</p>
+<div class="code"><pre class="code literal-block"><span class="n">context</span><span class="o">:</span><span class="w"> </span><span class="n">Jinjaの文字列置換で後続の箇所で使用可能な変数の設定を行う</span><span class="w"></span>
+<span class="kd">package</span><span class="o">:</span><span class="w"> </span><span class="err">パッケージのトップレベルとなる</span><span class="w"> </span><span class="err">名前、バージョン、その他の情報を定義する</span><span class="w"></span>
+<span class="n">source</span><span class="o">:</span><span class="w"> </span><span class="err">：</span><span class="w"> </span><span class="err">レシピのビルドのためにダウンロードが必要となるソースへのポインタ</span><span class="w"></span>
+<span class="n">build</span><span class="o">:</span><span class="w"> </span><span class="err">レシピをどのようにビルドするかと、使用するビルド番号を定義する</span><span class="w"></span>
+<span class="n">requirements</span><span class="o">:</span><span class="w"> </span><span class="err">パッケージのトップレベルにおける依存ライブラリを定義する</span><span class="w"></span>
+<span class="n">test</span><span class="o">:</span><span class="w"> </span><span class="err">パッケージのトップレベルにおけるテストを定義する</span><span class="w"></span>
+<span class="n">outputs</span><span class="o">:</span><span class="w"> </span><span class="err">レシピは複数の出力行うことができる。各々の</span><span class="n">outputはパッケージと依存関係</span><span class="err">、テストのセクションを持ちことが可能であり持つべきである</span><span class="w"></span>
+</pre></div>
+
+<p>ドキュメント記載の例を下記に転記します。</p>
+<div class="code"><pre class="code literal-block"><span class="c1"># "context variables"を設定(後でJinjaのexpressionとして使用可能)</span><span class="w"></span>
+<span class="nt">context</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.1.0</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imagesize</span><span class="w"></span>
+
+<span class="c1"># トップレベルのパッケージ情報(nameとversion)</span><span class="w"></span>
+<span class="nt">package</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">}}"</span><span class="w"></span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">"{{</span><span class="nv"> </span><span class="s">version</span><span class="nv"> </span><span class="s">}}"</span><span class="w"></span>
+
+<span class="c1"># ソースをどこから取得するかを定義</span><span class="w"></span>
+<span class="nt">source</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz</span><span class="w"></span>
+<span class="w">  </span><span class="nt">sha256</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">f3832918bc3c66617f92e35f5d70729187676313caa60c187eb0f28b8fe5e3b5</span><span class="w"></span>
+
+<span class="c1"># ビルド番号(バージョンは増加させないが、もし新しいビルドが生成されるのであれば増加させるべき)</span><span class="w"></span>
+<span class="nt">build</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python -m pip install --no-deps --ignore-installed .</span><span class="w"></span>
+
+<span class="c1"># ビルド時の実行時のrequirementsを記載</span><span class="w"></span>
+<span class="nt">requirements</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span><span class="w"></span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w"></span>
+
+<span class="c1"># パッケージが期待通りに動作するかをバリデーションするためのテスト</span><span class="w"></span>
+<span class="nt">test</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">imports</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imagesize</span><span class="w"></span>
+
+<span class="c1"># パッケージに関する情報</span><span class="w"></span>
+<span class="nt">about</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/shibukawa/imagesize_py</span><span class="w"></span>
+<span class="w">  </span><span class="nt">license</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MIT</span><span class="w"></span>
+<span class="w">  </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">'Getting</span><span class="nv"> </span><span class="s">image</span><span class="nv"> </span><span class="s">size</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">png/jpeg/jpeg2000/gif</span><span class="nv"> </span><span class="s">file'</span><span class="w"></span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">    </span><span class="no">This module analyzes jpeg/jpeg2000/png/gif image header and</span><span class="w"></span>
+<span class="w">    </span><span class="no">return image size.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">dev_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/shibukawa/imagesize_py</span><span class="w"></span>
+<span class="w">  </span><span class="nt">doc_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://pypi.python.org/pypi/imagesize</span><span class="w"></span>
+<span class="w">  </span><span class="nt">doc_source_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/shibukawa/imagesize_py/blob/master/README.rst</span><span class="w"></span>
+
+<span class="c1"># 下記はconda-forge特有の内容</span><span class="w"></span>
+<span class="nt">extra</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">recipe-maintainers</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">somemaintainer</span><span class="w"></span>
+</pre></div>
+
+<p>また、<code>conda-build</code>との主な違いは下記の通りです。</p>
+<ul>
+<li>レシピのファイル名がmeta.yamlではなくrecipe.yamlとなった</li>
+<li>出力がより複雑ではないふるまいとなり、キー名は名前だけではなくpackage/nameと同じレシピにおけるトップレベル階層と同じ(例: 単なるscriptではなくbuild/script)となる</li>
+<li>暗黙のメタパッケージが出力に生じない</li>
+<li>完全なJinja2サポートを含まない: 条件節がない または <code>{%</code> のサポートはなく, 文字列置換のみである. 変数は有効なYAMLファイルのトップレベルにおける"context"に記載できる</li>
+<li>Jinjaの文字列補完は有効なYAMLとするためにクォーテーションが必要 e.g. - "{{ version }}"</li>
+<li>セレクタはYAML辞書スタイルを用いる(conda-buildにおけるコメントの代わり). E.g. <code>- somepkg  # [osx]</code>の代わりに<code>- sel(osx): somepkg</code>と書く</li>
+<li>
+<code>conda-build</code>からセレクタの文法を使わずにスキップ条件のリストを使う命令をスキップする(e.g. ["osx", "win and py37"]はスキップ)</li>
+</ul>
+<h4>conda-buildからのレシピ構築</h4>
+<p><code>conda-build</code>で用いていた既存のレシピ<code>meta.yaml</code>を<code>boa</code>の文法へとコンバートすることができます。そのコマンドは新しいレシピを標準出力に出力します。
+結果を速く保存するために、<code>boa convert meta.yaml &gt; recipe.yaml</code>を使うことができ、<code>boa build ..</code>を実行してください。
+変換プロセスは"シンプル"なレシピに対してのみ動作し、複雑なレシピの変換には手作業が必要となるであろうことに注意してください。</p>
+<p>ここで実際に既存recipeを変換して...というところまで行きつきたかったのですが、時間切れに伴いここで一旦終了とさせていただきます。
+追記する場合はその旨を記載いたします。</p>
+<h3>PyData Osaka meetup #27</h3>
+<p>以上に記載した内容+αを12/17(土) 13:00より開催予定のPyData Osakaのミートアップで紹介する予定です。
+この記事で触れたmambaやboaについての紹介を行いたいと考えています。よろしければご参加ください。
+https://pydataosaka.connpass.com/event/267542/</p>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/26/" class="u-url">2022/10/22 PyData Osaka #026における JupyterLite関連の紹介記事</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Hiromasa OHASHI
@@ -508,402 +721,6 @@ $ twine upload dist/*
 <li>colormapの制御</li>
 </ul>
 </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/24/" class="u-url">Debian 10 busterを初代Mac mini (A1176; 2006)にインストール</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Hiromasa OHASHI
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/24/" rel="bookmark">
-            <time class="published dt-published" datetime="2020-11-22T00:00:00+09:00" itemprop="datePublished" title="2020-11-22 00:00">2020-11-22 00:00</time></a>
-            </p>
-                        <p class="commentline">
-    
-    <a href="posts/24/#disqus_thread" data-disqus-identifier="cache/posts/24.html">コメント</a>
-
-
-                </p>
-</div>
-            </header><div class="e-content entry-content">
-                    <h3>経緯</h3>
-<p><a href="https://www.hiromasa.info/posts/23/">前回の記事</a>を書いた後にUbuntu 18.04がインストールされていたMacBook Pro 2009のトラックパッドがバッテリー膨張による圧力によって割れるという惨事が発生してしまった。
-このMacBook Proは以前に一度ファンとバッテリーを自力で換装したことがあるものであり、もう限界と判断して押入れに眠っていたMac mini 2006(大学の先輩から2万円で譲ってもらったもの)を復活させることを決意したのであった。</p>
-<p><img alt="白昼夢の惨劇" src="images/24/broken_mbp.jpg"></p>
-<h4>ディストリビューションの選択</h4>
-<p>当初はarch linuxを入れようかと思い、<code>x86_64</code>のISOイメージをUSBに焼いてインストールしようとしたが、このタイミングでこのマシンのCPUが<code>x86_64</code>ではなく<code>i686</code>、つまり32bit CPUであるということが発覚した。
-2020年にもなり32bit CPUのマシンを稼働させることに躊躇いもあったが、調べたところUbuntuが32bit対応の廃止を表明している一方でDebianは32bit対応のイメージを今でも配布しているということもありインストールすることを決めた。</p>
-<h4>マシンのスペック</h4>
-<p><a href="https://www.apple.com/jp/support/datasheet/desktop/macmini_607_608.html">ここ</a>に載っている1.66GHzのCPUを積んでいるものである。</p>
-<ul>
-<li>CPU<ul>
-<li>1.66GHz Core Duo</li>
-</ul>
-</li>
-<li>メモリ<ul>
-<li>2GB(DDR2; 667MHz)</li>
-</ul>
-</li>
-<li>ディスク容量<ul>
-<li>60GB</li>
-</ul>
-</li>
-</ul>
-<p>ちなみに<a href="http://www.nextro.com/directworld/cms/%E3%81%84%E3%81%BE%E3%81%95%E3%82%89%E5%88%9D%E4%BB%A3-intel-mac-mini-a1176-%EF%BC%882006%EF%BC%89%E3%83%95%E3%82%A1%E3%83%BC%E3%83%A0%E3%82%A6%E3%82%A7%E3%82%A2-1-1-%E3%81%8B%E3%82%89-2-1-%E3%81%AB/">この記事</a>によればファームウェアをアップデートした場合CPUの換装や4GBまでのメモリの増設が可能になるらしい。</p>
-<h4>想定使用用途</h4>
-<ul>
-<li>ファイルサーバ<ul>
-<li>外付けHDDにもともと保存していたデータに対してsambaでアクセスしたいため</li>
-</ul>
-</li>
-<li>VPNサーバ<ul>
-<li>移行元マシンで稼働していたSoftEtherの設定を引き継ぐ</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3>実際の作業</h3>
-<p>全般的に自分用のメモ書きである。</p>
-<h4>DebianのISOをUSBに焼く</h4>
-<p>ここでは<code>debian-10.6.0-i386-netinst.iso</code>を公式から落としてきてUSBメモリに書き込んだ。
-この作業は今回使用するMac miniではない別のマシンで行っている。</p>
-<div class="code"><pre class="code literal-block">$ df -hか何かでUSBメモリのデバイスのパスを確認する<span class="o">(</span>ここでは<span class="sb">`</span>/dev/disk4<span class="sb">`</span><span class="o">)</span>
-$ diskutil umountDisk /dev/disk4
-$ sudo dd <span class="k">if</span><span class="o">=</span>debian-10.6.0-i386-netinst.iso <span class="nv">of</span><span class="o">=</span>/dev/rdisk4  <span class="c1"># /dev/rdisk4, とrを付けると早く書き込まれるらしい</span>
-</pre></div>
-
-<hr>
-<h4>Mac mini上での作業</h4>
-<h5>rEFIndのインストール</h5>
-<p>mac miniのosx側で予めrEFIndをインストールしておく。
-rEFIndに同梱のインストールスクリプトを実行した上で再起動すると起動時にrEFIndが立ち上がるはずである。
-ちなみにmac miniに入っていたosxのバージョンはLepardであった。</p>
-<h5>mac mini側のディスクユーティリティでosxのパーティションサイズを縮小しておく</h5>
-<p>HFS+フォーマットのosxがインストールされた領域のサイズを20GB程度に縮小した。
-残りの領域についてはこの時点でフォーマットなどは実施しない(GUIインストーラの実行時にやってくれるため)。</p>
-<h5>GUIインストーラによるDebianのインストール</h5>
-<p>rEFIndが使えるようになるとUSBメモリに焼いたbootableイメージからインストーラを起動することが可能となる。
-GUIインストーラで提示された項目を選んでいくだけで基本的には問題なくインストールは完了した。
-パーティションは予めosx側で分割した残りの空き領域に対しインストーラが自動的にroot, var, tmp, swap, homeを分割してくれたのでその通りにした。LVMは使っていない。ファイルシステムはext4になっている。
-デスクトップ環境はメモリが2GBしかなく必要かどうか悩んだがxfce4とした。
-SSHサーバもインストーラの選択肢で選べたためインストールしておく。
-よって基本的にこれ以降の作業はSSH越しの作業である。</p>
-<hr>
-<h4>ルーターの固定IP割当設定</h4>
-<p>以降でローカルLAN内でIPアドレスを固定化するためにルーターの割当設定を行っておく。
-Debian上で<code>ip addr</code>でMACアドレスを表示させ、有線LANのNICとWiFiアダプタに対して固定IP割当を設定。</p>
-<hr>
-<h4>Debian起動直後における設定</h4>
-<h5>sudoグループへの所属</h5>
-<p>インストール時に登録したユーザーがデフォルトではsudoを使えないため、一度suでrootユーザになった上でsudoグループに所属させる。
-<code>$</code>は一般ユーザ、<code>#</code>はrootユーザでの実行を意味する。</p>
-<div class="code"><pre class="code literal-block">$ su
-<span class="c1"># gpasswd -a ${username} sudo</span>
-<span class="c1"># exit</span>
-</pre></div>
-
-<h5>SSHの設定</h5>
-<p>鍵認証による接続を行うために公開鍵の登録をした後に<code>/etc/ssh/sshd_config</code>を編集する。
-公開鍵はクライアント側から<code>ssh-copy-id -i id_rsa.pub ${ipaddr}</code>で転送しても良いが、GitHubに登録してある公開鍵を使う場合は<code>wget https://github.com/${username}.keys -qO - &gt;&gt; ~/.ssh/authorized_keys</code>で<code>authorized_keys</code>に追記しても良い。</p>
-<p>次に<code>sudo vi /etc/ssh/sshd_config</code>に下記項目を設定する。</p>
-<div class="code"><pre class="code literal-block">Port ポート番号  # 変更したい場合
-PubkeyAuthentication yes
-PermitRootLogin no
-PermitEmptyPasswords no
-PasswordAuthentication no
-</pre></div>
-
-<p>設定後、<code>sudo systemctl restart sshd</code>でsshdを再起動する。</p>
-<p>このタイミングで他のターミナルからsshしてパスワードログインができなくなっていることを確認する。
-(元々接続していたターミナルでexitしてしまうと再度接続できなくなってしまったときに困る)。</p>
-<p>その後に、クライアント側で<code>~/.ssh/config</code>を下記のように編集しておくと<code>ssh hostname</code>で接続できるようになるため便利である。</p>
-<div class="code"><pre class="code literal-block">Host hostname
-    HostName <span class="cp">${</span><span class="n">ipaddr</span><span class="cp">}</span>
-    Port ポート番号
-    preferredauthentications publickey
-    IdentityFile "/path/to/id_rsa"
-</pre></div>
-
-<h5>ホームディレクトリ配下の日本語ディレクトリの英語化</h5>
-<p>セットアップ時に日本語を選択するとホームディレクトリ配下の各種ディレクトリが日本語になってしまっている場合がある。
-その場合は<code>LC_ALL=C xdg-user-dirs-gtk-update --force</code>を実行して英語ディレクトリを作成する。
-日本語ディレクトリはそのまま残ってしまうため不要であれば消す。</p>
-<h5>aptで色々入れる</h5>
-<p>とりあえず最低限のパッケージと<a href="https://www.hiromasa.info/posts/23/">前回の記事</a>で書いたように最新版のsambaを使うためのppaを追加する。
-最初にインストールする<code>software-properties-common</code>はdebianで<code>add-apt-repository</code>を使うために必要である。</p>
-<div class="code"><pre class="code literal-block">$ sudo apt update
-$ sudo apt upgrade
-$ sudo apt install -y software-properties-common
-$ sudo add-apt-repository ppa:linux-schools/samba-latest
-$ sudo apt dist-upgrade
-$ sudo apt install -y git vim zsh tmux curl htop
-$ sudo apt install -y samba
-$ sudo apt install -y build-essential autotools-dev libtool automake autoconf autogen
-</pre></div>
-
-<p>しかしリポジトリにppaを追加した後にupdateを掛けたところ無効である旨が表示されたためDebianでは使用不可能であった。</p>
-<hr>
-<h4>シェル環境周りの設定</h4>
-<h5>tmuxの設定</h5>
-<p><code>.tmux.conf</code>を作成し<code>C-t</code>をprefixキーとするために下記のような<code>.tmux.conf</code>を<code>~</code>以下に配置した。</p>
-<div class="code"><pre class="code literal-block"><span class="nv">unbind</span><span class="w"> </span><span class="nv">C</span><span class="o">-</span><span class="nv">b</span><span class="w"></span>
-<span class="nv">set</span><span class="o">-</span><span class="nv">option</span><span class="w"> </span><span class="o">-</span><span class="nv">g</span><span class="w"> </span><span class="nv">prefix</span><span class="w"> </span><span class="nv">C</span><span class="o">-</span><span class="nv">t</span><span class="w"></span>
-<span class="nv">set</span><span class="o">-</span><span class="nv">window</span><span class="o">-</span><span class="nv">option</span><span class="w"> </span><span class="o">-</span><span class="nv">g</span><span class="w"> </span><span class="nv">mode</span><span class="o">-</span><span class="nv">keys</span><span class="w"> </span><span class="nv">vi</span><span class="w"></span>
-<span class="nv">bind</span><span class="w"> </span><span class="nv">C</span><span class="o">-</span><span class="nv">t</span><span class="w"> </span><span class="k">send</span><span class="o">-</span><span class="nv">prefix</span><span class="w"></span>
-</pre></div>
-
-<h5>シェルをzshに変える</h5>
-<div class="code"><pre class="code literal-block">$ chsh  <span class="c1"># /bin/zshを指定</span>
-</pre></div>
-
-<p>再ログインすると色々zshの設定に関する対話スクリプトが走るが、blankファイルだけ生成して脱出した。
-その上で下記のような設定を<code>.zshrc</code>に記述した。
-内容自体は他マシンにおける設定の使い回しであるため各自好きに変更すると良いと思う。</p>
-<div class="code"><pre class="code literal-block"><span class="n">setopt</span><span class="w"> </span><span class="n">autopushd</span><span class="w"></span>
-<span class="n">setopt</span><span class="w"> </span><span class="n">auto_cd</span><span class="w"></span>
-
-<span class="n">WORDCHARS</span><span class="o">=</span><span class="s1">'*?_-.[]~=&amp;;!#$%^(){}&lt;&gt;'</span><span class="w"></span>
-
-<span class="n">compctl</span><span class="w"> </span><span class="o">-</span><span class="n">M</span><span class="w"> </span><span class="s1">'m:{a-z}={A-Z}'</span><span class="w"></span>
-
-<span class="n">setopt</span><span class="w"> </span><span class="n">IGNOREEOF</span><span class="w"></span>
-
-<span class="n">umask</span><span class="w"> </span><span class="mi">002</span><span class="w"></span>
-
-<span class="n">HISTFILE</span><span class="o">=$</span><span class="n">HOME</span><span class="o">/.</span><span class="n">zsh</span><span class="o">-</span><span class="n">history</span><span class="w"></span>
-<span class="n">HISTSIZE</span><span class="o">=</span><span class="mi">10000</span><span class="w"></span>
-<span class="n">SAVEHIST</span><span class="o">=</span><span class="mi">10000</span><span class="w"></span>
-
-<span class="n">setopt</span><span class="w"> </span><span class="n">hist_ignore_dups</span><span class="w"> </span><span class="c1"># ignore duplication command history</span><span class="w"></span>
-<span class="n">setopt</span><span class="w"> </span><span class="n">extended_history</span><span class="w"></span>
-<span class="n">setopt</span><span class="w"> </span><span class="n">share_history</span><span class="w"></span>
-<span class="n">function</span><span class="w"> </span><span class="n">history</span><span class="o">-</span><span class="n">all</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">history</span><span class="w"> </span><span class="o">-</span><span class="n">E</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-
-<span class="c1"># bind</span><span class="w"></span>
-<span class="n">bindkey</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"></span>
-<span class="n">bindkey</span><span class="w"> </span><span class="s1">'^P'</span><span class="w"> </span><span class="n">history</span><span class="o">-</span><span class="n">beginning</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">backward</span><span class="w"></span>
-<span class="n">bindkey</span><span class="w"> </span><span class="s1">'^N'</span><span class="w"> </span><span class="n">history</span><span class="o">-</span><span class="n">beginning</span><span class="o">-</span><span class="n">search</span><span class="o">-</span><span class="n">forward</span><span class="w"></span>
-
-<span class="n">setopt</span><span class="w"> </span><span class="n">no_check_jobs</span><span class="w"></span>
-<span class="n">setopt</span><span class="w"> </span><span class="n">no_hup</span><span class="w"></span>
-
-<span class="n">setopt</span><span class="w"> </span><span class="n">print_eight_bit</span><span class="w"></span>
-
-<span class="k">export</span><span class="w"> </span><span class="n">LSCOLORS</span><span class="o">=</span><span class="n">gxfxcxdxbxegedadagacad</span><span class="w"></span>
-<span class="n">zstyle</span><span class="w"> </span><span class="s1">':completion:*:default'</span><span class="w"> </span><span class="n">list</span><span class="o">-</span><span class="n">colors</span><span class="w"> </span><span class="o">$</span><span class="n">LSCOLORS</span><span class="w"></span>
-
-<span class="n">alias</span><span class="w"> </span><span class="n">ls</span><span class="o">=</span><span class="s2">"ls -vG"</span><span class="w"></span>
-<span class="n">alias</span><span class="w"> </span><span class="n">la</span><span class="o">=</span><span class="s1">'ls -aF'</span><span class="w"></span>
-<span class="n">alias</span><span class="w"> </span><span class="n">ll</span><span class="o">=</span><span class="s1">'ls -h -laF'</span><span class="w"></span>
-
-<span class="n">alias</span><span class="w"> </span><span class="n">mv</span><span class="o">=</span><span class="s1">'mv -v'</span><span class="w"></span>
-<span class="n">alias</span><span class="w"> </span><span class="n">cp</span><span class="o">=</span><span class="s1">'cp -v'</span><span class="w"></span>
-<span class="n">alias</span><span class="w"> </span><span class="n">rm</span><span class="o">=</span><span class="s1">'rm -vi'</span><span class="w"></span>
-<span class="n">alias</span><span class="w"> </span><span class="n">grep</span><span class="o">=</span><span class="s1">'grep --color'</span><span class="w"></span>
-
-<span class="n">alias</span><span class="w"> </span><span class="n">du</span><span class="o">=</span><span class="s1">'du -h'</span><span class="w"></span>
-<span class="n">alias</span><span class="w"> </span><span class="n">df</span><span class="o">=</span><span class="s1">'df -h'</span><span class="w"></span>
-
-<span class="n">autoload</span><span class="w"> </span><span class="o">-</span><span class="n">U</span><span class="w"> </span><span class="n">compinit</span><span class="w"></span>
-<span class="n">compinit</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"></span>
-
-<span class="n">autoload</span><span class="w"> </span><span class="n">colors</span><span class="w"></span>
-<span class="n">colors</span><span class="w"></span>
-
-<span class="c1"># VCS settings</span><span class="w"></span>
-<span class="c1"># http://liosk.blog103.fc2.com/blog-entry-209.html</span><span class="w"></span>
-<span class="n">autoload</span><span class="w"> </span><span class="o">-</span><span class="n">Uz</span><span class="w"> </span><span class="n">vcs_info</span><span class="w"></span>
-<span class="n">precmd</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">psvar</span><span class="o">=</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="n">LANG</span><span class="o">=</span><span class="n">en_US</span><span class="o">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="n">vcs_info</span><span class="w"></span>
-<span class="w">    </span><span class="n">psvar</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=$</span><span class="n">vcs_info_msg_0_</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="n">PROMPT</span><span class="o">=</span><span class="s2">"%{${fg[green]}%}[%n@%m %*] %{${fg[magenta]}%}%(!.#.&gt;) %{${reset_color}%}"</span><span class="w"></span>
-<span class="n">PROMPT2</span><span class="o">=</span><span class="s2">"%{${fg[cyan]}%}%_&gt; %{${reset_color}%}"</span><span class="w"></span>
-<span class="n">SPROMPT</span><span class="o">=</span><span class="s2">"%{${fg[red]}%}correct: %R -&gt; </span><span class="si">%r</span><span class="s2"> %{${reset_color}%}"</span><span class="w"></span>
-<span class="n">RPROMPT</span><span class="o">=</span><span class="s2">"%{${fg[green]}%}[%{${fg[red]}%}%~%{${fg[white]}%}%1v%{${fg[green]}%}]%{${reset_color}%}"</span><span class="w"></span>
-</pre></div>
-
-<p>ちなみに最近はプロンプトに<code>starship</code>を使っているが、このマシンでインストールしようとしても失敗したので独自に設定している。</p>
-<hr>
-<h4>ファイルサーバ(samba)関連の設定</h4>
-<h5>fstabの設定</h5>
-<p>外付けHDDのUUIDを調べてシステム起動時に自動的にマウントされるように設定する。</p>
-<div class="code"><pre class="code literal-block">$ sudo blkid -o list  <span class="c1"># UUIDを調べる</span>
-$ sudo mkdir /mnt/hdd /mnt/hdd2  <span class="c1"># マウントポイントを作成</span>
-$ sudo vim /etc/fstab
-</pre></div>
-
-<p>fstabには下記のような感じで書く。<code>${uuidN}</code>の部分は上記で調べたものに置き換えること。</p>
-<div class="code"><pre class="code literal-block">UUID="<span class="cp">${</span><span class="n">uuid1</span><span class="cp">}</span>" /mnt/hdd hfsplus nofail,defaults,force 0 0
-UUID="<span class="cp">${</span><span class="n">uuid2</span><span class="cp">}</span>" /mnt/hdd2 ext4 nofail,defaults 0 0
-</pre></div>
-
-<p>記述後、再起動して無事にマウントされているかを確認する。
-nofailの記述は仮にマウントできなかった場合であってもエラーとして扱わないための指定である。
-(実際、hfsplusフォーマットのディスクのマウントは<code>sudo apt install hfsprogs</code>が必要であったためこの記述を付けていない場合にemergency modeに突入してしまった。)</p>
-<p>UUIDは外付けHDDに固有であるためか以前と変わっていなかったため、引き継ぎ元のマシンのfstabの追記内容をそのまま使い回すことができた。</p>
-<h5>
-<code>/etc/smb.conf</code>の設定およびavahi-daemonの設定をする</h5>
-<p>詳細は割愛するが<a href="https://www.hiromasa.info/posts/23/">前回の記事</a>を参考のこと。
-ここも<code>smb.conf</code>内のinterface名を変えたぐらいで基本的に元の設定ファイルをそのまま使い回すことができた。</p>
-<h5>sambaアクセス用のユーザーを追加する</h5>
-<p><code>guest ok</code>にしていてもTimeMachineバックアップの時には書き込み権限を持ったユーザーが登録されている必要があったので下記で設定しておく。</p>
-<p><code>sudo smbpasswd -a ${username}</code></p>
-<hr>
-<h4>VPNサーバーの設定</h4>
-<h5>SoftEtherの32bit対応版をダウンロードしてビルドする</h5>
-<p><a href="http://www.softether-download.com/ja.aspx?product=softether">ここ</a>から条件に合うものを落としてきてmakeする。makeの際にライセンスの同意などを求められる。
-ビルドした後は<code>/usr/local</code>に移動しておく。</p>
-<div class="code"><pre class="code literal-block">$ wget https://jp.softether-download.com/files/softether/v4.34-9745-rtm-2020.04.05-tree/Linux/SoftEther_VPN_Server/32bit_-_Intel_x86/softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
-$ tar zxvf softether-vpnserver-v4.34-9745-rtm-2020.04.05-linux-x86-32bit.tar.gz
-$ <span class="nb">cd</span> vpnserver
-$ make
-$ <span class="nb">cd</span> ..
-$ mv vpnserver /usr/local/
-</pre></div>
-
-<h5>systemdの設定</h5>
-<p><code>/etc/systemd/system/vpnserver.service</code>として下記ファイルを作成する。</p>
-<div class="code"><pre class="code literal-block"><span class="k">[Unit]</span><span class="w"></span>
-<span class="na">Description</span><span class="o">=</span><span class="s">SoftEther VPN Server</span><span class="w"></span>
-<span class="na">After</span><span class="o">=</span><span class="s">network.target network-online.target</span><span class="w"></span>
-
-<span class="k">[Service]</span><span class="w"></span>
-<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver start</span><span class="w"></span>
-<span class="na">ExecStop</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver stop</span><span class="w"></span>
-<span class="na">Type</span><span class="o">=</span><span class="s">forking</span><span class="w"></span>
-<span class="na">RestartSec</span><span class="o">=</span><span class="s">3s</span><span class="w"></span>
-
-<span class="k">[Install]</span><span class="w"></span>
-<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span><span class="w"></span>
-</pre></div>
-
-<h5>bridgeとtapデバイスの作成</h5>
-<p>下記のようなスクリプトを作成しsudoで実行する。</p>
-<div class="code"><pre class="code literal-block"><span class="ch">#!/bin/bash</span>
-<span class="c1"># vim:fileencoding=utf-8</span>
-
-<span class="nv">ip_addr</span><span class="o">=</span><span class="s2">"192.168.xxx.xxx/xx"</span>
-<span class="nv">gateway_addr</span><span class="o">=</span><span class="s2">"192.168.xxx.xxx"</span>
-<span class="nv">interface</span><span class="o">=</span><span class="s2">"enp1s0"</span>
-
-<span class="nv">bridge_name</span><span class="o">=</span><span class="s2">"br0"</span>
-<span class="nv">tap_device_name</span><span class="o">=</span><span class="s2">"tap_softether"</span>
-
-<span class="nb">echo</span> <span class="s2">"create bridge interface"</span>
-/usr/bin/nmcli connection add <span class="nb">type</span> bridge ifname <span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
-<span class="nb">echo</span> <span class="s2">"disable STP"</span>
-/usr/bin/nmcli connection modify bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span> bridge.stp no
-<span class="nb">echo</span> <span class="s2">"modify bridge"</span>
-/usr/bin/nmcli connection modify bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span> ipv4.method manual ipv4.addresses <span class="si">${</span><span class="nv">ip_addr</span><span class="si">}</span> ipv4.gateway <span class="si">${</span><span class="nv">gateway_addr</span><span class="si">}</span>
-<span class="nb">echo</span> <span class="s2">"connect </span><span class="si">${</span><span class="nv">interface</span><span class="si">}</span><span class="s2"> to bridge"</span>
-/usr/bin/nmcli connection add <span class="nb">type</span> bridge-slave ifname <span class="si">${</span><span class="nv">interface</span><span class="si">}</span> master bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
-<span class="nb">echo</span> <span class="s2">"connect tap to bridge"</span>
-/usr/bin/nmcli connection add <span class="nb">type</span> bridge-slave ifname <span class="si">${</span><span class="nv">tap_device_name</span><span class="si">}</span> master bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
-<span class="nb">echo</span> <span class="s2">"up tap device"</span>
-/usr/bin/nmcli connection up bridge-<span class="si">${</span><span class="nv">bridge_name</span><span class="si">}</span>
-</pre></div>
-
-<p>上記を実行すると下記のような出力が出る。</p>
-<div class="code"><pre class="code literal-block"><span class="nv">create</span><span class="w"> </span><span class="nv">bridge</span><span class="w"> </span><span class="nv">interface</span><span class="w"></span>
-接続<span class="w"> </span><span class="s1">'bridge-br0'</span><span class="w"> </span><span class="ss">(</span><span class="mi">0</span><span class="nv">aa0ae96</span><span class="o">-</span><span class="mi">6428</span><span class="o">-</span><span class="mi">4</span><span class="nv">f7e</span><span class="o">-</span><span class="nv">bc1c</span><span class="o">-</span><span class="nv">fa6f22f98cea</span><span class="ss">)</span><span class="w"> </span>が正常に追加されました。<span class="w"></span>
-<span class="nv">disable</span><span class="w"> </span><span class="nv">STP</span><span class="w"></span>
-<span class="nv">modify</span><span class="w"> </span><span class="nv">bridge</span><span class="w"></span>
-<span class="k">connect</span><span class="w"> </span><span class="nv">enp1s0</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">bridge</span><span class="w"></span>
-接続<span class="w"> </span><span class="s1">'bridge-slave-enp1s0'</span><span class="w"> </span><span class="ss">(</span><span class="nv">ec87d050</span><span class="o">-</span><span class="nv">f6ae</span><span class="o">-</span><span class="mi">4</span><span class="nv">ca8</span><span class="o">-</span><span class="nv">adbf</span><span class="o">-</span><span class="mi">7</span><span class="nv">b1f0e4eb1b6</span><span class="ss">)</span><span class="w"> </span>が正常に追加されました。<span class="w"></span>
-<span class="k">connect</span><span class="w"> </span><span class="nv">tap</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">bridge</span><span class="w"></span>
-接続<span class="w"> </span><span class="s1">'bridge-slave-tap_softether'</span><span class="w"> </span><span class="ss">(</span><span class="nv">f262c26c</span><span class="o">-</span><span class="mi">2799</span><span class="o">-</span><span class="mi">4</span><span class="nv">c9b</span><span class="o">-</span><span class="nv">b149</span><span class="o">-</span><span class="mi">9</span><span class="nv">d1b3c44f8ce</span><span class="ss">)</span><span class="w"> </span>が正常に追加されました。<span class="w"></span>
-<span class="nv">up</span><span class="w"> </span><span class="nv">tap</span><span class="w"> </span><span class="nv">device</span><span class="w"></span>
-接続が正常にアクティベートされました<span class="w"> </span><span class="ss">(</span><span class="nv">master</span><span class="w"> </span><span class="nv">waiting</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">slaves</span><span class="ss">)</span><span class="w"> </span><span class="ss">(</span><span class="nv">D</span><span class="o">-</span><span class="nv">Bus</span><span class="w"> </span>アクティブパス:<span class="w"> </span><span class="o">/</span><span class="nv">org</span><span class="o">/</span><span class="nv">freedesktop</span><span class="o">/</span><span class="nv">NetworkManager</span><span class="o">/</span><span class="nv">ActiveConnection</span><span class="o">/</span><span class="mi">3</span><span class="ss">)</span><span class="w"></span>
-</pre></div>
-
-<p>この後に再起動を行い、<code>ip addr</code>でIPアドレスが割り振られていたり、<code>ip link show</code>でbr0のSTATEがUpになっていれば問題ないと思われる。</p>
-<p>なお<code>sudo apt install bridge-utils</code>を実行すると <code>/sbin/brctl</code>が使えるようになるが、今回は直接は不要であった。
-また上記スクリプトではnmcliを使っているがipコマンドでもどうやら作成できるらしい。</p>
-<h5>VPNサーバーの設定の読み込み</h5>
-<p>移行元で予め<code>vpncmd</code>のConfigGetを実行し保存しておく。
-これは</p>
-<div class="code"><pre class="code literal-block">$ /usr/local/vpnserver/vpncmd
-  &gt; * <span class="m">1</span>. VPN Server または VPN Bridgeの管理 を実行
-  &gt; * 何も指定せずにEnterを押すことでローカルのサーバーに接続
-  &gt; * 更に何も指定せずにEnterを押すことでサーバー管理モードに入る
-  &gt; * 管理パスワードを入力
-  VPN Server&gt; ConfigGet 保存先パス
-</pre></div>
-
-<p>と実行することで保存が可能である。この設定ファイルを引き継ぎ先のマシンで読み込ませることを考える。</p>
-<p>まず、<code>sudo systemctl enable vpnserver</code>を実行し前述のsystemd用の設定によるサービスを有効化する。
-続いて<code>sudo systemctl start vpnserver</code>でVPNサーバーを起動する。</p>
-<p>この上で<code>/usr/local/vpnserver/vpncmd</code>を実行し、移行元での保存時と同様に1を指定の上で無指定でEnterを2回実行することでサーバー管理モードに入る。
-ここで<code>ConfigSet</code>を実行すると設定ファイルのパスを尋ねられるので、入力することで設定の読み込みが可能である。
-<a href="https://ja.softether.org/4-docs/1-manual/3/3.3#.E5.88.A5.E3.81.AE.E3.82.B3.E3.83.B3.E3.83.94.E3.83.A5.E3.83.BC.E3.82.BF.E3.81.B8.E3.81.AE.E3.82.B3.E3.83.B3.E3.83.95.E3.82.A3.E3.82.B0.E3.83.AC.E3.83.BC.E3.82.B7.E3.83.A7.E3.83.B3.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB.E3.81.AE.E7.A7.BB.E5.8B.95">ここ</a>によればこの時点で元マシンの環境は復元できるとのことである。</p>
-<h5>ルーターで通信に必要なポートを開放する</h5>
-<p>50, 51, 500, 4500番ポートの通信をホストマシンのIPアドレスに対して許可するようにルーターの設定を施した。</p>
-<h5>接続できない原因を探す</h5>
-<p>元マシンでの設定が正しければ上記までの設定で接続できるようになるはずだが案の定接続できない。
-そこで<code>/usr/local/vpnserver</code>以下に存在する<code>secure_log</code>や<code>server_log</code>といったログ見て原因を推察する。
-ここでは<code>server_log</code>以下に存在するlogにおける</p>
-<div class="code"><pre class="code literal-block"><span class="mf">2020</span><span class="o">-</span><span class="mf">11</span><span class="o">-</span><span class="mf">21</span><span class="w"> </span><span class="n">xx</span><span class="p">:</span><span class="n">xx</span><span class="p">:</span><span class="n">xx</span><span class="mf">.</span><span class="n">xxx</span><span class="w"> </span><span class="n">L2TP</span><span class="w"> </span><span class="n">PPP</span><span class="w"> </span><span class="n">セッション</span><span class="w"> </span><span class="err">[</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="mf">.</span><span class="n">xxx</span><span class="p">:</span><span class="n">xxxx</span><span class="err">]</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="n">DHCP</span><span class="w"> </span><span class="n">サーバーからの</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">アドレスの取得に失敗しました</span><span class="err">。</span><span class="w"></span>
-<span class="w">  </span><span class="n">PPP</span><span class="w"> </span><span class="n">の通信を受諾するためには</span><span class="w"> </span><span class="n">DHCP</span><span class="w"> </span><span class="n">サーバーが必要です</span><span class="err">。</span><span class="w"></span>
-<span class="w">  </span><span class="n">仮想</span><span class="w"> </span><span class="n">HUB</span><span class="w"> </span><span class="n">の</span><span class="w"> </span><span class="n">Ethernet</span><span class="w"> </span><span class="n">セグメント上で</span><span class="w"> </span><span class="n">DHCP</span><span class="w"> </span><span class="n">サーバーが正しく動作しているかどうか確認してください</span><span class="err">。</span><span class="w"></span>
-<span class="w">  </span><span class="n">DHCP</span><span class="w"> </span><span class="n">サーバーを用意することができない場合は</span><span class="err">、</span><span class="n">仮想</span><span class="w"> </span><span class="n">HUB</span><span class="w"> </span><span class="n">の</span><span class="w"> </span><span class="n">SecureNAT</span><span class="w"> </span><span class="n">機能を用いることもできます</span><span class="err">。</span><span class="w"></span>
-</pre></div>
-
-<p>という記述から<code>SecureNat</code>が有効化されていないことが分かったため、<code>vpncmd</code>を実行し仮想ハブの管理から<code>SecureNatEnable</code>を実行したところ、無事に接続されるようになった。</p>
-<h5>SecureNATの利用を使用しない設定への変更</h5>
-<p>前節の設定のままだとVPNでSecureNAT機能によりIPアドレスが割り振られるが、このままだとホストマシンにSSHアクセスできなかったため元マシンの設定を見返したところ<code>/etc/network/interfaces</code>を明示的に指定していたことが分かった。
-よって<code>vpncmd</code>で<code>SecureNATDisable</code>を実行した上で再度<code>SecureNat</code>を停止した上で下記のような設定を<code>/etc/network/interfaces</code>に追記した。</p>
-<div class="code"><pre class="code literal-block">auto enp1s0
-iface enp1s0 inet manual
-
-auto br0
-iface br0 inet static
-  address 192.168.xxx.xxx
-  netmask 255.255.xxx.xxx
-  gateway 192.168.xxx.xxx
-  bridge_ports enp1s0 tap_softether
-  dns-nameservers 192.168.xxx.xxx
-</pre></div>
-
-<p>NetworkManagerは<code>/etc/NetworkManager/NetworkManager.conf</code>において下記のような設定</p>
-<div class="code"><pre class="code literal-block"><span class="k">[ifupdown]</span><span class="w"></span>
-<span class="na">managed</span><span class="o">=</span><span class="s">false</span><span class="w"></span>
-</pre></div>
-
-<p>となっている場合、<code>/etc/network/interface</code>によって管理されているデバイスはNetworkManagerで制御を行わないとのことである。
-この上で<code>sudo systemctl restart networking</code>を行うと<code>SecureNAT</code>がdisableとなっている場合でも接続が可能となった。</p>
-<p>しかし、この状態で再起動を行うとやはり接続できない状態に戻ってしまう。
-調べたところ<code>sudo systemctl restart networking</code>を行った後は下記状態</p>
-<div class="code"><pre class="code literal-block">$ /sbin/brctl show
-bridge name     bridge id               STP enabled     interfaces
-br0             <span class="m">8000</span>.0016cba5df15       no              enp1s0
-                                                        tap_softether
-</pre></div>
-
-<p>となっているが、マシンの再起動直後は</p>
-<div class="code"><pre class="code literal-block">$ /sbin/brctl show
-bridge name     bridge id               STP enabled     interfaces
-br0             <span class="m">8000</span>.0016cba5df15       no              enp1s0
-</pre></div>
-
-<p>という状態になっていることが分かった。
-つまりbr0に対して起動直後は何らかの理由で<code>tap_softether</code>のtapデバイスがbr0に接続されていないことが原因となっていることが考えられ、
-実際に<code>/sbin/brctl addif br0 tap_softether</code>を実行することで明示的に追加を行った場合はVPN接続が可能となった。</p>
-<p>これを受けて<code>/etc/systemd/system/vpnserver.service</code>に下記のように<code>ExecStartPost</code>を追加した。</p>
-<div class="code"><pre class="code literal-block"><span class="k">[Service]</span><span class="w"></span>
-<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/vpnserver/vpnserver start</span><span class="w"></span>
-<span class="na">ExecStartPost</span><span class="o">=</span><span class="s">/bin/sleep 10 ; /sbin/brctl addif br0 tap_softether</span><span class="w"></span>
-</pre></div>
-
-<p>sleepの秒数の後のセミコロンは10とセミコロンの間にスペースを空けないとエラーが生じるため注意が必要である。
-これによりマシン再起動後も手動での操作なしにVPN接続が可能な状態となった。</p>
-<hr>
-<h3>まとめ</h3>
-<p>古いMac miniにDebianを入れてファイルサーバ・VPNサーバとして復活させる手順のメモを記した。
-稼働させたばかりであり、そもそも古いマシンであるため、いつまで持つか不明であるがこのまましばらく運用してみようと思う。</p>
-                </div>
             </article>
 </div>
     
