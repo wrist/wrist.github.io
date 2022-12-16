@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about boa)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/boa.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 16 Dec 2022 20:09:48 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>高速なconda代替コマンド mambaとビルドツールboa</title><link>http://www.hiromasa.info/en/posts/27/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;p&gt;この記事は&lt;a href="https://qiita.com/advent-calendar/2022/python"&gt;Qiitaアドベントカレンダー 2022 Python&lt;/a&gt; 13日目の記事です。&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about boa)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/boa.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 16 Dec 2022 20:19:17 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>高速なconda代替コマンド mambaとビルドツールboa</title><link>http://www.hiromasa.info/en/posts/27/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;p&gt;この記事は&lt;a href="https://qiita.com/advent-calendar/2022/python"&gt;Qiitaアドベントカレンダー 2022 Python&lt;/a&gt; 13日目の記事です。&lt;/p&gt;
 &lt;h3&gt;高速な&lt;code&gt;conda&lt;/code&gt;代替コマンド&lt;code&gt;mamba&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;mamba&lt;/code&gt;は&lt;code&gt;conda&lt;/code&gt;コマンドの代わりに使用することができるPythonライブラリやパッケージ管理に用いることが可能なコマンドラインツールです。 &lt;code&gt;C++&lt;/code&gt;による記述や&lt;code&gt;libsolv&lt;/code&gt;などのライブラリを活用することによって高速に動作することを特徴としており、最近バージョン1.0が公開されました。
 当方で&lt;a href="https://medium.com/pydata-osaka/releasing-mamba-1-0-%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%A8%B3-9f71af3a7dd7"&gt;関連する記事の翻訳&lt;/a&gt;をPyData OsakaのMedium上で公開したため、詳細についてはこちらをご覧いただければと思います。
@@ -1028,10 +1028,8 @@ drwxr-xr-x  &lt;span class="m"&gt;4&lt;/span&gt; root      root          &lt;spa
 &lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ python -c &lt;span class="s2"&gt;"import soundfile"&lt;/span&gt;  &lt;span class="c1"&gt;# error&lt;/span&gt;
 $ micromamba install pysoundfile -c &lt;span class="nb"&gt;local&lt;/span&gt;
 $ python -c &lt;span class="s2"&gt;"import soundfile"&lt;/span&gt;  &lt;span class="c1"&gt;# success&lt;/span&gt;
-&lt;span class="sb"&gt;``&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-なお、上記では特に何も言われませんが、&lt;span class="sb"&gt;`&lt;/span&gt;pysoundfile&lt;span class="sb"&gt;`&lt;/span&gt;自体は実行環境に&lt;span class="sb"&gt;`&lt;/span&gt;libsndfile&lt;span class="sb"&gt;`&lt;/span&gt;が入っていないと動かないのではないかと思います。
-
-&lt;span class="sb"&gt;```&lt;/span&gt;sh
-$ apt install libsndfile1-dev
+&lt;p&gt;なお、上記では特に何も言われませんが、&lt;code&gt;pysoundfile&lt;/code&gt;自体は実行環境に&lt;code&gt;libsndfile&lt;/code&gt;が入っていないと動かないのではないかと思います。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ apt install libsndfile1-dev
 &lt;/pre&gt;&lt;/div&gt;</description><guid>http://www.hiromasa.info/en/posts/27/</guid><pubDate>Mon, 12 Dec 2022 15:00:00 GMT</pubDate></item></channel></rss>

@@ -1161,12 +1161,10 @@ drwxr-xr-x  <span class="m">4</span> root      root          <span class="m">409
 <div class="code"><pre class="code literal-block">$ python -c <span class="s2">"import soundfile"</span>  <span class="c1"># error</span>
 $ micromamba install pysoundfile -c <span class="nb">local</span>
 $ python -c <span class="s2">"import soundfile"</span>  <span class="c1"># success</span>
-<span class="sb">``</span>
+</pre></div>
 
-なお、上記では特に何も言われませんが、<span class="sb">`</span>pysoundfile<span class="sb">`</span>自体は実行環境に<span class="sb">`</span>libsndfile<span class="sb">`</span>が入っていないと動かないのではないかと思います。
-
-<span class="sb">```</span>sh
-$ apt install libsndfile1-dev
+<p>なお、上記では特に何も言われませんが、<code>pysoundfile</code>自体は実行環境に<code>libsndfile</code>が入っていないと動かないのではないかと思います。</p>
+<div class="code"><pre class="code literal-block">$ apt install libsndfile1-dev
 </pre></div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/26/" class="u-url">2022/10/22 PyData Osaka #026における JupyterLite関連の紹介記事</a></h1>
