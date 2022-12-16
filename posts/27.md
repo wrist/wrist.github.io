@@ -1121,7 +1121,7 @@ drwxr-xr-x  4 root      root          4096 Dec 16 19:42 pysoundfile-0.11.0-py_0
 $ python -c "import soundfile"  # error
 $ micromamba install pysoundfile -c local
 $ python -c "import soundfile"  # success
-``
+```
 
 なお、上記では特に何も言われませんが、`pysoundfile`自体は実行環境に`libsndfile`が入っていないと動かないのではないかと思います。
 
