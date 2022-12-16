@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (micromambaについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/micromamba.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 12 Dec 2022 23:18:17 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>高速なconda代替コマンド mambaとビルドツールboa</title><link>http://www.hiromasa.info/posts/27/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;p&gt;この記事は&lt;a href="https://qiita.com/advent-calendar/2022/python"&gt;Qiitaアドベントカレンダー 2022 Python&lt;/a&gt; 13日目の記事です。&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (micromambaについての記事)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/categories/micromamba.xml" rel="self" type="application/rss+xml"></atom:link><language>ja</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 16 Dec 2022 20:09:52 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>高速なconda代替コマンド mambaとビルドツールboa</title><link>http://www.hiromasa.info/posts/27/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;p&gt;この記事は&lt;a href="https://qiita.com/advent-calendar/2022/python"&gt;Qiitaアドベントカレンダー 2022 Python&lt;/a&gt; 13日目の記事です。&lt;/p&gt;
 &lt;h3&gt;高速な&lt;code&gt;conda&lt;/code&gt;代替コマンド&lt;code&gt;mamba&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;mamba&lt;/code&gt;は&lt;code&gt;conda&lt;/code&gt;コマンドの代わりに使用することができるPythonライブラリやパッケージ管理に用いることが可能なコマンドラインツールです。 &lt;code&gt;C++&lt;/code&gt;による記述や&lt;code&gt;libsolv&lt;/code&gt;などのライブラリを活用することによって高速に動作することを特徴としており、最近バージョン1.0が公開されました。
 当方で&lt;a href="https://medium.com/pydata-osaka/releasing-mamba-1-0-%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%A8%B3-9f71af3a7dd7"&gt;関連する記事の翻訳&lt;/a&gt;をPyData OsakaのMedium上で公開したため、詳細についてはこちらをご覧いただければと思います。
@@ -180,7 +180,858 @@ parseを簡単にしたり、複数箇所への出力に関する一貫性のな
 結果を速く保存するために、&lt;code&gt;boa convert meta.yaml &amp;gt; recipe.yaml&lt;/code&gt;を使うことができ、&lt;code&gt;boa build ..&lt;/code&gt;を実行してください。
 変換プロセスは"シンプル"なレシピに対してのみ動作し、複雑なレシピの変換には手作業が必要となるであろうことに注意してください。&lt;/p&gt;
 &lt;p&gt;ここで実際に既存recipeを変換して...というところまで行きつきたかったのですが、時間切れに伴いここで一旦終了とさせていただきます。
-追記する場合はその旨を記載いたします。&lt;/p&gt;
+追記する場合はその旨を記載いたします。
+※2022/12/17 本記事末尾に追記しました。&lt;/p&gt;
 &lt;h3&gt;PyData Osaka meetup #27&lt;/h3&gt;
 &lt;p&gt;以上に記載した内容+αを12/17(土) 13:00より開催予定の&lt;a href="https://www.hiromasa.info/posts/27/"&gt;PyData Osakaのミートアップ&lt;/a&gt;で紹介する予定です。
-この記事で触れたmambaやboaについての紹介を行いたいと考えています。よろしければご参加ください。&lt;/p&gt;</description><category>boa</category><category>conda</category><category>mamba</category><category>micromamba</category><category>python</category><guid>http://www.hiromasa.info/posts/27/</guid><pubDate>Mon, 12 Dec 2022 15:00:00 GMT</pubDate></item></channel></rss>
+この記事で触れたmambaやboaについての紹介を行いたいと考えています。よろしければご参加ください。&lt;/p&gt;
+&lt;h3&gt;&lt;code&gt;micromamba-docker&lt;/code&gt;を使ってみよう(2022/12/17追記)&lt;/h3&gt;
+&lt;p&gt;ここでは実際に&lt;a href="https://github.com/mamba-org/micromamba-docker"&gt;micromamba-docker&lt;/a&gt;を使って&lt;code&gt;micromamba&lt;/code&gt;を動作させてみます。&lt;/p&gt;
+&lt;p&gt;まず、下記の様な&lt;code&gt;env.yaml&lt;/code&gt;を作成します。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;base&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;channels&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;conda-forge&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nt"&gt;dependencies&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;python=3.9&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;numpy&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;scipy&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;matplotlib&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l l-Scalar l-Scalar-Plain"&gt;pandas&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;次に、下記のDockerfileを作成します。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="k"&gt;FROM&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;mambaorg/micromamba:1.1.0&lt;/span&gt;
+&lt;span class="k"&gt;COPY&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;--chown&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$MAMBA_USER&lt;/span&gt;:&lt;span class="nv"&gt;$MAMBA_USER&lt;/span&gt; env.yaml /tmp/env.yaml
+&lt;span class="k"&gt;RUN&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;micromamba install -y -n base -f /tmp/env.yaml &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+    micromamba clean --all --yes
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;これらを用いてコンテナをビルドします。ここでは下記スクリプトを&lt;code&gt;build.sh&lt;/code&gt;として保存し、&lt;code&gt;chmod u+x build.sh&lt;/code&gt;した上で&lt;code&gt;./build.sh&lt;/code&gt;を実行することでビルドを行います。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+docker build -t mamba_custom .
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Dockerコンテナを動作させます。下記スクリプトを&lt;code&gt;run.sh&lt;/code&gt;として保存し、&lt;code&gt;chmod u+x run.sh&lt;/code&gt;ののちに&lt;code&gt;./run.sh&lt;/code&gt;で実行させます。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+docker run -it --rm mamba_custom
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;デフォルトでは&lt;code&gt;base&lt;/code&gt;という名前のconda環境が有効化されています。
+まずは&lt;code&gt;micromamba&lt;/code&gt;コマンドを実行することで使えるコマンド一覧を見てましょう。
+また、&lt;code&gt;micromamba info&lt;/code&gt;コマンドで現在の環境の状態が分かります。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="o"&gt;(&lt;/span&gt;base&lt;span class="o"&gt;)&lt;/span&gt; mambauser@8d0b15ca9e5b:/tmp$ micromamba info
+
+                                           __
+          __  ______ ___  ____ _____ ___  / /_  ____ _
+         / / / / __ &lt;span class="sb"&gt;`&lt;/span&gt;__ &lt;span class="se"&gt;\/&lt;/span&gt; __ &lt;span class="sb"&gt;`&lt;/span&gt;/ __ &lt;span class="sb"&gt;`&lt;/span&gt;__ &lt;span class="se"&gt;\/&lt;/span&gt; __ &lt;span class="se"&gt;\/&lt;/span&gt; __ &lt;span class="sb"&gt;`&lt;/span&gt;/
+        / /_/ / / / / / / /_/ / / / / / / /_/ / /_/ /
+       / .___/_/ /_/ /_/&lt;span class="se"&gt;\_&lt;/span&gt;_,_/_/ /_/ /_/_.___/&lt;span class="se"&gt;\_&lt;/span&gt;_,_/
+      /_/
+
+
+            environment : base &lt;span class="o"&gt;(&lt;/span&gt;active&lt;span class="o"&gt;)&lt;/span&gt;
+           env location : /opt/conda
+      user config files : /home/mambauser/.mambarc
+ populated config files :
+       libmamba version : &lt;span class="m"&gt;1&lt;/span&gt;.1.0
+     micromamba version : &lt;span class="m"&gt;1&lt;/span&gt;.1.0
+           curl version : libcurl/7.86.0 OpenSSL/1.1.1s zlib/1.2.13 libssh2/1.10.0 nghttp2/1.47.0
+     libarchive version : libarchive &lt;span class="m"&gt;3&lt;/span&gt;.6.1 zlib/1.2.13 bz2lib/1.0.8 libzstd/1.5.2
+       virtual packages : &lt;span class="nv"&gt;__unix&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;0&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+                          &lt;span class="nv"&gt;__linux&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;.15.0&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+                          &lt;span class="nv"&gt;__glibc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;.31&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+                          &lt;span class="nv"&gt;__archspec&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;x86_64
+               channels :
+       base environment : /opt/conda
+               platform : linux-64
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;次に、試しにboaをインストールしてみましょう。ここで&lt;code&gt;$&lt;/code&gt;はプロンプトであるため打ち込む必要はありません。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ micromamba install boa -c conda-forge
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;これにより&lt;code&gt;boa&lt;/code&gt;コマンドが使える様になります。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="o"&gt;(&lt;/span&gt;base&lt;span class="o"&gt;)&lt;/span&gt; mambauser@8d0b15ca9e5b:/tmp$ boa
+OpenBLAS WARNING - could not determine the L2 cache size on this system, assuming 256k
+
+           _
+          &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;__   ___   __ _
+          &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="s1"&gt;'_ \ / _ \ / _` |&lt;/span&gt;
+&lt;span class="s1"&gt;          | |_) | (_) | (_| |&lt;/span&gt;
+&lt;span class="s1"&gt;          |_.__/ \___/ \__,_|&lt;/span&gt;
+
+&lt;span class="s1"&gt;usage: boa [-h] [--version] {render,convert,validate,build,transmute} ...&lt;/span&gt;
+
+&lt;span class="s1"&gt;Boa, the fast, mamba powered-build tool for conda packages.&lt;/span&gt;
+
+&lt;span class="s1"&gt;positional arguments:&lt;/span&gt;
+&lt;span class="s1"&gt;  {render,convert,validate,build,transmute}&lt;/span&gt;
+&lt;span class="s1"&gt;                        sub-command help&lt;/span&gt;
+&lt;span class="s1"&gt;    render              render a recipe&lt;/span&gt;
+&lt;span class="s1"&gt;    convert             convert old-style meta.yaml to recipe.yaml&lt;/span&gt;
+&lt;span class="s1"&gt;    validate            Validate recipe.yaml&lt;/span&gt;
+&lt;span class="s1"&gt;    build               build a recipe&lt;/span&gt;
+&lt;span class="s1"&gt;    transmute           transmute one or many tar.bz2 packages into a conda packages (or vice versa!)&lt;/span&gt;
+
+&lt;span class="s1"&gt;optional arguments:&lt;/span&gt;
+&lt;span class="s1"&gt;  -h, --help            show this help message and exit&lt;/span&gt;
+&lt;span class="s1"&gt;  --version             show program'&lt;/span&gt;s version number and &lt;span class="nb"&gt;exit&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;一旦&lt;code&gt;boa&lt;/code&gt;が入ったところで、今度はEmscriptten向けの環境を構築してみます。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ micromamba create -n my-env --platform&lt;span class="o"&gt;=&lt;/span&gt;emscripten-32 -c https://repo.mamba.pm/emscripten-forge -c https://repo.mamba.pm/conda-forge python
+$ micromamba activate my-env
+$ micromamba info
+
+                                           __
+          __  ______ ___  ____ _____ ___  / /_  ____ _
+         / / / / __ &lt;span class="sb"&gt;`&lt;/span&gt;__ &lt;span class="se"&gt;\/&lt;/span&gt; __ &lt;span class="sb"&gt;`&lt;/span&gt;/ __ &lt;span class="sb"&gt;`&lt;/span&gt;__ &lt;span class="se"&gt;\/&lt;/span&gt; __ &lt;span class="se"&gt;\/&lt;/span&gt; __ &lt;span class="sb"&gt;`&lt;/span&gt;/
+        / /_/ / / / / / / /_/ / / / / / / /_/ / /_/ /
+       / .___/_/ /_/ /_/&lt;span class="se"&gt;\_&lt;/span&gt;_,_/_/ /_/ /_/_.___/&lt;span class="se"&gt;\_&lt;/span&gt;_,_/
+      /_/
+
+
+            environment : my-env &lt;span class="o"&gt;(&lt;/span&gt;active&lt;span class="o"&gt;)&lt;/span&gt;
+           env location : /opt/conda/envs/my-env
+      user config files : /home/mambauser/.mambarc
+ populated config files : /opt/conda/envs/my-env/.mambarc
+       libmamba version : &lt;span class="m"&gt;1&lt;/span&gt;.1.0
+     micromamba version : &lt;span class="m"&gt;1&lt;/span&gt;.1.0
+           curl version : libcurl/7.86.0 OpenSSL/1.1.1s zlib/1.2.13 libssh2/1.10.0 nghttp2/1.47.0
+     libarchive version : libarchive &lt;span class="m"&gt;3&lt;/span&gt;.6.1 zlib/1.2.13 bz2lib/1.0.8 libzstd/1.5.2
+       virtual packages : &lt;span class="nv"&gt;__archspec&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;x86
+               channels :
+       base environment : /opt/conda
+               platform : emscripten-32
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;最後のplatformが&lt;code&gt;emscripten-32&lt;/code&gt;に変わっていることが分かるかと思います。&lt;/p&gt;
+&lt;h4&gt;&lt;code&gt;boa&lt;/code&gt;で既存のrecipeを変換してビルドする&lt;/h4&gt;
+&lt;p&gt;ここでは既存の&lt;code&gt;conda-forge&lt;/code&gt;向けに公開されているrecipeをboaで変換することを試します。
+一旦ここまでで実行していたdocker環境からはexitして抜けておきます(&lt;code&gt;run.sh&lt;/code&gt;で&lt;code&gt;--rm&lt;/code&gt;を付けているのでexitすると実行していたdockerコンテナは消えます)。&lt;/p&gt;
+&lt;p&gt;次に、&lt;code&gt;run_as_root.sh&lt;/code&gt;として下記スクリプトを保存し、&lt;code&gt;chmod u+x run_as_root.sh&lt;/code&gt;で実行権限をつけた上で&lt;code&gt;./run_as_root.sh&lt;/code&gt;を実行します。
+rootユーザでコンテナを起動するために&lt;code&gt;-u root&lt;/code&gt;をつけています。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+docker run -u root -it --rm mamba_custom
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;コンテナ内部で下記を実行します。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ apt update
+$ apt install git
+$ git clone https://github.com/conda-forge/pysoundfile-feedstock
+$ micromamba install boa -c conda-forge
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; pysoundfile-feedsock/recipes
+$ boa convert meta.yaml &amp;gt; recipe.yaml
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;これにより&lt;code&gt;meta.yaml&lt;/code&gt;ファイルが&lt;code&gt;recipe.yaml&lt;/code&gt;に変換されます。
+変化点はdiffを見ると分かりますが、主に変数が&lt;code&gt;context&lt;/code&gt;にまとめられた他、文字列のクォーテーションが変化しています。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="w"&gt;(base) mambauser@fd58307391e2:/tmp/pysoundfile-feedstock/recipe$ diff meta.yaml recipe.yaml&lt;/span&gt;
+&lt;span class="w"&gt;1,3c1,4&lt;/span&gt;
+&lt;span class="w"&gt;&amp;lt; {% set name = "pysoundfile" %}&lt;/span&gt;
+&lt;span class="w"&gt;&amp;lt; {% set pypi_name = "soundfile" %}&lt;/span&gt;
+&lt;span class="w"&gt;&amp;lt; {% set version = "0.11.0" %}&lt;/span&gt;
+&lt;span class="gd"&gt;---&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;&amp;gt; context:&lt;/span&gt;
+&lt;span class="w"&gt;&amp;gt;   name: pysoundfile&lt;/span&gt;
+&lt;span class="w"&gt;&amp;gt;   pypi_name: soundfile&lt;/span&gt;
+&lt;span class="w"&gt;&amp;gt;   version: 0.11.0&lt;/span&gt;
+&lt;span class="w"&gt;6,7c7,8&lt;/span&gt;
+&lt;span class="w"&gt;&amp;lt;   name: {{ name|lower }}&lt;/span&gt;
+&lt;span class="w"&gt;&amp;lt;   version: {{ version }}&lt;/span&gt;
+&lt;span class="gd"&gt;---&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;&amp;gt;   name: '{{ name|lower }}'&lt;/span&gt;
+&lt;span class="w"&gt;&amp;gt;   version: '{{ version }}'&lt;/span&gt;
+&lt;span class="w"&gt;10c11&lt;/span&gt;
+&lt;span class="w"&gt;&amp;lt;   fn: {{ pypi_name }}-{{ version }}.tar.gz&lt;/span&gt;
+&lt;span class="gd"&gt;---&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;&amp;gt;   fn: '{{ pypi_name }}-{{ version }}.tar.gz'&lt;/span&gt;
+&lt;span class="w"&gt;47c48&lt;/span&gt;
+&lt;span class="w"&gt;&amp;lt;   summary: 'SoundFile is an audio library based on libsndfile, CFFI, and NumPy'&lt;/span&gt;
+&lt;span class="gd"&gt;---&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;&amp;gt;   summary: SoundFile is an audio library based on libsndfile, CFFI, and NumPy&lt;/span&gt;
+&lt;span class="w"&gt;54a56&lt;/span&gt;
+&lt;span class="w"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;次に、この変換後のrecipeを&lt;code&gt;boa render&lt;/code&gt;してみます。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="o"&gt;(&lt;/span&gt;base&lt;span class="o"&gt;)&lt;/span&gt; mambauser@fd58307391e2:/tmp/pysoundfile-feedstock/recipe$ boa render recipe.yaml
+OpenBLAS WARNING - could not determine the L2 cache size on this system, assuming 256k
+
+           _
+          &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;__   ___   __ _
+          &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="s1"&gt;'_ \ / _ \ / _` |&lt;/span&gt;
+&lt;span class="s1"&gt;          | |_) | (_) | (_| |&lt;/span&gt;
+&lt;span class="s1"&gt;          |_.__/ \___/ \__,_|&lt;/span&gt;
+
+
+&lt;span class="s1"&gt;Loading config files:&lt;/span&gt;
+
+&lt;span class="s1"&gt;Updating build index: /opt/conda/conda-bld&lt;/span&gt;
+
+&lt;span class="s1"&gt;No numpy version specified in conda_build_config.yaml.  Falling back to default numpy value of 1.16&lt;/span&gt;
+&lt;span class="s1"&gt;WARNING:conda_build.metadata:No numpy version specified in conda_build_config.yaml.  Falling back to default numpy value of 1.16&lt;/span&gt;
+&lt;span class="s1"&gt;Recipe validation OK&lt;/span&gt;
+&lt;span class="s1"&gt;Found 1 recipe&lt;/span&gt;
+&lt;span class="s1"&gt; - pysoundfile&lt;/span&gt;
+
+&lt;span class="s1"&gt;Assembling all recipes and variants&lt;/span&gt;
+
+&lt;span class="s1"&gt;         Output: pysoundfile&lt;/span&gt;
+&lt;span class="s1"&gt;┏━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓&lt;/span&gt;
+&lt;span class="s1"&gt;┃ Package         ┃ Variant versions ┃&lt;/span&gt;
+&lt;span class="s1"&gt;┡━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩&lt;/span&gt;
+&lt;span class="s1"&gt;│ target_platform │ linux-64         │&lt;/span&gt;
+&lt;span class="s1"&gt;│ python          │ 3.9              │&lt;/span&gt;
+&lt;span class="s1"&gt;└─────────────────┴──────────────────┘&lt;/span&gt;
+&lt;span class="s1"&gt;                Output: pysoundfile 0.11.0 BN: 0&lt;/span&gt;
+&lt;span class="s1"&gt;                            Variant:&lt;/span&gt;
+&lt;span class="s1"&gt;                             Build:&lt;/span&gt;
+
+&lt;span class="s1"&gt;             ╷                     ╷          ╷       ╷&lt;/span&gt;
+&lt;span class="s1"&gt;  Dependency │ Version requirement │ Selected │ Build │ Channel&lt;/span&gt;
+&lt;span class="s1"&gt; ════════════╪═════════════════════╪══════════╪═══════╪═════════&lt;/span&gt;
+&lt;span class="s1"&gt;             │                     │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;  Host       │                     │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;  pip        │                     │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;  python     │ 3.9                 │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;  setuptools │                     │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;  cffi       │                     │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;             │                     │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;  Run        │                     │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;  python     │ &amp;gt;=3.6               │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;  cffi       │                     │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;  numpy      │                     │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt;  libsndfile │                     │          │       │&lt;/span&gt;
+&lt;span class="s1"&gt; ```&lt;/span&gt;
+
+&lt;span class="s1"&gt; 概要が色々表示されていることが分かります。ついで、`boa build recipe.yaml`も実行してみましょう。&lt;/span&gt;
+
+&lt;span class="s1"&gt; ```sh&lt;/span&gt;
+&lt;span class="s1"&gt; (base) mambauser@fd58307391e2:/tmp/pysoundfile-feedstock/recipe$ boa build recipe.yaml&lt;/span&gt;
+&lt;span class="s1"&gt;OpenBLAS WARNING - could not determine the L2 cache size on this system, assuming 256k&lt;/span&gt;
+
+&lt;span class="s1"&gt;           _&lt;/span&gt;
+&lt;span class="s1"&gt;          | |__   ___   __ _&lt;/span&gt;
+&lt;span class="s1"&gt;          | '&lt;/span&gt;_ &lt;span class="se"&gt;\ &lt;/span&gt;/ _ &lt;span class="se"&gt;\ &lt;/span&gt;/ _&lt;span class="sb"&gt;`&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+          &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;_&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;_&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;_&lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;
+          &lt;span class="p"&gt;|&lt;/span&gt;_.__/ &lt;span class="se"&gt;\_&lt;/span&gt;__/ &lt;span class="se"&gt;\_&lt;/span&gt;_,_&lt;span class="p"&gt;|&lt;/span&gt;
+
+
+Loading config files:
+
+Updating build index: /opt/conda/conda-bld
+
+No numpy version specified &lt;span class="k"&gt;in&lt;/span&gt; conda_build_config.yaml.  Falling back to default numpy value of &lt;span class="m"&gt;1&lt;/span&gt;.16
+WARNING:conda_build.metadata:No numpy version specified &lt;span class="k"&gt;in&lt;/span&gt; conda_build_config.yaml.  Falling back to default numpy value of &lt;span class="m"&gt;1&lt;/span&gt;.16
+Recipe validation OK
+Found &lt;span class="m"&gt;1&lt;/span&gt; recipe
+ - pysoundfile
+
+Assembling all recipes and variants
+
+         Output: pysoundfile
+┏━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ Package         ┃ Variant versions ┃
+┡━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ target_platform │ linux-64         │
+│ python          │ &lt;span class="m"&gt;3&lt;/span&gt;.9              │
+└─────────────────┴──────────────────┘
+
+Initializing mamba solver
+
+
+Downloading &lt;span class="nb"&gt;source&lt;/span&gt;
+
+Source cache directory is: /opt/conda/conda-bld/src_cache
+INFO:conda_build.source:Source cache directory is: /opt/conda/conda-bld/src_cache
+Downloading &lt;span class="nb"&gt;source&lt;/span&gt; to cache: soundfile-0.11.0_931738a1c9.tar.gz
+INFO:conda_build.source:Downloading &lt;span class="nb"&gt;source&lt;/span&gt; to cache: soundfile-0.11.0_931738a1c9.tar.gz
+Downloading https://pypi.io/packages/source/s/soundfile/soundfile-0.11.0.tar.gz
+INFO:conda_build.source:Downloading https://pypi.io/packages/source/s/soundfile/soundfile-0.11.0.tar.gz
+Success
+INFO:conda_build.source:Success
+Extracting download
+
+Preparing environment &lt;span class="k"&gt;for&lt;/span&gt; pysoundfile
+
+Finalizing host &lt;span class="k"&gt;for&lt;/span&gt; pysoundfile
+pkgs/main/noarch                                   &lt;span class="m"&gt;818&lt;/span&gt;.5kB @   &lt;span class="m"&gt;1&lt;/span&gt;.2MB/s  &lt;span class="m"&gt;0&lt;/span&gt;.7s
+pkgs/r/noarch                                        &lt;span class="m"&gt;1&lt;/span&gt;.3MB @   &lt;span class="m"&gt;1&lt;/span&gt;.6MB/s  &lt;span class="m"&gt;0&lt;/span&gt;.8s
+pkgs/r/linux-64                                      &lt;span class="m"&gt;1&lt;/span&gt;.4MB @   &lt;span class="m"&gt;1&lt;/span&gt;.7MB/s  &lt;span class="m"&gt;0&lt;/span&gt;.9s
+pkgs/main/linux-64                                   &lt;span class="m"&gt;5&lt;/span&gt;.0MB @   &lt;span class="m"&gt;4&lt;/span&gt;.3MB/s  &lt;span class="m"&gt;1&lt;/span&gt;.2s
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                        ??.?MB @  ??.?MB/s &lt;span class="m"&gt;0&lt;/span&gt; failed  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;319&lt;/span&gt;.1kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+_libgcc_mutex                                        &lt;span class="m"&gt;3&lt;/span&gt;.5kB @   &lt;span class="m"&gt;7&lt;/span&gt;.5kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.5s
+ca-certificates                                    &lt;span class="m"&gt;127&lt;/span&gt;.5kB @ &lt;span class="m"&gt;224&lt;/span&gt;.9kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.6s
+zlib                                               &lt;span class="m"&gt;105&lt;/span&gt;.9kB @ &lt;span class="m"&gt;163&lt;/span&gt;.2kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.2s
+libgomp                                            &lt;span class="m"&gt;485&lt;/span&gt;.1kB @ &lt;span class="m"&gt;600&lt;/span&gt;.3kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.8s
+ld_impl_linux-64                                   &lt;span class="m"&gt;669&lt;/span&gt;.2kB @ &lt;span class="m"&gt;792&lt;/span&gt;.3kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.9s
+cffi                                               &lt;span class="m"&gt;247&lt;/span&gt;.4kB @ &lt;span class="m"&gt;264&lt;/span&gt;.1kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.1s
+xz                                                 &lt;span class="m"&gt;439&lt;/span&gt;.5kB @ &lt;span class="m"&gt;415&lt;/span&gt;.1kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.1s
+setuptools                                           &lt;span class="m"&gt;1&lt;/span&gt;.2MB @   &lt;span class="m"&gt;1&lt;/span&gt;.1MB/s  &lt;span class="m"&gt;0&lt;/span&gt;.3s
+tzdata                                             &lt;span class="m"&gt;116&lt;/span&gt;.9kB @ &lt;span class="m"&gt;100&lt;/span&gt;.9kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+wheel                                               &lt;span class="m"&gt;33&lt;/span&gt;.3kB @  &lt;span class="m"&gt;27&lt;/span&gt;.7kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+tk                                                   &lt;span class="m"&gt;3&lt;/span&gt;.2MB @   &lt;span class="m"&gt;2&lt;/span&gt;.1MB/s  &lt;span class="m"&gt;0&lt;/span&gt;.9s
+readline                                           &lt;span class="m"&gt;365&lt;/span&gt;.2kB @ &lt;span class="m"&gt;230&lt;/span&gt;.4kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.1s
+certifi                                            &lt;span class="m"&gt;157&lt;/span&gt;.3kB @  &lt;span class="m"&gt;94&lt;/span&gt;.6kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.1s
+libffi                                             &lt;span class="m"&gt;139&lt;/span&gt;.6kB @  &lt;span class="m"&gt;81&lt;/span&gt;.2kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.1s
+libstdcxx-ng                                         &lt;span class="m"&gt;4&lt;/span&gt;.9MB @   &lt;span class="m"&gt;2&lt;/span&gt;.8MB/s  &lt;span class="m"&gt;1&lt;/span&gt;.8s
+ncurses                                            &lt;span class="m"&gt;800&lt;/span&gt;.2kB @ &lt;span class="m"&gt;396&lt;/span&gt;.7kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.3s
+openssl                                              &lt;span class="m"&gt;3&lt;/span&gt;.8MB @   &lt;span class="m"&gt;1&lt;/span&gt;.9MB/s  &lt;span class="m"&gt;1&lt;/span&gt;.0s
+_openmp_mutex                                       &lt;span class="m"&gt;21&lt;/span&gt;.3kB @  &lt;span class="m"&gt;10&lt;/span&gt;.3kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.1s
+pycparser                                           &lt;span class="m"&gt;96&lt;/span&gt;.6kB @  &lt;span class="m"&gt;45&lt;/span&gt;.1kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.1s
+sqlite                                               &lt;span class="m"&gt;1&lt;/span&gt;.2MB @ &lt;span class="m"&gt;542&lt;/span&gt;.1kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.2s
+pip                                                  &lt;span class="m"&gt;2&lt;/span&gt;.8MB @   &lt;span class="m"&gt;1&lt;/span&gt;.2MB/s  &lt;span class="m"&gt;0&lt;/span&gt;.6s
+libgcc-ng                                            &lt;span class="m"&gt;5&lt;/span&gt;.6MB @   &lt;span class="m"&gt;2&lt;/span&gt;.4MB/s  &lt;span class="m"&gt;1&lt;/span&gt;.2s
+python                                              &lt;span class="m"&gt;26&lt;/span&gt;.2MB @   &lt;span class="m"&gt;7&lt;/span&gt;.8MB/s  &lt;span class="m"&gt;2&lt;/span&gt;.7s
+Finalizing run &lt;span class="k"&gt;for&lt;/span&gt; pysoundfile
+Mamba failed to solve:
+ - python &amp;gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.6
+ - cffi
+ - numpy
+ - libsndfile
+
+with channels:
+
+The reported errors are:
+- Encountered problems &lt;span class="k"&gt;while&lt;/span&gt; solving:
+-   - nothing provides requested libsndfile
+-
+╭─────────────────────────────── Traceback &lt;span class="o"&gt;(&lt;/span&gt;most recent call last&lt;span class="o"&gt;)&lt;/span&gt; ────────────────────────────────╮
+│ /opt/conda/lib/python3.9/site-packages/boa/core/run_build.py:305 &lt;span class="k"&gt;in&lt;/span&gt; build_recipe                 │
+│                                                                                                  │
+│   &lt;span class="m"&gt;302&lt;/span&gt; │   │   │                                                                                  │
+│   &lt;span class="m"&gt;303&lt;/span&gt; │   │   │   o.config._build_id &lt;span class="o"&gt;=&lt;/span&gt; o0.config.build_id                                        │
+│   &lt;span class="m"&gt;304&lt;/span&gt; │   │   │                                                                                  │
+│ ❱ &lt;span class="m"&gt;305&lt;/span&gt; │   │   │   o.finalize_solve&lt;span class="o"&gt;(&lt;/span&gt;sorted_outputs&lt;span class="o"&gt;)&lt;/span&gt;                                               │
+│   &lt;span class="m"&gt;306&lt;/span&gt; │   │   │                                                                                  │
+│   &lt;span class="m"&gt;307&lt;/span&gt; │   │   │   &lt;span class="nv"&gt;meta&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; MetaData&lt;span class="o"&gt;(&lt;/span&gt;recipe_path, o&lt;span class="o"&gt;)&lt;/span&gt;                                                │
+│   &lt;span class="m"&gt;308&lt;/span&gt; │   │   │   o.set_final_build_id&lt;span class="o"&gt;(&lt;/span&gt;meta, sorted_outputs&lt;span class="o"&gt;)&lt;/span&gt;                                     │
+│                                                                                                  │
+│ /opt/conda/lib/python3.9/site-packages/boa/core/recipe_output.py:594 &lt;span class="k"&gt;in&lt;/span&gt; finalize_solve           │
+│                                                                                                  │
+│   &lt;span class="m"&gt;591&lt;/span&gt; │   │                                                                                      │
+│   &lt;span class="m"&gt;592&lt;/span&gt; │   │   self._solve_env&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"build"&lt;/span&gt;, all_outputs&lt;span class="o"&gt;)&lt;/span&gt;                                              │
+│   &lt;span class="m"&gt;593&lt;/span&gt; │   │   self._solve_env&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"host"&lt;/span&gt;, all_outputs&lt;span class="o"&gt;)&lt;/span&gt;                                               │
+│ ❱ &lt;span class="m"&gt;594&lt;/span&gt; │   │   self._solve_env&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"run"&lt;/span&gt;, all_outputs&lt;span class="o"&gt;)&lt;/span&gt;                                                │
+│   &lt;span class="m"&gt;595&lt;/span&gt; │   │                                                                                      │
+│   &lt;span class="m"&gt;596&lt;/span&gt; │   │   &lt;span class="c1"&gt;# TODO figure out if we can avoid this?!                                           │&lt;/span&gt;
+│   &lt;span class="m"&gt;597&lt;/span&gt; │   │   &lt;span class="k"&gt;if&lt;/span&gt; self.config.variant.get&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"python"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; is None:                                      │
+│                                                                                                  │
+│ /opt/conda/lib/python3.9/site-packages/boa/core/recipe_output.py:542 &lt;span class="k"&gt;in&lt;/span&gt; _solve_env               │
+│                                                                                                  │
+│   &lt;span class="m"&gt;539&lt;/span&gt; │   │   │   &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="nv"&gt;env&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;"build"&lt;/span&gt;:                                                           │
+│   &lt;span class="m"&gt;540&lt;/span&gt; │   │   │   │   MambaContext&lt;span class="o"&gt;()&lt;/span&gt;.target_prefix &lt;span class="o"&gt;=&lt;/span&gt; self.config.build_prefix                    │
+│   &lt;span class="m"&gt;541&lt;/span&gt; │   │   │   │   &lt;span class="c1"&gt;# solver.replace_installed(self.config.build_prefix)                       │&lt;/span&gt;
+│ ❱ &lt;span class="m"&gt;542&lt;/span&gt; │   │   │   &lt;span class="nv"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; solver.solve&lt;span class="o"&gt;(&lt;/span&gt;specs, &lt;span class="o"&gt;[&lt;/span&gt;pkg_cache&lt;span class="o"&gt;])&lt;/span&gt;                                           │
+│   &lt;span class="m"&gt;543&lt;/span&gt; │   │   │                                                                                  │
+│   &lt;span class="m"&gt;544&lt;/span&gt; │   │   │   _, install_pkgs, &lt;span class="nv"&gt;_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; t.to_conda&lt;span class="o"&gt;()&lt;/span&gt;                                              │
+│   &lt;span class="m"&gt;545&lt;/span&gt; │   │   │   &lt;span class="k"&gt;for&lt;/span&gt; _, _, p &lt;span class="k"&gt;in&lt;/span&gt; install_pkgs:                                                   │
+│                                                                                                  │
+│ /opt/conda/lib/python3.9/site-packages/boa/core/solver.py:220 &lt;span class="k"&gt;in&lt;/span&gt; solve                           │
+│                                                                                                  │
+│   &lt;span class="m"&gt;217&lt;/span&gt; │   │   │   &lt;span class="nv"&gt;pstring&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"\n"&lt;/span&gt;.join&lt;span class="o"&gt;([&lt;/span&gt;&lt;span class="s2"&gt;"- "&lt;/span&gt; + el &lt;span class="k"&gt;for&lt;/span&gt; el &lt;span class="k"&gt;in&lt;/span&gt; pstring.split&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"\n"&lt;/span&gt;&lt;span class="o"&gt;)])&lt;/span&gt;                 │
+│   &lt;span class="m"&gt;218&lt;/span&gt; │   │   │   &lt;span class="nv"&gt;error_string&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; f&lt;span class="s2"&gt;"\nThe reported errors are:\n{pstring}"&lt;/span&gt;                       │
+│   &lt;span class="m"&gt;219&lt;/span&gt; │   │   │   print&lt;span class="o"&gt;(&lt;/span&gt;error_string&lt;span class="o"&gt;)&lt;/span&gt;                                                            │
+│ ❱ &lt;span class="m"&gt;220&lt;/span&gt; │   │   │   raise RuntimeError&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"Solver could not find solution."&lt;/span&gt; + error_string&lt;span class="o"&gt;)&lt;/span&gt;           │
+│   &lt;span class="m"&gt;221&lt;/span&gt; │   │                                                                                      │
+│   &lt;span class="m"&gt;222&lt;/span&gt; │   │   &lt;span class="k"&gt;if&lt;/span&gt; pkg_cache_path is None:                                                         │
+│   &lt;span class="m"&gt;223&lt;/span&gt; │   │   │   &lt;span class="c1"&gt;# use values from conda                                                        │&lt;/span&gt;
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+RuntimeError: Solver could not find solution.Mamba failed to solve:
+ - python &amp;gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.6
+ - cffi
+ - numpy
+ - libsndfile
+
+with channels:
+
+The reported errors are:
+- Encountered problems &lt;span class="k"&gt;while&lt;/span&gt; solving:
+-   - nothing provides requested libsndfile
+-
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;エラーで終了していることが分かりますが、&lt;code&gt;run&lt;/code&gt;のセクションにおけるlibsndfileに起因するエラーの様です。&lt;code&gt;conda mambabuild&lt;/code&gt;も同様に失敗します。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="o"&gt;(&lt;/span&gt;base&lt;span class="o"&gt;)&lt;/span&gt; root@80b5664e65e1:/tmp/pysoundfile-feedstock/recipe# conda mambabuild meta.yaml
+/opt/conda/lib/python3.9/site-packages/conda_build/cli/main_build.py:390: UserWarning: RECIPE_PATH received is a file &lt;span class="o"&gt;(&lt;/span&gt;meta.yaml&lt;span class="o"&gt;)&lt;/span&gt;.
+It should be a path to a folder.
+Forcing conda-build to use the recipe file.
+  warnings.warn&lt;span class="o"&gt;(&lt;/span&gt;
+Updating build index: /opt/conda/conda-bld
+
+No numpy version specified &lt;span class="k"&gt;in&lt;/span&gt; conda_build_config.yaml.  Falling back to default numpy value of &lt;span class="m"&gt;1&lt;/span&gt;.16
+WARNING:conda_build.metadata:No numpy version specified &lt;span class="k"&gt;in&lt;/span&gt; conda_build_config.yaml.  Falling back to default numpy value of &lt;span class="m"&gt;1&lt;/span&gt;.16
+Adding &lt;span class="k"&gt;in&lt;/span&gt; variants from internal_defaults
+INFO:conda_build.variants:Adding &lt;span class="k"&gt;in&lt;/span&gt; variants from internal_defaults
+Attempting to finalize metadata &lt;span class="k"&gt;for&lt;/span&gt; pysoundfile
+INFO:conda_build.metadata:Attempting to finalize metadata &lt;span class="k"&gt;for&lt;/span&gt; pysoundfile
+pkgs/r/noarch                                                 No change
+pkgs/r/linux-64                                               No change
+pkgs/main/linux-64                                            No change
+Reloading output folder: /opt/conda/conda-bld
+pkgs/main/noarch                                              No change
+opt/conda/conda-bld/linux-64                        ??.?MB @  ??.?MB/s &lt;span class="m"&gt;0&lt;/span&gt; failed  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;141&lt;/span&gt;.0kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                        ??.?MB @  ??.?MB/s &lt;span class="m"&gt;0&lt;/span&gt; failed  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;604&lt;/span&gt;.8kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;250&lt;/span&gt;.0kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;494&lt;/span&gt;.2kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+BUILD START: &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'pysoundfile-0.11.0-py_0.tar.bz2'&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;678&lt;/span&gt;.9kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;484&lt;/span&gt;.7kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+
+&lt;span class="c1"&gt;## Package Plan ##&lt;/span&gt;
+
+  environment location: /opt/conda/conda-bld/pysoundfile_1671217858434/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_p
+
+
+The following NEW packages will be INSTALLED:
+
+    _libgcc_mutex:    &lt;span class="m"&gt;0&lt;/span&gt;.1-main
+    _openmp_mutex:    &lt;span class="m"&gt;5&lt;/span&gt;.1-1_gnu
+    bzip2:            &lt;span class="m"&gt;1&lt;/span&gt;.0.8-h7b6447c_0
+    ca-certificates:  &lt;span class="m"&gt;2022&lt;/span&gt;.10.11-h06a4308_0
+    certifi:          &lt;span class="m"&gt;2022&lt;/span&gt;.9.24-py310h06a4308_0
+    cffi:             &lt;span class="m"&gt;1&lt;/span&gt;.15.1-py310h5eee18b_3
+    ld_impl_linux-64: &lt;span class="m"&gt;2&lt;/span&gt;.38-h1181459_1
+    libffi:           &lt;span class="m"&gt;3&lt;/span&gt;.4.2-h6a678d5_6
+    libgcc-ng:        &lt;span class="m"&gt;11&lt;/span&gt;.2.0-h1234567_1
+    libgomp:          &lt;span class="m"&gt;11&lt;/span&gt;.2.0-h1234567_1
+    libstdcxx-ng:     &lt;span class="m"&gt;11&lt;/span&gt;.2.0-h1234567_1
+    libuuid:          &lt;span class="m"&gt;1&lt;/span&gt;.41.5-h5eee18b_0
+    ncurses:          &lt;span class="m"&gt;6&lt;/span&gt;.3-h5eee18b_3
+    openssl:          &lt;span class="m"&gt;1&lt;/span&gt;.1.1s-h7f8727e_0
+    pip:              &lt;span class="m"&gt;22&lt;/span&gt;.3.1-py310h06a4308_0
+    pycparser:        &lt;span class="m"&gt;2&lt;/span&gt;.21-pyhd3eb1b0_0
+    python:           &lt;span class="m"&gt;3&lt;/span&gt;.10.8-h7a1cb2a_1
+    readline:         &lt;span class="m"&gt;8&lt;/span&gt;.2-h5eee18b_0
+    setuptools:       &lt;span class="m"&gt;65&lt;/span&gt;.5.0-py310h06a4308_0
+    sqlite:           &lt;span class="m"&gt;3&lt;/span&gt;.40.0-h5082296_0
+    tk:               &lt;span class="m"&gt;8&lt;/span&gt;.6.12-h1ccaba5_0
+    tzdata:           2022g-h04d1e81_0
+    wheel:            &lt;span class="m"&gt;0&lt;/span&gt;.37.1-pyhd3eb1b0_0
+    xz:               &lt;span class="m"&gt;5&lt;/span&gt;.2.8-h5eee18b_0
+    zlib:             &lt;span class="m"&gt;1&lt;/span&gt;.2.13-h5eee18b_0
+
+Preparing transaction: ...working... &lt;span class="k"&gt;done&lt;/span&gt;
+Verifying transaction: ...working... &lt;span class="k"&gt;done&lt;/span&gt;
+Executing transaction: ...working... &lt;span class="k"&gt;done&lt;/span&gt;
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;632&lt;/span&gt;.4kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;434&lt;/span&gt;.9kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;682&lt;/span&gt;.5kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;585&lt;/span&gt;.3kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+Mamba failed to solve:
+ - libsndfile
+ - cffi
+ - python &amp;gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.6
+ - numpy
+
+with channels:
+
+The reported errors are:
+- Encountered problems &lt;span class="k"&gt;while&lt;/span&gt; solving:
+-   - nothing provides requested libsndfile
+-
+
+Leaving build/test directories:
+  Work:
+ /opt/conda/conda-bld/work
+  Test:
+ /opt/conda/conda-bld/test_tmp
+Leaving build/test environments:
+  Test:
+&lt;span class="nb"&gt;source&lt;/span&gt; activate  /opt/conda/conda-bld/_test_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_pl
+  Build:
+&lt;span class="nb"&gt;source&lt;/span&gt; activate  /opt/conda/conda-bld/_build_env
+
+
+Traceback &lt;span class="o"&gt;(&lt;/span&gt;most recent call last&lt;span class="o"&gt;)&lt;/span&gt;:
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/boa/cli/mambabuild.py"&lt;/span&gt;, line &lt;span class="m"&gt;141&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; mamba_get_install_actions
+    &lt;span class="nv"&gt;solution&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; solver.solve_for_action&lt;span class="o"&gt;(&lt;/span&gt;_specs, prefix&lt;span class="o"&gt;)&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/boa/core/solver.py"&lt;/span&gt;, line &lt;span class="m"&gt;230&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; solve_for_action
+    &lt;span class="nv"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; self.solve&lt;span class="o"&gt;(&lt;/span&gt;specs&lt;span class="o"&gt;)&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/boa/core/solver.py"&lt;/span&gt;, line &lt;span class="m"&gt;220&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; solve
+    raise RuntimeError&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"Solver could not find solution."&lt;/span&gt; + error_string&lt;span class="o"&gt;)&lt;/span&gt;
+RuntimeError: Solver could not find solution.Mamba failed to solve:
+ - libsndfile
+ - cffi
+ - python &amp;gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.6
+ - numpy
+
+with channels:
+
+The reported errors are:
+- Encountered problems &lt;span class="k"&gt;while&lt;/span&gt; solving:
+-   - nothing provides requested libsndfile
+-
+
+During handling of the above exception, another exception occurred:
+
+Traceback &lt;span class="o"&gt;(&lt;/span&gt;most recent call last&lt;span class="o"&gt;)&lt;/span&gt;:
+  File &lt;span class="s2"&gt;"/opt/conda/bin/conda-mambabuild"&lt;/span&gt;, line &lt;span class="m"&gt;10&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; &amp;lt;module&amp;gt;
+    sys.exit&lt;span class="o"&gt;(&lt;/span&gt;main&lt;span class="o"&gt;())&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/boa/cli/mambabuild.py"&lt;/span&gt;, line &lt;span class="m"&gt;256&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; main
+    call_conda_build&lt;span class="o"&gt;(&lt;/span&gt;action, config&lt;span class="o"&gt;)&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/boa/cli/mambabuild.py"&lt;/span&gt;, line &lt;span class="m"&gt;228&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; call_conda_build
+    &lt;span class="nv"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; api.build&lt;span class="o"&gt;(&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/conda_build/api.py"&lt;/span&gt;, line &lt;span class="m"&gt;180&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; build
+    &lt;span class="k"&gt;return&lt;/span&gt; build_tree&lt;span class="o"&gt;(&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/conda_build/build.py"&lt;/span&gt;, line &lt;span class="m"&gt;3097&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; build_tree
+    &lt;span class="nv"&gt;packages_from_this&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; build&lt;span class="o"&gt;(&lt;/span&gt;metadata, stats,
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/conda_build/build.py"&lt;/span&gt;, line &lt;span class="m"&gt;2126&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; build
+    create_build_envs&lt;span class="o"&gt;(&lt;/span&gt;top_level_pkg, notest&lt;span class="o"&gt;)&lt;/span&gt;
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/conda_build/build.py"&lt;/span&gt;, line &lt;span class="m"&gt;2004&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; create_build_envs
+    raise e
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/conda_build/build.py"&lt;/span&gt;, line &lt;span class="m"&gt;1983&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; create_build_envs
+    environ.get_install_actions&lt;span class="o"&gt;(&lt;/span&gt;m.config.test_prefix,
+  File &lt;span class="s2"&gt;"/opt/conda/lib/python3.9/site-packages/boa/cli/mambabuild.py"&lt;/span&gt;, line &lt;span class="m"&gt;150&lt;/span&gt;, &lt;span class="k"&gt;in&lt;/span&gt; mamba_get_install_actions
+    raise err
+conda_build.exceptions.DependencyNeedsBuildingError: Unsatisfiable dependencies &lt;span class="k"&gt;for&lt;/span&gt; platform linux-64: &lt;span class="o"&gt;{&lt;/span&gt;MatchSpec&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"libsndfile"&lt;/span&gt;&lt;span class="o"&gt;)}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;この解決策を探っていたところ、&lt;code&gt;conda mambabuild meta.yaml -c conda-forge&lt;/code&gt;の実行により解決することが分かりました。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="o"&gt;(&lt;/span&gt;base&lt;span class="o"&gt;)&lt;/span&gt; root@f5a1409aeef8:/tmp/pysoundfile-feedstock/recipe# conda mambabuild meta.yaml -c conda-forge
+/opt/conda/lib/python3.9/site-packages/conda_build/cli/main_build.py:390: UserWarning: RECIPE_PATH received is a file &lt;span class="o"&gt;(&lt;/span&gt;meta.yaml&lt;span class="o"&gt;)&lt;/span&gt;.
+It should be a path to a folder.
+Forcing conda-build to use the recipe file.
+  warnings.warn&lt;span class="o"&gt;(&lt;/span&gt;
+Updating build index: /opt/conda/conda-bld
+
+No numpy version specified &lt;span class="k"&gt;in&lt;/span&gt; conda_build_config.yaml.  Falling back to default numpy value of &lt;span class="m"&gt;1&lt;/span&gt;.16
+WARNING:conda_build.metadata:No numpy version specified &lt;span class="k"&gt;in&lt;/span&gt; conda_build_config.yaml.  Falling back to default numpy value of &lt;span class="m"&gt;1&lt;/span&gt;.16
+Adding &lt;span class="k"&gt;in&lt;/span&gt; variants from internal_defaults
+INFO:conda_build.variants:Adding &lt;span class="k"&gt;in&lt;/span&gt; variants from internal_defaults
+Attempting to finalize metadata &lt;span class="k"&gt;for&lt;/span&gt; pysoundfile
+INFO:conda_build.metadata:Attempting to finalize metadata &lt;span class="k"&gt;for&lt;/span&gt; pysoundfile
+conda-forge/linux-64                                        Using cache
+conda-forge/noarch                                          Using cache
+pkgs/main/noarch                                              No change
+pkgs/r/linux-64                                               No change
+pkgs/main/linux-64                                            No change
+pkgs/r/noarch                                                 No change
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;496&lt;/span&gt;.2kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;477&lt;/span&gt;.4kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;594&lt;/span&gt;.5kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;447&lt;/span&gt;.2kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;152&lt;/span&gt;.5kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @  &lt;span class="m"&gt;85&lt;/span&gt;.9kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+BUILD START: &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'pysoundfile-0.11.0-py_0.tar.bz2'&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;664&lt;/span&gt;.9kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;625&lt;/span&gt;.6kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+
+&lt;span class="c1"&gt;## Package Plan ##&lt;/span&gt;
+
+  environment location: /opt/conda/conda-bld/pysoundfile_1671219418224/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_p
+
+
+The following NEW packages will be INSTALLED:
+
+    _libgcc_mutex:    &lt;span class="m"&gt;0&lt;/span&gt;.1-conda_forge           conda-forge
+    _openmp_mutex:    &lt;span class="m"&gt;4&lt;/span&gt;.5-2_gnu                 conda-forge
+    bzip2:            &lt;span class="m"&gt;1&lt;/span&gt;.0.8-h7f98852_4          conda-forge
+    ca-certificates:  &lt;span class="m"&gt;2022&lt;/span&gt;.12.7-ha878542_0      conda-forge
+    cffi:             &lt;span class="m"&gt;1&lt;/span&gt;.15.1-py311h409f033_3    conda-forge
+    ld_impl_linux-64: &lt;span class="m"&gt;2&lt;/span&gt;.39-hcc3a1bd_1           conda-forge
+    libffi:           &lt;span class="m"&gt;3&lt;/span&gt;.4.2-h7f98852_5          conda-forge
+    libgcc-ng:        &lt;span class="m"&gt;12&lt;/span&gt;.2.0-h65d4601_19        conda-forge
+    libgomp:          &lt;span class="m"&gt;12&lt;/span&gt;.2.0-h65d4601_19        conda-forge
+    libnsl:           &lt;span class="m"&gt;2&lt;/span&gt;.0.0-h7f98852_0          conda-forge
+    libsqlite:        &lt;span class="m"&gt;3&lt;/span&gt;.40.0-h753d276_0         conda-forge
+    libuuid:          &lt;span class="m"&gt;2&lt;/span&gt;.32.1-h7f98852_1000      conda-forge
+    libzlib:          &lt;span class="m"&gt;1&lt;/span&gt;.2.13-h166bdaf_4         conda-forge
+    ncurses:          &lt;span class="m"&gt;6&lt;/span&gt;.3-h27087fc_1            conda-forge
+    openssl:          &lt;span class="m"&gt;3&lt;/span&gt;.0.7-h0b41bf4_1          conda-forge
+    pip:              &lt;span class="m"&gt;22&lt;/span&gt;.3.1-pyhd8ed1ab_0       conda-forge
+    pycparser:        &lt;span class="m"&gt;2&lt;/span&gt;.21-pyhd8ed1ab_0         conda-forge
+    python:           &lt;span class="m"&gt;3&lt;/span&gt;.11.0-ha86cf86_0_cpython conda-forge
+    python_abi:       &lt;span class="m"&gt;3&lt;/span&gt;.11-3_cp311              conda-forge
+    readline:         &lt;span class="m"&gt;8&lt;/span&gt;.1.2-h0f457ee_0          conda-forge
+    setuptools:       &lt;span class="m"&gt;65&lt;/span&gt;.5.1-pyhd8ed1ab_0       conda-forge
+    tk:               &lt;span class="m"&gt;8&lt;/span&gt;.6.12-h27826a3_0         conda-forge
+    tzdata:           2022g-h191b570_0          conda-forge
+    wheel:            &lt;span class="m"&gt;0&lt;/span&gt;.38.4-pyhd8ed1ab_0       conda-forge
+    xz:               &lt;span class="m"&gt;5&lt;/span&gt;.2.6-h166bdaf_0          conda-forge
+
+Preparing transaction: ...working... &lt;span class="k"&gt;done&lt;/span&gt;
+Verifying transaction: ...working... &lt;span class="k"&gt;done&lt;/span&gt;
+Executing transaction: ...working... &lt;span class="k"&gt;done&lt;/span&gt;
+Reloading output folder: /opt/conda/conda-bld
+&lt;span class="o"&gt;[&lt;/span&gt;+&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;401&lt;/span&gt;.9kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;616&lt;/span&gt;.5kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;379&lt;/span&gt;.4kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;127&lt;/span&gt;.0 B @ &lt;span class="m"&gt;305&lt;/span&gt;.3kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+
+&lt;span class="c1"&gt;## Package Plan ##&lt;/span&gt;
+
+  environment location: /opt/conda/conda-bld/pysoundfile_1671219418224/_build_env
+
+
+Source cache directory is: /opt/conda/conda-bld/src_cache
+INFO:conda_build.source:Source cache directory is: /opt/conda/conda-bld/src_cache
+Found &lt;span class="nb"&gt;source&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; cache: soundfile-0.11.0_931738a1c9.tar.gz
+INFO:conda_build.source:Found &lt;span class="nb"&gt;source&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; cache: soundfile-0.11.0_931738a1c9.tar.gz
+Extracting download
+&lt;span class="nb"&gt;source&lt;/span&gt; tree &lt;span class="k"&gt;in&lt;/span&gt;: /opt/conda/conda-bld/pysoundfile_1671219418224/work
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PREFIX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_p
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;BUILD_PREFIX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/_build_env
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;SRC_DIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/work
+Using pip &lt;span class="m"&gt;22&lt;/span&gt;.3.1 from &lt;span class="nv"&gt;$PREFIX&lt;/span&gt;/lib/python3.11/site-packages/pip &lt;span class="o"&gt;(&lt;/span&gt;python &lt;span class="m"&gt;3&lt;/span&gt;.11&lt;span class="o"&gt;)&lt;/span&gt;
+Non-user install because user site-packages disabled
+Ignoring indexes: https://pypi.org/simple
+Created temporary directory: /tmp/pip-build-tracker-jrguuqgf
+Initialized build tracking at /tmp/pip-build-tracker-jrguuqgf
+Created build tracker: /tmp/pip-build-tracker-jrguuqgf
+Entered build tracker: /tmp/pip-build-tracker-jrguuqgf
+Created temporary directory: /tmp/pip-install-spticpg3
+Created temporary directory: /tmp/pip-ephem-wheel-cache-3pqy128u
+Processing &lt;span class="nv"&gt;$SRC_DIR&lt;/span&gt;
+  Added file://&lt;span class="nv"&gt;$SRC_DIR&lt;/span&gt; to build tracker &lt;span class="s1"&gt;'/tmp/pip-build-tracker-jrguuqgf'&lt;/span&gt;
+  Running setup.py &lt;span class="o"&gt;(&lt;/span&gt;path:&lt;span class="nv"&gt;$SRC_DIR&lt;/span&gt;/setup.py&lt;span class="o"&gt;)&lt;/span&gt; egg_info &lt;span class="k"&gt;for&lt;/span&gt; package from file://&lt;span class="nv"&gt;$SRC_DIR&lt;/span&gt;
+  Created temporary directory: /tmp/pip-pip-egg-info-7_fttna9
+  Running &lt;span class="nb"&gt;command&lt;/span&gt; python setup.py egg_info
+  Preparing metadata &lt;span class="o"&gt;(&lt;/span&gt;setup.py&lt;span class="o"&gt;)&lt;/span&gt;: started
+  running egg_info
+  creating /tmp/pip-pip-egg-info-7_fttna9/soundfile.egg-info
+  writing /tmp/pip-pip-egg-info-7_fttna9/soundfile.egg-info/PKG-INFO
+  writing dependency_links to /tmp/pip-pip-egg-info-7_fttna9/soundfile.egg-info/dependency_links.txt
+  writing requirements to /tmp/pip-pip-egg-info-7_fttna9/soundfile.egg-info/requires.txt
+  writing top-level names to /tmp/pip-pip-egg-info-7_fttna9/soundfile.egg-info/top_level.txt
+  writing manifest file &lt;span class="s1"&gt;'/tmp/pip-pip-egg-info-7_fttna9/soundfile.egg-info/SOURCES.txt'&lt;/span&gt;
+  reading manifest file &lt;span class="s1"&gt;'/tmp/pip-pip-egg-info-7_fttna9/soundfile.egg-info/SOURCES.txt'&lt;/span&gt;
+  reading manifest template &lt;span class="s1"&gt;'MANIFEST.in'&lt;/span&gt;
+  adding license file &lt;span class="s1"&gt;'LICENSE'&lt;/span&gt;
+  writing manifest file &lt;span class="s1"&gt;'/tmp/pip-pip-egg-info-7_fttna9/soundfile.egg-info/SOURCES.txt'&lt;/span&gt;
+  Preparing metadata &lt;span class="o"&gt;(&lt;/span&gt;setup.py&lt;span class="o"&gt;)&lt;/span&gt;: finished with status &lt;span class="s1"&gt;'done'&lt;/span&gt;
+  Source &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nv"&gt;$SRC_DIR&lt;/span&gt; has version &lt;span class="m"&gt;0&lt;/span&gt;.11.0, which satisfies requirement &lt;span class="nv"&gt;soundfile&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.11.0 from file://&lt;span class="nv"&gt;$SRC_DIR&lt;/span&gt;
+  Removed &lt;span class="nv"&gt;soundfile&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;.11.0 from file://&lt;span class="nv"&gt;$SRC_DIR&lt;/span&gt; from build tracker &lt;span class="s1"&gt;'/tmp/pip-build-tracker-jrguuqgf'&lt;/span&gt;
+Created temporary directory: /tmp/pip-unpack-tyj3ve7q
+Building wheels &lt;span class="k"&gt;for&lt;/span&gt; collected packages: soundfile
+  Created temporary directory: /tmp/pip-wheel-rg_mrqtj
+  Running &lt;span class="nb"&gt;command&lt;/span&gt; python setup.py bdist_wheel
+  Building wheel &lt;span class="k"&gt;for&lt;/span&gt; soundfile &lt;span class="o"&gt;(&lt;/span&gt;setup.py&lt;span class="o"&gt;)&lt;/span&gt;: started
+  Destination directory: /tmp/pip-wheel-rg_mrqtj
+  running bdist_wheel
+  running build
+  running build_py
+  file _soundfile.py &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt; module _soundfile&lt;span class="o"&gt;)&lt;/span&gt; not found
+  creating build
+  creating build/lib
+  copying soundfile.py -&amp;gt; build/lib
+  file _soundfile.py &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt; module _soundfile&lt;span class="o"&gt;)&lt;/span&gt; not found
+  warning: build_py_make_mod: byte-compiling is disabled, skipping.
+
+  generating cffi module &lt;span class="s1"&gt;'build/lib/_soundfile.py'&lt;/span&gt;
+  /opt/conda/conda-bld/pysoundfile_1671219418224/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_p/lib/python3.11/site-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+    warnings.warn&lt;span class="o"&gt;(&lt;/span&gt;
+  installing to build/bdist.linux-x86_64/wheel
+  running install
+  running install_lib
+  creating build/bdist.linux-x86_64
+  creating build/bdist.linux-x86_64/wheel
+  copying build/lib/_soundfile.py -&amp;gt; build/bdist.linux-x86_64/wheel
+  copying build/lib/soundfile.py -&amp;gt; build/bdist.linux-x86_64/wheel
+  warning: install_lib: byte-compiling is disabled, skipping.
+
+  running install_egg_info
+  running egg_info
+  writing soundfile.egg-info/PKG-INFO
+  writing dependency_links to soundfile.egg-info/dependency_links.txt
+  writing requirements to soundfile.egg-info/requires.txt
+  writing top-level names to soundfile.egg-info/top_level.txt
+  reading manifest file &lt;span class="s1"&gt;'soundfile.egg-info/SOURCES.txt'&lt;/span&gt;
+  reading manifest template &lt;span class="s1"&gt;'MANIFEST.in'&lt;/span&gt;
+  adding license file &lt;span class="s1"&gt;'LICENSE'&lt;/span&gt;
+  writing manifest file &lt;span class="s1"&gt;'soundfile.egg-info/SOURCES.txt'&lt;/span&gt;
+  Copying soundfile.egg-info to build/bdist.linux-x86_64/wheel/soundfile-0.11.0-py3.11.egg-info
+  running install_scripts
+  creating build/bdist.linux-x86_64/wheel/soundfile-0.11.0.dist-info/WHEEL
+  creating &lt;span class="s1"&gt;'/tmp/pip-wheel-rg_mrqtj/soundfile-0.11.0-py2.py3-none-win_amd64.whl'&lt;/span&gt; and adding &lt;span class="s1"&gt;'build/bdist.linux-x86_64/wheel'&lt;/span&gt; to it
+  adding &lt;span class="s1"&gt;'_soundfile.py'&lt;/span&gt;
+  adding &lt;span class="s1"&gt;'soundfile.py'&lt;/span&gt;
+  adding &lt;span class="s1"&gt;'soundfile-0.11.0.dist-info/LICENSE'&lt;/span&gt;
+  adding &lt;span class="s1"&gt;'soundfile-0.11.0.dist-info/METADATA'&lt;/span&gt;
+  adding &lt;span class="s1"&gt;'soundfile-0.11.0.dist-info/WHEEL'&lt;/span&gt;
+  adding &lt;span class="s1"&gt;'soundfile-0.11.0.dist-info/top_level.txt'&lt;/span&gt;
+  adding &lt;span class="s1"&gt;'soundfile-0.11.0.dist-info/zip-safe'&lt;/span&gt;
+  adding &lt;span class="s1"&gt;'soundfile-0.11.0.dist-info/RECORD'&lt;/span&gt;
+  removing build/bdist.linux-x86_64/wheel
+  Building wheel &lt;span class="k"&gt;for&lt;/span&gt; soundfile &lt;span class="o"&gt;(&lt;/span&gt;setup.py&lt;span class="o"&gt;)&lt;/span&gt;: finished with status &lt;span class="s1"&gt;'done'&lt;/span&gt;
+  Created wheel &lt;span class="k"&gt;for&lt;/span&gt; soundfile: &lt;span class="nv"&gt;filename&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;soundfile-0.11.0-py2.py3-none-win_amd64.whl &lt;span class="nv"&gt;size&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;23469&lt;/span&gt; &lt;span class="nv"&gt;sha256&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;8cfeab124b1a168fea8aa5c6fea1bb66b5b1603fdc5cad0065ea2699c4095d5b
+  Stored &lt;span class="k"&gt;in&lt;/span&gt; directory: /tmp/pip-ephem-wheel-cache-3pqy128u/wheels/58/f9/8c/3cb9e52c0b4674df2b1b9779db06151aac1ae6223fbfddceec
+Successfully built soundfile
+Installing collected packages: soundfile
+
+Successfully installed soundfile-0.11.0
+WARNING: Running pip as the &lt;span class="s1"&gt;'root'&lt;/span&gt; user can result &lt;span class="k"&gt;in&lt;/span&gt; broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Removed build tracker: &lt;span class="s1"&gt;'/tmp/pip-build-tracker-jrguuqgf'&lt;/span&gt;
+
+Resource usage statistics from building pysoundfile:
+   Process count: &lt;span class="m"&gt;3&lt;/span&gt;
+   CPU time: &lt;span class="nv"&gt;Sys&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;:00:00.2, &lt;span class="nv"&gt;User&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;:00:00.5
+   Memory: &lt;span class="m"&gt;80&lt;/span&gt;.1M
+   Disk usage: 356B
+   Time elapsed: &lt;span class="m"&gt;0&lt;/span&gt;:00:04.4
+
+
+Packaging pysoundfile
+INFO:conda_build.build:Packaging pysoundfile
+Packaging pysoundfile-0.11.0-py_0
+INFO:conda_build.build:Packaging pysoundfile-0.11.0-py_0
+number of files: &lt;span class="m"&gt;11&lt;/span&gt;
+Fixing permissions
+Packaged license file/s.
+INFO :: Time taken to mark &lt;span class="o"&gt;(&lt;/span&gt;prefix&lt;span class="o"&gt;)&lt;/span&gt;
+        &lt;span class="m"&gt;0&lt;/span&gt; replacements &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; files was &lt;span class="m"&gt;0&lt;/span&gt;.12 seconds
+Importing conda-verify failed.  Please be sure to &lt;span class="nb"&gt;test&lt;/span&gt; your packages.  conda install conda-verify to make this message go away.
+WARNING:conda_build.build:Importing conda-verify failed.  Please be sure to &lt;span class="nb"&gt;test&lt;/span&gt; your packages.  conda install conda-verify to make this message go away.
+TEST START: /opt/conda/conda-bld/noarch/pysoundfile-0.11.0-py_0.tar.bz2
+Adding &lt;span class="k"&gt;in&lt;/span&gt; variants from /tmp/tmp732r3yoh/info/recipe/conda_build_config.yaml
+INFO:conda_build.variants:Adding &lt;span class="k"&gt;in&lt;/span&gt; variants from /tmp/tmp732r3yoh/info/recipe/conda_build_config.yaml
+Renaming work directory &lt;span class="s1"&gt;'/opt/conda/conda-bld/pysoundfile_1671219418224/work'&lt;/span&gt; to &lt;span class="s1"&gt;'/opt/conda/conda-bld/pysoundfile_1671219418224/work_moved_pysoundfile-0.11.0-py_0_noarch'&lt;/span&gt;
+INFO:conda_build.utils:Renaming work directory &lt;span class="s1"&gt;'/opt/conda/conda-bld/pysoundfile_1671219418224/work'&lt;/span&gt; to &lt;span class="s1"&gt;'/opt/conda/conda-bld/pysoundfile_1671219418224/work_moved_pysoundfile-0.11.0-py_0_noarch'&lt;/span&gt;
+shutil.move&lt;span class="o"&gt;(&lt;/span&gt;work&lt;span class="o"&gt;)=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/work, &lt;span class="nv"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/work_moved_pysoundfile-0.11.0-py_0_noarch&lt;span class="o"&gt;)&lt;/span&gt;
+INFO:conda_build.utils:shutil.move&lt;span class="o"&gt;(&lt;/span&gt;work&lt;span class="o"&gt;)=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/work, &lt;span class="nv"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/work_moved_pysoundfile-0.11.0-py_0_noarch&lt;span class="o"&gt;)&lt;/span&gt;
+conda-forge/linux-64                                        Using cache
+conda-forge/noarch                                          Using cache
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;586&lt;/span&gt;.4kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;690&lt;/span&gt;.0 B @ &lt;span class="m"&gt;430&lt;/span&gt;.4kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+pkgs/main/noarch                                              No change
+pkgs/main/linux-64                                            No change
+pkgs/r/noarch                                                 No change
+pkgs/r/linux-64                                               No change
+Reloading output folder: /opt/conda/conda-bld
+opt/conda/conda-bld/linux-64                       &lt;span class="m"&gt;129&lt;/span&gt;.0 B @ &lt;span class="m"&gt;168&lt;/span&gt;.4kB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+opt/conda/conda-bld/noarch                         &lt;span class="m"&gt;690&lt;/span&gt;.0 B @   &lt;span class="m"&gt;1&lt;/span&gt;.9MB/s  &lt;span class="m"&gt;0&lt;/span&gt;.0s
+
+&lt;span class="c1"&gt;## Package Plan ##&lt;/span&gt;
+
+  environment location: /opt/conda/conda-bld/pysoundfile_1671219418224/_test_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh
+
+
+The following NEW packages will be INSTALLED:
+
+    _libgcc_mutex:    &lt;span class="m"&gt;0&lt;/span&gt;.1-conda_forge            conda-forge
+    _openmp_mutex:    &lt;span class="m"&gt;4&lt;/span&gt;.5-2_gnu                  conda-forge
+    bzip2:            &lt;span class="m"&gt;1&lt;/span&gt;.0.8-h7f98852_4           conda-forge
+    ca-certificates:  &lt;span class="m"&gt;2022&lt;/span&gt;.12.7-ha878542_0       conda-forge
+    cffi:             &lt;span class="m"&gt;1&lt;/span&gt;.15.1-py311h409f033_3     conda-forge
+    gettext:          &lt;span class="m"&gt;0&lt;/span&gt;.21.1-h27087fc_0          conda-forge
+    lame:             &lt;span class="m"&gt;3&lt;/span&gt;.100-h166bdaf_1003        conda-forge
+    ld_impl_linux-64: &lt;span class="m"&gt;2&lt;/span&gt;.39-hcc3a1bd_1            conda-forge
+    libblas:          &lt;span class="m"&gt;3&lt;/span&gt;.9.0-16_linux64_openblas  conda-forge
+    libcblas:         &lt;span class="m"&gt;3&lt;/span&gt;.9.0-16_linux64_openblas  conda-forge
+    libffi:           &lt;span class="m"&gt;3&lt;/span&gt;.4.2-h7f98852_5           conda-forge
+    libflac:          &lt;span class="m"&gt;1&lt;/span&gt;.4.2-h27087fc_0           conda-forge
+    libgcc-ng:        &lt;span class="m"&gt;12&lt;/span&gt;.2.0-h65d4601_19         conda-forge
+    libgfortran-ng:   &lt;span class="m"&gt;12&lt;/span&gt;.2.0-h69a702a_19         conda-forge
+    libgfortran5:     &lt;span class="m"&gt;12&lt;/span&gt;.2.0-h337968e_19         conda-forge
+    libgomp:          &lt;span class="m"&gt;12&lt;/span&gt;.2.0-h65d4601_19         conda-forge
+    liblapack:        &lt;span class="m"&gt;3&lt;/span&gt;.9.0-16_linux64_openblas  conda-forge
+    libnsl:           &lt;span class="m"&gt;2&lt;/span&gt;.0.0-h7f98852_0           conda-forge
+    libogg:           &lt;span class="m"&gt;1&lt;/span&gt;.3.4-h7f98852_1           conda-forge
+    libopenblas:      &lt;span class="m"&gt;0&lt;/span&gt;.3.21-pthreads_h78a6416_3 conda-forge
+    libopus:          &lt;span class="m"&gt;1&lt;/span&gt;.3.1-h7f98852_1           conda-forge
+    libsndfile:       &lt;span class="m"&gt;1&lt;/span&gt;.1.0-hcb278e6_1           conda-forge
+    libsqlite:        &lt;span class="m"&gt;3&lt;/span&gt;.40.0-h753d276_0          conda-forge
+    libstdcxx-ng:     &lt;span class="m"&gt;12&lt;/span&gt;.2.0-h46fd767_19         conda-forge
+    libuuid:          &lt;span class="m"&gt;2&lt;/span&gt;.32.1-h7f98852_1000       conda-forge
+    libvorbis:        &lt;span class="m"&gt;1&lt;/span&gt;.3.7-h9c3ff4c_0           conda-forge
+    libzlib:          &lt;span class="m"&gt;1&lt;/span&gt;.2.13-h166bdaf_4          conda-forge
+    mpg123:           &lt;span class="m"&gt;1&lt;/span&gt;.31.1-h27087fc_0          conda-forge
+    ncurses:          &lt;span class="m"&gt;6&lt;/span&gt;.3-h27087fc_1             conda-forge
+    numpy:            &lt;span class="m"&gt;1&lt;/span&gt;.23.5-py311h7d28db0_0     conda-forge
+    openssl:          &lt;span class="m"&gt;3&lt;/span&gt;.0.7-h0b41bf4_1           conda-forge
+    pip:              &lt;span class="m"&gt;22&lt;/span&gt;.3.1-pyhd8ed1ab_0        conda-forge
+    pycparser:        &lt;span class="m"&gt;2&lt;/span&gt;.21-pyhd8ed1ab_0          conda-forge
+    pysoundfile:      &lt;span class="m"&gt;0&lt;/span&gt;.11.0-py_0                &lt;span class="nb"&gt;local&lt;/span&gt;
+    python:           &lt;span class="m"&gt;3&lt;/span&gt;.11.0-ha86cf86_0_cpython  conda-forge
+    python_abi:       &lt;span class="m"&gt;3&lt;/span&gt;.11-3_cp311               conda-forge
+    readline:         &lt;span class="m"&gt;8&lt;/span&gt;.1.2-h0f457ee_0           conda-forge
+    setuptools:       &lt;span class="m"&gt;65&lt;/span&gt;.5.1-pyhd8ed1ab_0        conda-forge
+    tk:               &lt;span class="m"&gt;8&lt;/span&gt;.6.12-h27826a3_0          conda-forge
+    tzdata:           2022g-h191b570_0           conda-forge
+    wheel:            &lt;span class="m"&gt;0&lt;/span&gt;.38.4-pyhd8ed1ab_0        conda-forge
+    xz:               &lt;span class="m"&gt;5&lt;/span&gt;.2.6-h166bdaf_0           conda-forge
+
+Preparing transaction: ...working... &lt;span class="k"&gt;done&lt;/span&gt;
+Verifying transaction: ...working... &lt;span class="k"&gt;done&lt;/span&gt;
+Executing transaction: ...working... &lt;span class="k"&gt;done&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PREFIX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/_test_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;SRC_DIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/test_tmp
+import: &lt;span class="s1"&gt;'soundfile'&lt;/span&gt;
+import: &lt;span class="s1"&gt;'soundfile'&lt;/span&gt;
+
+Resource usage statistics from testing pysoundfile:
+   Process count: &lt;span class="m"&gt;1&lt;/span&gt;
+   CPU time: &lt;span class="nv"&gt;Sys&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;:00:00.1, &lt;span class="nv"&gt;User&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;-
+   Memory: &lt;span class="m"&gt;1&lt;/span&gt;.0M
+   Disk usage: 16B
+   Time elapsed: &lt;span class="m"&gt;0&lt;/span&gt;:00:02.5
+
+
+TEST END: /opt/conda/conda-bld/noarch/pysoundfile-0.11.0-py_0.tar.bz2
+Renaming work directory &lt;span class="s1"&gt;'/opt/conda/conda-bld/pysoundfile_1671219418224/work'&lt;/span&gt; to &lt;span class="s1"&gt;'/opt/conda/conda-bld/pysoundfile_1671219418224/work_moved_pysoundfile-0.11.0-py_0_linux-64_main_build_loop'&lt;/span&gt;
+INFO:conda_build.utils:Renaming work directory &lt;span class="s1"&gt;'/opt/conda/conda-bld/pysoundfile_1671219418224/work'&lt;/span&gt; to &lt;span class="s1"&gt;'/opt/conda/conda-bld/pysoundfile_1671219418224/work_moved_pysoundfile-0.11.0-py_0_linux-64_main_build_loop'&lt;/span&gt;
+shutil.move&lt;span class="o"&gt;(&lt;/span&gt;work&lt;span class="o"&gt;)=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/work, &lt;span class="nv"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/work_moved_pysoundfile-0.11.0-py_0_linux-64_main_build_loop&lt;span class="o"&gt;)&lt;/span&gt;
+INFO:conda_build.utils:shutil.move&lt;span class="o"&gt;(&lt;/span&gt;work&lt;span class="o"&gt;)=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/work, &lt;span class="nv"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/conda/conda-bld/pysoundfile_1671219418224/work_moved_pysoundfile-0.11.0-py_0_linux-64_main_build_loop&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;# Automatic uploading is disabled&lt;/span&gt;
+&lt;span class="c1"&gt;# If you want to upload package(s) to anaconda.org later, type:&lt;/span&gt;
+
+
+&lt;span class="c1"&gt;# To have conda build upload to anaconda.org automatically, use&lt;/span&gt;
+&lt;span class="c1"&gt;# conda config --set anaconda_upload yes&lt;/span&gt;
+anaconda upload &lt;span class="se"&gt;\&lt;/span&gt;
+    /opt/conda/conda-bld/noarch/pysoundfile-0.11.0-py_0.tar.bz2
+anaconda_upload is not set.  Not uploading wheels: &lt;span class="o"&gt;[]&lt;/span&gt;
+
+INFO :: The inputs making up the hashes &lt;span class="k"&gt;for&lt;/span&gt; the built packages are as follows:
+&lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="s2"&gt;"pysoundfile-0.11.0-py_0"&lt;/span&gt;: &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="s2"&gt;"recipe"&lt;/span&gt;: &lt;span class="o"&gt;{}&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+
+&lt;span class="c1"&gt;####################################################################################&lt;/span&gt;
+Resource usage summary:
+
+Total time: &lt;span class="m"&gt;0&lt;/span&gt;:05:44.0
+CPU usage: &lt;span class="nv"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;:00:00.2, &lt;span class="nv"&gt;user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;:00:00.5
+Maximum memory usage observed: &lt;span class="m"&gt;80&lt;/span&gt;.1M
+Total disk usage observed &lt;span class="o"&gt;(&lt;/span&gt;not including envs&lt;span class="o"&gt;)&lt;/span&gt;: 372B
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;これと同様のchannel指定をboaで行う方法は方法は今のところ不明です。&lt;/p&gt;
+&lt;h4&gt;ビルドしたパッケージを使用する&lt;/h4&gt;
+&lt;p&gt;ビルドしたパッケージは&lt;code&gt;/opt/conda/pkgs&lt;/code&gt;の下に存在しています。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="o"&gt;(&lt;/span&gt;base&lt;span class="o"&gt;)&lt;/span&gt; root@f5a1409aeef8:/tmp/pysoundfile-feedstock/recipe# ls -la /opt/conda/pkgs &lt;span class="p"&gt;|&lt;/span&gt; grep soundfile
+drwxr-xr-x  &lt;span class="m"&gt;4&lt;/span&gt; root      root          &lt;span class="m"&gt;4096&lt;/span&gt; Dec &lt;span class="m"&gt;16&lt;/span&gt; &lt;span class="m"&gt;19&lt;/span&gt;:42 pysoundfile-0.11.0-py_0
+-rw-r--r--  &lt;span class="m"&gt;1&lt;/span&gt; root      root         &lt;span class="m"&gt;26792&lt;/span&gt; Dec &lt;span class="m"&gt;16&lt;/span&gt; &lt;span class="m"&gt;19&lt;/span&gt;:41 pysoundfile-0.11.0-py_0.tar.bz2
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;これを使用するためには https://github.com/mamba-org/mamba/issues/1991 にあるように&lt;code&gt;-c local&lt;/code&gt;を指定すれば良いようです。&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;$ python -c &lt;span class="s2"&gt;"import soundfile"&lt;/span&gt;  &lt;span class="c1"&gt;# error&lt;/span&gt;
+$ micromamba install pysoundfile -c &lt;span class="nb"&gt;local&lt;/span&gt;
+$ python -c &lt;span class="s2"&gt;"import soundfile"&lt;/span&gt;  &lt;span class="c1"&gt;# success&lt;/span&gt;
+&lt;span class="sb"&gt;``&lt;/span&gt;
+
+なお、上記では特に何も言われませんが、&lt;span class="sb"&gt;`&lt;/span&gt;pysoundfile&lt;span class="sb"&gt;`&lt;/span&gt;自体は実行環境に&lt;span class="sb"&gt;`&lt;/span&gt;libsndfile&lt;span class="sb"&gt;`&lt;/span&gt;が入っていないと動かないのではないかと思います。
+
+&lt;span class="sb"&gt;```&lt;/span&gt;sh
+$ apt install libsndfile1-dev
+&lt;/pre&gt;&lt;/div&gt;</description><category>boa</category><category>conda</category><category>mamba</category><category>micromamba</category><category>python</category><guid>http://www.hiromasa.info/posts/27/</guid><pubDate>Mon, 12 Dec 2022 15:00:00 GMT</pubDate></item></channel></rss>

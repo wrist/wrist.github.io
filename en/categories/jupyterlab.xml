@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlab)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlab.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Mon, 12 Dec 2022 23:18:27 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>jupyterlab-wav extensionをjupyterlab 3.xへ対応させた上でWaveSurfer.jsで波形・スペクトログラムが描画できるようにした</title><link>http://www.hiromasa.info/en/posts/25/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;p&gt;この記事では以前に&lt;a href="https://www.hiromasa.info/posts/20/"&gt;このポスト&lt;/a&gt;で作成した&lt;code&gt;jupyterlab-wav&lt;/code&gt;のExtensionを
+<?xml-stylesheet type="text/xsl" href="../../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>hiromasa.info (Posts about jupyterlab)</title><link>http://www.hiromasa.info/</link><description></description><atom:link href="http://www.hiromasa.info/en/categories/jupyterlab.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2022 &lt;a href="mailto:stoicheia1986@gmail.com"&gt;Hiromasa OHASHI&lt;/a&gt; </copyright><lastBuildDate>Fri, 16 Dec 2022 20:09:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>jupyterlab-wav extensionをjupyterlab 3.xへ対応させた上でWaveSurfer.jsで波形・スペクトログラムが描画できるようにした</title><link>http://www.hiromasa.info/en/posts/25/</link><dc:creator>Hiromasa OHASHI</dc:creator><description>&lt;p&gt;この記事では以前に&lt;a href="https://www.hiromasa.info/posts/20/"&gt;このポスト&lt;/a&gt;で作成した&lt;code&gt;jupyterlab-wav&lt;/code&gt;のExtensionを
 &lt;a href="https://wavesurfer-js.org/"&gt;WaveSurfer.js&lt;/a&gt;を用いて波形+スペクトログラムが描画できるように今年の2月ごろに改良したのでその過程について説明します。
 (この文章自体3月に書いたまま放置していたため内容として古くなっている部分があるかもしれません)。&lt;/p&gt;
 &lt;h3&gt;jupyterlab 3.x系への対応&lt;/h3&gt;
@@ -908,9 +908,9 @@ $ pip install openfst-python
 
 
 
-&lt;div id="37b1c922-0299-4816-bbf3-07b2562b87fc" class="output_subarea output_javascript "&gt;
+&lt;div id="f23ad51d-83db-4901-aa18-36bd7511af9f" class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#37b1c922-0299-4816-bbf3-07b2562b87fc');
+var element = $('#f23ad51d-83db-4901-aa18-36bd7511af9f');
 
     require(['notebook/js/codecell'], function(cc) {
         cc.CodeCell.options_default.highlight_modes['magic_text/x-c++src'] =
